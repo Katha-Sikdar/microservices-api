@@ -1,0 +1,54 @@
+# # #Baseline Ingress configuration without TLS and host
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: my-ingress
+# spec:
+#   ingressClassName: nginx  # <--- THIS LINE IS THE FIX
+#   rules:
+#   - http:
+#       paths:
+#       - path: /products
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: service-a
+#             port:
+#               number: 80
+#       - path: /reviews
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: service-b
+#             port:
+#               number: 80
+
+#================= Modified Ingress configuration with TLS and host ==============
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+spec:
+  ingressClassName: nginx
+  tls: # <--- ADD THIS TLS SECTION
+  - hosts:
+    - localhost
+    secretName: tls-secret
+  rules:
+  - host: localhost # <--- ADD THE HOST
+    http:
+      paths:
+      - path: /products
+        pathType: Prefix
+        backend:
+          service:
+            name: service-a
+            port:
+              number: 80
+      - path: /reviews
+        pathType: Prefix
+        backend:
+          service:
+            name: service-b
+            port:
+              number: 80
