@@ -47,7 +47,7 @@ spec:
     spec:
       containers:
       - name: service-a
-        image: psao-scenarios:psao-2
+        image: psao-scenarios:psao-5
         imagePullPolicy: IfNotPresent
         command: ["node", "scenarios/s9-cluster-mode.js"]
         env:

@@ -1,0 +1,17 @@
+apiVersion: v1
+items:
+- apiVersion: security.istio.io/v1
+  kind: PeerAuthentication
+  metadata:
+    creationTimestamp: "2026-09-13T17:10:09Z"
+    generation: 1
+    name: default
+    namespace: default
+    resourceVersion: "520315"
+    uid: 6044a6bf-308f-41b7-a939-2de853e2a2bd
+  spec:
+    mtls:
+      mode: STRICT
+kind: List
+metadata:
+  resourceVersion: ""

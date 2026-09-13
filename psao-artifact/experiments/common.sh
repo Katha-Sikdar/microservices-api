@@ -558,6 +558,21 @@ psao::write_metadata() {
   k6_version="$(psao::try k6 version)"
   node_version="$(psao::try node --version)"
 
+  # HOST LOAD AT RUN START. k6, the ingress, the sidecars and the service share
+  # this machine, so what else is running is part of the measurement. A Spotlight
+  # re-index (mds_stores) triggered by writing 3.8 GB of run output was enough to
+  # move the S5 collapse point from 950 rps to 800; that run looked complete and
+  # was only diagnosable by re-running the same image on a quiet host. Recording
+  # it makes the contamination visible from the run directory alone.
+  local host_load top_procs
+  host_load="$(psao::try uptime)"
+  # `|| true` is load-bearing: `head` closes the pipe, `ps` takes SIGPIPE, and
+  # under `set -euo pipefail` that non-zero status aborts write_metadata --
+  # silently, taking the whole run_metadata.json with it. Same failure shape as
+  # the unguarded lag scrape that killed the CPU sampler.
+  top_procs="$( { ps -A -o %cpu,comm -r 2>/dev/null | head -6 | tail -5 \
+    | awk '{printf "%s %s\n", $1, $2}'; } || true )"
+
   # The mesh posture AS OBSERVED at the moment this run started. Recorded for
   # every run, not just the ones that change it: the point is that a reader of
   # any run directory can see which posture its numbers were measured in without
@@ -584,6 +599,8 @@ psao::write_metadata() {
   PSAO_MD_PA="$pa_modes" \
   PSAO_MD_DR="$dr_modes" \
   PSAO_MD_POSTURE_EVENTS="$posture_events" \
+  PSAO_MD_HOSTLOAD="$host_load" \
+  PSAO_MD_TOPPROCS="$top_procs" \
   PSAO_MD_EXTRA="$(printf '%s\n' "${extra_pairs[@]+"${extra_pairs[@]}"}")" \
   python3 - <<'PYEOF'
 import json, os, platform, subprocess, sys, datetime
@@ -777,6 +794,17 @@ meta = {
         "platform": platform.platform(),
         "machine": platform.machine(),
         "python": platform.python_version(),
+        "_load_note": (
+            "The load generator, the ingress, the sidecars and the service all "
+            "share this machine. What else was running is part of the "
+            "measurement, not background to it."
+        ),
+        "uptime_at_run_start": env("PSAO_MD_HOSTLOAD"),
+        "top_cpu_at_run_start": [
+            {"percent": ln.split(" ", 1)[0], "command": ln.split(" ", 1)[1]}
+            for ln in (os.environ.get("PSAO_MD_TOPPROCS") or "").splitlines()
+            if " " in ln
+        ] or None,
     },
     "mesh_posture": {
         "_note": (
