@@ -1,0 +1,31 @@
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"security.istio.io/v1beta1","kind":"RequestAuthentication","metadata":{"annotations":{},"name":"jwt-offload","namespace":"default"},"spec":{"jwtRules":[{"issuer":"testing@secure.api","jwks":"{\n  \"keys\": [\n    {\n      \"kty\": \"EC\",\n      \"kid\": \"ec-key-1\",\n      \"alg\": \"ES256\",\n      \"crv\": \"P-256\",\n      \"x\": \"rNQy1HluWenWhdzXaQCZRZpgIeA0MCZuHylXgZHbpcw\",\n      \"y\": \"4K8P76uKq6z1IkOPybYX0cWxWRZbOH3O8xNTxInELV0\"\n    }\n  ]\n}\n"}],"selector":{"matchLabels":{"app":"service-a"}}}}
+  creationTimestamp: "2026-02-21T15:32:29Z"
+  generation: 4
+  name: jwt-offload
+  namespace: default
+  resourceVersion: "69011"
+  uid: 9cf1208a-0d2c-4813-a08c-9bd34b788a2c
+spec:
+  jwtRules:
+  - issuer: testing@secure.api
+    jwks: |
+      {
+        "keys": [
+          {
+            "kty": "EC",
+            "kid": "ec-key-1",
+            "alg": "ES256",
+            "crv": "P-256",
+            "x": "rNQy1HluWenWhdzXaQCZRZpgIeA0MCZuHylXgZHbpcw",
+            "y": "4K8P76uKq6z1IkOPybYX0cWxWRZbOH3O8xNTxInELV0"
+          }
+        ]
+      }
+  selector:
+    matchLabels:
+      app: service-a

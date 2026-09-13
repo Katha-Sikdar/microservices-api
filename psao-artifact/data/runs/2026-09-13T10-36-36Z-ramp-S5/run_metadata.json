@@ -1,0 +1,97 @@
+{
+  "_note": "Provenance for one experiment run. Fields listed under 'unavailable' could not be determined on this host and are null; they are never guessed.",
+  "run_dir": "/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/data/runs/2026-09-13T10-36-36Z-ramp-S5",
+  "started_at_utc": "2026-09-13T10:36:37.321650+00:00",
+  "namespace": "default",
+  "git_commit": null,
+  "git_working_tree_dirty": null,
+  "kubernetes_version": {
+    "clientVersion": {
+      "major": "1",
+      "minor": "32",
+      "gitVersion": "v1.32.2",
+      "gitCommit": "67a30c0adcf52bd3f56ff0893ce19966be12991f",
+      "gitTreeState": "clean",
+      "buildDate": "2025-02-12T21:26:09Z",
+      "goVersion": "go1.23.6",
+      "compiler": "gc",
+      "platform": "darwin/arm64"
+    },
+    "kustomizeVersion": "v5.5.0",
+    "serverVersion": {
+      "major": "1",
+      "minor": "32",
+      "gitVersion": "v1.32.2",
+      "gitCommit": "67a30c0adcf52bd3f56ff0893ce19966be12991f",
+      "gitTreeState": "clean",
+      "buildDate": "2025-02-12T21:19:47Z",
+      "goVersion": "go1.23.6",
+      "compiler": "gc",
+      "platform": "linux/arm64"
+    }
+  },
+  "istio_version": null,
+  "node_instance_types": {
+    "docker-desktop": null
+  },
+  "image_digests": {
+    "service-a-deployment-6f799bd666-976nt": {
+      "istio-proxy": "docker-pullable://istio/proxyv2@sha256:f95a5e91204afbfad9d33d6f1bc0556a96bf997b18edede6c9e6b86eb07543a1",
+      "service-a": "docker-pullable://service-a@sha256:ac502eecff037e88e63c3e858ba36be15e706687af9df5a816b9e8e53aba62b9"
+    },
+    "service-b-deployment-76bc95578b-h2fft": {
+      "istio-proxy": "docker-pullable://istio/proxyv2@sha256:f95a5e91204afbfad9d33d6f1bc0556a96bf997b18edede6c9e6b86eb07543a1",
+      "service-b": "docker-pullable://service-b@sha256:b2d2b2deadb18db93f3fa7da656e80a2c76361940c9ce1f993abd4d147e8387e"
+    }
+  },
+  "k6_version": "k6 v2.2.0 (commit/devel, go1.26.5, darwin/arm64)",
+  "node_version": "v26.6.0",
+  "host": {
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "python": "3.14.0"
+  },
+  "cluster_configuration_notes": [
+    {
+      "id": "ingress-nginx-namespace-injection",
+      "requirement": "The ingress-nginx namespace must carry istio-injection=enabled and the controller pod must be 2/2 (controller + istio-proxy).",
+      "why": "The paper's Section 3.1 specifies an injected NGINX pod, so edge traffic enters the mesh at the ingress. An un-injected controller was cluster drift, not the designed topology.",
+      "affects_measurement": "Yes. Un-injected, the ingress hop is outside the mesh and the mTLS leg being measured does not exist."
+    },
+    {
+      "id": "ingress-nginx-controller-api-hang",
+      "requirement": "The controller Deployment needs the pod annotation traffic.sidecar.istio.io/excludeOutboundIPRanges: \"10.96.0.1/32\".",
+      "why": "Under injection the controller crash-loops: its Kubernetes API client hangs behind the sidecar. holdApplicationUntilProxyStarts alone does not fix it. Excluding the API server VIP keeps control-plane traffic out of Envoy.",
+      "affects_measurement": "No. 10.96.0.1/32 is the Kubernetes API server VIP only. All measured data-plane traffic -- client to ingress, and ingress to service-a -- is still intercepted by Envoy and still carries mTLS. The exclusion removes the controller's own watch/list calls from the proxy, and those are not on any measured path."
+    },
+    {
+      "id": "ingress-service-upstream",
+      "requirement": "The Ingress needs the annotation nginx.ingress.kubernetes.io/service-upstream: \"true\".",
+      "why": "By default ingress-nginx load-balances to endpoint POD IPs (10.x.x.x:3000), bypassing the Service VIP. Istio has no listener for a bare pod IP on the application port, so the sidecar passthrough sends PLAINTEXT into service-a's STRICT mTLS inbound port, which resets the connection. NGINX reports 'upstream prematurely closed connection' and returns 502. Targeting the ClusterIP instead lets the sidecar match the service VIP, apply the DestinationRule, and originate mTLS.",
+      "affects_measurement": "No. It changes which address NGINX dials, not what is on the wire: the request still traverses Edge TLS, the ingress sidecar, mTLS, and the service-a sidecar."
+    },
+    {
+      "id": "token-pool-expiry",
+      "requirement": "Re-mint tokens/ before a measurement session: node experiments/mint_tokens.js --count 64 --ttl 24h",
+      "why": "An expired pool does not fail loudly. service-a answers 403 to every request, k6 records those 403s as fast responses, and the ramp yields a plausible latency curve for an error path.",
+      "affects_measurement": "Yes, catastrophically, and silently. The runners' pre-flight check (psao::verify_ingress) exists to make this abort instead."
+    }
+  ],
+  "run_parameters": {
+    "experiment": "openloop_ramp",
+    "scenario": "S5",
+    "environment": "local",
+    "max_rps": "400",
+    "step_rps": "20",
+    "step_duration": "30s",
+    "base_url": "https://localhost",
+    "auth": "true",
+    "selector": "app=service-a"
+  },
+  "unavailable": [
+    "git_commit",
+    "istio_version"
+  ],
+  "finished_at_utc": "2026-09-13T10:46:45.253555+00:00",
+  "exit_status": 0
+}

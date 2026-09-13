@@ -1,0 +1,22 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"security.istio.io/v1beta1","kind":"AuthorizationPolicy","metadata":{"annotations":{},"name":"require-jwt","namespace":"default"},"spec":{"action":"ALLOW","rules":[{"from":[{"source":{"requestPrincipals":["testing@secure.api/*"]}}]}],"selector":{"matchLabels":{"app":"service-a"}}}}
+  creationTimestamp: "2026-02-21T16:14:30Z"
+  generation: 1
+  name: require-jwt
+  namespace: default
+  resourceVersion: "66263"
+  uid: 35211126-d903-4138-b78e-7f04c8ae8ef9
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        requestPrincipals:
+        - testing@secure.api/*
+  selector:
+    matchLabels:
+      app: service-a

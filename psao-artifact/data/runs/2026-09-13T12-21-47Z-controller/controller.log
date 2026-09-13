@@ -1,0 +1,82 @@
+18:21:49 INFO    actuation probe token loaded from /Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/tokens/controller/hs256.token
+18:21:49 INFO    loaded kubeconfig (context=current)
+18:21:49 INFO    writing controller trace to /Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/data/runs/2026-09-13T12-21-47Z-controller/controller_trace.csv
+18:21:49 INFO    preflight: all 5 configured queries return data
+18:23:48 INFO    SUPPRESSED FLAP: would offload (cpu=723m>700m) but blocked by consecutive(1/3) [suppressed so far: 1]
+18:23:50 INFO    SUPPRESSED FLAP: would offload (cpu=723m>700m) but blocked by consecutive(2/3) [suppressed so far: 2]
+18:23:52 INFO    created RequestAuthentication/psao-offload
+18:23:52 INFO    created AuthorizationPolicy/psao-offload-require-jwt
+/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/.venv/lib/python3.14/site-packages/urllib3/connectionpool.py:1110: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/.venv/lib/python3.14/site-packages/urllib3/connectionpool.py:1110: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/.venv/lib/python3.14/site-packages/urllib3/connectionpool.py:1110: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+18:24:23 ERROR   OFFLOAD FAILED: probe:timed out after 30s (12 polls)
+18:24:24 INFO    replaced existing RequestAuthentication/psao-offload
+18:24:24 INFO    replaced existing AuthorizationPolicy/psao-offload-require-jwt
+18:24:54 ERROR   OFFLOAD FAILED: probe:timed out after 30s (13 polls)
+18:24:54 INFO    replaced existing RequestAuthentication/psao-offload
+18:24:54 INFO    replaced existing AuthorizationPolicy/psao-offload-require-jwt
+/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/.venv/lib/python3.14/site-packages/urllib3/connectionpool.py:1110: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/.venv/lib/python3.14/site-packages/urllib3/connectionpool.py:1110: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(
+18:25:03 INFO    OFFLOAD -> mode=sidecar actuation=8537.9ms (probe:confirmed after 3 polls)
+18:26:32 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): 1000 * (
+  sum(rate(psao_request_duration_seconds_sum{app="service-a"}[1m]))
+  /
+18:26:37 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): max(psao_eventloop_utilization{app="service-a"})
+18:26:42 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): sum(rate(container_cpu_usage_seconds_total{namespace="default",
+  pod=~"service-
+18:26:47 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): sum(rate(psao_request_duration_seconds_count{app="service-a"}[1m]))
+18:26:52 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): max(psao_eventloop_lag_p99_ms{app="service-a"})
+18:26:57 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): 1000 * (
+  sum(rate(psao_request_duration_seconds_sum{app="service-a"}[1m]))
+  /
+18:27:02 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): max(psao_eventloop_utilization{app="service-a"})
+18:27:07 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): sum(rate(container_cpu_usage_seconds_total{namespace="default",
+  pod=~"service-
+18:27:12 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): sum(rate(psao_request_duration_seconds_count{app="service-a"}[1m]))
+18:27:17 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): max(psao_eventloop_lag_p99_ms{app="service-a"})
+18:27:23 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): 1000 * (
+  sum(rate(psao_request_duration_seconds_sum{app="service-a"}[1m]))
+  /
+18:27:28 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): max(psao_eventloop_utilization{app="service-a"})
+18:27:33 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): sum(rate(container_cpu_usage_seconds_total{namespace="default",
+  pod=~"service-
+18:27:38 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): sum(rate(psao_request_duration_seconds_count{app="service-a"}[1m]))
+18:27:43 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): max(psao_eventloop_lag_p99_ms{app="service-a"})
+18:27:48 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): 1000 * (
+  sum(rate(psao_request_duration_seconds_sum{app="service-a"}[1m]))
+  /
+18:27:53 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): max(psao_eventloop_utilization{app="service-a"})
+18:27:58 WARNING prometheus query failed (HTTPConnectionPool(host='localhost', port=9090): Read timed out. (read timeout=5.0)): sum(rate(container_cpu_usage_seconds_total{namespace="default",
+  pod=~"service-
+18:27:58 ERROR   Prometheus at http://localhost:9090 has been unreachable for 3 consecutive polls; stopping.
+  Every observation since then was blind, so continuing would only produce a trace of empty rows.
+  Re-open the port-forward and restart:
+    kubectl -n istio-system port-forward svc/prometheus 9090:9090
+18:27:58 WARNING reverting to the application-layer configuration before exit
+18:29:42 WARNING Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'RemoteDisconnected('Remote end closed connection without response')': /apis/security.istio.io/v1/namespaces/default/authorizationpolicies/psao-offload-require-jwt
+18:29:44 WARNING Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1077)'))': /apis/security.istio.io/v1/namespaces/default/authorizationpolicies/psao-offload-require-jwt
+18:29:47 WARNING Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1077)'))': /apis/security.istio.io/v1/namespaces/default/authorizationpolicies/psao-offload-require-jwt
+18:29:56 WARNING Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1077)'))': /apis/security.istio.io/v1/namespaces/default/requestauthentications/psao-offload
+18:29:59 WARNING Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1077)'))': /apis/security.istio.io/v1/namespaces/default/requestauthentications/psao-offload
+18:30:11 WARNING Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1077)'))': /apis/security.istio.io/v1/namespaces/default/requestauthentications/psao-offload
+18:30:16 ERROR   revert incomplete: psao-offload-require-jwt:HTTPSConnectionPool(host='127.0.0.1', port=6443): Max retries exceeded with url: /apis/security.istio.io/v1/namespaces/default/authorizationpolicies/psao-offload-require-jwt (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1077)'))); psao-offload:HTTPSConnectionPool(host='127.0.0.1', port=6443): Max retries exceeded with url: /apis/security.istio.io/v1/namespaces/default/requestauthentications/psao-offload (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1077)')))
+18:30:16 ERROR   REVERT ON EXIT FAILED: revert-failed:psao-offload-require-jwt:HTTPSConnectionPool(host='127.0.0.1', port=6443): Max retries exceeded with url: /apis/security.istio.io/v1/namespaces/default/authorizationpolicies/psao-offload-require-jwt (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1077)')));psao-offload:HTTPSConnectionPool(host='127.0.0.1', port=6443): Max retries exceeded with url: /apis/security.istio.io/v1/namespaces/default/requestauthentications/psao-offload (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1077)'))) -- the cluster is still enforcing in the sidecar. Remove the policy manually:
+  kubectl delete requestauthentication,authorizationpolicy -l app.kubernetes.io/managed-by=psao-controller -n default
+18:30:16 INFO    ---- run summary ----
+18:30:16 INFO    polls               : 109
+18:30:16 INFO    polls with a missing metric : 3
+18:30:16 INFO        latency_mean_ms          missing on 3 of 109 polls
+18:30:16 INFO        eventloop_utilization    missing on 3 of 109 polls
+18:30:16 INFO        cpu_millicores           missing on 3 of 109 polls
+18:30:16 INFO        lambda_rps               missing on 2 of 109 polls
+18:30:16 INFO        eventloop_lag_p99_ms     missing on 2 of 109 polls
+18:30:16 INFO    transitions         : 1
+18:30:16 INFO    suppressed flaps    : 2
+18:30:16 INFO    actuation latency ms: min=8537.9 mean=8537.9 max=8537.9 (n=1)
+18:30:16 INFO    mu_eff updates      : 106 applied, 3 skipped by the input guards
+18:30:16 INFO    trace rows          : 109 -> /Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/data/runs/2026-09-13T12-21-47Z-controller/controller_trace.csv
