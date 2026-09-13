@@ -686,6 +686,40 @@ exists as a scenario at all.
 
 ---
 
+## The machine these measurements came from
+
+Every number in `data/runs/` was produced on this host. It is a laptop, and that
+matters: the load generator, the ingress, the sidecars and the service all share
+the same cores, which is why the trustworthy measurement window ends at about
+1000 rps (see `data/runs/PROBE-2026-09-13-find-saturation/README.md`).
+
+| | |
+|---|---|
+| CPU | Apple M4, 10 cores (10 physical / 10 logical) |
+| RAM | 16 GB |
+| OS | macOS 26.5.2 (build 25F84) |
+| Docker Desktop | 4.45.0 (203075), engine 28.3.3 |
+| Kubernetes | v1.32.2 (client and server) |
+| Cluster shape | single node `docker-desktop`, 10 CPU, 7.65 GiB allocatable |
+| Container runtime | `docker://28.3.3` |
+| Istio | 1.28.0 (`docker.io/istio/pilot:1.28.0`), `demo` profile, revision `default` |
+| ingress-nginx | controller `v1.14.0`, **injected into the mesh** |
+| Node.js | v26.6.0 |
+| k6 | v2.2.0 (go1.26.5, darwin/arm64) |
+
+**Pod resources:** `service-a` (S1, S3, S5) and the S8 deployment run with **no
+CPU request and no limit** — being single-threaded confines them to about one
+core anyway. The S9 deployment is the exception, capped at
+`requests = limits = 1000m` with `WORKERS=4`, deliberately, so that forking is
+measured against the same budget the single-threaded scenarios are confined to.
+An S9 throughput number quoted without that budget is not interpretable.
+
+**The cluster is not isolated.** k6 runs on the same host as the cluster it is
+driving. Above ~1000 rps the generator, the ingress and the control plane contend
+for the same 10 cores; during one controller run the Kubernetes API server itself
+became unreachable. Treat anything above that as unusable, and do not compare
+these absolute numbers against a run on dedicated hardware — compare shapes.
+
 ## Requirements
 
 | Tool | Needed for | Notes |
