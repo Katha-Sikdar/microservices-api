@@ -686,6 +686,29 @@ exists as a scenario at all.
 
 ---
 
+## What is committed under `data/runs/`, and what `k6_raw.csv.gz` is for
+
+`data/runs/INDEX.md` is the map: every run directory, its scenario, whether it is
+canonical, and one line on why each non-canonical run was set aside. Read it
+before opening any run directory.
+
+Each ramp directory ships **`k6_raw.csv.gz`**, the per-request sample dump,
+compressed roughly 51x (3824 MB raw across the set, 75 MB gzipped). **It is
+archival.** `experiments/merge_ramp.py` consumes the *uncompressed* `k6_raw.csv`
+during a run, to derive each step's time window from real request timestamps
+rather than an assumed schedule; nothing reads it after the run finishes.
+`make analysis` and `make figures` both work from `openloop_ramp.csv`, which is
+already merged and committed alongside it.
+
+So a reviewer who never gunzips anything can still reproduce every figure and
+every macro. The gzip is there so the merge step itself can be audited, not
+because the pipeline depends on it. If you do want to re-run the merge:
+
+```sh
+gunzip -k data/runs/<run dir>/k6_raw.csv.gz
+PSAO_RUN_DIR=data/runs/<run dir> python3 experiments/merge_ramp.py
+```
+
 ## The machine these measurements came from
 
 Every number in `data/runs/` was produced on this host. It is a laptop, and that

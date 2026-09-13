@@ -1,0 +1,11 @@
+apiVersion: v1
+items:
+- apiVersion: security.istio.io/v1
+  kind: PeerAuthentication
+  metadata:
+    name: default
+    namespace: default
+  spec:
+    mtls:
+      mode: STRICT
+kind: List

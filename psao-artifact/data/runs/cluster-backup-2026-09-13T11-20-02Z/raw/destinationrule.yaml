@@ -1,0 +1,22 @@
+apiVersion: v1
+items:
+- apiVersion: networking.istio.io/v1
+  kind: DestinationRule
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"networking.istio.io/v1beta1","kind":"DestinationRule","metadata":{"annotations":{},"name":"default-mtls","namespace":"default"},"spec":{"host":"*.default.svc.cluster.local","trafficPolicy":{"tls":{"mode":"ISTIO_MUTUAL"}}}}
+    creationTimestamp: "2025-11-30T18:56:26Z"
+    generation: 1
+    name: default-mtls
+    namespace: default
+    resourceVersion: "18986"
+    uid: 0c85aec6-21af-4cc1-8583-2f6425a14ce5
+  spec:
+    host: '*.default.svc.cluster.local'
+    trafficPolicy:
+      tls:
+        mode: ISTIO_MUTUAL
+kind: List
+metadata:
+  resourceVersion: ""

@@ -1,0 +1,20 @@
+{"timestamp_utc": "2026-09-13T11:08:03.489265+00:00", "event": "verified", "detail": "namespace=default (verify-only)"}
+{"timestamp_utc": "2026-09-13T11:09:09.683928+00:00", "event": "verified", "detail": "namespace=default (verify-only)"}
+{"timestamp_utc": "2026-09-13T11:09:41.740704+00:00", "event": "verification_retracted", "detail": "The verification logged at 2026-09-13T11:08:03Z is NOT sound and must not be relied on: its negative control probed .items[0] of the service-a pod list, which during that rollout was the OLD terminating pod. Connection refused there proves nothing about mTLS. Superseded by the 11:09:09Z verification, which pairs the out-of-mesh refusal with an in-mesh positive control on the same ClusterIP."}
+{"timestamp_utc": "2026-09-13T11:20:02.305661+00:00", "event": "teardown_begin", "detail": "namespace=default target=S1-plain-http"}
+{"timestamp_utc": "2026-09-13T11:20:18.578530+00:00", "event": "teardown_complete", "detail": "namespace=default posture=S1-plain-http backup=/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/data/runs/cluster-backup-2026-09-13T11-20-02Z http_status=200"}
+{"timestamp_utc": "2026-09-13T11:30:31.929924+00:00", "event": "restore_begin", "detail": "namespace=default target=full-zero-trust"}
+{"timestamp_utc": "2026-09-13T11:32:10.280142+00:00", "event": "restore_begin", "detail": "namespace=default target=full-zero-trust"}
+{"timestamp_utc": "2026-09-13T11:32:31.555611+00:00", "event": "restore_begin", "detail": "namespace=default target=full-zero-trust"}
+{"timestamp_utc": "2026-09-13T11:32:56.395737+00:00", "event": "restore_complete", "detail": "namespace=default posture=full-zero-trust backup=/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/data/runs/cluster-backup-2026-09-13T11-20-02Z verified=STRICT+ISTIO_MUTUAL+plaintext-refused"}
+{"timestamp_utc": "2026-09-13T11:35:52.035216+00:00", "event": "teardown_begin", "detail": "namespace=default target=S1-plain-http"}
+{"timestamp_utc": "2026-09-13T11:36:08.041317+00:00", "event": "teardown_complete", "detail": "namespace=default posture=S1-plain-http backup=/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/data/runs/cluster-backup-2026-09-13T11-35-52Z http_status=200"}
+{"timestamp_utc": "2026-09-13T11:46:22.758799+00:00", "event": "restore_begin", "detail": "namespace=default target=full-zero-trust"}
+{"timestamp_utc": "2026-09-13T11:46:46.569215+00:00", "event": "restore_complete", "detail": "namespace=default posture=full-zero-trust backup=/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/data/runs/cluster-backup-2026-09-13T11-35-52Z verified=STRICT+ISTIO_MUTUAL+plaintext-refused"}
+{"timestamp_utc": "2026-09-13T11:47:11.875680+00:00", "event": "verified", "detail": "namespace=default (verify-only)"}
+{"timestamp_utc": "2026-09-13T11:59:03.560127+00:00", "event": "verified", "detail": "namespace=default (verify-only)"}
+{"timestamp_utc": "2026-09-13T12:35:32.349627+00:00", "event": "verified", "detail": "namespace=default (verify-only)"}
+{"timestamp_utc": "2026-09-13T12:37:17.690529+00:00", "event": "verified", "detail": "namespace=default (verify-only)"}
+{"timestamp_utc": "2026-09-13T12:49:52.930318+00:00", "event": "verified", "detail": "namespace=default (verify-only)"}
+{"timestamp_utc": "2026-09-13T13:01:05.742159+00:00", "event": "verified", "detail": "namespace=default (verify-only)"}
+{"timestamp_utc": "2026-09-13T13:12:46.585511+00:00", "event": "verified", "detail": "namespace=default (verify-only)"}

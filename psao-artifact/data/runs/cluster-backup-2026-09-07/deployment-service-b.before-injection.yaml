@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"service-b-deployment","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"service-b"}},"template":{"metadata":{"labels":{"app":"service-b"}},"spec":{"containers":[{"image":"service-b:1.0","imagePullPolicy":"IfNotPresent","name":"service-b","ports":[{"containerPort":3001}]}]}}}}
+  creationTimestamp: "2025-11-17T16:56:09Z"
+  generation: 2
+  name: service-b-deployment
+  namespace: default
+  resourceVersion: "420697"
+  uid: d1ce6aae-81a4-4c53-a339-9c33a07f57be
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: service-b
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2025-11-17T23:07:16+06:00"
+      creationTimestamp: null
+      labels:
+        app: service-b
+    spec:
+      containers:
+      - image: service-b:1.0
+        imagePullPolicy: IfNotPresent
+        name: service-b
+        ports:
+        - containerPort: 3001
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2025-11-17T16:56:09Z"
+    lastUpdateTime: "2025-11-17T17:07:17Z"
+    message: ReplicaSet "service-b-deployment-78897db9dc" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2026-09-07T05:45:41Z"
+    lastUpdateTime: "2026-09-07T05:45:41Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 2
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

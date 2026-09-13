@@ -1,0 +1,1191 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/experiments/k6/openloop-ramp.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 150 max VUs, 3m10s max duration (incl. graceful stop):
+              * step_00050: 50.00 iterations/s for 3m0s (maxVUs: 20-150, gracefulStop: 10s)
+
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:06+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+
+running (0m01.0s), 000/025 VUs, 45 complete and 0 interrupted iterations
+step_00050   [   1% ] 000/025 VUs  0m01.0s/3m0s  50.00 iters/s
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:07+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+
+running (0m02.0s), 000/025 VUs, 95 complete and 0 interrupted iterations
+step_00050   [   1% ] 000/025 VUs  0m02.0s/3m0s  50.00 iters/s
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:08+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+
+running (0m03.0s), 000/025 VUs, 145 complete and 0 interrupted iterations
+step_00050   [   2% ] 000/025 VUs  0m03.0s/3m0s  50.00 iters/s
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:09+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+
+running (0m04.0s), 000/025 VUs, 195 complete and 0 interrupted iterations
+step_00050   [   2% ] 000/025 VUs  0m04.0s/3m0s  50.00 iters/s
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:10+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+
+running (0m05.0s), 000/025 VUs, 245 complete and 0 interrupted iterations
+step_00050   [   3% ] 000/025 VUs  0m05.0s/3m0s  50.00 iters/s
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:11+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+
+running (0m06.0s), 000/025 VUs, 295 complete and 0 interrupted iterations
+step_00050   [   3% ] 000/025 VUs  0m06.0s/3m0s  50.00 iters/s
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:12+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+
+running (0m07.0s), 000/025 VUs, 345 complete and 0 interrupted iterations
+step_00050   [   4% ] 000/025 VUs  0m07.0s/3m0s  50.00 iters/s
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:13+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+
+running (0m08.0s), 000/025 VUs, 395 complete and 0 interrupted iterations
+step_00050   [   4% ] 000/025 VUs  0m08.0s/3m0s  50.00 iters/s
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:14+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+
+running (0m09.0s), 000/025 VUs, 445 complete and 0 interrupted iterations
+step_00050   [   5% ] 000/025 VUs  0m09.0s/3m0s  50.00 iters/s
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:15+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+
+running (0m10.0s), 000/025 VUs, 495 complete and 0 interrupted iterations
+step_00050   [   6% ] 000/025 VUs  0m10.0s/3m0s  50.00 iters/s
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:16+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+
+running (0m11.0s), 000/025 VUs, 545 complete and 0 interrupted iterations
+step_00050   [   6% ] 000/025 VUs  0m11.0s/3m0s  50.00 iters/s
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:17+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+
+running (0m12.0s), 001/025 VUs, 594 complete and 0 interrupted iterations
+step_00050   [   7% ] 001/025 VUs  0m12.0s/3m0s  50.00 iters/s
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+time="2026-09-13T18:32:18+06:00" level=warning msg="Request Failed" error="Get \"https://localhost/products\": EOF"
+
+running (0m13.0s), 001/025 VUs, 644 complete and 0 interrupted iterations
+step_00050   [   7% ] 001/025 VUs  0m13.0s/3m0s  50.00 iters/s
+
+running (0m14.0s), 000/025 VUs, 695 complete and 0 interrupted iterations
+step_00050   [   8% ] 000/025 VUs  0m14.0s/3m0s  50.00 iters/s
+
+running (0m15.0s), 000/025 VUs, 745 complete and 0 interrupted iterations
+step_00050   [   8% ] 000/025 VUs  0m15.0s/3m0s  50.00 iters/s
+
+running (0m16.0s), 000/025 VUs, 795 complete and 0 interrupted iterations
+step_00050   [   9% ] 000/025 VUs  0m16.0s/3m0s  50.00 iters/s
+
+running (0m17.0s), 000/025 VUs, 845 complete and 0 interrupted iterations
+step_00050   [   9% ] 000/025 VUs  0m17.0s/3m0s  50.00 iters/s
+
+running (0m18.0s), 000/025 VUs, 895 complete and 0 interrupted iterations
+step_00050   [  10% ] 000/025 VUs  0m18.0s/3m0s  50.00 iters/s
+
+running (0m19.0s), 000/025 VUs, 945 complete and 0 interrupted iterations
+step_00050   [  11% ] 000/025 VUs  0m19.0s/3m0s  50.00 iters/s
+
+running (0m20.0s), 000/025 VUs, 995 complete and 0 interrupted iterations
+step_00050   [  11% ] 000/025 VUs  0m20.0s/3m0s  50.00 iters/s
+
+running (0m21.0s), 000/025 VUs, 1045 complete and 0 interrupted iterations
+step_00050   [  12% ] 000/025 VUs  0m21.0s/3m0s  50.00 iters/s
+
+running (0m22.0s), 000/025 VUs, 1095 complete and 0 interrupted iterations
+step_00050   [  12% ] 000/025 VUs  0m22.0s/3m0s  50.00 iters/s
+
+running (0m23.0s), 000/025 VUs, 1145 complete and 0 interrupted iterations
+step_00050   [  13% ] 000/025 VUs  0m23.0s/3m0s  50.00 iters/s
+
+running (0m24.0s), 001/025 VUs, 1194 complete and 0 interrupted iterations
+step_00050   [  13% ] 001/025 VUs  0m24.0s/3m0s  50.00 iters/s
+
+running (0m25.0s), 000/025 VUs, 1245 complete and 0 interrupted iterations
+step_00050   [  14% ] 000/025 VUs  0m25.0s/3m0s  50.00 iters/s
+
+running (0m26.0s), 000/025 VUs, 1295 complete and 0 interrupted iterations
+step_00050   [  14% ] 000/025 VUs  0m26.0s/3m0s  50.00 iters/s
+
+running (0m27.0s), 000/025 VUs, 1345 complete and 0 interrupted iterations
+step_00050   [  15% ] 000/025 VUs  0m27.0s/3m0s  50.00 iters/s
+
+running (0m28.0s), 000/025 VUs, 1395 complete and 0 interrupted iterations
+step_00050   [  16% ] 000/025 VUs  0m28.0s/3m0s  50.00 iters/s
+
+running (0m29.0s), 000/025 VUs, 1445 complete and 0 interrupted iterations
+step_00050   [  16% ] 000/025 VUs  0m29.0s/3m0s  50.00 iters/s
+
+running (0m30.0s), 000/025 VUs, 1495 complete and 0 interrupted iterations
+step_00050   [  17% ] 000/025 VUs  0m30.0s/3m0s  50.00 iters/s
+
+running (0m31.0s), 000/025 VUs, 1545 complete and 0 interrupted iterations
+step_00050   [  17% ] 000/025 VUs  0m31.0s/3m0s  50.00 iters/s
+
+running (0m32.0s), 000/025 VUs, 1595 complete and 0 interrupted iterations
+step_00050   [  18% ] 000/025 VUs  0m32.0s/3m0s  50.00 iters/s
+
+running (0m33.0s), 000/025 VUs, 1645 complete and 0 interrupted iterations
+step_00050   [  18% ] 000/025 VUs  0m33.0s/3m0s  50.00 iters/s
+
+running (0m34.0s), 000/025 VUs, 1695 complete and 0 interrupted iterations
+step_00050   [  19% ] 000/025 VUs  0m34.0s/3m0s  50.00 iters/s
+
+running (0m35.0s), 000/025 VUs, 1745 complete and 0 interrupted iterations
+step_00050   [  19% ] 000/025 VUs  0m35.0s/3m0s  50.00 iters/s
+
+running (0m36.0s), 000/025 VUs, 1795 complete and 0 interrupted iterations
+step_00050   [  20% ] 000/025 VUs  0m36.0s/3m0s  50.00 iters/s
+
+running (0m37.0s), 000/025 VUs, 1845 complete and 0 interrupted iterations
+step_00050   [  21% ] 000/025 VUs  0m37.0s/3m0s  50.00 iters/s
+
+running (0m38.0s), 000/025 VUs, 1895 complete and 0 interrupted iterations
+step_00050   [  21% ] 000/025 VUs  0m38.0s/3m0s  50.00 iters/s
+
+running (0m39.0s), 000/025 VUs, 1945 complete and 0 interrupted iterations
+step_00050   [  22% ] 000/025 VUs  0m39.0s/3m0s  50.00 iters/s
+
+running (0m40.0s), 000/025 VUs, 1995 complete and 0 interrupted iterations
+step_00050   [  22% ] 000/025 VUs  0m40.0s/3m0s  50.00 iters/s
+
+running (0m41.0s), 000/025 VUs, 2045 complete and 0 interrupted iterations
+step_00050   [  23% ] 000/025 VUs  0m41.0s/3m0s  50.00 iters/s
+
+running (0m42.0s), 000/025 VUs, 2095 complete and 0 interrupted iterations
+step_00050   [  23% ] 000/025 VUs  0m42.0s/3m0s  50.00 iters/s
+
+running (0m43.0s), 000/025 VUs, 2145 complete and 0 interrupted iterations
+step_00050   [  24% ] 000/025 VUs  0m43.0s/3m0s  50.00 iters/s
+
+running (0m44.0s), 000/025 VUs, 2195 complete and 0 interrupted iterations
+step_00050   [  24% ] 000/025 VUs  0m44.0s/3m0s  50.00 iters/s
+
+running (0m45.0s), 000/025 VUs, 2245 complete and 0 interrupted iterations
+step_00050   [  25% ] 000/025 VUs  0m45.0s/3m0s  50.00 iters/s
+
+running (0m46.0s), 000/025 VUs, 2295 complete and 0 interrupted iterations
+step_00050   [  26% ] 000/025 VUs  0m46.0s/3m0s  50.00 iters/s
+
+running (0m47.0s), 000/025 VUs, 2345 complete and 0 interrupted iterations
+step_00050   [  26% ] 000/025 VUs  0m47.0s/3m0s  50.00 iters/s
+
+running (0m48.0s), 000/025 VUs, 2395 complete and 0 interrupted iterations
+step_00050   [  27% ] 000/025 VUs  0m48.0s/3m0s  50.00 iters/s
+
+running (0m49.0s), 000/025 VUs, 2445 complete and 0 interrupted iterations
+step_00050   [  27% ] 000/025 VUs  0m49.0s/3m0s  50.00 iters/s
+
+running (0m50.0s), 001/025 VUs, 2494 complete and 0 interrupted iterations
+step_00050   [  28% ] 001/025 VUs  0m50.0s/3m0s  50.00 iters/s
+
+running (0m51.0s), 000/025 VUs, 2545 complete and 0 interrupted iterations
+step_00050   [  28% ] 000/025 VUs  0m51.0s/3m0s  50.00 iters/s
+
+running (0m52.0s), 000/025 VUs, 2595 complete and 0 interrupted iterations
+step_00050   [  29% ] 000/025 VUs  0m52.0s/3m0s  50.00 iters/s
+
+running (0m53.0s), 000/025 VUs, 2645 complete and 0 interrupted iterations
+step_00050   [  29% ] 000/025 VUs  0m53.0s/3m0s  50.00 iters/s
+
+running (0m54.0s), 000/025 VUs, 2695 complete and 0 interrupted iterations
+step_00050   [  30% ] 000/025 VUs  0m54.0s/3m0s  50.00 iters/s
+
+running (0m55.0s), 000/025 VUs, 2745 complete and 0 interrupted iterations
+step_00050   [  31% ] 000/025 VUs  0m55.0s/3m0s  50.00 iters/s
+
+running (0m56.0s), 000/025 VUs, 2795 complete and 0 interrupted iterations
+step_00050   [  31% ] 000/025 VUs  0m56.0s/3m0s  50.00 iters/s
+
+running (0m57.0s), 001/025 VUs, 2844 complete and 0 interrupted iterations
+step_00050   [  32% ] 001/025 VUs  0m57.0s/3m0s  50.00 iters/s
+
+running (0m58.0s), 000/025 VUs, 2895 complete and 0 interrupted iterations
+step_00050   [  32% ] 000/025 VUs  0m58.0s/3m0s  50.00 iters/s
+
+running (0m59.0s), 001/025 VUs, 2944 complete and 0 interrupted iterations
+step_00050   [  33% ] 001/025 VUs  0m59.0s/3m0s  50.00 iters/s
+
+running (1m00.0s), 000/025 VUs, 2995 complete and 0 interrupted iterations
+step_00050   [  33% ] 000/025 VUs  1m00.0s/3m0s  50.00 iters/s
+
+running (1m01.0s), 000/025 VUs, 3045 complete and 0 interrupted iterations
+step_00050   [  34% ] 000/025 VUs  1m01.0s/3m0s  50.00 iters/s
+
+running (1m02.0s), 000/025 VUs, 3095 complete and 0 interrupted iterations
+step_00050   [  34% ] 000/025 VUs  1m02.0s/3m0s  50.00 iters/s
+
+running (1m03.0s), 000/025 VUs, 3145 complete and 0 interrupted iterations
+step_00050   [  35% ] 000/025 VUs  1m03.0s/3m0s  50.00 iters/s
+
+running (1m04.0s), 000/025 VUs, 3195 complete and 0 interrupted iterations
+step_00050   [  36% ] 000/025 VUs  1m04.0s/3m0s  50.00 iters/s
+
+running (1m05.0s), 000/025 VUs, 3245 complete and 0 interrupted iterations
+step_00050   [  36% ] 000/025 VUs  1m05.0s/3m0s  50.00 iters/s
+
+running (1m06.0s), 000/025 VUs, 3295 complete and 0 interrupted iterations
+step_00050   [  37% ] 000/025 VUs  1m06.0s/3m0s  50.00 iters/s
+
+running (1m07.0s), 000/025 VUs, 3345 complete and 0 interrupted iterations
+step_00050   [  37% ] 000/025 VUs  1m07.0s/3m0s  50.00 iters/s
+
+running (1m08.0s), 000/025 VUs, 3395 complete and 0 interrupted iterations
+step_00050   [  38% ] 000/025 VUs  1m08.0s/3m0s  50.00 iters/s
+
+running (1m09.0s), 000/025 VUs, 3445 complete and 0 interrupted iterations
+step_00050   [  38% ] 000/025 VUs  1m09.0s/3m0s  50.00 iters/s
+
+running (1m10.0s), 000/025 VUs, 3495 complete and 0 interrupted iterations
+step_00050   [  39% ] 000/025 VUs  1m10.0s/3m0s  50.00 iters/s
+
+running (1m11.0s), 000/025 VUs, 3545 complete and 0 interrupted iterations
+step_00050   [  39% ] 000/025 VUs  1m11.0s/3m0s  50.00 iters/s
+
+running (1m12.0s), 000/025 VUs, 3595 complete and 0 interrupted iterations
+step_00050   [  40% ] 000/025 VUs  1m12.0s/3m0s  50.00 iters/s
+
+running (1m13.0s), 000/025 VUs, 3645 complete and 0 interrupted iterations
+step_00050   [  41% ] 000/025 VUs  1m13.0s/3m0s  50.00 iters/s
+
+running (1m14.0s), 000/025 VUs, 3695 complete and 0 interrupted iterations
+step_00050   [  41% ] 000/025 VUs  1m14.0s/3m0s  50.00 iters/s
+
+running (1m15.0s), 000/025 VUs, 3745 complete and 0 interrupted iterations
+step_00050   [  42% ] 000/025 VUs  1m15.0s/3m0s  50.00 iters/s
+
+running (1m16.0s), 000/025 VUs, 3795 complete and 0 interrupted iterations
+step_00050   [  42% ] 000/025 VUs  1m16.0s/3m0s  50.00 iters/s
+
+running (1m17.0s), 000/025 VUs, 3845 complete and 0 interrupted iterations
+step_00050   [  43% ] 000/025 VUs  1m17.0s/3m0s  50.00 iters/s
+
+running (1m18.0s), 000/025 VUs, 3895 complete and 0 interrupted iterations
+step_00050   [  43% ] 000/025 VUs  1m18.0s/3m0s  50.00 iters/s
+
+running (1m19.0s), 000/025 VUs, 3945 complete and 0 interrupted iterations
+step_00050   [  44% ] 000/025 VUs  1m19.0s/3m0s  50.00 iters/s
+
+running (1m20.0s), 000/025 VUs, 3995 complete and 0 interrupted iterations
+step_00050   [  44% ] 000/025 VUs  1m20.0s/3m0s  50.00 iters/s
+
+running (1m21.0s), 000/025 VUs, 4045 complete and 0 interrupted iterations
+step_00050   [  45% ] 000/025 VUs  1m21.0s/3m0s  50.00 iters/s
+
+running (1m22.0s), 000/025 VUs, 4095 complete and 0 interrupted iterations
+step_00050   [  46% ] 000/025 VUs  1m22.0s/3m0s  50.00 iters/s
+
+running (1m23.0s), 000/025 VUs, 4145 complete and 0 interrupted iterations
+step_00050   [  46% ] 000/025 VUs  1m23.0s/3m0s  50.00 iters/s
+
+running (1m24.0s), 000/025 VUs, 4195 complete and 0 interrupted iterations
+step_00050   [  47% ] 000/025 VUs  1m24.0s/3m0s  50.00 iters/s
+
+running (1m25.0s), 000/025 VUs, 4245 complete and 0 interrupted iterations
+step_00050   [  47% ] 000/025 VUs  1m25.0s/3m0s  50.00 iters/s
+
+running (1m26.0s), 000/025 VUs, 4295 complete and 0 interrupted iterations
+step_00050   [  48% ] 000/025 VUs  1m26.0s/3m0s  50.00 iters/s
+
+running (1m27.0s), 000/025 VUs, 4345 complete and 0 interrupted iterations
+step_00050   [  48% ] 000/025 VUs  1m27.0s/3m0s  50.00 iters/s
+
+running (1m28.0s), 000/025 VUs, 4395 complete and 0 interrupted iterations
+step_00050   [  49% ] 000/025 VUs  1m28.0s/3m0s  50.00 iters/s
+
+running (1m29.0s), 000/025 VUs, 4445 complete and 0 interrupted iterations
+step_00050   [  49% ] 000/025 VUs  1m29.0s/3m0s  50.00 iters/s
+
+running (1m30.0s), 000/025 VUs, 4495 complete and 0 interrupted iterations
+step_00050   [  50% ] 000/025 VUs  1m30.0s/3m0s  50.00 iters/s
+
+running (1m31.0s), 000/025 VUs, 4545 complete and 0 interrupted iterations
+step_00050   [  51% ] 000/025 VUs  1m31.0s/3m0s  50.00 iters/s
+
+running (1m32.0s), 000/025 VUs, 4595 complete and 0 interrupted iterations
+step_00050   [  51% ] 000/025 VUs  1m32.0s/3m0s  50.00 iters/s
+
+running (1m33.0s), 000/025 VUs, 4645 complete and 0 interrupted iterations
+step_00050   [  52% ] 000/025 VUs  1m33.0s/3m0s  50.00 iters/s
+
+running (1m34.0s), 000/025 VUs, 4695 complete and 0 interrupted iterations
+step_00050   [  52% ] 000/025 VUs  1m34.0s/3m0s  50.00 iters/s
+
+running (1m35.0s), 000/025 VUs, 4745 complete and 0 interrupted iterations
+step_00050   [  53% ] 000/025 VUs  1m35.0s/3m0s  50.00 iters/s
+
+running (1m36.0s), 000/025 VUs, 4795 complete and 0 interrupted iterations
+step_00050   [  53% ] 000/025 VUs  1m36.0s/3m0s  50.00 iters/s
+
+running (1m37.0s), 000/025 VUs, 4845 complete and 0 interrupted iterations
+step_00050   [  54% ] 000/025 VUs  1m37.0s/3m0s  50.00 iters/s
+
+running (1m38.0s), 000/025 VUs, 4895 complete and 0 interrupted iterations
+step_00050   [  54% ] 000/025 VUs  1m38.0s/3m0s  50.00 iters/s
+
+running (1m39.0s), 000/025 VUs, 4945 complete and 0 interrupted iterations
+step_00050   [  55% ] 000/025 VUs  1m39.0s/3m0s  50.00 iters/s
+
+running (1m40.0s), 000/025 VUs, 4995 complete and 0 interrupted iterations
+step_00050   [  56% ] 000/025 VUs  1m40.0s/3m0s  50.00 iters/s
+
+running (1m41.0s), 000/025 VUs, 5045 complete and 0 interrupted iterations
+step_00050   [  56% ] 000/025 VUs  1m41.0s/3m0s  50.00 iters/s
+
+running (1m42.0s), 000/025 VUs, 5095 complete and 0 interrupted iterations
+step_00050   [  57% ] 000/025 VUs  1m42.0s/3m0s  50.00 iters/s
+
+running (1m43.0s), 000/025 VUs, 5145 complete and 0 interrupted iterations
+step_00050   [  57% ] 000/025 VUs  1m43.0s/3m0s  50.00 iters/s
+
+running (1m44.0s), 000/025 VUs, 5195 complete and 0 interrupted iterations
+step_00050   [  58% ] 000/025 VUs  1m44.0s/3m0s  50.00 iters/s
+
+running (1m45.0s), 000/025 VUs, 5245 complete and 0 interrupted iterations
+step_00050   [  58% ] 000/025 VUs  1m45.0s/3m0s  50.00 iters/s
+
+running (1m46.0s), 000/025 VUs, 5295 complete and 0 interrupted iterations
+step_00050   [  59% ] 000/025 VUs  1m46.0s/3m0s  50.00 iters/s
+
+running (1m47.0s), 000/025 VUs, 5345 complete and 0 interrupted iterations
+step_00050   [  59% ] 000/025 VUs  1m47.0s/3m0s  50.00 iters/s
+
+running (1m48.0s), 000/025 VUs, 5395 complete and 0 interrupted iterations
+step_00050   [  60% ] 000/025 VUs  1m48.0s/3m0s  50.00 iters/s
+
+running (1m49.0s), 000/025 VUs, 5445 complete and 0 interrupted iterations
+step_00050   [  61% ] 000/025 VUs  1m49.0s/3m0s  50.00 iters/s
+
+running (1m50.0s), 000/025 VUs, 5495 complete and 0 interrupted iterations
+step_00050   [  61% ] 000/025 VUs  1m50.0s/3m0s  50.00 iters/s
+
+running (1m51.0s), 000/025 VUs, 5545 complete and 0 interrupted iterations
+step_00050   [  62% ] 000/025 VUs  1m51.0s/3m0s  50.00 iters/s
+
+running (1m52.0s), 000/025 VUs, 5595 complete and 0 interrupted iterations
+step_00050   [  62% ] 000/025 VUs  1m52.0s/3m0s  50.00 iters/s
+
+running (1m53.0s), 000/025 VUs, 5645 complete and 0 interrupted iterations
+step_00050   [  63% ] 000/025 VUs  1m53.0s/3m0s  50.00 iters/s
+
+running (1m54.0s), 000/025 VUs, 5695 complete and 0 interrupted iterations
+step_00050   [  63% ] 000/025 VUs  1m54.0s/3m0s  50.00 iters/s
+
+running (1m55.0s), 000/025 VUs, 5745 complete and 0 interrupted iterations
+step_00050   [  64% ] 000/025 VUs  1m55.0s/3m0s  50.00 iters/s
+
+running (1m56.0s), 000/025 VUs, 5795 complete and 0 interrupted iterations
+step_00050   [  64% ] 000/025 VUs  1m56.0s/3m0s  50.00 iters/s
+
+running (1m57.0s), 000/025 VUs, 5845 complete and 0 interrupted iterations
+step_00050   [  65% ] 000/025 VUs  1m57.0s/3m0s  50.00 iters/s
+
+running (1m58.0s), 000/025 VUs, 5895 complete and 0 interrupted iterations
+step_00050   [  66% ] 000/025 VUs  1m58.0s/3m0s  50.00 iters/s
+
+running (1m59.0s), 000/025 VUs, 5945 complete and 0 interrupted iterations
+step_00050   [  66% ] 000/025 VUs  1m59.0s/3m0s  50.00 iters/s
+
+running (2m00.0s), 000/025 VUs, 5995 complete and 0 interrupted iterations
+step_00050   [  67% ] 000/025 VUs  2m00.0s/3m0s  50.00 iters/s
+
+running (2m01.0s), 001/025 VUs, 6044 complete and 0 interrupted iterations
+step_00050   [  67% ] 001/025 VUs  2m01.0s/3m0s  50.00 iters/s
+
+running (2m02.0s), 001/025 VUs, 6094 complete and 0 interrupted iterations
+step_00050   [  68% ] 001/025 VUs  2m02.0s/3m0s  50.00 iters/s
+
+running (2m03.0s), 000/025 VUs, 6145 complete and 0 interrupted iterations
+step_00050   [  68% ] 000/025 VUs  2m03.0s/3m0s  50.00 iters/s
+
+running (2m04.0s), 000/025 VUs, 6195 complete and 0 interrupted iterations
+step_00050   [  69% ] 000/025 VUs  2m04.0s/3m0s  50.00 iters/s
+
+running (2m05.0s), 000/025 VUs, 6245 complete and 0 interrupted iterations
+step_00050   [  69% ] 000/025 VUs  2m05.0s/3m0s  50.00 iters/s
+
+running (2m06.0s), 000/025 VUs, 6295 complete and 0 interrupted iterations
+step_00050   [  70% ] 000/025 VUs  2m06.0s/3m0s  50.00 iters/s
+
+running (2m07.0s), 000/025 VUs, 6345 complete and 0 interrupted iterations
+step_00050   [  71% ] 000/025 VUs  2m07.0s/3m0s  50.00 iters/s
+
+running (2m08.0s), 001/025 VUs, 6394 complete and 0 interrupted iterations
+step_00050   [  71% ] 001/025 VUs  2m08.0s/3m0s  50.00 iters/s
+
+running (2m09.0s), 000/025 VUs, 6445 complete and 0 interrupted iterations
+step_00050   [  72% ] 000/025 VUs  2m09.0s/3m0s  50.00 iters/s
+
+running (2m10.0s), 000/025 VUs, 6495 complete and 0 interrupted iterations
+step_00050   [  72% ] 000/025 VUs  2m10.0s/3m0s  50.00 iters/s
+
+running (2m11.0s), 000/025 VUs, 6545 complete and 0 interrupted iterations
+step_00050   [  73% ] 000/025 VUs  2m11.0s/3m0s  50.00 iters/s
+
+running (2m12.0s), 000/025 VUs, 6595 complete and 0 interrupted iterations
+step_00050   [  73% ] 000/025 VUs  2m12.0s/3m0s  50.00 iters/s
+
+running (2m13.0s), 000/025 VUs, 6645 complete and 0 interrupted iterations
+step_00050   [  74% ] 000/025 VUs  2m13.0s/3m0s  50.00 iters/s
+
+running (2m14.0s), 000/025 VUs, 6695 complete and 0 interrupted iterations
+step_00050   [  74% ] 000/025 VUs  2m14.0s/3m0s  50.00 iters/s
+
+running (2m15.0s), 000/025 VUs, 6745 complete and 0 interrupted iterations
+step_00050   [  75% ] 000/025 VUs  2m15.0s/3m0s  50.00 iters/s
+
+running (2m16.0s), 000/025 VUs, 6795 complete and 0 interrupted iterations
+step_00050   [  76% ] 000/025 VUs  2m16.0s/3m0s  50.00 iters/s
+
+running (2m17.0s), 000/025 VUs, 6845 complete and 0 interrupted iterations
+step_00050   [  76% ] 000/025 VUs  2m17.0s/3m0s  50.00 iters/s
+
+running (2m18.0s), 000/025 VUs, 6895 complete and 0 interrupted iterations
+step_00050   [  77% ] 000/025 VUs  2m18.0s/3m0s  50.00 iters/s
+
+running (2m19.0s), 000/025 VUs, 6945 complete and 0 interrupted iterations
+step_00050   [  77% ] 000/025 VUs  2m19.0s/3m0s  50.00 iters/s
+
+running (2m20.0s), 000/025 VUs, 6995 complete and 0 interrupted iterations
+step_00050   [  78% ] 000/025 VUs  2m20.0s/3m0s  50.00 iters/s
+
+running (2m21.0s), 000/025 VUs, 7045 complete and 0 interrupted iterations
+step_00050   [  78% ] 000/025 VUs  2m21.0s/3m0s  50.00 iters/s
+
+running (2m22.0s), 000/025 VUs, 7095 complete and 0 interrupted iterations
+step_00050   [  79% ] 000/025 VUs  2m22.0s/3m0s  50.00 iters/s
+
+running (2m23.0s), 000/025 VUs, 7145 complete and 0 interrupted iterations
+step_00050   [  79% ] 000/025 VUs  2m23.0s/3m0s  50.00 iters/s
+
+running (2m24.0s), 000/025 VUs, 7195 complete and 0 interrupted iterations
+step_00050   [  80% ] 000/025 VUs  2m24.0s/3m0s  50.00 iters/s
+
+running (2m25.0s), 000/025 VUs, 7245 complete and 0 interrupted iterations
+step_00050   [  81% ] 000/025 VUs  2m25.0s/3m0s  50.00 iters/s
+
+running (2m26.0s), 000/025 VUs, 7295 complete and 0 interrupted iterations
+step_00050   [  81% ] 000/025 VUs  2m26.0s/3m0s  50.00 iters/s
+
+running (2m27.0s), 000/025 VUs, 7345 complete and 0 interrupted iterations
+step_00050   [  82% ] 000/025 VUs  2m27.0s/3m0s  50.00 iters/s
+
+running (2m28.0s), 000/025 VUs, 7395 complete and 0 interrupted iterations
+step_00050   [  82% ] 000/025 VUs  2m28.0s/3m0s  50.00 iters/s
+
+running (2m29.0s), 000/025 VUs, 7445 complete and 0 interrupted iterations
+step_00050   [  83% ] 000/025 VUs  2m29.0s/3m0s  50.00 iters/s
+
+running (2m30.0s), 000/025 VUs, 7495 complete and 0 interrupted iterations
+step_00050   [  83% ] 000/025 VUs  2m30.0s/3m0s  50.00 iters/s
+
+running (2m31.0s), 000/025 VUs, 7545 complete and 0 interrupted iterations
+step_00050   [  84% ] 000/025 VUs  2m31.0s/3m0s  50.00 iters/s
+
+running (2m32.0s), 000/025 VUs, 7595 complete and 0 interrupted iterations
+step_00050   [  84% ] 000/025 VUs  2m32.0s/3m0s  50.00 iters/s
+
+running (2m33.0s), 000/025 VUs, 7645 complete and 0 interrupted iterations
+step_00050   [  85% ] 000/025 VUs  2m33.0s/3m0s  50.00 iters/s
+
+running (2m34.0s), 000/025 VUs, 7695 complete and 0 interrupted iterations
+step_00050   [  86% ] 000/025 VUs  2m34.0s/3m0s  50.00 iters/s
+
+running (2m35.0s), 000/025 VUs, 7745 complete and 0 interrupted iterations
+step_00050   [  86% ] 000/025 VUs  2m35.0s/3m0s  50.00 iters/s
+
+running (2m36.0s), 000/025 VUs, 7795 complete and 0 interrupted iterations
+step_00050   [  87% ] 000/025 VUs  2m36.0s/3m0s  50.00 iters/s
+
+running (2m37.0s), 000/025 VUs, 7845 complete and 0 interrupted iterations
+step_00050   [  87% ] 000/025 VUs  2m37.0s/3m0s  50.00 iters/s
+
+running (2m38.0s), 000/025 VUs, 7895 complete and 0 interrupted iterations
+step_00050   [  88% ] 000/025 VUs  2m38.0s/3m0s  50.00 iters/s
+
+running (2m39.0s), 000/025 VUs, 7945 complete and 0 interrupted iterations
+step_00050   [  88% ] 000/025 VUs  2m39.0s/3m0s  50.00 iters/s
+
+running (2m40.0s), 000/025 VUs, 7995 complete and 0 interrupted iterations
+step_00050   [  89% ] 000/025 VUs  2m40.0s/3m0s  50.00 iters/s
+
+running (2m41.0s), 000/025 VUs, 8045 complete and 0 interrupted iterations
+step_00050   [  89% ] 000/025 VUs  2m41.0s/3m0s  50.00 iters/s
+
+running (2m42.0s), 000/025 VUs, 8095 complete and 0 interrupted iterations
+step_00050   [  90% ] 000/025 VUs  2m42.0s/3m0s  50.00 iters/s
+
+running (2m43.0s), 000/025 VUs, 8145 complete and 0 interrupted iterations
+step_00050   [  91% ] 000/025 VUs  2m43.0s/3m0s  50.00 iters/s
+
+running (2m44.0s), 000/025 VUs, 8195 complete and 0 interrupted iterations
+step_00050   [  91% ] 000/025 VUs  2m44.0s/3m0s  50.00 iters/s
+
+running (2m45.0s), 000/025 VUs, 8245 complete and 0 interrupted iterations
+step_00050   [  92% ] 000/025 VUs  2m45.0s/3m0s  50.00 iters/s
+
+running (2m46.0s), 000/025 VUs, 8295 complete and 0 interrupted iterations
+step_00050   [  92% ] 000/025 VUs  2m46.0s/3m0s  50.00 iters/s
+
+running (2m47.0s), 000/025 VUs, 8345 complete and 0 interrupted iterations
+step_00050   [  93% ] 000/025 VUs  2m47.0s/3m0s  50.00 iters/s
+
+running (2m48.0s), 000/025 VUs, 8395 complete and 0 interrupted iterations
+step_00050   [  93% ] 000/025 VUs  2m48.0s/3m0s  50.00 iters/s
+
+running (2m49.0s), 000/025 VUs, 8445 complete and 0 interrupted iterations
+step_00050   [  94% ] 000/025 VUs  2m49.0s/3m0s  50.00 iters/s
+
+running (2m50.0s), 000/025 VUs, 8495 complete and 0 interrupted iterations
+step_00050   [  94% ] 000/025 VUs  2m50.0s/3m0s  50.00 iters/s
+
+running (2m51.0s), 000/025 VUs, 8545 complete and 0 interrupted iterations
+step_00050   [  95% ] 000/025 VUs  2m51.0s/3m0s  50.00 iters/s
+
+running (2m52.0s), 000/025 VUs, 8595 complete and 0 interrupted iterations
+step_00050   [  96% ] 000/025 VUs  2m52.0s/3m0s  50.00 iters/s
+
+running (2m53.0s), 000/025 VUs, 8645 complete and 0 interrupted iterations
+step_00050   [  96% ] 000/025 VUs  2m53.0s/3m0s  50.00 iters/s
+
+running (2m54.0s), 001/025 VUs, 8694 complete and 0 interrupted iterations
+step_00050   [  97% ] 001/025 VUs  2m54.0s/3m0s  50.00 iters/s
+
+running (2m55.0s), 000/025 VUs, 8745 complete and 0 interrupted iterations
+step_00050   [  97% ] 000/025 VUs  2m55.0s/3m0s  50.00 iters/s
+
+running (2m56.0s), 000/025 VUs, 8795 complete and 0 interrupted iterations
+step_00050   [  98% ] 000/025 VUs  2m56.0s/3m0s  50.00 iters/s
+
+running (2m57.0s), 000/025 VUs, 8845 complete and 0 interrupted iterations
+step_00050   [  98% ] 000/025 VUs  2m57.0s/3m0s  50.00 iters/s
+
+running (2m58.0s), 000/025 VUs, 8895 complete and 0 interrupted iterations
+step_00050   [  99% ] 000/025 VUs  2m58.0s/3m0s  50.00 iters/s
+
+running (2m59.0s), 000/025 VUs, 8945 complete and 0 interrupted iterations
+step_00050   [  99% ] 000/025 VUs  2m59.0s/3m0s  50.00 iters/s
+
+running (3m00.0s), 000/025 VUs, 8995 complete and 0 interrupted iterations
+step_00050   [ 100% ] 000/025 VUs  3m00.0s/3m0s  50.00 iters/s
+
+open-loop ramp: 1 steps, 50..50 rps in 50 rps steps of 3m
+dropped_iterations = 5  <-- offered load fell short of target on at least one step
+wrote /Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/data/runs/2026-09-13T12-21-47Z-controller/down/k6_steps.csv
+
+running (3m00.0s), 000/025 VUs, 8996 complete and 0 interrupted iterations
+step_00050 ✓ [ 100% ] 000/025 VUs  3m0s  50.00 iters/s

@@ -39,3 +39,7 @@ tokens/
 .idea/
 .vscode/
 *.swp
+
+# Scratch state written by set_mesh_posture.sh: an absolute path to the last
+# backup on THIS machine. Meaningless elsewhere and leaks the local layout.
+.last_posture_backup

@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/service-upstream: 'true'
+  name: my-ingress
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - backend:
+          service:
+            name: service-a
+            port:
+              number: 80
+        path: /products
+        pathType: Prefix
+      - backend:
+          service:
+            name: service-b
+            port:
+              number: 80
+        path: /reviews
+        pathType: Prefix
+  tls:
+  - hosts:
+    - localhost
+    secretName: tls-secret
