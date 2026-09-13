@@ -1,0 +1,18 @@
+# Python dependencies for the PSAO reproducibility artifact.
+#
+# Lower bounds, not pins. Pinning exact versions would make the artifact stop
+# installing as wheels age; these bounds are the oldest releases the code is
+# known to work against. `pip freeze > requirements.lock.txt` after `make setup`
+# if you need an exact record of what a particular run used -- and record that
+# file alongside the run, not here.
+
+# --- analysis ---------------------------------------------------------------
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10          # least_squares, the t/normal distributions, Mann-Whitney U
+matplotlib>=3.7      # vector PDF output with Type 42 fonts
+
+# --- controller -------------------------------------------------------------
+kubernetes>=27.2.0   # official client; applies the Istio CRDs
+requests>=2.31       # Prometheus queries and the actuation probe
+PyYAML>=6.0          # controller config and the policy template

@@ -1,0 +1,67 @@
+# S9 — the S5 handler under node:cluster.
+#
+# See s8-deployment.yaml for why this carries app=service-a and starts at
+# replicas: 0.
+#
+# ---------------------------------------------------------------------------
+# THE CPU LIMIT IS WHAT MAKES S9 A FAIR COMPARISON
+# ---------------------------------------------------------------------------
+# S5 and S8 are single-threaded Node processes: they cannot exceed roughly one
+# core no matter what the pod is allowed, and the S5 ramp measured them peaking
+# at ~963 millicores. S9 forks os.availableParallelism() workers, so on an
+# unlimited pod on this 10-core node it would simply take more CPU and report
+# more throughput -- which answers a question nobody asked. ("More cores do more
+# work.")
+#
+# The question the paper is actually asking is whether forking removes the
+# per-request verification cost WITHIN a fixed CPU budget. So the pod is capped
+# at one core, the same budget S5 is confined to by being single-threaded, and
+# WORKERS is pinned rather than left to availableParallelism() -- which reads
+# the node's 10 cores, not the pod's quota, and would fork 10 workers into a
+# 1-core cgroup and turn the run into a study of CFS throttling.
+#
+# If you want the other experiment -- S9 given N cores -- raise both together
+# and say which budget the number came from. A throughput figure for S9 without
+# its CPU budget attached is not interpretable.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-a-s9-deployment
+  labels:
+    psao-scenario: s9
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: service-a
+      psao-scenario: s9
+  template:
+    metadata:
+      labels:
+        app: service-a
+        psao-scenario: s9
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9464"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: service-a
+        image: psao-scenarios:psao-2
+        imagePullPolicy: IfNotPresent
+        command: ["node", "scenarios/s9-cluster-mode.js"]
+        env:
+        - name: JWT_SECRET
+          value: "your-super-secret-key-that-is-long"
+        - name: WORKERS
+          value: "4"
+        resources:
+          limits:
+            cpu: "1000m"
+          requests:
+            cpu: "1000m"
+        ports:
+        - name: http
+          containerPort: 3000
+        - name: metrics
+          containerPort: 9464

@@ -1,0 +1,65 @@
+# strip-untrusted-payload-header.yaml — ALWAYS-ON guard. Apply this once, and
+# leave it applied, whether or not the offload policy is in force.
+#
+# ---------------------------------------------------------------------------
+# WHAT THIS PREVENTS (measured, not hypothetical)
+# ---------------------------------------------------------------------------
+# service-a trusts x-psao-jwt-payload: when the header is present it reads the
+# claims and does NOT re-verify the signature. That is what makes PSAO a
+# relocation of verification rather than a duplication of it.
+#
+# Istio's RequestAuthentication overwrites that header on every request, so a
+# client cannot forge it -- but ONLY while a RequestAuthentication exists. The
+# controller applies one transiently, above the trigger, and removes it again on
+# revert. In every other state -- which is most of the time, and all of S1, S3,
+# S5, S8 and S9 -- nothing sanitises the header.
+#
+# Measured on this cluster with no offload policy applied, no Authorization
+# header, and a hand-written payload header:
+#
+#   curl -H "x-psao-jwt-payload: eyJzdWIiOiAiYXR0YWNrZXIifQ" https://localhost/products
+#   -> 200, with the protected payload
+#
+# That is a complete authentication bypass. This filter closes it by removing
+# any client-supplied copy of the header on entry to the pod, before any JWT
+# filter runs. When the offload policy IS applied, jwt_authn then writes its own
+# verified value into the now-clean header.
+#
+# INSERT_FIRST, and matched on the connection manager rather than on jwt_authn:
+# a patch that matches jwt_authn would not be inserted at all in the state that
+# actually needs it, because in that state there is no jwt_authn filter.
+#
+# This guard is load-bearing together with PeerAuthentication STRICT. STRICT is
+# what stops a client reaching port 3000 without traversing this filter chain.
+# Dropping mTLS to PERMISSIVE reopens the bypass even with this filter applied.
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: psao-strip-untrusted-payload-header
+  namespace: default
+spec:
+  workloadSelector:
+    labels:
+      app: service-a
+  configPatches:
+    - applyTo: HTTP_FILTER
+      match:
+        context: SIDECAR_INBOUND
+        listener:
+          filterChain:
+            filter:
+              name: envoy.filters.network.http_connection_manager
+      patch:
+        operation: INSERT_FIRST
+        value:
+          name: psao.strip_untrusted_payload_header
+          typed_config:
+            "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
+            inlineCode: |
+              -- Removes the header unconditionally. Istio's jwt_authn filter
+              -- runs later in the chain and re-adds it with the VERIFIED claims
+              -- when the offload policy is applied, so this does not interfere
+              -- with the offload -- it only removes what a client sent.
+              function envoy_on_request(handle)
+                handle:headers():remove("x-psao-jwt-payload")
+              end

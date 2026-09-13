@@ -1,0 +1,9 @@
+node_modules
+.venv
+data
+figures/output
+analysis/output
+paper
+docs
+bench
+.git

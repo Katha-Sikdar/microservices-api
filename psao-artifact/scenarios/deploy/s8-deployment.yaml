@@ -1,0 +1,56 @@
+# S8 — the S5 handler with an LRU cache of verified tokens.
+#
+# Carries the label app=service-a so the EXISTING Service and Ingress route to
+# it unchanged: S8 is measured through the same edge TLS, the same ingress and
+# the same mTLS leg as S5, which is what makes the two comparable. Exactly one
+# of the service-a Deployments may be scaled up at a time -- see
+# experiments/run_scenario_service.sh, which enforces that.
+#
+# replicas: 0 by default. A manifest that scales itself up on apply would put a
+# second pod behind the Service the moment it is applied, and the ramp would be
+# measuring a mixture of two implementations.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-a-s8-deployment
+  labels:
+    psao-scenario: s8
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: service-a
+      psao-scenario: s8
+  template:
+    metadata:
+      labels:
+        app: service-a
+        psao-scenario: s8
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9464"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: service-a
+        image: psao-scenarios:psao-2
+        imagePullPolicy: IfNotPresent
+        command: ["node", "scenarios/s8-token-cache.js"]
+        env:
+        # The JWT secret the testbed's tokens are signed with. Must match
+        # microservices-api/service-a/index.js or every request 403s.
+        - name: JWT_SECRET
+          value: "your-super-secret-key-that-is-long"
+        # 30 s is the documented default and it is a SECURITY parameter, not a
+        # tuning knob: it is the window during which a revoked token is still
+        # accepted. Recorded here so the run's revocation gap is visible in the
+        # manifest rather than only in the source.
+        - name: CACHE_TTL_MS
+          value: "30000"
+        - name: CACHE_MAX_ENTRIES
+          value: "10000"
+        ports:
+        - name: http
+          containerPort: 3000
+        - name: metrics
+          containerPort: 9464
