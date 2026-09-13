@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: >-
+  If you use this artifact, please cite it. The artifact contains the code that
+  produces the measurements; it deliberately ships no measurements of its own.
+title: "PSAO: reproducibility artifact for predictive security-aware offloading of JWT verification"
+abstract: >-
+  Instrumentation, load-generation harnesses, a running controller
+  implementation and an analysis pipeline for measuring event-loop saturation in
+  a Node.js microservice under layered Zero Trust enforcement (Edge TLS, Istio
+  mTLS, application-level JWT validation with HS256 and RS256) on Kubernetes,
+  and for evaluating PSAO, a policy that relocates token verification to the
+  Envoy sidecar before the saturation point is reached. The repository produces
+  measurements; the only numeric data it ships is clearly labelled synthetic
+  example data used to exercise the pipeline.
+type: software
+authors:
+  - family-names: Sikdar
+    given-names: Katha
+    email: ferdouskatha35@gmail.com
+license: MIT
+version: 1.0.0
+date-released: "2026-09-06"
+keywords:
+  - zero trust
+  - service mesh
+  - Istio
+  - Envoy
+  - JWT
+  - event loop
+  - queueing model
+  - reproducibility
+  - Kubernetes
+  - performance measurement

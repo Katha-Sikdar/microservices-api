@@ -1,0 +1,18 @@
+{
+  "name": "psao-bench",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Stage-decomposed microbenchmark of the JWT validation path (PSAO artifact).",
+  "main": "jwt-path-microbench.js",
+  "scripts": {
+    "bench": "node jwt-path-microbench.js",
+    "bench:quick": "node jwt-path-microbench.js --iterations 20000"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2"
+  }
+}

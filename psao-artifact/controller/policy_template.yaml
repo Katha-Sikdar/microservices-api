@@ -1,0 +1,91 @@
+# policy_template.yaml — the Istio policy PSAO applies when it decides to move
+# token verification off the application's event loop and into the sidecar.
+#
+# Placeholders are $${name} and are substituted from controller/config.yaml by
+# psao_controller.py (string.Template, so a literal dollar sign must be doubled:
+# $$$$ renders as one $$).
+#
+# ---------------------------------------------------------------------------
+# TWO OBJECTS, NOT ONE — THIS IS A SECURITY-CRITICAL DETAIL
+# ---------------------------------------------------------------------------
+# A RequestAuthentication on its own does NOT make the sidecar an enforcement
+# point. It says "if a JWT is present it must be valid"; a request carrying no
+# token at all passes straight through to the application. Relocating
+# verification with only a RequestAuthentication would therefore turn an
+# authenticated endpoint into an open one -- exactly the failure mode a Zero
+# Trust paper must not ship.
+#
+# The AuthorizationPolicy below is what closes that hole: requestPrincipals
+# ["*"] admits only requests that produced an authenticated principal, i.e.
+# requests that carried a JWT the sidecar successfully verified. Both objects
+# are applied together and reverted together, and psao_controller.py treats a
+# partial apply as a failure and rolls back.
+#
+# forwardOriginalToken: true keeps the Authorization header on the request that
+# reaches the application. PSAO relocates *verification*, not claim consumption:
+# the handler still needs the claims for authorisation decisions, and after
+# offload it reads them without a signature check (the sidecar has already
+# established authenticity, and the request can no longer reach the handler
+# without having been verified).
+# ---------------------------------------------------------------------------
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  name: ${policy_name}
+  namespace: ${namespace}
+  labels:
+    app.kubernetes.io/managed-by: psao-controller
+  annotations:
+    # Written by the controller so an operator inspecting the cluster can tell
+    # a PSAO-applied policy from a hand-applied one, and can see why it exists.
+    psao.io/applied-by: psao_controller.py
+    psao.io/reason: "${reason}"
+    psao.io/applied-at: "${applied_at}"
+spec:
+  selector:
+    matchLabels:
+      ${selector_key}: ${selector_value}
+  jwtRules:
+    - issuer: "${issuer}"
+      # Exactly one of jwksUri / jwks is rendered; the other line is dropped by
+      # the controller before the manifest is submitted. See config.yaml.
+      ${jwks_field}
+      audiences:
+        - "${audience}"
+      forwardOriginalToken: true
+      # The verified claims, base64url-encoded, handed to the application so it
+      # does not have to re-verify. This is what makes the offload a RELOCATION
+      # of verification rather than a DUPLICATION of it: without it the handler
+      # still runs jwt.verify() on every request, the cost stays on the event
+      # loop, and the entire premise of the experiment is unmeasurable.
+      #
+      # Envoy OVERWRITES this header per request, so a client cannot forge it
+      # while this policy is applied. The application's trust in it is sound
+      # only while that is true AND nothing can reach the application port
+      # without traversing this filter -- see the comment above productsWithJwt
+      # in microservices-api/service-a/index.js.
+      outputPayloadToHeader: ${payload_header}
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: ${policy_name}-require-jwt
+  namespace: ${namespace}
+  labels:
+    app.kubernetes.io/managed-by: psao-controller
+  annotations:
+    psao.io/applied-by: psao_controller.py
+    psao.io/reason: "${reason}"
+    psao.io/applied-at: "${applied_at}"
+spec:
+  selector:
+    matchLabels:
+      ${selector_key}: ${selector_value}
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            # Only requests with a verified JWT principal are admitted. Without
+            # this rule the RequestAuthentication above lets untokened requests
+            # through. See the header comment.
+            requestPrincipals: ["*"]

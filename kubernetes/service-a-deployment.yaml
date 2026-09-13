@@ -11,10 +11,30 @@ spec:
     metadata:
       labels:
         app: service-a
+      annotations:
+        # Picked up by the Istio addon Prometheus "kubernetes-pods" job, which
+        # keeps only targets carrying prometheus.io/scrape=true. Port 9464 is the
+        # dedicated metrics listener, deliberately not the application port 3000
+        # that the ramp saturates.
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9464"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
       - name: service-a
-        image: service-a:1.0
+        image: service-a:psao-3
         imagePullPolicy: IfNotPresent
+        env:
+        # Selects the request handler at STARTUP. S1-S3 are defined without
+        # application-layer JWT validation, S4-S9 with it; this keeps both on one
+        # image and one digest so the scenarios differ only in configuration.
+        #   jwt   -> S4..S9      none -> S1..S3
+        # Switch with:
+        #   kubectl -n default set env deploy/service-a-deployment PSAO_AUTH_MODE=none
+        - name: PSAO_AUTH_MODE
+          value: "jwt"
         ports:
-        - containerPort: 3000
+        - name: http
+          containerPort: 3000
+        - name: metrics
+          containerPort: 9464

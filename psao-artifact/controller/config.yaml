@@ -1,0 +1,249 @@
+# RATE WINDOWS ARE 1m, NOT 30s, AND THAT IS DELIBERATE.
+#
+# Both Prometheus jobs in this testbed (kubernetes-pods and
+# kubernetes-nodes-cadvisor) scrape every 15s. rate(...[30s]) therefore has
+# exactly TWO samples to work with, which is the bare minimum, and it returns
+# NO DATA the moment a single scrape is late or missed. Measured on this cluster:
+#
+#   sum(rate(container_cpu_usage_seconds_total{...}[30s])) * 1000  ->  NO DATA
+#   sum(rate(container_cpu_usage_seconds_total{...}[1m]))  * 1000  ->  98.6
+#
+# A cpu_millicores observation that is intermittently absent means
+# cpu_trigger_millicores (700) can never be relied on to fire, and the controller
+# would run the whole experiment on the rho signal alone while appearing to
+# consider CPU. The usual guidance is a window of at least 4x the scrape
+# interval, hence 1m.
+#
+# THE TRADE-OFF, STATED: a 1m window smooths harder than a 30s one, so the
+# controller sees a rising load later. With poll_interval_s: 2 and
+# consecutive_trigger_samples: 3 the decision logic still needs only ~6s of
+# agreement, but the signal it agrees about now lags by up to ~30s. Actuation
+# latency measured against this configuration includes that lag and should be
+# reported as such rather than as pure control-loop latency.
+#
+# A shorter window is only safe with a shorter scrape interval. Change both or
+# neither.
+#
+# A second hazard in the CPU query: pod=~"service-a-.*" also matches pods from
+# previous rollouts whose cadvisor series have not yet gone stale. With a 5m
+# window this cluster summed three pods, two of them dead, and reported 329
+# millicores. The 1m window is short enough that a pod deleted more than a minute
+# ago contributes no rate, which contains the problem -- but if you lengthen the
+# window, scope the query to the live pod explicitly.
+# config.yaml — PSAO controller configuration.
+#
+# Everything in this file is a POLICY input or a CLUSTER address. Nothing in it
+# is a measurement. The one field that must come from a measurement --
+# control.mu_eff.fixed_rps -- is deliberately left null: the controller refuses
+# to start in fixed mode until you fill it in from analysis/elbow_fit.py output
+# for your own deployment. A plausible-looking default there would end up cited
+# as a measured service rate, which is precisely the failure this artifact
+# exists to fix.
+
+prometheus:
+  url: http://localhost:9090
+  timeout_s: 5
+  # Instant queries, evaluated once per control interval. Each returns a single
+  # scalar; if a query returns nothing the controller records the observation as
+  # missing and holds, rather than substituting a value.
+  #
+  # The 30 s rate window is a deliberate compromise: short enough to see a ramp
+  # step, long enough that a 15 s Prometheus scrape interval yields at least two
+  # points (rate() needs two). If you scrape faster, shorten it -- the window is
+  # the controller's reaction-time floor and is reported in the run metadata.
+  # SELECTOR NOTE (corrected 2026-09-07 against the running cluster; the previous
+  # selectors were written blind and matched nothing).
+  #
+  # These queries originally selected {job="service-a"}. No such series exists.
+  # The Istio addon Prometheus scrapes application pods with its "kubernetes-pods"
+  # job, whose relabel_configs do NOT rewrite `job` to the application name; they
+  # apply `labelmap __meta_kubernetes_pod_label_(.+)`, so the pod label
+  # `app: service-a` becomes the metric label `app="service-a"` while `job` stays
+  # "kubernetes-pods". Verified against /api/v1/targets:
+  #     health=up job=kubernetes-pods app=service-a pod=service-a-deployment-...
+  # If you move to a Prometheus whose scrape config DOES set job per service,
+  # change these back -- the correct selector is a property of the scrape config,
+  # not of the application.
+  queries:
+    arrival_rate_rps: >-
+      sum(rate(psao_request_duration_seconds_count{app="service-a"}[1m]))
+    eventloop_lag_p99_ms: >-
+      max(psao_eventloop_lag_p99_ms{app="service-a"})
+    latency_mean_ms: >-
+      1000 * (
+        sum(rate(psao_request_duration_seconds_sum{app="service-a"}[1m]))
+        /
+        sum(rate(psao_request_duration_seconds_count{app="service-a"}[1m]))
+      )
+    # Event-loop utilisation, i.e. the fraction of wall time the loop was busy.
+    # This is the online mu_eff estimator's only input beyond lambda; see
+    # control.mu_eff below.
+    eventloop_utilization: >-
+      max(psao_eventloop_utilization{app="service-a"})
+    # Application-container CPU in millicores. Optional: if it is missing the
+    # CPU trigger term is skipped and the controller says so in the trace.
+    #
+    # The `container="service-a"` filter was also removed: cAdvisor as exposed by
+    # this kubelet emits container_cpu_usage_seconds_total with no `container`
+    # label at all (labels present: namespace, pod, id, cpu, instance, job, node
+    # and the node labels), so the filter matched nothing. What remains is the
+    # per-pod cgroup total. Today that equals the application container because
+    # the pod is 1/1 with no injected sidecar; if you enable sidecar injection on
+    # this workload the value becomes app+proxy combined and must be split before
+    # it can be reported as application CPU.
+    cpu_millicores: >-
+      sum(rate(container_cpu_usage_seconds_total{namespace="default",
+        pod=~"service-a-.*"}[1m])) * 1000
+
+control:
+  # 2 s: fast enough that the controller reacts well inside a 30 s ramp step,
+  # slow enough that it is not re-querying inside one Prometheus scrape
+  # interval and reading the same numbers twice.
+  poll_interval_s: 2
+
+  mu_eff:
+    # fixed  -- use fixed_rps below. Reproducible and auditable; the value must
+    #           come from your own elbow fit.
+    # online -- estimate continuously from event-loop occupancy (see below).
+    mode: online
+
+    # MUST be filled in from analysis output (elbow_fit.py reports fitted mu for
+    # M/M/1 and M/D/1). Left null on purpose. `mode: fixed` with this unset is a
+    # startup error, not a silent default.
+    fixed_rps: null
+
+    # Online estimator.
+    #
+    #   mu_eff = lambda / utilization
+    #
+    # Rationale: utilization is, by definition, the fraction of wall time the
+    # single server was busy, so busy-time per request is utilization/lambda and
+    # its reciprocal is the service rate the loop is actually achieving --
+    # including whatever the current security layering costs. This is measured
+    # occupancy, not a model inversion: no queueing assumption is needed to get
+    # mu_eff, which is what makes rho = lambda/mu_eff a measurement rather than
+    # a circular definition.
+    ewma_alpha: 0.3        # smoothing; 0.3 gives a ~10-sample memory at 2 s polls
+    min_lambda_rps: 20.0   # below this, lambda/utilization is dominated by noise
+    min_utilization: 0.02  # and so is a near-idle loop; skip the update instead
+
+  thresholds:
+    # rho at which to offload. 0.70 is a policy choice, not a measurement: under
+    # M/D/1 the waiting term rho/(2*mu*(1-rho)) is still modest at 0.70 and
+    # roughly doubles by 0.85, so 0.70 leaves room to actuate before the knee
+    # rather than after it. PSAO's claim is that it acts BEFORE saturation; if
+    # you raise this you weaken that claim, and the figure will show it.
+    rho_trigger: 0.70
+    # Revert well below the trigger, never at it. The gap is the hysteresis
+    # band: with a single threshold, load hovering at rho = 0.70 would offload
+    # and revert on alternate samples, and each transition is an Istio config
+    # push. See hysteresis below.
+    rho_revert: 0.55
+
+    # Set relative to your pod's CPU limit (the testbed's default limit is
+    # 1000m). Null disables the CPU term entirely.
+    cpu_trigger_millicores: 700.0
+    cpu_revert_millicores: 500.0
+
+    # The latency objective being defended. The trigger uses PREDICTED latency
+    # from the M/D/1 waiting-time formula at the current rho and mu_eff, so the
+    # controller can act on where the queue is heading rather than waiting for
+    # the SLA to be breached.
+    sla_latency_ms: 15.0
+    # Revert only when predicted latency is comfortably inside the SLA.
+    latency_revert_margin: 0.8
+
+  hysteresis:
+    # A transition needs the condition to hold on this many consecutive polls.
+    # One noisy scrape must not move production policy.
+    consecutive_trigger_samples: 3
+    # Reverting is the riskier direction (it puts load back on the event loop),
+    # so it demands more evidence than offloading did.
+    consecutive_revert_samples: 5
+    # Minimum time in a mode before the opposite transition may be considered,
+    # regardless of how convincing the evidence is. This bounds the transition
+    # rate: every transition is an Istio control-plane push and a brief window
+    # in which the enforcement point is moving, so an unbounded transition rate
+    # is both a performance problem and a security problem. 60 s at a 2 s poll
+    # interval caps PSAO at one transition per 30 polls.
+    min_dwell_s: 60.0
+
+kubernetes:
+  namespace: default
+  # Objects are named from this stem; both the RequestAuthentication and the
+  # AuthorizationPolicy derive from it. See controller/policy_template.yaml.
+  policy_name: psao-offload
+  # Workload the policy selects. Must match the deployment's pod labels.
+  selector_key: app
+  selector_value: service-a
+  # The kubeconfig context to use. Null = current context. Naming it explicitly
+  # is strongly recommended: a controller that writes policy to whatever
+  # context happens to be current is an accident waiting to happen.
+  context: null
+
+  jwt:
+    issuer: "https://psao.example/issuer"
+    audience: "psao-testbed"
+    # Exactly one of jwks_uri or jwks_inline must be set.
+    #
+    # RS256 is the deployable path: the sidecar fetches public keys and no
+    # secret leaves the issuer. This is also why S6 (RS256) exists as a
+    # scenario -- PSAO's offload is only honest if the algorithm it offloads is
+    # one a mesh can actually verify at scale.
+    #
+    # HS256 requires handing the shared secret to every sidecar as an inline
+    # oct JWKS. Envoy will verify it, but the secret is then distributed far
+    # more widely than the single application it was issued for, which is a real
+    # weakening of the trust boundary and must be stated in the paper if the
+    # HS256 offload numbers are used.
+    # WAS: jwks_uri: "https://psao.example/issuer/.well-known/jwks.json"
+    # That domain does not exist. Envoy could not fetch it, so once the policy
+    # applied EVERY token was rejected -- and because actuation.confirm=probe
+    # only checks that a MALFORMED token is rejected, that state confirmed as a
+    # successful offload. The run would have recorded an actuation latency while
+    # the endpoint was uniformly broken.
+    jwks_uri: null
+    # Inline oct JWKS carrying the HS256 secret. Verified working on this
+    # cluster: with it applied, a token bearing the matching iss/aud returns 200
+    # and a malformed one returns 401 with Envoy's "Jwt is not in the form..."
+    # body.
+    #
+    # SECURITY: this hands the shared secret to every sidecar matching the
+    # selector -- far wider distribution than the single application it was
+    # issued for. Acceptable in this testbed; NOT a deployment recommendation.
+    # See the note just above and the README security section before citing S7.
+    jwks_inline: '{"keys": [{"kty": "oct", "alg": "HS256", "kid": "psao-hs256", "k": "eW91ci1zdXBlci1zZWNyZXQta2V5LXRoYXQtaXMtbG9uZw"}]}'
+    # Istio writes the verified claims here; service-a reads them instead of
+    # re-verifying. Without this the offload DUPLICATES verification rather than
+    # relocating it, and no CPU leaves the event loop.
+    payload_header: "x-psao-jwt-payload"
+
+actuation:
+  # How "the policy is in effect" is decided. This choice defines what the
+  # actuation_latency_ms column in controller_trace.csv actually measures.
+  #
+  #   resource -- the API server has accepted and returned the object. Fast, but
+  #               it measures the control plane's write path only, NOT the point
+  #               at which Envoy started enforcing. It UNDERSTATES actuation
+  #               latency, often by seconds.
+  #   probe    -- an HTTP request carrying a deliberately invalid token is
+  #               rejected by the sidecar. This is the data-plane truth and is
+  #               the defensible number to publish.
+  #   none     -- record the API write only; actuation latency is left empty.
+  confirm: probe
+  # URL for the probe. Must route through the sidecar being reconfigured.
+  probe_url: "https://localhost/products"
+  probe_verify_tls: false        # the testbed uses a self-signed Edge TLS cert
+  probe_interval_s: 0.25
+  # The positive half of the confirmation. Without it, "offload in effect" is
+  # confirmed by a malformed token being rejected -- which a uniformly broken
+  # endpoint also satisfies. This token must carry the issuer and audience the
+  # policy above demands; mint it with:
+  #   node experiments/mint_tokens.js --issuer https://psao.example/issuer \
+  #        --audience psao-testbed --out-dir tokens/controller
+  probe_token_file: "tokens/controller/hs256.token"
+  timeout_s: 30.0
+
+output:
+  # Relative to the artifact root unless absolute. --out overrides.
+  trace: data/runs/controller/controller_trace.csv
