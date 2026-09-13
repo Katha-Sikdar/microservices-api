@@ -1,0 +1,52 @@
+# Repo-root ignores.
+#
+# NOTE ON PATHS: a gitignore pattern containing a slash anywhere other than the
+# end is ANCHORED to the directory holding the .gitignore. `data/runs/` in
+# psao-artifact/.gitignore therefore matches psao-artifact/data/runs/, but the
+# same line here would match only <root>/data/runs/ and would silently leave
+# 3.8 GB of run output stageable by `git add .`. The artifact paths below are
+# spelled out with their psao-artifact/ prefix for exactly that reason.
+#
+# psao-artifact/.gitignore is deliberately KEPT as well, so the artifact still
+# ignores the right things if it is ever extracted and used standalone.
+
+# --- OS / editors -----------------------------------------------------------
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# --- dependencies -----------------------------------------------------------
+# Lockfiles are NOT ignored: they pin the exact dependency tree a run used,
+# which is the point of a reproducibility artifact.
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# --- secrets ----------------------------------------------------------------
+# Bearer credentials handed to k6, even for a test issuer.
+*.token
+tokens/
+# Private keys and certificates. tls-cert/ held a REAL private key whose modulus
+# matches the committed certificate; see README before re-adding anything here.
+*.key
+*.pem
+!kubernetes/**/README*
+
+# --- generated artifact output ----------------------------------------------
+psao-artifact/paper/generated_macros.tex
+psao-artifact/analysis/output/
+psao-artifact/figures/output/
+
+# --- measurements -----------------------------------------------------------
+# Run output is large and machine-specific, so it is ignored by default. Commit
+# the specific run directory backing a submission explicitly:
+#   git add -f psao-artifact/data/runs/<timestamp>-.../
+# k6_raw.csv is the per-request sample dump and is 130-460 MB per run; it is
+# ignored even inside a force-added run directory. See psao-artifact/README.md.
+psao-artifact/data/runs/
+psao-artifact/data/example/
+k6_raw.csv

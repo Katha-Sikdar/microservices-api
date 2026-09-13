@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: >-
+  If you use this repository, please cite it. The current work is PSAO, in
+  psao-artifact/. Material under results/, load-tests/ and the root manifests
+  belongs to the earlier study and is retained for provenance.
+title: "PSAO: predictive security-aware offloading of JWT verification in a Zero Trust service mesh"
+abstract: >-
+  A Kubernetes testbed and reproducibility artifact for measuring event-loop
+  saturation in a Node.js microservice under layered Zero Trust enforcement
+  (Edge TLS, Istio mTLS, application-level JWT validation with HS256 and RS256),
+  modelling the service as a single-server queue, and evaluating PSAO -- a
+  controller that relocates token verification into the Envoy sidecar before the
+  saturation point is reached and reverts, with hysteresis, when load falls back.
+  Includes open-loop load generation, a four-stage decomposition of jwt.verify(),
+  and the analysis pipeline that produces the paper's figures and LaTeX macros.
+type: software
+authors:
+  - family-names: Sikdar
+    given-names: Katha
+    email: ferdouskatha35@gmail.com
+license: MIT
+version: 2.0.0
+date-released: "2026-09-13"
+repository-code: "https://github.com/Katha-Sikdar/microservices-api"
+keywords:
+  - zero trust
+  - service mesh
+  - Istio
+  - Envoy
+  - JWT
+  - event loop
+  - queueing model
+  - offloading
+  - reproducibility
+  - Kubernetes
+  - performance measurement

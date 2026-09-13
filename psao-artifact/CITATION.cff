@@ -18,8 +18,9 @@ authors:
     given-names: Katha
     email: ferdouskatha35@gmail.com
 license: MIT
-version: 1.0.0
-date-released: "2026-09-06"
+repository-code: "https://github.com/Katha-Sikdar/microservices-api"
+version: 2.0.0
+date-released: "2026-09-13"
 keywords:
   - zero trust
   - service mesh
