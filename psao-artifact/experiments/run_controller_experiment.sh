@@ -155,6 +155,27 @@ cleanup() {
   fi
   psao::stop_metrics_port_forward
   psao::stop_port_forward
+
+  # The runner does not trust the controller to have cleaned up. If the policy
+  # is still present after the controller exited, say so loudly and remove it --
+  # a run that ends with the cluster silently enforcing an offload poisons every
+  # later run, and on 2026-09-13 it went unnoticed for eleven minutes.
+  leftover="$(psao::try kubectl get requestauthentication,authorizationpolicy \
+    -n "$NAMESPACE" -l app.kubernetes.io/managed-by=psao-controller \
+    --request-timeout=15s -o name | tr '\n' ' ')"
+  if [ -n "$leftover" ]; then
+    psao::log "############################################################"
+    psao::log "# CONTROLLER LEFT ITS POLICY APPLIED: $leftover"
+    psao::log "# Removing it now. The tail of this run was measured with the"
+    psao::log "# offload in force -- check controller.log before trusting it."
+    psao::log "############################################################"
+    kubectl delete $leftover -n "$NAMESPACE" --request-timeout=60s || \
+      psao::log "ERROR: could not remove it; do so by hand before any further run"
+    psao::record_posture_event "offload_policy_force_removed" "run=$RUN_DIR objects=$leftover"
+  else
+    psao::log "confirmed: no offload policy left on the cluster"
+  fi
+
   psao::finish_metadata "$RUN_DIR" "$status"
   psao::log "controller trace: $TRACE"
 }

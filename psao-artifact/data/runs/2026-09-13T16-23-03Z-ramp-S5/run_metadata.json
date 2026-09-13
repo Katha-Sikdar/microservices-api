@@ -1,0 +1,227 @@
+{
+  "_note": "Provenance for one experiment run. Fields listed under 'unavailable' could not be determined on this host and are null; they are never guessed.",
+  "run_dir": "/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/microservices-api/psao-artifact/data/runs/2026-09-13T16-23-03Z-ramp-S5",
+  "started_at_utc": "2026-09-13T16:23:04.327834+00:00",
+  "namespace": "default",
+  "git_commit": "eff3ef449236d87e34812730f26c83414446a1d2",
+  "git_working_tree_dirty": true,
+  "kubernetes_version": {
+    "clientVersion": {
+      "major": "1",
+      "minor": "32",
+      "gitVersion": "v1.32.2",
+      "gitCommit": "67a30c0adcf52bd3f56ff0893ce19966be12991f",
+      "gitTreeState": "clean",
+      "buildDate": "2025-02-12T21:26:09Z",
+      "goVersion": "go1.23.6",
+      "compiler": "gc",
+      "platform": "darwin/arm64"
+    },
+    "kustomizeVersion": "v5.5.0",
+    "serverVersion": {
+      "major": "1",
+      "minor": "32",
+      "gitVersion": "v1.32.2",
+      "gitCommit": "67a30c0adcf52bd3f56ff0893ce19966be12991f",
+      "gitTreeState": "clean",
+      "buildDate": "2025-02-12T21:19:47Z",
+      "goVersion": "go1.23.6",
+      "compiler": "gc",
+      "platform": "linux/arm64"
+    }
+  },
+  "istio_version": null,
+  "node_instance_types": {
+    "docker-desktop": null
+  },
+  "image_digests": {
+    "service-a-deployment-69b95c556-2hknd": {
+      "istio-proxy": "docker-pullable://istio/proxyv2@sha256:f95a5e91204afbfad9d33d6f1bc0556a96bf997b18edede6c9e6b86eb07543a1",
+      "service-a": "docker-pullable://service-a@sha256:82d6db7befa7c08b43b889c41ce8c80ff3ca923be291637749d69ea8d974a7e4"
+    },
+    "service-a-deployment-6b79bf9989-tkfjz": {
+      "istio-proxy": "docker-pullable://istio/proxyv2@sha256:f95a5e91204afbfad9d33d6f1bc0556a96bf997b18edede6c9e6b86eb07543a1",
+      "service-a": "docker-pullable://service-a@sha256:e89c4fc487231331b8b9e6dff56167b1c0974ea232b1b0b507ff0fbdf01adb78"
+    },
+    "service-b-deployment-76bc95578b-h2fft": {
+      "istio-proxy": "docker-pullable://istio/proxyv2@sha256:f95a5e91204afbfad9d33d6f1bc0556a96bf997b18edede6c9e6b86eb07543a1",
+      "service-b": "docker-pullable://service-b@sha256:b2d2b2deadb18db93f3fa7da656e80a2c76361940c9ce1f993abd4d147e8387e"
+    }
+  },
+  "k6_version": "k6 v2.2.0 (commit/devel, go1.26.5, darwin/arm64)",
+  "node_version": "v26.6.0",
+  "host": {
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "python": "3.14.0"
+  },
+  "mesh_posture": {
+    "_note": "Observed at run start, not assumed from the scenario label. A 200 from the ingress does not prove mTLS is enforced -- it is also what an absent STRICT policy produces. 'peer_authentication' and 'destination_rules' are declared intent; the negative control (plaintext from an un-injected pod being refused) is run by psao::verify_mtls_posture and logged in 'change_events'.",
+    "peer_authentication": {
+      "default": "STRICT"
+    },
+    "destination_rules": {
+      "default-mtls": "ISTIO_MUTUAL"
+    },
+    "change_events": [
+      {
+        "timestamp_utc": "2026-09-13T11:08:03.489265+00:00",
+        "event": "verified",
+        "detail": "namespace=default (verify-only)"
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:09:09.683928+00:00",
+        "event": "verified",
+        "detail": "namespace=default (verify-only)"
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:09:41.740704+00:00",
+        "event": "verification_retracted",
+        "detail": "The verification logged at 2026-09-13T11:08:03Z is NOT sound and must not be relied on: its negative control probed .items[0] of the service-a pod list, which during that rollout was the OLD terminating pod. Connection refused there proves nothing about mTLS. Superseded by the 11:09:09Z verification, which pairs the out-of-mesh refusal with an in-mesh positive control on the same ClusterIP."
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:20:02.305661+00:00",
+        "event": "teardown_begin",
+        "detail": "namespace=default target=S1-plain-http"
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:20:18.578530+00:00",
+        "event": "teardown_complete",
+        "detail": "namespace=default posture=S1-plain-http backup=/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/data/runs/cluster-backup-2026-09-13T11-20-02Z http_status=200"
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:30:31.929924+00:00",
+        "event": "restore_begin",
+        "detail": "namespace=default target=full-zero-trust"
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:32:10.280142+00:00",
+        "event": "restore_begin",
+        "detail": "namespace=default target=full-zero-trust"
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:32:31.555611+00:00",
+        "event": "restore_begin",
+        "detail": "namespace=default target=full-zero-trust"
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:32:56.395737+00:00",
+        "event": "restore_complete",
+        "detail": "namespace=default posture=full-zero-trust backup=/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/data/runs/cluster-backup-2026-09-13T11-20-02Z verified=STRICT+ISTIO_MUTUAL+plaintext-refused"
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:35:52.035216+00:00",
+        "event": "teardown_begin",
+        "detail": "namespace=default target=S1-plain-http"
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:36:08.041317+00:00",
+        "event": "teardown_complete",
+        "detail": "namespace=default posture=S1-plain-http backup=/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/data/runs/cluster-backup-2026-09-13T11-35-52Z http_status=200"
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:46:22.758799+00:00",
+        "event": "restore_begin",
+        "detail": "namespace=default target=full-zero-trust"
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:46:46.569215+00:00",
+        "event": "restore_complete",
+        "detail": "namespace=default posture=full-zero-trust backup=/Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/psao-artifact/data/runs/cluster-backup-2026-09-13T11-35-52Z verified=STRICT+ISTIO_MUTUAL+plaintext-refused"
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:47:11.875680+00:00",
+        "event": "verified",
+        "detail": "namespace=default (verify-only)"
+      },
+      {
+        "timestamp_utc": "2026-09-13T11:59:03.560127+00:00",
+        "event": "verified",
+        "detail": "namespace=default (verify-only)"
+      },
+      {
+        "timestamp_utc": "2026-09-13T12:35:32.349627+00:00",
+        "event": "verified",
+        "detail": "namespace=default (verify-only)"
+      },
+      {
+        "timestamp_utc": "2026-09-13T12:37:17.690529+00:00",
+        "event": "verified",
+        "detail": "namespace=default (verify-only)"
+      },
+      {
+        "timestamp_utc": "2026-09-13T12:49:52.930318+00:00",
+        "event": "verified",
+        "detail": "namespace=default (verify-only)"
+      },
+      {
+        "timestamp_utc": "2026-09-13T13:01:05.742159+00:00",
+        "event": "verified",
+        "detail": "namespace=default (verify-only)"
+      },
+      {
+        "timestamp_utc": "2026-09-13T13:12:46.585511+00:00",
+        "event": "verified",
+        "detail": "namespace=default (verify-only)"
+      },
+      {
+        "timestamp_utc": "2026-09-13T16:22:53.947506+00:00",
+        "event": "verified",
+        "detail": "namespace=default (verify-only)"
+      },
+      {
+        "timestamp_utc": "2026-09-13T16:23:03.661078+00:00",
+        "event": "verified",
+        "detail": "namespace=default (verify-only)"
+      }
+    ]
+  },
+  "cluster_configuration_notes": [
+    {
+      "id": "ingress-nginx-namespace-injection",
+      "requirement": "The ingress-nginx namespace must carry istio-injection=enabled and the controller pod must be 2/2 (controller + istio-proxy).",
+      "why": "The paper's Section 3.1 specifies an injected NGINX pod, so edge traffic enters the mesh at the ingress. An un-injected controller was cluster drift, not the designed topology.",
+      "affects_measurement": "Yes. Un-injected, the ingress hop is outside the mesh and the mTLS leg being measured does not exist."
+    },
+    {
+      "id": "ingress-nginx-controller-api-hang",
+      "requirement": "The controller Deployment needs the pod annotation traffic.sidecar.istio.io/excludeOutboundIPRanges: \"10.96.0.1/32\".",
+      "why": "Under injection the controller crash-loops: its Kubernetes API client hangs behind the sidecar. holdApplicationUntilProxyStarts alone does not fix it. Excluding the API server VIP keeps control-plane traffic out of Envoy.",
+      "affects_measurement": "No. 10.96.0.1/32 is the Kubernetes API server VIP only. All measured data-plane traffic -- client to ingress, and ingress to service-a -- is still intercepted by Envoy and still carries mTLS. The exclusion removes the controller's own watch/list calls from the proxy, and those are not on any measured path."
+    },
+    {
+      "id": "ingress-service-upstream",
+      "requirement": "The Ingress needs the annotation nginx.ingress.kubernetes.io/service-upstream: \"true\".",
+      "why": "By default ingress-nginx load-balances to endpoint POD IPs (10.x.x.x:3000), bypassing the Service VIP. Istio has no listener for a bare pod IP on the application port, so the sidecar passthrough sends PLAINTEXT into service-a's STRICT mTLS inbound port, which resets the connection. NGINX reports 'upstream prematurely closed connection' and returns 502. Targeting the ClusterIP instead lets the sidecar match the service VIP, apply the DestinationRule, and originate mTLS.",
+      "affects_measurement": "No. It changes which address NGINX dials, not what is on the wire: the request still traverses Edge TLS, the ingress sidecar, mTLS, and the service-a sidecar."
+    },
+    {
+      "id": "offload-payload-header-guard",
+      "requirement": "controller/strip-untrusted-payload-header.yaml must be applied and stay applied: kubectl apply -f controller/strip-untrusted-payload-header.yaml",
+      "why": "service-a trusts x-psao-jwt-payload and skips signature verification when it is present -- that is what makes PSAO a relocation of verification rather than a duplication of it. Istio overwrites that header, but ONLY while a RequestAuthentication exists, and the controller applies one only transiently. In every other state, with no Authorization header at all, a hand-written payload header returned 200 and the protected body. This EnvoyFilter strips any client-supplied copy on entry to the pod.",
+      "affects_measurement": "It adds a Lua filter to the sidecar's inbound chain on every request, so it is not free and it is present in every run made after 2026-09-13T12:1x. Runs made before it was applied (S1, S3, S5 here) did not carry it. Verify with experiments/verify_offload_safety.sh."
+    },
+    {
+      "id": "token-pool-expiry",
+      "requirement": "Re-mint tokens/ before a measurement session: node experiments/mint_tokens.js --count 64 --ttl 24h",
+      "why": "An expired pool does not fail loudly. service-a answers 403 to every request, k6 records those 403s as fast responses, and the ramp yields a plausible latency curve for an error path.",
+      "affects_measurement": "Yes, catastrophically, and silently. The runners' pre-flight check (psao::verify_ingress) exists to make this abort instead."
+    }
+  ],
+  "run_parameters": {
+    "experiment": "openloop_ramp",
+    "scenario": "S5",
+    "environment": "local",
+    "max_rps": "1000",
+    "step_rps": "50",
+    "step_duration": "30s",
+    "base_url": "https://localhost",
+    "auth": "true",
+    "selector": "app=service-a"
+  },
+  "unavailable": [
+    "istio_version"
+  ],
+  "finished_at_utc": "2026-09-13T16:33:24.665077+00:00",
+  "exit_status": 0
+}

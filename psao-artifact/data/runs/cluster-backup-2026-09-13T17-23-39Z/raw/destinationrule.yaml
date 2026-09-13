@@ -1,0 +1,19 @@
+apiVersion: v1
+items:
+- apiVersion: networking.istio.io/v1
+  kind: DestinationRule
+  metadata:
+    creationTimestamp: "2026-09-13T17:10:09Z"
+    generation: 1
+    name: default-mtls
+    namespace: default
+    resourceVersion: "520316"
+    uid: 867ddb45-282e-410f-982c-38b7fe134502
+  spec:
+    host: '*.default.svc.cluster.local'
+    trafficPolicy:
+      tls:
+        mode: ISTIO_MUTUAL
+kind: List
+metadata:
+  resourceVersion: ""

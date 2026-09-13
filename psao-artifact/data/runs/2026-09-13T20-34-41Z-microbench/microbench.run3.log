@@ -1,0 +1,29 @@
+node v26.6.0 | iterations=200000 warmup=0.1 | timer overhead (p50) = 0.000 us/sample
+This overhead is NOT subtracted from the reported figures.
+
+HS256  full_verify          payload=0.5KB (encoded 0.50KB) n=180000 mean=25.908us p50=25.041us p99=36.625us
+HS256  decode_only          payload=0.5KB (encoded 0.50KB) n=180000 mean=0.893us p50=0.875us p99=1.166us
+HS256  primitive_preparsed  payload=0.5KB (encoded 0.50KB) n=180000 mean=1.381us p50=1.333us p99=1.667us
+HS256  primitive_raw        payload=0.5KB (encoded 0.50KB) n=180000 mean=1.319us p50=1.250us p99=1.625us
+HS256  full_verify          payload=2KB (encoded 2.00KB) n=180000 mean=28.489us p50=27.542us p99=37.875us
+HS256  decode_only          payload=2KB (encoded 2.00KB) n=180000 mean=1.370us p50=1.292us p99=1.708us
+HS256  primitive_preparsed  payload=2KB (encoded 2.00KB) n=180000 mean=1.985us p50=1.916us p99=2.458us
+HS256  primitive_raw        payload=2KB (encoded 2.00KB) n=180000 mean=1.811us p50=1.750us p99=2.167us
+HS256  full_verify          payload=4KB (encoded 4.00KB) n=180000 mean=32.263us p50=30.791us p99=70.792us
+HS256  decode_only          payload=4KB (encoded 4.00KB) n=180000 mean=2.030us p50=1.917us p99=2.542us
+HS256  primitive_preparsed  payload=4KB (encoded 4.00KB) n=180000 mean=2.686us p50=2.625us p99=3.292us
+HS256  primitive_raw        payload=4KB (encoded 4.00KB) n=180000 mean=2.504us p50=2.417us p99=3.083us
+RS256  full_verify          payload=0.5KB (encoded 0.50KB) n=180000 mean=28.677us p50=27.458us p99=35.875us
+RS256  decode_only          payload=0.5KB (encoded 0.50KB) n=180000 mean=0.873us p50=0.875us p99=1.125us
+RS256  primitive_preparsed  payload=0.5KB (encoded 0.50KB) n=180000 mean=11.760us p50=10.791us p99=18.292us
+RS256  primitive_raw        payload=0.5KB (encoded 0.50KB) n=180000 mean=11.101us p50=10.792us p99=13.667us
+RS256  full_verify          payload=2KB (encoded 2.00KB) n=180000 mean=31.416us p50=30.000us p99=39.625us
+RS256  decode_only          payload=2KB (encoded 2.00KB) n=180000 mean=1.333us p50=1.292us p99=1.666us
+RS256  primitive_preparsed  payload=2KB (encoded 2.00KB) n=180000 mean=11.519us p50=11.250us p99=14.208us
+RS256  primitive_raw        payload=2KB (encoded 2.00KB) n=180000 mean=11.708us p50=11.292us p99=16.833us
+RS256  full_verify          payload=4KB (encoded 4.00KB) n=180000 mean=34.199us p50=32.875us p99=41.666us
+RS256  decode_only          payload=4KB (encoded 4.00KB) n=180000 mean=2.084us p50=1.917us p99=4.292us
+RS256  primitive_preparsed  payload=4KB (encoded 4.00KB) n=180000 mean=12.106us p50=11.917us p99=14.916us
+RS256  primitive_raw        payload=4KB (encoded 4.00KB) n=180000 mean=12.523us p50=11.958us p99=15.250us
+
+wrote 24 rows to /Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/microservices-api/psao-artifact/data/runs/2026-09-13T20-34-41Z-microbench/microbench.run3.csv

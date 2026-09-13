@@ -13,8 +13,9 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2",
+    "express": "5.1.0",
+    "jsonwebtoken": "^9.0.3",
     "prom-client": "^15.1.3"
-  }
+  },
+  "_note_express_pin": "express is PINNED to an exact 5.1.0, not a ^5.1.0 range. Measured on this testbed: express 5.2.1 collapses S5 at 600 rps where 5.1.0 holds target to 950 (123485 dropped iterations vs 10604), a ~35% loss of peak capacity. jsonwebtoken 9.0.3 / jws 4.0.1, which carries the HMAC signature-verification fix, costs nothing -- the two were isolated in separate runs. See data/runs/INDEX.md. Re-measure before widening this range."
 }

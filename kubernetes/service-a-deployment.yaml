@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: service-a
-        image: service-a:psao-3
+        image: service-a:psao-5
         imagePullPolicy: IfNotPresent
         env:
         # Selects the request handler at STARTUP. S1-S3 are defined without

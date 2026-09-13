@@ -134,6 +134,25 @@ scraping it would make the scrape compete with the load under test.
 
 ### `bench/jwt-path-microbench.js`
 
+**Precision: state the crypto share as "roughly 5-6% of `jwt.verify()`", not
+"5.1%".** The single-run figure was 5.1%, but its numerator is
+`primitive_preparsed`, a sub-2 us quantity where the timer floor dominates.
+Three repeat passes on a quiet host measured 1.484 / 1.440 / 1.381 us at 0.5 kB
+— a 7.2% spread — so the third significant figure is not real and should not be
+quoted. Two stages are worse and should carry the same caveat:
+`HS256 decode_only` at 0.5 kB (0.895 / 1.011 / 0.893, 12.6% spread) and
+`HS256 primitive_preparsed` at 2 kB (1.904 / 2.134 / 1.985, 11.4%).
+
+The conclusion is unaffected. Single digits against a ~91% library-overhead
+residual is the finding; 5.1% versus 5.6% is not. Run
+`make microbench REPEAT=3` and read `microbench.spread.txt` before quoting any
+stage under about 3 us.
+
+By contrast every `full_verify` figure — the denominator, and the number the
+decomposition is a share *of* — reproduced within 2.7% across three passes, and
+within 1.1% for the 0.5 kB cases the paper uses.
+
+
 Decomposes `jwt.verify()` into `full_verify`, `decode_only`,
 `primitive_preparsed` and `primitive_raw` (see `docs/DATA_SCHEMA.md`), for HS256
 and RS256 at 0.5/2/4 kB payloads. The question it settles: **how much of

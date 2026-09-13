@@ -1,0 +1,14 @@
+00:06:36 INFO    actuation probe token loaded from /Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/microservices-api/psao-artifact/tokens/controller/hs256.token
+00:06:36 INFO    loaded kubeconfig (context=current)
+00:06:36 INFO    writing controller trace to /Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/microservices-api/psao-artifact/data/runs/2026-09-13T18-06-33Z-controller/controller_trace.csv
+00:06:36 INFO    preflight: all 5 configured queries return data
+00:18:12 WARNING signal SIGTERM received: finishing this interval, then reverting to the application-layer configuration
+00:18:12 INFO    ---- run summary ----
+00:18:12 INFO    polls               : 347
+00:18:12 INFO    polls with a missing metric : 7
+00:18:12 INFO        cpu_millicores           missing on 7 of 347 polls
+00:18:12 INFO    transitions         : 0
+00:18:12 INFO    suppressed flaps    : 0
+00:18:12 INFO    actuation latency ms: none recorded (no transition completed)
+00:18:12 INFO    mu_eff updates      : 332 applied, 15 skipped by the input guards
+00:18:12 INFO    trace rows          : 347 -> /Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/microservices-api/psao-artifact/data/runs/2026-09-13T18-06-33Z-controller/controller_trace.csv

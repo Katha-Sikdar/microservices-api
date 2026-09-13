@@ -725,6 +725,14 @@ class KubernetesActuator(Actuator):
         self.probe_url = actuation.get("probe_url")
         self.probe_verify_tls = bool(actuation.get("probe_verify_tls", False))
         self.probe_interval_s = float(actuation.get("probe_interval_s", 0.25))
+        # The probe travels the SAME path the ramp is saturating. At 2 s it
+        # times out precisely when actuation matters most -- that is how the
+        # 2026-09-13 run failed confirmation twice before succeeding. The
+        # confirmation is a control-plane question being asked over a congested
+        # data plane, so it needs to outlast the queue it is standing in.
+        self.probe_timeout_s = float(actuation.get("probe_timeout_s", 10.0))
+        # How long the revert keeps retrying a failed delete. See revert().
+        self.revert_retry_budget_s = float(actuation.get("revert_retry_budget_s", 180.0))
         # A real, currently-valid token, used for the positive half of the
         # confirmation. Read from a file so it stays out of the process table.
         self._probe_token = ""
@@ -834,7 +842,7 @@ class KubernetesActuator(Actuator):
             response = self._probe_session.get(
                 self.probe_url,
                 headers={"Authorization": "Bearer not-a-valid-token"},
-                timeout=2.0,
+                timeout=self.probe_timeout_s,
                 verify=self.probe_verify_tls,
             )
         except Exception as exc:  # noqa: BLE001
@@ -863,7 +871,7 @@ class KubernetesActuator(Actuator):
             response = self._probe_session.get(
                 self.probe_url,
                 headers={"Authorization": f"Bearer {self._probe_token}"},
-                timeout=2.0,
+                timeout=self.probe_timeout_s,
                 verify=self.probe_verify_tls,
             )
         except Exception as exc:  # noqa: BLE001
@@ -957,14 +965,44 @@ class KubernetesActuator(Actuator):
     def revert(self, reason: str) -> ActuationResult:
         started = time.perf_counter()
         manifests = self._manifests(reason)
+
+        # RETRY WITH BACKOFF. A revert that gives up leaves the cluster enforcing
+        # a policy no artifact file describes -- which is exactly what happened
+        # on 2026-09-13: the load test starved this single-node cluster until the
+        # API server itself stopped answering, the single-shot delete failed with
+        # SSLEOFError, and the offload policy was found still applied eleven
+        # minutes later.
+        #
+        # The API server being unreachable is the NORMAL condition at the end of
+        # a saturating run, not an exceptional one, so the revert has to outlast
+        # it. Total budget is deliberately longer than the load generator's
+        # graceful stop.
         failures = []
         for manifest in reversed(manifests):
-            try:
-                self._delete(manifest)
-            except Exception as exc:  # noqa: BLE001
-                failures.append(f"{manifest['metadata']['name']}:{exc}")
+            name = manifest["metadata"]["name"]
+            delay, waited, last_exc = 1.0, 0.0, None
+            while waited <= self.revert_retry_budget_s:
+                try:
+                    self._delete(manifest)
+                    last_exc = None
+                    break
+                except Exception as exc:  # noqa: BLE001
+                    last_exc = exc
+                    LOG.warning("revert of %s failed (%s); retrying in %.0fs "
+                                "[%.0fs/%.0fs of budget used]",
+                                name, exc, delay, waited, self.revert_retry_budget_s)
+                    time.sleep(delay)
+                    waited += delay
+                    delay = min(delay * 2, 15.0)
+            if last_exc is not None:
+                failures.append(f"{name}:{last_exc}")
         if failures:
-            LOG.error("revert incomplete: %s", "; ".join(failures))
+            LOG.error("REVERT INCOMPLETE AFTER %.0fs OF RETRIES: %s",
+                      self.revert_retry_budget_s, "; ".join(failures))
+            LOG.error("THE CLUSTER IS STILL ENFORCING THE OFFLOAD POLICY. "
+                      "Remove it by hand: kubectl -n %s delete requestauthentication,"
+                      "authorizationpolicy -l app.kubernetes.io/managed-by=psao-controller",
+                      self.namespace)
             return ActuationResult(False, None, "revert-failed:" + ";".join(failures))
 
         self._applied = False

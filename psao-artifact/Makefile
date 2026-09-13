@@ -129,8 +129,16 @@ posture-verify:
 offload-safety:
 	experiments/verify_offload_safety.sh
 
+# Goes through the runner, not straight to node, so the result carries the same
+# provenance every other run does: a timestamped directory, run_metadata.json
+# with host load and Node version, and the console log (which is the only place
+# the measured timer overhead is reported).
+#   make microbench REPEAT=3   -> three passes + a per-stage spread report,
+#                                 for the stages sitting near timer resolution
+REPEAT ?= 1
+
 microbench:
-	node bench/jwt-path-microbench.js --iterations $(ITERATIONS)
+	experiments/run_microbench.sh --iterations $(ITERATIONS) --repeat $(REPEAT)
 
 ramp:
 	experiments/run_openloop_ramp.sh --scenario $(SCENARIO) \
