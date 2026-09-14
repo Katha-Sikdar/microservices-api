@@ -399,6 +399,20 @@ no rate — but if you lengthen it, scope the query to the live pod explicitly.
 
 ### Failure modes that produce a complete-looking run
 
+**Shell instrumentation under `set -euo pipefail` fails silently when piped.** A
+non-zero status anywhere in a pipeline — including `ps` taking SIGPIPE because
+`head` closed the pipe — aborts the enclosing function, and with `set -e` often
+the whole script, with no error on any path a reader looks at. The run completes
+and the data is simply missing. **This has now bitten three times here:** the CPU
+sampler (one failed `/metrics` scrape killed it on its first iteration, leaving
+20 latency steps and zero CPU samples), the event-loop lag reader (same shape),
+and `write_metadata` via `ps | head` (produced no `run_metadata.json` at all).
+All three are guarded now, with `{ ...; } || true` around the pipeline and a
+post-run check that the expected data is actually present. If you are building a
+similar harness: assume every optional probe will fail at the worst moment, and
+never let an enrichment step sit in the same failure domain as the measurement.
+
+
 Three of these have already happened here. All three produced a run directory
 that looked finished. They are listed because the shape is the point: the
 dangerous failures in this artifact are not crashes, they are runs that complete
