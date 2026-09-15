@@ -1,0 +1,2 @@
+scenario,environment,target_rps,achieved_rps,latency_mean_ms,latency_p99_ms
+rs256,local,400,400.006,1.5167,4.2610

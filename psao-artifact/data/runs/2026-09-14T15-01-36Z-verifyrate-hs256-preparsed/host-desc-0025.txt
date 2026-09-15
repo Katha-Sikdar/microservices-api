@@ -1,0 +1,2 @@
+21:35  up 1 day,  5:45, 1 user, load averages: 1.95 2.75 3.24
+21:38  up 1 day,  5:48, 1 user, load averages: 2.36 2.57 3.06

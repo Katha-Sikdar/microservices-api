@@ -40,6 +40,9 @@ const TTL = arg('ttl', '24h');
 const ALG = arg('alg', 'HS256');
 const SECRET = arg('secret', process.env.PSAO_JWT_SECRET
   || 'your-super-secret-key-that-is-long');
+// RS256 signs with the PRIVATE key. The service verifies with the public half
+// and never sees this file -- see the algorithm block in service-a/index.js.
+const PRIVATE_KEY_FILE = arg('private-key', process.env.PSAO_JWT_PRIVATE_KEY_FILE || '');
 const OUT_DIR = path.resolve(arg('out-dir', path.join(__dirname, '..', 'tokens')));
 
 if (!Number.isInteger(COUNT) || COUNT < 1) {
@@ -48,6 +51,15 @@ if (!Number.isInteger(COUNT) || COUNT < 1) {
 }
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
+
+let signingKey = SECRET;
+if (ALG === 'RS256') {
+  if (!PRIVATE_KEY_FILE) {
+    console.error('--alg RS256 requires --private-key <path to PEM private key>');
+    process.exit(1);
+  }
+  signingKey = fs.readFileSync(PRIVATE_KEY_FILE, 'utf8');
+}
 
 // One distinct sub per token. The pool size is what sets the S8 cache hit rate,
 // so it is a parameter of the experiment and is echoed below for the metadata.
@@ -61,7 +73,7 @@ for (let i = 0; i < COUNT; i += 1) {
   if (ISSUER) opts.issuer = ISSUER;
   if (AUDIENCE) opts.audience = AUDIENCE;
   if (KEYID) opts.keyid = KEYID;
-  tokens.push(jwt.sign({ sub: `user${i}`, name: `Load User ${i}` }, SECRET, opts));
+  tokens.push(jwt.sign({ sub: `user${i}`, name: `Load User ${i}` }, signingKey, opts));
 }
 
 const poolPath = path.join(OUT_DIR, 'pool.txt');

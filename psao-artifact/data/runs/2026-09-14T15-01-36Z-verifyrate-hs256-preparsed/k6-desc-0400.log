@@ -1,0 +1,4 @@
+
+open-loop ramp: 1 steps, 400..400 rps in 400 rps steps of 3m
+dropped_iterations = 14  <-- offered load fell short of target on at least one step
+wrote /Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/microservices-api/psao-artifact/data/runs/2026-09-14T15-01-36Z-verifyrate-hs256-preparsed/k6-desc-0400/k6_steps.csv

@@ -1,3 +1,47 @@
+> ## RETRACTION — 2026-09-14, later the same day
+>
+> **Sections 3 and 4 below attribute the in-situ cost to "jsonwebtoken library
+> overhead amplified by the virtualised environment". That attribution is WRONG.**
+> It is not retracted because the measurements were bad — they reproduce — but
+> because the cause I inferred from them was not the cause.
+>
+> The real driver is that `jsonwebtoken` converts the key from a **string** into a
+> key object on **every single call**. The service passed `JWT_SECRET`, a string,
+> exactly as the submitted paper's code did. Measured in the same container,
+> identical cryptography, identical token, the only change being how the key is
+> handed to `jwt.verify()`:
+>
+> | key form | mean |
+> |---|---|
+> | string secret (what the service and the paper did) | **422.48 us** |
+> | pre-parsed `KeyObject` | **8.31 us** |
+> | **ratio** | **50.8x** |
+>
+> So the "8.9x virtualisation penalty on the library" in section 4 is really a
+> per-call key-conversion cost that happens to be far more expensive under the
+> Docker Desktop Linux VM than on the host. Same measurements, different and
+> correct explanation.
+>
+> **What I got right:** the in-situ cost is real (section 1), it is real CPU and
+> not scheduling (section 2), the environment matters and the host benchmark is
+> not comparable to the container (section 3's core observation), and GC is not
+> the cause. The rate dependence is also real and survives the correction.
+>
+> **What I got wrong:** calling the residual "library dispatch, key handling and
+> allocation" as though it were irreducible. It is one specific, avoidable
+> operation. A one-line change — pre-parse the key at startup — removes about 98%
+> of it.
+>
+> **How I found the error:** adding RS256 in situ, where I pre-parsed the public
+> key because handing `jwt.verify()` a PEM string would have put PEM parsing
+> inside the measured RS256 cost. RS256 then measured *cheaper* than HS256, which
+> is backwards. Chasing that asymmetry surfaced the key-form effect. The RS256
+> figures in the sweep of 2026-09-14T06-41-56Z are therefore NOT comparable to
+> the HS256 figures of 2026-09-14T05-57-22Z: I changed two variables at once.
+>
+> Corrected analysis, with both algorithms on pre-parsed keys, is in
+> `../KEYFORM-2026-09-14/FINDINGS.md`.
+
 # Resolving the 26x gap: in-situ verification cost
 
 **Question.** The microbenchmark says `jwt.verify()` costs ~26 us (HS256). The
