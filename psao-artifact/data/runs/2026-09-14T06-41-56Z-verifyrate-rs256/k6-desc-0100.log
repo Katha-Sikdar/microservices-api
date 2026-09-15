@@ -1,0 +1,4 @@
+
+open-loop ramp: 1 steps, 100..100 rps in 100 rps steps of 3m
+dropped_iterations = 0
+wrote /Users/katha/Desktop/EliteLabIndividual_Research/testbedForFinApiZTA/microservices-api/psao-artifact/data/runs/2026-09-14T06-41-56Z-verifyrate-rs256/k6-desc-0100/k6_steps.csv

@@ -1,0 +1,292 @@
+# HELP psao_process_cpu_user_seconds_total Total user CPU time spent in seconds.
+# TYPE psao_process_cpu_user_seconds_total counter
+psao_process_cpu_user_seconds_total 29.186086999999993
+
+# HELP psao_process_cpu_system_seconds_total Total system CPU time spent in seconds.
+# TYPE psao_process_cpu_system_seconds_total counter
+psao_process_cpu_system_seconds_total 3.0695989999999993
+
+# HELP psao_process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE psao_process_cpu_seconds_total counter
+psao_process_cpu_seconds_total 32.255686000000004
+
+# HELP psao_process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE psao_process_start_time_seconds gauge
+psao_process_start_time_seconds 1789368097
+
+# HELP psao_process_resident_memory_bytes Resident memory size in bytes.
+# TYPE psao_process_resident_memory_bytes gauge
+psao_process_resident_memory_bytes 104992768
+
+# HELP psao_process_virtual_memory_bytes Virtual memory size in bytes.
+# TYPE psao_process_virtual_memory_bytes gauge
+psao_process_virtual_memory_bytes 321241088
+
+# HELP psao_process_heap_bytes Process heap size in bytes.
+# TYPE psao_process_heap_bytes gauge
+psao_process_heap_bytes 101781504
+
+# HELP psao_process_open_fds Number of open file descriptors.
+# TYPE psao_process_open_fds gauge
+psao_process_open_fds 22
+
+# HELP psao_process_max_fds Maximum number of open file descriptors.
+# TYPE psao_process_max_fds gauge
+psao_process_max_fds 1048576
+
+# HELP psao_nodejs_eventloop_lag_seconds Lag of event loop in seconds.
+# TYPE psao_nodejs_eventloop_lag_seconds gauge
+psao_nodejs_eventloop_lag_seconds 0.001307792
+
+# HELP psao_nodejs_eventloop_lag_min_seconds The minimum recorded event loop delay.
+# TYPE psao_nodejs_eventloop_lag_min_seconds gauge
+psao_nodejs_eventloop_lag_min_seconds 0.008462336
+
+# HELP psao_nodejs_eventloop_lag_max_seconds The maximum recorded event loop delay.
+# TYPE psao_nodejs_eventloop_lag_max_seconds gauge
+psao_nodejs_eventloop_lag_max_seconds 0.014712831
+
+# HELP psao_nodejs_eventloop_lag_mean_seconds The mean of the recorded event loop delays.
+# TYPE psao_nodejs_eventloop_lag_mean_seconds gauge
+psao_nodejs_eventloop_lag_mean_seconds 0.010404695303252885
+
+# HELP psao_nodejs_eventloop_lag_stddev_seconds The standard deviation of the recorded event loop delays.
+# TYPE psao_nodejs_eventloop_lag_stddev_seconds gauge
+psao_nodejs_eventloop_lag_stddev_seconds 0.0006530248084438672
+
+# HELP psao_nodejs_eventloop_lag_p50_seconds The 50th percentile of the recorded event loop delays.
+# TYPE psao_nodejs_eventloop_lag_p50_seconds gauge
+psao_nodejs_eventloop_lag_p50_seconds 0.010289151
+
+# HELP psao_nodejs_eventloop_lag_p90_seconds The 90th percentile of the recorded event loop delays.
+# TYPE psao_nodejs_eventloop_lag_p90_seconds gauge
+psao_nodejs_eventloop_lag_p90_seconds 0.011263999
+
+# HELP psao_nodejs_eventloop_lag_p99_seconds The 99th percentile of the recorded event loop delays.
+# TYPE psao_nodejs_eventloop_lag_p99_seconds gauge
+psao_nodejs_eventloop_lag_p99_seconds 0.012025855
+
+# HELP psao_nodejs_active_resources Number of active resources that are currently keeping the event loop alive, grouped by async resource type.
+# TYPE psao_nodejs_active_resources gauge
+psao_nodejs_active_resources{type="PipeWrap"} 2
+psao_nodejs_active_resources{type="TCPServerWrap"} 2
+psao_nodejs_active_resources{type="TCPSocketWrap"} 2
+psao_nodejs_active_resources{type="Immediate"} 1
+
+# HELP psao_nodejs_active_resources_total Total number of active resources.
+# TYPE psao_nodejs_active_resources_total gauge
+psao_nodejs_active_resources_total 7
+
+# HELP psao_nodejs_active_handles Number of active libuv handles grouped by handle type. Every handle type is C++ class name.
+# TYPE psao_nodejs_active_handles gauge
+psao_nodejs_active_handles{type="Socket"} 4
+psao_nodejs_active_handles{type="Server"} 2
+
+# HELP psao_nodejs_active_handles_total Total number of active handles.
+# TYPE psao_nodejs_active_handles_total gauge
+psao_nodejs_active_handles_total 6
+
+# HELP psao_nodejs_active_requests Number of active libuv requests grouped by request type. Every request type is C++ class name.
+# TYPE psao_nodejs_active_requests gauge
+
+# HELP psao_nodejs_active_requests_total Total number of active requests.
+# TYPE psao_nodejs_active_requests_total gauge
+psao_nodejs_active_requests_total 0
+
+# HELP psao_nodejs_heap_size_total_bytes Process heap size from Node.js in bytes.
+# TYPE psao_nodejs_heap_size_total_bytes gauge
+psao_nodejs_heap_size_total_bytes 53788672
+
+# HELP psao_nodejs_heap_size_used_bytes Process heap size used from Node.js in bytes.
+# TYPE psao_nodejs_heap_size_used_bytes gauge
+psao_nodejs_heap_size_used_bytes 19088776
+
+# HELP psao_nodejs_external_memory_bytes Node.js external memory size in bytes.
+# TYPE psao_nodejs_external_memory_bytes gauge
+psao_nodejs_external_memory_bytes 1281337
+
+# HELP psao_nodejs_heap_space_size_total_bytes Process heap space size total from Node.js in bytes.
+# TYPE psao_nodejs_heap_space_size_total_bytes gauge
+psao_nodejs_heap_space_size_total_bytes{space="read_only"} 0
+psao_nodejs_heap_space_size_total_bytes{space="old"} 16404480
+psao_nodejs_heap_space_size_total_bytes{space="code"} 1978368
+psao_nodejs_heap_space_size_total_bytes{space="map"} 1581056
+psao_nodejs_heap_space_size_total_bytes{space="large_object"} 270336
+psao_nodejs_heap_space_size_total_bytes{space="code_large_object"} 0
+psao_nodejs_heap_space_size_total_bytes{space="new_large_object"} 0
+psao_nodejs_heap_space_size_total_bytes{space="new"} 33554432
+
+# HELP psao_nodejs_heap_space_size_used_bytes Process heap space size used from Node.js in bytes.
+# TYPE psao_nodejs_heap_space_size_used_bytes gauge
+psao_nodejs_heap_space_size_used_bytes{space="read_only"} 0
+psao_nodejs_heap_space_size_used_bytes{space="old"} 11600992
+psao_nodejs_heap_space_size_used_bytes{space="code"} 1561760
+psao_nodejs_heap_space_size_used_bytes{space="map"} 945792
+psao_nodejs_heap_space_size_used_bytes{space="large_object"} 262160
+psao_nodejs_heap_space_size_used_bytes{space="code_large_object"} 0
+psao_nodejs_heap_space_size_used_bytes{space="new_large_object"} 0
+psao_nodejs_heap_space_size_used_bytes{space="new"} 4722968
+
+# HELP psao_nodejs_heap_space_size_available_bytes Process heap space size available from Node.js in bytes.
+# TYPE psao_nodejs_heap_space_size_available_bytes gauge
+psao_nodejs_heap_space_size_available_bytes{space="read_only"} 0
+psao_nodejs_heap_space_size_available_bytes{space="old"} 4515680
+psao_nodejs_heap_space_size_available_bytes{space="code"} 285536
+psao_nodejs_heap_space_size_available_bytes{space="map"} 604464
+psao_nodejs_heap_space_size_available_bytes{space="large_object"} 0
+psao_nodejs_heap_space_size_available_bytes{space="code_large_object"} 0
+psao_nodejs_heap_space_size_available_bytes{space="new_large_object"} 16495616
+psao_nodejs_heap_space_size_available_bytes{space="new"} 11772648
+
+# HELP psao_nodejs_version_info Node.js version info.
+# TYPE psao_nodejs_version_info gauge
+psao_nodejs_version_info{version="v18.20.8",major="18",minor="20",patch="8"} 1
+
+# HELP psao_nodejs_gc_duration_seconds Garbage collection duration by kind, one of major, minor, incremental or weakcb.
+# TYPE psao_nodejs_gc_duration_seconds histogram
+psao_nodejs_gc_duration_seconds_bucket{le="0.001",kind="incremental"} 60
+psao_nodejs_gc_duration_seconds_bucket{le="0.01",kind="incremental"} 60
+psao_nodejs_gc_duration_seconds_bucket{le="0.1",kind="incremental"} 60
+psao_nodejs_gc_duration_seconds_bucket{le="1",kind="incremental"} 60
+psao_nodejs_gc_duration_seconds_bucket{le="2",kind="incremental"} 60
+psao_nodejs_gc_duration_seconds_bucket{le="5",kind="incremental"} 60
+psao_nodejs_gc_duration_seconds_bucket{le="+Inf",kind="incremental"} 60
+psao_nodejs_gc_duration_seconds_sum{kind="incremental"} 0.013095748975872993
+psao_nodejs_gc_duration_seconds_count{kind="incremental"} 60
+psao_nodejs_gc_duration_seconds_bucket{le="0.001",kind="major"} 0
+psao_nodejs_gc_duration_seconds_bucket{le="0.01",kind="major"} 30
+psao_nodejs_gc_duration_seconds_bucket{le="0.1",kind="major"} 30
+psao_nodejs_gc_duration_seconds_bucket{le="1",kind="major"} 30
+psao_nodejs_gc_duration_seconds_bucket{le="2",kind="major"} 30
+psao_nodejs_gc_duration_seconds_bucket{le="5",kind="major"} 30
+psao_nodejs_gc_duration_seconds_bucket{le="+Inf",kind="major"} 30
+psao_nodejs_gc_duration_seconds_sum{kind="major"} 0.06888358203321697
+psao_nodejs_gc_duration_seconds_count{kind="major"} 30
+psao_nodejs_gc_duration_seconds_bucket{le="0.001",kind="minor"} 93
+psao_nodejs_gc_duration_seconds_bucket{le="0.01",kind="minor"} 267
+psao_nodejs_gc_duration_seconds_bucket{le="0.1",kind="minor"} 267
+psao_nodejs_gc_duration_seconds_bucket{le="1",kind="minor"} 267
+psao_nodejs_gc_duration_seconds_bucket{le="2",kind="minor"} 267
+psao_nodejs_gc_duration_seconds_bucket{le="5",kind="minor"} 267
+psao_nodejs_gc_duration_seconds_bucket{le="+Inf",kind="minor"} 267
+psao_nodejs_gc_duration_seconds_sum{kind="minor"} 0.4027377140000462
+psao_nodejs_gc_duration_seconds_count{kind="minor"} 267
+
+# HELP psao_eventloop_lag_p50_ms Event-loop delay p50 over the last scrape window (ms).
+# TYPE psao_eventloop_lag_p50_ms gauge
+psao_eventloop_lag_p50_ms 1.951743
+
+# HELP psao_eventloop_lag_p90_ms Event-loop delay p90 over the last scrape window (ms).
+# TYPE psao_eventloop_lag_p90_ms gauge
+psao_eventloop_lag_p90_ms 2.476031
+
+# HELP psao_eventloop_lag_p99_ms Event-loop delay p99 over the last scrape window (ms).
+# TYPE psao_eventloop_lag_p99_ms gauge
+psao_eventloop_lag_p99_ms 3.094527
+
+# HELP psao_eventloop_lag_max_ms Event-loop delay maximum over the last scrape window (ms).
+# TYPE psao_eventloop_lag_max_ms gauge
+psao_eventloop_lag_max_ms 10.780671
+
+# HELP psao_eventloop_lag_mean_ms Event-loop delay mean over the last scrape window (ms).
+# TYPE psao_eventloop_lag_mean_ms gauge
+psao_eventloop_lag_mean_ms 1.9540110972823945
+
+# HELP psao_eventloop_lag_resolution_ms Sampling resolution of the event-loop delay monitor (ms).
+# TYPE psao_eventloop_lag_resolution_ms gauge
+psao_eventloop_lag_resolution_ms 1
+
+# HELP psao_eventloop_utilization Event-loop utilization over the last scrape window (0..1).
+# TYPE psao_eventloop_utilization gauge
+psao_eventloop_utilization 0.04183808264157769
+
+# HELP psao_request_duration_seconds End-to-end request handling duration (seconds).
+# TYPE psao_request_duration_seconds histogram
+psao_request_duration_seconds_bucket{le="0.001",method="GET",route="/products",code="200"} 25477
+psao_request_duration_seconds_bucket{le="0.002",method="GET",route="/products",code="200"} 28147
+psao_request_duration_seconds_bucket{le="0.003",method="GET",route="/products",code="200"} 28184
+psao_request_duration_seconds_bucket{le="0.004",method="GET",route="/products",code="200"} 28197
+psao_request_duration_seconds_bucket{le="0.005",method="GET",route="/products",code="200"} 28200
+psao_request_duration_seconds_bucket{le="0.006",method="GET",route="/products",code="200"} 28202
+psao_request_duration_seconds_bucket{le="0.007",method="GET",route="/products",code="200"} 28202
+psao_request_duration_seconds_bucket{le="0.008",method="GET",route="/products",code="200"} 28203
+psao_request_duration_seconds_bucket{le="0.009",method="GET",route="/products",code="200"} 28203
+psao_request_duration_seconds_bucket{le="0.01",method="GET",route="/products",code="200"} 28203
+psao_request_duration_seconds_bucket{le="0.012",method="GET",route="/products",code="200"} 28205
+psao_request_duration_seconds_bucket{le="0.015",method="GET",route="/products",code="200"} 28205
+psao_request_duration_seconds_bucket{le="0.02",method="GET",route="/products",code="200"} 28205
+psao_request_duration_seconds_bucket{le="0.03",method="GET",route="/products",code="200"} 28205
+psao_request_duration_seconds_bucket{le="0.05",method="GET",route="/products",code="200"} 28205
+psao_request_duration_seconds_bucket{le="0.1",method="GET",route="/products",code="200"} 28205
+psao_request_duration_seconds_bucket{le="0.25",method="GET",route="/products",code="200"} 28205
+psao_request_duration_seconds_bucket{le="0.5",method="GET",route="/products",code="200"} 28205
+psao_request_duration_seconds_bucket{le="1",method="GET",route="/products",code="200"} 28205
+psao_request_duration_seconds_bucket{le="2.5",method="GET",route="/products",code="200"} 28205
+psao_request_duration_seconds_bucket{le="+Inf",method="GET",route="/products",code="200"} 28205
+psao_request_duration_seconds_sum{method="GET",route="/products",code="200"} 13.463342190000045
+psao_request_duration_seconds_count{method="GET",route="/products",code="200"} 28205
+psao_request_duration_seconds_bucket{le="0.001",method="GET",route="/products",code="403"} 1
+psao_request_duration_seconds_bucket{le="0.002",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.003",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.004",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.005",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.006",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.007",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.008",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.009",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.01",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.012",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.015",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.02",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.03",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.05",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.1",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.25",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="0.5",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="1",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="2.5",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_bucket{le="+Inf",method="GET",route="/products",code="403"} 2
+psao_request_duration_seconds_sum{method="GET",route="/products",code="403"} 0.00209625
+psao_request_duration_seconds_count{method="GET",route="/products",code="403"} 2
+
+# HELP psao_verify_duration_seconds Duration of the synchronous token-verification call alone (seconds).
+# TYPE psao_verify_duration_seconds histogram
+psao_verify_duration_seconds_bucket{le="0.000005",algorithm="RS256",result="ok"} 0
+psao_verify_duration_seconds_bucket{le="0.00001",algorithm="RS256",result="ok"} 0
+psao_verify_duration_seconds_bucket{le="0.00002",algorithm="RS256",result="ok"} 0
+psao_verify_duration_seconds_bucket{le="0.00004",algorithm="RS256",result="ok"} 0
+psao_verify_duration_seconds_bucket{le="0.00008",algorithm="RS256",result="ok"} 8575
+psao_verify_duration_seconds_bucket{le="0.00015",algorithm="RS256",result="ok"} 17447
+psao_verify_duration_seconds_bucket{le="0.0003",algorithm="RS256",result="ok"} 21200
+psao_verify_duration_seconds_bucket{le="0.0006",algorithm="RS256",result="ok"} 28112
+psao_verify_duration_seconds_bucket{le="0.0012",algorithm="RS256",result="ok"} 28179
+psao_verify_duration_seconds_bucket{le="0.0025",algorithm="RS256",result="ok"} 28200
+psao_verify_duration_seconds_bucket{le="0.005",algorithm="RS256",result="ok"} 28205
+psao_verify_duration_seconds_bucket{le="0.01",algorithm="RS256",result="ok"} 28205
+psao_verify_duration_seconds_bucket{le="+Inf",algorithm="RS256",result="ok"} 28205
+psao_verify_duration_seconds_sum{algorithm="RS256",result="ok"} 5.072999641000002
+psao_verify_duration_seconds_count{algorithm="RS256",result="ok"} 28205
+psao_verify_duration_seconds_bucket{le="0.000005",algorithm="RS256",result="error"} 0
+psao_verify_duration_seconds_bucket{le="0.00001",algorithm="RS256",result="error"} 0
+psao_verify_duration_seconds_bucket{le="0.00002",algorithm="RS256",result="error"} 0
+psao_verify_duration_seconds_bucket{le="0.00004",algorithm="RS256",result="error"} 0
+psao_verify_duration_seconds_bucket{le="0.00008",algorithm="RS256",result="error"} 0
+psao_verify_duration_seconds_bucket{le="0.00015",algorithm="RS256",result="error"} 1
+psao_verify_duration_seconds_bucket{le="0.0003",algorithm="RS256",result="error"} 2
+psao_verify_duration_seconds_bucket{le="0.0006",algorithm="RS256",result="error"} 2
+psao_verify_duration_seconds_bucket{le="0.0012",algorithm="RS256",result="error"} 2
+psao_verify_duration_seconds_bucket{le="0.0025",algorithm="RS256",result="error"} 2
+psao_verify_duration_seconds_bucket{le="0.005",algorithm="RS256",result="error"} 2
+psao_verify_duration_seconds_bucket{le="0.01",algorithm="RS256",result="error"} 2
+psao_verify_duration_seconds_bucket{le="+Inf",algorithm="RS256",result="error"} 2
+psao_verify_duration_seconds_sum{algorithm="RS256",result="error"} 0.000371126
+psao_verify_duration_seconds_count{algorithm="RS256",result="error"} 2
+
+# HELP psao_verify_total Token verification calls, by algorithm and outcome.
+# TYPE psao_verify_total counter
+psao_verify_total{algorithm="RS256",result="ok"} 28205
+psao_verify_total{algorithm="RS256",result="error"} 2
+
+# HELP psao_requests_in_flight Requests currently being handled. Above the elbow this is the queue depth.
+# TYPE psao_requests_in_flight gauge
+psao_requests_in_flight 0

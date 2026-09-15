@@ -1,0 +1,5 @@
+algorithm,key_form,iterations,mean_us,p50_us,p99_us
+HS256,string,40000,435.723,421.166,705.542
+HS256,preparsed,40000,8.255,7.166,23.792
+RS256,string,40000,171.796,162.333,295.500
+RS256,preparsed,40000,31.991,29.417,61.041
