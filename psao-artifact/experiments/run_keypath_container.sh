@@ -72,13 +72,23 @@ DOCKER_UID="$(id -u):$(id -g)"
 # --run-dir to add a cell, and truncating here would erase the record of every
 # image already measured while leaving their rows in keypath_mechanism.csv.
 if [ ! -s "$RUN_DIR/environments.csv" ]; then
-  echo "image,node_version,openssl_version,libc,arch" > "$RUN_DIR/environments.csv"
+  echo "image,node_version,openssl_version,libc,arch,image_source,image_id" > "$RUN_DIR/environments.csv"
 fi
 
 status=0
 for image in $IMAGES; do
   psao::log "pulling $image"
-  docker pull -q "$image" >/dev/null 2>&1 || { psao::log "WARNING: cannot pull $image, skipping"; status=1; continue; }
+  # Fall back to a local copy when the registry is briefly unreachable: a
+  # transient hiccup should not silently remove a cell from the matrix.
+  if docker pull -q "$image" >/dev/null 2>&1; then
+    img_src=registry
+  elif docker image inspect "$image" >/dev/null 2>&1; then
+    img_src=local-cache
+    psao::log "  NOTE: registry unreachable for $image; using the local copy"
+  else
+    psao::log "WARNING: $image is neither pullable nor local, skipping"; status=1; continue
+  fi
+  img_id="$(docker image inspect "$image" --format '{{.Id}}' 2>/dev/null)"
 
   probe="$(docker run --rm --user "$DOCKER_UID" "$image" node -e '
     const os = require("os");
@@ -89,7 +99,7 @@ for image in $IMAGES; do
     } catch (_) {}
     console.log([process.version, process.versions.openssl, libc, process.arch].join(","));
   ' 2>/dev/null)" || { psao::log "WARNING: $image will not run node, skipping"; status=1; continue; }
-  echo "$image,$probe" >> "$RUN_DIR/environments.csv"
+  echo "$image,$probe,$img_src,$img_id" >> "$RUN_DIR/environments.csv"
   psao::log "  $image -> $probe"
 
   # One `docker run` per (condition, round), mirroring the host runner: one
