@@ -44,6 +44,73 @@ from `/proc/stat`, the remote driver brackets every run with a 60 s window
 before and after, and the orchestrator prints a warning above 1%. A run with
 high steal is an upper bound, and must be described as one.
 
+## One-time credential setup (only you can do this)
+
+Provisioning needs API credentials tied to your Oracle account. The key is
+generated locally but must be registered in the console by hand, so this step
+cannot be scripted.
+
+```sh
+brew install oci-cli          # already done if provision.sh runs
+oci setup config
+```
+
+`oci setup config` asks for four things, all from the OCI console:
+
+| Prompt | Where to find it |
+|---|---|
+| User OCID | Profile menu → **User settings** → *Copy* under OCID |
+| Tenancy OCID | Profile menu → **Tenancy: <name>** → *Copy* under OCID |
+| Region | The region selector in the top bar, e.g. `uk-london-1` |
+| Generate a new API key? | **Yes** — it writes `~/.oci/oci_api_key.pem` and a `.._public.pem` |
+
+Then register the public half: **User settings → API keys → Add API key →
+Paste public key**, and paste the contents of
+`~/.oci/oci_api_key_public.pem`.
+
+Verify:
+
+```sh
+oci iam region list --output table
+```
+
+If that returns a table, provisioning will work. If it returns `NotAuthenticated`,
+the public key was not registered or the fingerprint in `~/.oci/config` does not
+match the one shown in the console.
+
+## Provisioning
+
+```sh
+# Always look first. Creates nothing.
+experiments/oracle/provision.sh --shape a1 --dry-run
+
+# Then create it.
+experiments/oracle/provision.sh --shape a1 --yes
+```
+
+It creates a VCN, a public subnet, an internet gateway, a security list
+allowing inbound tcp/22, and the instance — all named `psao-keypath-*`, and it
+reuses the network on later runs rather than duplicating it. It prints the ssh
+command to run next.
+
+`--shape a1` takes 2 OCPU / 12 GB, which is **half** the free Ampere allocation.
+The other half is deliberately left for Phase 3, where the load generator has to
+live on a second VM.
+
+Tear down with:
+
+```sh
+experiments/oracle/provision.sh --destroy --yes
+```
+
+which terminates the instances and leaves the (free) network in place.
+
+**Two warnings that are not boilerplate.** Ampere capacity is frequently
+exhausted — an out-of-capacity error is normal, and the fix is `--ad-index 1`,
+`--ad-index 2`, or another region. And Oracle does not expose a reliable
+"always free" flag through the API, so `provision.sh` cannot verify eligibility
+for you; confirm in the console before passing `--yes`.
+
 ## Workflow
 
 From the laptop, in `psao-artifact/`:
