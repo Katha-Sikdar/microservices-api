@@ -1,0 +1,44 @@
+--- a/verify.js
++++ b/verify.js
+@@ -118,14 +118,36 @@
+     }
+ 
+     if (secretOrPublicKey != null && !(secretOrPublicKey instanceof KeyObject)) {
+-      try {
+-        secretOrPublicKey = createPublicKey(secretOrPublicKey);
+-      } catch (_) {
+-        try {
+-          secretOrPublicKey = createSecretKey(typeof secretOrPublicKey === 'string' ? Buffer.from(secretOrPublicKey) : secretOrPublicKey);
++      // A plain string secret cannot be asymmetric key material, so for an HS*
++      // token createPublicKey() below can only throw. Resolving it directly
++      // avoids constructing and discarding that failure on every call, which
++      // dominates the cost of verify() on this path.
++      //
++      // The guard is deliberately narrow. Anything that might be PEM or JWK
++      // still goes through createPublicKey() first, because the KeyObject it
++      // produces -- specifically its `type` -- is what the algorithm/key-type
++      // check below depends on. Widening this guard would change which key
++      // material reaches that check, and it must not.
++      var isPlainStringSecret = typeof secretOrPublicKey === 'string'
++        && secretOrPublicKey.indexOf('-----BEGIN') === -1
++        && secretOrPublicKey.trim().charAt(0) !== '{';
++
++      if (typeof header.alg === 'string' && header.alg.startsWith('HS') && isPlainStringSecret) {
++        try {
++          secretOrPublicKey = createSecretKey(Buffer.from(secretOrPublicKey));
+         } catch (_) {
+           return done(new JsonWebTokenError('secretOrPublicKey is not valid key material'))
+         }
++      } else {
++        try {
++          secretOrPublicKey = createPublicKey(secretOrPublicKey);
++        } catch (_) {
++          try {
++            secretOrPublicKey = createSecretKey(typeof secretOrPublicKey === 'string' ? Buffer.from(secretOrPublicKey) : secretOrPublicKey);
++          } catch (_) {
++            return done(new JsonWebTokenError('secretOrPublicKey is not valid key material'))
++          }
++        }
+       }
+     }
+ 

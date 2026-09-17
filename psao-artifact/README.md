@@ -760,7 +760,8 @@ the same cores, which is why the trustworthy measurement window ends at about
 | Container runtime | `docker://28.3.3` |
 | Istio | 1.28.0 (`docker.io/istio/pilot:1.28.0`), `demo` profile, revision `default` |
 | ingress-nginx | controller `v1.14.0`, **injected into the mesh** |
-| Node.js | v26.6.0 |
+| Node.js (host tooling) | v26.6.0, OpenSSL 3.6.3 — see the drift note below |
+| Node.js (**inside `service-a`**) | **v18.20.8, OpenSSL 3.0.16, Alpine/musl** (`FROM node:18-alpine`) |
 | k6 | v2.2.0 (go1.26.5, darwin/arm64) |
 
 **Pod resources:** `service-a` (S1, S3, S5) and the S8 deployment run with **no
@@ -775,6 +776,74 @@ driving. Above ~1000 rps the generator, the ingress and the control plane conten
 for the same 10 cores; during one controller run the Kubernetes API server itself
 became unreachable. Treat anything above that as unusable, and do not compare
 these absolute numbers against a run on dedicated hardware — compare shapes.
+
+### The host's toolchain must be frozen while a study is running
+
+On 2026-09-17, partway through a measurement session, installing an unrelated
+command-line tool (`brew install oci-cli`) upgraded Homebrew's `openssl@3`
+formula from 3.6.3 to 3.6.4. Homebrew's Node links libcrypto **dynamically**:
+
+```
+$ otool -L /opt/homebrew/Cellar/node/26.6.0/bin/node | grep ssl
+    /opt/homebrew/opt/openssl@3/lib/libcrypto.3.dylib
+    /opt/homebrew/opt/openssl@3/lib/libssl.3.dylib
+```
+
+so the symlink moved and `process.versions.openssl` went 3.6.3 → 3.6.4 while
+`node --version` continued to report v26.6.0 from a binary untouched since
+August. The cryptographic library under the measurements changed; nothing that
+identifies a Node installation changed with it.
+
+No committed run was invalidated — the affected runs predate the upgrade and
+recorded 3.6.3, and containerised runs bundle their own OpenSSL — but that was
+luck of timing, not of design. Full account in
+`data/runs/HOST-OPENSSL-DRIFT-2026-09-17.md`.
+
+Two things follow, and both are methodology rather than trivia.
+
+**1. Do not install unrelated software on the measurement host while a study is
+in progress.** A package manager resolves dependencies globally. Installing a
+cloud CLI, a language runtime or a linter can upgrade a shared library that
+something under measurement links against, and nothing in the installed tool's
+name suggests it will. If a host tool must be installed mid-study, treat every
+subsequent run as a different environment and label it accordingly — do not
+append it to an existing environment's rows.
+
+**2. Capture the library version per row, not the runtime version per run.**
+This was detectable only because the harness records
+`process.versions.openssl` on every measurement row. Had it recorded the Node
+version alone — which is what `run_metadata.json` does, and which is how the
+manuscript came to state the host's Node version for a containerised service —
+the exact library the work is about would have changed invisibly, mid-study, on
+the machine producing the numbers. Record the identity of the component whose
+behaviour you are measuring, at the granularity you analyse at. A run-level
+field cannot describe a row that moved.
+
+## Why the upstream issue says less than this repository does
+
+`upstream/jsonwebtoken-issue.md` states the security constraint on the proposed
+patch at mechanism level only. This directory carries more: the deliberately
+broken build, the failing assertion, and the negative control that makes the
+test meaningful (`upstream/NEGATIVE-CONTROL.md`).
+
+That asymmetry is deliberate. The two have different audiences and are held to
+different standards.
+
+A replication package exists so a reviewer can re-run every claim. The arm that
+makes a regression test evidence rather than decoration is the arm where the
+property is absent — omit it and the strongest claim in the report becomes
+unverifiable. In an artifact, that is the worse failure.
+
+A public bug report is read mostly by people with no interest in reproducing the
+methodology. There, a step-by-step for defeating a patch that does not exist yet
+is a liability with no compensating benefit: publishing a roadmap to a
+vulnerability is one of the ways such a vulnerability comes to exist. The issue
+therefore states what property a fix must preserve and why, and offers the
+maintainers the remaining detail privately — which is the right channel for the
+people who actually need it.
+
+Neither document is the sanitised version of the other. They answer different
+questions for different readers.
 
 ## Requirements
 

@@ -1,4 +1,25 @@
 /**
+ * WHY THIS FILE EXISTS, AND WHAT IT IS NOT
+ *
+ * The `naive` build exercised here is DELIBERATELY BROKEN. It is constructed at
+ * run time, used for a single assertion, and deleted. It is not proposed, not
+ * shipped, and not a description of any released version of jsonwebtoken: as of
+ * 9.0.3 the library is correct on this point.
+ *
+ * The attack class is ALGORITHM CONFUSION -- an HS* token validated against
+ * asymmetric key material. It has been publicly documented since 2015
+ * (CVE-2015-9235 and the literature after it) and is covered in every current
+ * JWT security guide. Nothing here discloses it.
+ *
+ * These files exist to demonstrate that the proposed patch PRESERVES an existing
+ * defence, not to demonstrate the attack. That distinction is the whole point: a
+ * regression test which passes on both the broken and the fixed build constrains
+ * nothing. This one fails on the broken build, and that failure is the evidence.
+ *
+ * See upstream/NEGATIVE-CONTROL.md for the three-way result and what each run
+ * establishes.
+ */
+/**
  * keypath-security-check.js -- does removing the failed asymmetric probe
  * reintroduce algorithm confusion?
  *
