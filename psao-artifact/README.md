@@ -809,6 +809,20 @@ name suggests it will. If a host tool must be installed mid-study, treat every
 subsequent run as a different environment and label it accordingly — do not
 append it to an existing environment's rows.
 
+**Mitigation applied on this host (2026-09-17).** `openssl@3` is now pinned:
+
+```sh
+$ brew pin openssl@3
+$ brew list --pinned
+openssl@3
+```
+
+Pinning stops `brew upgrade` from moving the formula; it does **not** revert the
+version already linked, and the host remains on 3.6.4. It also does not make the
+host immune: installing a formula that *requires* a newer OpenSSL will still
+force the issue, and `brew unpin` is one command. The pin narrows the accident,
+it does not remove the discipline.
+
 **2. Capture the library version per row, not the runtime version per run.**
 This was detectable only because the harness records
 `process.versions.openssl` on every measurement row. Had it recorded the Node

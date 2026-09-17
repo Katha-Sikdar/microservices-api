@@ -49,3 +49,15 @@ Host rows must carry their OpenSSL version and must not be pooled across it.
 `analysis/keypath_stats.py` groups on `environment`, which does NOT distinguish
 3.6.3 from 3.6.4 -- both are labelled `host`. If a further host run is made,
 label it distinctly (e.g. `host-openssl3.6.4`) rather than appending to `host`.
+
+## Mitigation
+
+`brew pin openssl@3` applied 2026-09-17, after the drift. This prevents
+`brew upgrade` from moving the formula again. It does **not** revert the linked
+version: the host stays on 3.6.4, and the Phase 1 rows on 3.6.3 remain the only
+measurements taken against that version.
+
+The pin is a backstop, not a guarantee. A formula requiring a newer OpenSSL will
+still force an upgrade, and the pin can be lifted with one command. The rule
+that matters is still the one above: do not install unrelated software on the
+measurement host while a study is in progress.
