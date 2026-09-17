@@ -1,3 +1,15 @@
+> [!WARNING]
+> **The manuscript in this repository is superseded and must not be cited.**
+> Later measurement disproved its central mechanism claim: the per-request cost
+> it attributes to key conversion is a discarded exception from a failed
+> asymmetric-key probe, and the magnitude it reports is governed by the bundled
+> OpenSSL version rather than by deployment. The reported runtime version of the
+> system under test is also wrong.
+>
+> See [`psao-artifact/paper/SUPERSEDED.md`](psao-artifact/paper/SUPERSEDED.md).
+> A revised manuscript is in preparation. Do not submit, circulate or cite the
+> current version.
+
 # PSAO — Predictive Security-Aware Offloading of JWT Verification
 
 > **The current work lives in [`psao-artifact/`](psao-artifact/).** Start there.
