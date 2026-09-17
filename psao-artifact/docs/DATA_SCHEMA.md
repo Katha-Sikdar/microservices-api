@@ -242,6 +242,7 @@ driven by `experiments/run_keypath_mechanism.sh`. Aggregated by
 
 | Column | Type | Description |
 |---|---|---|
+| `environment` | string | `host`, or the container image tag (`node:18.20.8-alpine`). Rows from different environments must never be pooled: the same condition differs by 20x between them. `analysis/keypath_stats.py` groups on this column and defaults it to `host` for files written before it existed. |
 | `condition` | string | Which stage was measured. See the table below. |
 | `invocation` | int | Round number. The runner cycles through every condition inside each round, so rows sharing an `invocation` saw the same machine state and are legitimately paired. |
 | `n` | int | Calls timed in this invocation, after warmup. |
@@ -251,7 +252,8 @@ driven by `experiments/run_keypath_mechanism.sh`. Aggregated by
 | `min_us`, `max_us` | float | Extremes within the invocation. |
 | `stddev_us` | float | Sample standard deviation within the invocation. |
 | `timer_overhead_us` | float | Median cost of the `process.hrtime.bigint()` pair itself, measured in this same process. Reported, **never subtracted**. |
-| `node_version` | string | e.g. `v26.6.0`. |
+| `node_version` | string | e.g. `v26.6.0`. Recorded by the measuring process itself, **not** by the host. `run_metadata.json`'s `node_version` is `node --version` on the host (`common.sh:559`) and does not describe a containerised service — `service-a` is `FROM node:18-alpine` and runs v18.20.8. |
+| `openssl_version` | string | e.g. `3.6.3`. The finding lives in OpenSSL's error path, so its version is part of the measurement rather than background to it. |
 | `platform` | string | e.g. `darwin/arm64`. Present so host and container rows stay distinguishable when runs are concatenated. |
 
 ### Conditions

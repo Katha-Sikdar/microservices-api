@@ -1,0 +1,6 @@
+environment,condition,invocation,n,mean_us,median_us,p90_us,p99_us,min_us,max_us,stddev_us,timer_overhead_us,node_version,openssl_version,platform
+node:20-alpine,jwt_hs_string,1,20000,471.3062,447.167,521.125,901.541,413.667,4167.541,97.3553,0.083,v20.20.2,3.0.19,linux/arm64
+node:20-alpine,jwt_hs_preparsed,1,20000,8.3073,7.208,8.333,24.209,6.75,408.584,9.818,0.083,v20.20.2,3.0.19,linux/arm64
+node:20-alpine,jwt_hs_string_safe,1,20000,10.6979,8.583,11.333,36.708,7.917,2101.459,24.0708,0.083,v20.20.2,3.0.19,linux/arm64
+node:20-alpine,probe_throws,1,20000,449.5683,424.167,475.5,844.75,396.25,48131.708,381.4884,0.083,v20.20.2,3.0.19,linux/arm64
+node:20-alpine,probe_succeeds,1,20000,149.08,141.959,163.875,241.333,127.125,4157.041,67.0413,0.083,v20.20.2,3.0.19,linux/arm64

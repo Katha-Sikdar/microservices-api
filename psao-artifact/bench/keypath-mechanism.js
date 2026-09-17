@@ -34,7 +34,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const patch = require('./keypath-patch.js');
 
-const args = { iterations: 40000, warmup: 20000, invocation: 0, out: null, condition: null };
+const args = { iterations: 40000, warmup: 20000, invocation: 0, out: null, condition: null,
+               environment: 'host' };
 for (let i = 2; i < process.argv.length; i += 2) {
   const k = process.argv[i].replace(/^--/, '');
   if (!(k in args)) { console.error(`unknown argument: ${process.argv[i]}`); process.exit(2); }
@@ -119,6 +120,7 @@ const sd = Math.sqrt(sorted.reduce((p, c) => p + (c - mean) ** 2, 0) / (n - 1));
 const q = (p) => sorted[Math.min(n - 1, Math.floor(n * p))];
 
 const row = {
+  environment: args.environment,
   condition: args.condition,
   invocation: args.invocation,
   n,
@@ -131,6 +133,7 @@ const row = {
   stddev_us: sd.toFixed(4),
   timer_overhead_us: overhead.toFixed(4),
   node_version: process.version,
+  openssl_version: process.versions.openssl,
   platform: `${process.platform}/${process.arch}`,
 };
 

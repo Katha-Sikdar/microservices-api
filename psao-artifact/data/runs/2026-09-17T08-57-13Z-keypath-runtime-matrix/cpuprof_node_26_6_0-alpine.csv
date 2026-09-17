@@ -1,0 +1,26 @@
+self_pct,self_ms,function,location
+57.93,1679.4,createPublicKey,node:internal/crypto/keys
+5.17,150.0,Hmac,node:internal/crypto/hash
+3.63,105.3,(garbage collector),(native)
+2.33,67.5,safeJsonParse,jws/lib/verify-stream.js
+2.20,63.7,base64Write,(native)
+2.08,60.2,internalModuleStat,(native)
+1.94,56.1,fromBase64,jwa/index.js
+1.58,45.9,digest,node:internal/crypto/hash
+1.55,45.0,jwsDecode,jws/lib/verify-stream.js
+1.51,43.9,createSecretKey,node:internal/crypto/keys
+1.48,43.0,(anonymous),(native)
+1.29,37.4,module.exports,jsonwebtoken/verify.js
+1.17,33.9,KeyObject,node:internal/crypto/keys
+1.10,32.0,readFileUtf8,(native)
+1.08,31.4,(idle),(native)
+0.98,28.4,securedInputFromJWS,jws/lib/verify-stream.js
+0.91,26.2,getKeyObjectSlots,node:internal/crypto/keys
+0.77,22.4,headerFromJWS,jws/lib/verify-stream.js
+0.60,17.4,RegExp: ^[a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+)?$,(native)
+0.57,16.6,getNearestParentPackageJSONType,(native)
+0.55,16.1,update,node:internal/crypto/hash
+0.54,15.7,FastBuffer,node:internal/buffer
+0.51,14.8,payloadFromJWS,jws/lib/verify-stream.js
+0.48,13.9,jwa,jwa/index.js
+0.44,12.8,signatureFromJWS,jws/lib/verify-stream.js

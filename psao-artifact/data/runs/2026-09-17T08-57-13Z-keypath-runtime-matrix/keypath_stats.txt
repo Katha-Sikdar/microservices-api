@@ -1,0 +1,81 @@
+key-path mechanism — 2026-09-17T08-57-13Z-keypath-runtime-matrix
+
+### node:18.20.8-alpine    node=v18.20.8 | openssl=3.0.16 | platform=linux/arm64
+
+condition              invocs   median us                   95% CI    CV%
+jwt_hs_string              10     394.708       [392.917, 395.166]    0.8
+probe_throws               10     373.792       [371.500, 375.792]    2.3
+probe_succeeds             10     115.834       [115.542, 116.812]    0.9
+jwt_hs_string_safe         10       9.375           [9.291, 9.541]    1.4
+jwt_hs_preparsed           10       7.583           [7.417, 7.667]    2.1
+hmac_keyobject             10       2.666           [2.292, 3.250]   18.0
+hmac_string                10       2.417           [2.375, 2.667]    7.2
+decode_only                10       1.625           [1.605, 1.854]   12.5
+create_secret_key          10       1.417           [1.396, 1.542]   12.0
+timer_overhead             10       0.167           [0.167, 0.208]   11.2
+  string_key_penalty_hs256: 387.229 us [385.396, 387.666] over 10 rounds
+  safe_patch_saving_hs256: 385.293 us [383.625, 385.645] over 10 rounds
+  safe_patch_residual: 1.833 us [1.625, 2.062] over 10 rounds
+  decomposition: observed 387.229, probe+conversion 375.292, residual 11.709 (96.9% explained)
+
+### node:20-alpine    node=v20.20.2 | openssl=3.0.19 | platform=linux/arm64
+
+condition              invocs   median us                   95% CI    CV%
+jwt_hs_string              10     437.396       [435.625, 440.791]    0.8
+probe_throws               10     420.625       [419.521, 422.562]    0.5
+probe_succeeds             10     142.375       [141.854, 144.292]    0.8
+jwt_hs_string_safe         10       8.771           [8.542, 9.375]    4.6
+jwt_hs_preparsed           10       7.250           [7.083, 7.500]   11.3
+hmac_string                10       2.333           [2.333, 2.416]    2.2
+decode_only                10       2.188           [1.750, 2.417]   15.6
+hmac_keyobject             10       2.167           [2.125, 2.313]   16.0
+create_secret_key          10       1.250           [1.230, 1.291]    6.6
+timer_overhead             10       0.125           [0.125, 0.146]   13.3
+  string_key_penalty_hs256: 430.313 us [428.292, 433.291] over 10 rounds
+  safe_patch_saving_hs256: 428.896 us [426.542, 431.416] over 10 rounds
+  safe_patch_residual: 1.542 us [1.230, 1.896] over 10 rounds
+  decomposition: observed 430.313, probe+conversion 421.979, residual 8.020 (98.1% explained)
+
+### node:26.6.0-alpine    node=v26.6.0 | openssl=3.5.7 | platform=linux/arm64
+
+condition              invocs   median us                   95% CI    CV%
+jwt_hs_string              10      36.417         [36.104, 36.875]    1.5
+probe_throws               10      22.938         [22.792, 23.292]    1.3
+probe_succeeds             10      15.541         [15.312, 15.750]    2.1
+jwt_hs_string_safe         10       8.125           [7.958, 9.208]   10.9
+jwt_hs_preparsed           10       6.562           [6.479, 6.917]   13.3
+hmac_string                10       3.250           [3.167, 3.750]    8.6
+hmac_keyobject             10       3.167           [3.042, 3.542]    8.5
+decode_only                10       1.708           [1.583, 1.729]   10.0
+create_secret_key          10       0.792           [0.791, 0.813]    4.1
+timer_overhead             10       0.125           [0.125, 0.166]   15.0
+  string_key_penalty_hs256: 29.709 us [29.312, 30.250] over 10 rounds
+  safe_patch_saving_hs256: 28.041 us [27.084, 28.833] over 10 rounds
+  safe_patch_residual: 1.562 us [1.271, 2.062] over 10 rounds
+  decomposition: observed 29.709, probe+conversion 23.771, residual 5.959 (80.0% explained)
+
+### node:26.6.0-bookworm    node=v26.6.0 | openssl=3.5.7 | platform=linux/arm64
+
+condition              invocs   median us                   95% CI    CV%
+jwt_hs_string              10      27.958         [27.833, 28.500]    1.7
+probe_throws               10      16.584         [16.375, 17.875]    6.8
+probe_succeeds             10      12.125         [11.875, 14.479]   20.2
+jwt_hs_string_safe         10       8.021           [7.125, 8.312]   11.6
+jwt_hs_preparsed           10       6.042           [5.750, 7.500]   16.2
+hmac_string                10       3.188           [2.708, 3.417]   12.7
+hmac_keyobject             10       2.937           [2.667, 3.208]   12.0
+decode_only                10       1.667           [1.417, 1.708]   11.2
+create_secret_key          10       0.938           [0.855, 0.979]    7.7
+timer_overhead             10       0.125           [0.125, 0.166]   15.0
+  string_key_penalty_hs256: 21.875 us [20.375, 22.604] over 10 rounds
+  safe_patch_saving_hs256: 20.166 us [19.833, 20.750] over 10 rounds
+  safe_patch_residual: 1.188 us [0.250, 2.354] over 10 rounds
+  decomposition: observed 21.875, probe+conversion 17.480, residual 3.604 (79.9% explained)
+
+### ratio vs node:18.20.8-alpine
+
+environment                 create_secret_     decode_only  hmac_keyobject     hmac_string  jwt_hs_prepars   jwt_hs_string  jwt_hs_string_  probe_succeeds    probe_throws  timer_overhead
+node:20-alpine                        0.88            1.35            0.81            0.96            0.96            1.11            0.94            1.23            1.12            0.75
+node:26.6.0-alpine                    0.56            1.05            1.19            1.34            0.86            0.09            0.87            0.13            0.06            0.75
+node:26.6.0-bookworm                  0.66            1.03            1.10            1.32            0.80            0.07            0.86            0.10            0.04            0.75
+

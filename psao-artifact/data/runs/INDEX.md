@@ -12,6 +12,35 @@ from").
 
 ---
 
+## The runtime, not the deployment
+
+`2026-09-17T08-57-13Z-keypath-runtime-matrix` — the same key-path measurement
+across four container runtimes, containerisation held constant, 10 rounds x 10
+conditions per image. Has its own `FINDINGS.md`.
+
+**The 16x "in-situ vs isolated" gap is a runtime difference, not a deployment
+effect.** Containerised Node 26 on glibc costs 16.58 us against 18.04 us on the
+macOS host — the container is marginally faster. What actually varies is
+OpenSSL: 3.0.16 (Node 18) 373.79 us, 3.0.19 (Node 20) 420.62 us, 3.5.7
+(Node 26) 22.94 us. Node 18 and Node 20 are different V8 majors sharing the
+OpenSSL 3.0 series and both pay ~400 us, which is what separates OpenSSL from
+V8 — in stock images the two normally co-vary.
+
+Everything that is not OpenSSL key parsing sits within ~1.7x across all five
+environments; the failed probe spans 25x.
+
+**`service-a` runs Node v18.20.8 / OpenSSL 3.0.16 / musl, not v26.6.0.**
+`run_metadata.json` records the HOST's node version (`common.sh:559`), so every
+in-situ run in this repository misreports the runtime of the service it
+measured. Section 3.1 of the manuscript inherits the error, and
+`\InsituVersusMicrobenchRatio` compares across two OpenSSL majors without
+saying so.
+
+Missing cell: `node:18.20.8-bullseye` (libc within Node 18) — two pull attempts
+timed out. arm64 only.
+
+---
+
 ## The mechanism: a failed probe, not key conversion
 
 `2026-09-17T08-42-17Z-keypath-mechanism` — 15 rounds x 12 conditions, **one

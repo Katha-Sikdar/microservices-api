@@ -1,0 +1,822 @@
+{
+  "run_dir": "data/runs/2026-09-17T08-57-13Z-keypath-runtime-matrix",
+  "source_csv": "data/runs/2026-09-17T08-57-13Z-keypath-runtime-matrix/keypath_mechanism.csv",
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 20260917,
+  "unit_of_measurement": "one process invocation; each contributes its median of N calls",
+  "environments": {
+    "node:18.20.8-alpine": {
+      "runtime": {
+        "node_version": [
+          "v18.20.8"
+        ],
+        "openssl_version": [
+          "3.0.16"
+        ],
+        "platform": [
+          "linux/arm64"
+        ]
+      },
+      "conditions": {
+        "create_secret_key": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 1.417,
+          "ci95": [
+            1.396,
+            1.542
+          ],
+          "between_invocation_cv_pct": 11.971487831669796,
+          "median_p99_us": 4.375,
+          "median_timer_overhead_us": 0.125
+        },
+        "decode_only": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 1.625,
+          "ci95": [
+            1.6045,
+            1.8539999999999999
+          ],
+          "between_invocation_cv_pct": 12.455116966969525,
+          "median_p99_us": 3.229,
+          "median_timer_overhead_us": 0.125
+        },
+        "hmac_keyobject": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 2.666,
+          "ci95": [
+            2.292,
+            3.25
+          ],
+          "between_invocation_cv_pct": 18.01382538870352,
+          "median_p99_us": 10.749500000000001,
+          "median_timer_overhead_us": 0.125
+        },
+        "hmac_string": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 2.417,
+          "ci95": [
+            2.375,
+            2.6665
+          ],
+          "between_invocation_cv_pct": 7.209059054671746,
+          "median_p99_us": 9.854,
+          "median_timer_overhead_us": 0.125
+        },
+        "jwt_hs_preparsed": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 7.5835,
+          "ci95": [
+            7.417,
+            7.667
+          ],
+          "between_invocation_cv_pct": 2.093078734137662,
+          "median_p99_us": 21.25,
+          "median_timer_overhead_us": 0.084
+        },
+        "jwt_hs_string": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 394.70849999999996,
+          "ci95": [
+            392.91650000000004,
+            395.166
+          ],
+          "between_invocation_cv_pct": 0.7768205922727449,
+          "median_p99_us": 590.5835,
+          "median_timer_overhead_us": 0.125
+        },
+        "jwt_hs_string_safe": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 9.375499999999999,
+          "ci95": [
+            9.291,
+            9.541
+          ],
+          "between_invocation_cv_pct": 1.3722858147875292,
+          "median_p99_us": 24.1665,
+          "median_timer_overhead_us": 0.125
+        },
+        "probe_succeeds": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 115.8335,
+          "ci95": [
+            115.542,
+            116.812
+          ],
+          "between_invocation_cv_pct": 0.9423291962945767,
+          "median_p99_us": 169.6875,
+          "median_timer_overhead_us": 0.125
+        },
+        "probe_throws": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 373.79150000000004,
+          "ci95": [
+            371.5,
+            375.792
+          ],
+          "between_invocation_cv_pct": 2.3271218787704,
+          "median_p99_us": 500.375,
+          "median_timer_overhead_us": 0.125
+        },
+        "timer_overhead": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 0.167,
+          "ci95": [
+            0.167,
+            0.208
+          ],
+          "between_invocation_cv_pct": 11.17631254372131,
+          "median_p99_us": 0.22949999999999998,
+          "median_timer_overhead_us": 0.125
+        }
+      },
+      "contrasts": {
+        "string_key_penalty_hs256": {
+          "a": "jwt_hs_string",
+          "b": "jwt_hs_preparsed",
+          "n_rounds": 10,
+          "median_diff_us": 387.2295,
+          "ci95": [
+            385.3955,
+            387.6665
+          ]
+        },
+        "safe_patch_saving_hs256": {
+          "a": "jwt_hs_string",
+          "b": "jwt_hs_string_safe",
+          "n_rounds": 10,
+          "median_diff_us": 385.2925,
+          "ci95": [
+            383.6245,
+            385.64549999999997
+          ]
+        },
+        "safe_patch_residual": {
+          "a": "jwt_hs_string_safe",
+          "b": "jwt_hs_preparsed",
+          "n_rounds": 10,
+          "median_diff_us": 1.8330000000000002,
+          "ci95": [
+            1.625,
+            2.0625
+          ]
+        },
+        "string_key_penalty_rs256": null
+      },
+      "decomposition": {
+        "n_rounds": 10,
+        "observed_penalty_us": {
+          "median": 387.2295,
+          "ci95": [
+            385.3955,
+            387.6665
+          ]
+        },
+        "predicted_from_parts_us": {
+          "median": 375.29200000000003,
+          "ci95": [
+            373.0,
+            377.41700000000003
+          ]
+        },
+        "residual_us": {
+          "median": 11.708500000000015,
+          "ci95": [
+            9.8125,
+            14.375
+          ]
+        },
+        "explained_fraction": 0.9691720284740705
+      }
+    },
+    "node:20-alpine": {
+      "runtime": {
+        "node_version": [
+          "v20.20.2"
+        ],
+        "openssl_version": [
+          "3.0.19"
+        ],
+        "platform": [
+          "linux/arm64"
+        ]
+      },
+      "conditions": {
+        "create_secret_key": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 1.25,
+          "ci95": [
+            1.2295,
+            1.291
+          ],
+          "between_invocation_cv_pct": 6.561884106158886,
+          "median_p99_us": 3.8125,
+          "median_timer_overhead_us": 0.083
+        },
+        "decode_only": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 2.1875,
+          "ci95": [
+            1.75,
+            2.4165
+          ],
+          "between_invocation_cv_pct": 15.620121399266043,
+          "median_p99_us": 7.875,
+          "median_timer_overhead_us": 0.0835
+        },
+        "hmac_keyobject": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 2.1665,
+          "ci95": [
+            2.125,
+            2.3129999999999997
+          ],
+          "between_invocation_cv_pct": 15.95711998316562,
+          "median_p99_us": 9.771,
+          "median_timer_overhead_us": 0.083
+        },
+        "hmac_string": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 2.3335,
+          "ci95": [
+            2.333,
+            2.416
+          ],
+          "between_invocation_cv_pct": 2.209284634245186,
+          "median_p99_us": 12.146,
+          "median_timer_overhead_us": 0.083
+        },
+        "jwt_hs_preparsed": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 7.2495,
+          "ci95": [
+            7.0835,
+            7.5
+          ],
+          "between_invocation_cv_pct": 11.331126065413581,
+          "median_p99_us": 22.833,
+          "median_timer_overhead_us": 0.083
+        },
+        "jwt_hs_string": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 437.39599999999996,
+          "ci95": [
+            435.625,
+            440.791
+          ],
+          "between_invocation_cv_pct": 0.8480563458695043,
+          "median_p99_us": 680.3535,
+          "median_timer_overhead_us": 0.083
+        },
+        "jwt_hs_string_safe": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 8.771,
+          "ci95": [
+            8.542,
+            9.375
+          ],
+          "between_invocation_cv_pct": 4.634760879194199,
+          "median_p99_us": 28.7085,
+          "median_timer_overhead_us": 0.083
+        },
+        "probe_succeeds": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 142.375,
+          "ci95": [
+            141.85399999999998,
+            144.292
+          ],
+          "between_invocation_cv_pct": 0.8229615461017913,
+          "median_p99_us": 255.6665,
+          "median_timer_overhead_us": 0.083
+        },
+        "probe_throws": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 420.625,
+          "ci95": [
+            419.52099999999996,
+            422.562
+          ],
+          "between_invocation_cv_pct": 0.4813782573289466,
+          "median_p99_us": 650.6044999999999,
+          "median_timer_overhead_us": 0.083
+        },
+        "timer_overhead": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 0.125,
+          "ci95": [
+            0.125,
+            0.14600000000000002
+          ],
+          "between_invocation_cv_pct": 13.274928708353018,
+          "median_p99_us": 0.209,
+          "median_timer_overhead_us": 0.083
+        }
+      },
+      "contrasts": {
+        "string_key_penalty_hs256": {
+          "a": "jwt_hs_string",
+          "b": "jwt_hs_preparsed",
+          "n_rounds": 10,
+          "median_diff_us": 430.313,
+          "ci95": [
+            428.292,
+            433.291
+          ]
+        },
+        "safe_patch_saving_hs256": {
+          "a": "jwt_hs_string",
+          "b": "jwt_hs_string_safe",
+          "n_rounds": 10,
+          "median_diff_us": 428.89599999999996,
+          "ci95": [
+            426.542,
+            431.416
+          ]
+        },
+        "safe_patch_residual": {
+          "a": "jwt_hs_string_safe",
+          "b": "jwt_hs_preparsed",
+          "n_rounds": 10,
+          "median_diff_us": 1.5415,
+          "ci95": [
+            1.2299999999999995,
+            1.8955000000000002
+          ]
+        },
+        "string_key_penalty_rs256": null
+      },
+      "decomposition": {
+        "n_rounds": 10,
+        "observed_penalty_us": {
+          "median": 430.313,
+          "ci95": [
+            428.292,
+            433.291
+          ]
+        },
+        "predicted_from_parts_us": {
+          "median": 421.97900000000004,
+          "ci95": [
+            420.729,
+            423.83299999999997
+          ]
+        },
+        "residual_us": {
+          "median": 8.02000000000001,
+          "ci95": [
+            6.416999999999973,
+            9.645499999999998
+          ]
+        },
+        "explained_fraction": 0.9806327022423215
+      }
+    },
+    "node:26.6.0-alpine": {
+      "runtime": {
+        "node_version": [
+          "v26.6.0"
+        ],
+        "openssl_version": [
+          "3.5.7"
+        ],
+        "platform": [
+          "linux/arm64"
+        ]
+      },
+      "conditions": {
+        "create_secret_key": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 0.792,
+          "ci95": [
+            0.791,
+            0.813
+          ],
+          "between_invocation_cv_pct": 4.116459958659799,
+          "median_p99_us": 16.374499999999998,
+          "median_timer_overhead_us": 0.083
+        },
+        "decode_only": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 1.708,
+          "ci95": [
+            1.583,
+            1.729
+          ],
+          "between_invocation_cv_pct": 9.998526248558441,
+          "median_p99_us": 6.604,
+          "median_timer_overhead_us": 0.084
+        },
+        "hmac_keyobject": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 3.167,
+          "ci95": [
+            3.0415,
+            3.542
+          ],
+          "between_invocation_cv_pct": 8.492883453962262,
+          "median_p99_us": 21.0,
+          "median_timer_overhead_us": 0.083
+        },
+        "hmac_string": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 3.25,
+          "ci95": [
+            3.167,
+            3.75
+          ],
+          "between_invocation_cv_pct": 8.578518551661832,
+          "median_p99_us": 26.125500000000002,
+          "median_timer_overhead_us": 0.083
+        },
+        "jwt_hs_preparsed": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 6.5625,
+          "ci95": [
+            6.479,
+            6.9165
+          ],
+          "between_invocation_cv_pct": 13.306749250360314,
+          "median_p99_us": 30.854,
+          "median_timer_overhead_us": 0.083
+        },
+        "jwt_hs_string": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 36.417,
+          "ci95": [
+            36.104,
+            36.875
+          ],
+          "between_invocation_cv_pct": 1.494524339703976,
+          "median_p99_us": 111.4585,
+          "median_timer_overhead_us": 0.083
+        },
+        "jwt_hs_string_safe": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 8.125,
+          "ci95": [
+            7.9585,
+            9.208
+          ],
+          "between_invocation_cv_pct": 10.92440750740201,
+          "median_p99_us": 47.021,
+          "median_timer_overhead_us": 0.083
+        },
+        "probe_succeeds": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 15.5415,
+          "ci95": [
+            15.3125,
+            15.75
+          ],
+          "between_invocation_cv_pct": 2.0871443724189214,
+          "median_p99_us": 38.896,
+          "median_timer_overhead_us": 0.083
+        },
+        "probe_throws": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 22.9375,
+          "ci95": [
+            22.792,
+            23.292
+          ],
+          "between_invocation_cv_pct": 1.269433045647925,
+          "median_p99_us": 57.042,
+          "median_timer_overhead_us": 0.083
+        },
+        "timer_overhead": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 0.125,
+          "ci95": [
+            0.125,
+            0.166
+          ],
+          "between_invocation_cv_pct": 14.973344384205948,
+          "median_p99_us": 0.25,
+          "median_timer_overhead_us": 0.084
+        }
+      },
+      "contrasts": {
+        "string_key_penalty_hs256": {
+          "a": "jwt_hs_string",
+          "b": "jwt_hs_preparsed",
+          "n_rounds": 10,
+          "median_diff_us": 29.709000000000003,
+          "ci95": [
+            29.3125,
+            30.25
+          ]
+        },
+        "safe_patch_saving_hs256": {
+          "a": "jwt_hs_string",
+          "b": "jwt_hs_string_safe",
+          "n_rounds": 10,
+          "median_diff_us": 28.040999999999997,
+          "ci95": [
+            27.0835,
+            28.833
+          ]
+        },
+        "safe_patch_residual": {
+          "a": "jwt_hs_string_safe",
+          "b": "jwt_hs_preparsed",
+          "n_rounds": 10,
+          "median_diff_us": 1.5625,
+          "ci95": [
+            1.2714999999999996,
+            2.0620000000000003
+          ]
+        },
+        "string_key_penalty_rs256": null
+      },
+      "decomposition": {
+        "n_rounds": 10,
+        "observed_penalty_us": {
+          "median": 29.709000000000003,
+          "ci95": [
+            29.333,
+            30.25
+          ]
+        },
+        "predicted_from_parts_us": {
+          "median": 23.771,
+          "ci95": [
+            23.584000000000003,
+            24.084000000000003
+          ]
+        },
+        "residual_us": {
+          "median": 5.959000000000003,
+          "ci95": [
+            5.480000000000002,
+            6.501000000000001
+          ]
+        },
+        "explained_fraction": 0.8001279073681375
+      }
+    },
+    "node:26.6.0-bookworm": {
+      "runtime": {
+        "node_version": [
+          "v26.6.0"
+        ],
+        "openssl_version": [
+          "3.5.7"
+        ],
+        "platform": [
+          "linux/arm64"
+        ]
+      },
+      "conditions": {
+        "create_secret_key": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 0.9375,
+          "ci95": [
+            0.8545,
+            0.979
+          ],
+          "between_invocation_cv_pct": 7.701783627682372,
+          "median_p99_us": 4.4795,
+          "median_timer_overhead_us": 0.084
+        },
+        "decode_only": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 1.6665,
+          "ci95": [
+            1.417,
+            1.708
+          ],
+          "between_invocation_cv_pct": 11.2128574013867,
+          "median_p99_us": 6.8335,
+          "median_timer_overhead_us": 0.125
+        },
+        "hmac_keyobject": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 2.9370000000000003,
+          "ci95": [
+            2.6665,
+            3.208
+          ],
+          "between_invocation_cv_pct": 11.985843363372839,
+          "median_p99_us": 13.6875,
+          "median_timer_overhead_us": 0.10450000000000001
+        },
+        "hmac_string": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 3.1879999999999997,
+          "ci95": [
+            2.708,
+            3.417
+          ],
+          "between_invocation_cv_pct": 12.712760441061732,
+          "median_p99_us": 17.458,
+          "median_timer_overhead_us": 0.125
+        },
+        "jwt_hs_preparsed": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 6.0415,
+          "ci95": [
+            5.75,
+            7.5
+          ],
+          "between_invocation_cv_pct": 16.16788215537917,
+          "median_p99_us": 26.250500000000002,
+          "median_timer_overhead_us": 0.083
+        },
+        "jwt_hs_string": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 27.958,
+          "ci95": [
+            27.833,
+            28.5
+          ],
+          "between_invocation_cv_pct": 1.6629111247039057,
+          "median_p99_us": 64.9375,
+          "median_timer_overhead_us": 0.083
+        },
+        "jwt_hs_string_safe": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 8.021,
+          "ci95": [
+            7.125,
+            8.3125
+          ],
+          "between_invocation_cv_pct": 11.59943805726147,
+          "median_p99_us": 35.0,
+          "median_timer_overhead_us": 0.083
+        },
+        "probe_succeeds": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 12.125,
+          "ci95": [
+            11.875,
+            14.479
+          ],
+          "between_invocation_cv_pct": 20.221987476880557,
+          "median_p99_us": 35.8125,
+          "median_timer_overhead_us": 0.083
+        },
+        "probe_throws": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 16.5835,
+          "ci95": [
+            16.375,
+            17.875
+          ],
+          "between_invocation_cv_pct": 6.830813293018325,
+          "median_p99_us": 49.9785,
+          "median_timer_overhead_us": 0.083
+        },
+        "timer_overhead": {
+          "n_invocations": 10,
+          "calls_per_invocation": 20000,
+          "median_of_medians_us": 0.125,
+          "ci95": [
+            0.125,
+            0.166
+          ],
+          "between_invocation_cv_pct": 14.973344384205948,
+          "median_p99_us": 0.25,
+          "median_timer_overhead_us": 0.125
+        }
+      },
+      "contrasts": {
+        "string_key_penalty_hs256": {
+          "a": "jwt_hs_string",
+          "b": "jwt_hs_preparsed",
+          "n_rounds": 10,
+          "median_diff_us": 21.875,
+          "ci95": [
+            20.375,
+            22.604
+          ]
+        },
+        "safe_patch_saving_hs256": {
+          "a": "jwt_hs_string",
+          "b": "jwt_hs_string_safe",
+          "n_rounds": 10,
+          "median_diff_us": 20.1665,
+          "ci95": [
+            19.833,
+            20.75
+          ]
+        },
+        "safe_patch_residual": {
+          "a": "jwt_hs_string_safe",
+          "b": "jwt_hs_preparsed",
+          "n_rounds": 10,
+          "median_diff_us": 1.1875,
+          "ci95": [
+            0.25,
+            2.3545
+          ]
+        },
+        "string_key_penalty_rs256": null
+      },
+      "decomposition": {
+        "n_rounds": 10,
+        "observed_penalty_us": {
+          "median": 21.875,
+          "ci95": [
+            20.375,
+            22.604
+          ]
+        },
+        "predicted_from_parts_us": {
+          "median": 17.4795,
+          "ci95": [
+            17.209,
+            18.8125
+          ]
+        },
+        "residual_us": {
+          "median": 3.603999999999999,
+          "ci95": [
+            2.313500000000003,
+            5.145499999999998
+          ]
+        },
+        "explained_fraction": 0.7990628571428572
+      }
+    }
+  },
+  "cross_environment": {
+    "reference": "node:18.20.8-alpine",
+    "ratio_vs_reference": {
+      "node:20-alpine": {
+        "create_secret_key": 0.882,
+        "decode_only": 1.346,
+        "hmac_keyobject": 0.813,
+        "hmac_string": 0.965,
+        "jwt_hs_preparsed": 0.956,
+        "jwt_hs_string": 1.108,
+        "jwt_hs_string_safe": 0.936,
+        "probe_succeeds": 1.229,
+        "probe_throws": 1.125,
+        "timer_overhead": 0.749
+      },
+      "node:26.6.0-alpine": {
+        "create_secret_key": 0.559,
+        "decode_only": 1.051,
+        "hmac_keyobject": 1.188,
+        "hmac_string": 1.345,
+        "jwt_hs_preparsed": 0.865,
+        "jwt_hs_string": 0.092,
+        "jwt_hs_string_safe": 0.867,
+        "probe_succeeds": 0.134,
+        "probe_throws": 0.061,
+        "timer_overhead": 0.749
+      },
+      "node:26.6.0-bookworm": {
+        "create_secret_key": 0.662,
+        "decode_only": 1.026,
+        "hmac_keyobject": 1.102,
+        "hmac_string": 1.319,
+        "jwt_hs_preparsed": 0.797,
+        "jwt_hs_string": 0.071,
+        "jwt_hs_string_safe": 0.856,
+        "probe_succeeds": 0.105,
+        "probe_throws": 0.044,
+        "timer_overhead": 0.749
+      }
+    }
+  }
+}

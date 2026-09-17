@@ -1,0 +1,26 @@
+self_pct,self_ms,function,location
+94.66,29028.9,createPublicKey,node:internal/crypto/keys
+0.64,194.9,Hmac,node:internal/crypto/hash
+0.36,109.2,safeJsonParse,jws/lib/verify-stream.js
+0.36,109.0,(garbage collector),(native)
+0.31,96.4,KeyObject,node:internal/crypto/keys
+0.23,69.4,jwsDecode,jws/lib/verify-stream.js
+0.23,69.2,createSecretKey,node:internal/crypto/keys
+0.19,57.6,write,node:buffer
+0.16,48.3,digest,node:internal/crypto/hash
+0.15,47.5,fromBase64,jwa/index.js
+0.14,42.5,module.exports,jsonwebtoken/verify.js
+0.14,42.4,jwa,jwa/index.js
+0.14,42.3,FastBuffer,node:internal/buffer
+0.13,40.1,securedInputFromJWS,jws/lib/verify-stream.js
+0.12,38.2,base64Write,(native)
+0.12,35.4,signatureFromJWS,jws/lib/verify-stream.js
+0.11,34.1,utf8Write,(native)
+0.10,31.4,update,node:internal/crypto/hash
+0.10,31.1,timingSafeEqual,jwa/index.js
+0.09,28.3,headerFromJWS,jws/lib/verify-stream.js
+0.09,27.8,internalModuleStat,(native)
+0.09,27.0,(anonymous),jsonwebtoken/verify.js
+0.08,24.5,fromStringFast,node:buffer
+0.06,19.5,byteLengthUtf8,(native)
+0.06,18.8,(anonymous),file:///bench/keypath-profile.js
