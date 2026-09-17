@@ -22,9 +22,15 @@
 #                and the one that answers whether the OpenSSL 3.0 penalty is
 #                architecture-specific
 #
-# NOT TESTED AGAINST A LIVE TENANCY. It was written without OCI credentials on
-# this machine, so treat the first --dry-run as part of the review, not as a
-# formality.
+# VERIFIED, AND NOT VERIFIED. Every subcommand and flag used below was checked
+# to exist in oci-cli 3.93.0 (note that --query is a GLOBAL option and does not
+# appear in per-command --help, which makes a naive check report it missing).
+# The API calls themselves have NOT been run against a live tenancy, because
+# this machine has no OCI credentials. Treat the first --dry-run as part of the
+# review, not as a formality.
+#
+# The CLI prompts interactively when ~/.oci/config is absent, which would hang a
+# non-interactive run; the guard below exits before any oci invocation.
 
 set -euo pipefail
 
