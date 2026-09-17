@@ -1,0 +1,1530 @@
+[
+ {
+  "repo": "suculent/thinx-device-api",
+  "path": "lib/thinx/jwtlogin.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "jasonhoang6201/be-template-postgres",
+  "path": "utils/token.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": true,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "lethanhkhoi/vinamoon-authentication",
+  "path": "utils/token.js",
+  "verify_calls": 2,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": true,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "thinx-cloud/thinx",
+  "path": "lib/thinx/jwtlogin.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "ehsanMahmoodi/social-media",
+  "path": "src/common/utils/functions.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "duy-mt/happyboard-be",
+  "path": "src/api/v1/utils/index.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "txlinh/sync-app",
+  "path": "src/lib/secretKey.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "SonarSource/SonarJS",
+  "path": "its/sources/custom/jsts/S6437.js",
+  "verify_calls": 5,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "gardener/dashboard",
+  "path": "backend/lib/security/jose.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "the-capital-hub/thecapitalhub",
+  "path": "backend/services/userService.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "maitrungduc1410/vivari",
+  "path": "scripts/spike-jwt.mjs",
+  "verify_calls": 6,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": true,
+  "keyobject_names": "key"
+ },
+ {
+  "repo": "justcatthefish/ctf-writeups",
+  "path": "2019-04-25-Angstrom2019/web/Cookie-cutter/server.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "messagebird/messagebird-nodejs",
+  "path": "examples/webhook-signature-http-node.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "secret"
+ },
+ {
+  "repo": "pluscontainer/pske-dashboard",
+  "path": "backend/lib/security/jose.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "jest123/varprog_jwt",
+  "path": "server.js",
+  "verify_calls": 5,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": true,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "graduate-project-sut/engineering-curriculum-system",
+  "path": "backend/midddleware.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": true,
+  "keyobject_names": "secretKey"
+ },
+ {
+  "repo": "ravendraksingh/HRMS-Backend",
+  "path": "util/authUtil.js",
+  "verify_calls": 2,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "secretKey"
+ },
+ {
+  "repo": "xuanhoa88/xnapify",
+  "path": "shared/jwt/core.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "key"
+ },
+ {
+  "repo": "Katha-Sikdar/microservices-api",
+  "path": "service-a/index.js",
+  "verify_calls": 4,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "CodePro-ABridges/Arthur-s-Laboratory",
+  "path": "server/middleware/authMiddleware.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "key"
+ },
+ {
+  "repo": "uzafirahmad/express-javascript-boilerplate",
+  "path": "src/utils/auth.utils.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "HiteshChoudhary4554/Task-Tracker-Project-Backend",
+  "path": "src/common/utils/jwt.utils.js",
+  "verify_calls": 2,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "miroku0000/AI-Security-Benchmark",
+  "path": "output/github-copilot/jwt_006.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "signingKey"
+ },
+ {
+  "repo": "Puru1375/pm_internship_allocation_website",
+  "path": "pm-internship-backend/auth/JwtService.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "dirmich/common-test",
+  "path": "cryptotest.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "k;ks"
+ },
+ {
+  "repo": "Andreean26/demo_paseto",
+  "path": "server.js",
+  "verify_calls": 3,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "PASETO_LOCAL_KEY"
+ },
+ {
+  "repo": "Simana-poudel/realestate-backend",
+  "path": "middlewares/authentication.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": false,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "Simana-poudel/realestate-backendd",
+  "path": "middlewares/authentication.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": false,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "Katha-Sikdar/microservices-api",
+  "path": "psao-artifact/bench/jwt-path-microbench.js",
+  "verify_calls": 4,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "HS_KEYOBJECT;RSA_PUBLIC_KEYOBJECT"
+ },
+ {
+  "repo": "rahilsoft/armanvarzesh-v128",
+  "path": "services/api-gateway/src/main.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "secret"
+ },
+ {
+  "repo": "The-Cookies-Team/Realtime-Chat-App-API",
+  "path": "src/controllers/userController.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "trongdung721/ute-zone",
+  "path": "src/controllers/userController.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "graduation-thesis-ute/ute-zone-backend",
+  "path": "src/controllers/userController.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "jasonhoang6201/presentation-server",
+  "path": "controller/user.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "graduate-project-sut/engineering-curriculum-system",
+  "path": "backend/controllers/authController.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": true,
+  "keyobject_names": "secretKey"
+ },
+ {
+  "repo": "arfan-ahmed-shohag/csit_inventory",
+  "path": "csit_inventory_server/api/server.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "jwtGenerator;token"
+ },
+ {
+  "repo": "linxiqt/yyauth",
+  "path": "server/chunks/_/nitro.mjs",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "lauratnt/Supermarket_CC",
+  "path": "apiGateaway/supermarketsMicroservice/supermarketsMicroservice.js",
+  "verify_calls": 4,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "lauratnt/Supermarket_CC",
+  "path": "apiGateaway/usersMicroservice/usersMicroservice.js",
+  "verify_calls": 3,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "clairevuni/ISD_Supermarket",
+  "path": "Desktop/ISD_Supermarket-master/ISD_Supermarket-master/Desktop/Prog_Ingeg/app/supermarketsMicroservice.js",
+  "verify_calls": 3,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "kaytervn/kaytervn",
+  "path": "capstone-projects/zalo-ute/realtime-chat-app-api/src/controllers/userController.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "clairevuni/ISD_Supermarket",
+  "path": "Desktop/ISD_Supermarket-master/ISD_Supermarket-master/Desktop/Prog_Ingeg/app/usersMicroservice.js",
+  "verify_calls": 3,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "messagebird/messagebird-nodejs",
+  "path": "lib/test.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "blntunlan/crypto-cyber-survivors",
+  "path": "railway-market-server/test_jwt_flow.js",
+  "verify_calls": 4,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "key;pub"
+ },
+ {
+  "repo": "UzaiSindiko/node-app",
+  "path": "test/helpers.test.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "secretKey"
+ },
+ {
+  "repo": "UzaiSindiko/webhook",
+  "path": "test/helpers.test.js",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "secretKey"
+ },
+ {
+  "repo": "SnackyTater/learn-nestjs",
+  "path": "src/utils/auth.ts",
+  "verify_calls": 2,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": true,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "ananddub/serverWithSdkSymb",
+  "path": "src/controllers/JwtSign.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "Poonehmgh/ft_transcendence",
+  "path": "backend/src/auth/auth.service.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "SonarSource/SonarJS",
+  "path": "packages/analysis/src/jsts/rules/S6437/cb.fixture.ts",
+  "verify_calls": 5,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "pipeshub-ai/pipeshub-ai",
+  "path": "backend/nodejs/apps/src/libs/services/authtoken.service.ts",
+  "verify_calls": 2,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "felipe-software/feridinha.com",
+  "path": "api/src/handlers/session.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": true,
+  "keyobject_names": "secretKey"
+ },
+ {
+  "repo": "arfan-ahmed-shohag/FixItNowBackend",
+  "path": "lib/jwt.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "jwtGenerator;token"
+ },
+ {
+  "repo": "kentaroh7777/soshoku-kakin2",
+  "path": "middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "secret"
+ },
+ {
+  "repo": "HarperFast/jwt",
+  "path": "src/lib/keyResolver.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "tuatui/xe-ai",
+  "path": "server/trpc/procedures/auth.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": true,
+  "keyobject_names": "secretKey"
+ },
+ {
+  "repo": "Caalb/finance-control",
+  "path": "server/middleware/auth.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "secretKey"
+ },
+ {
+  "repo": "patilprashant48/sakhalas-admin",
+  "path": "backend/src/routes/auth.routes.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": true,
+  "keyobject_names": "secret"
+ },
+ {
+  "repo": "riao-project/riao-iam",
+  "path": "src/jwt.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "emilebilodeau/survey-creation-2",
+  "path": "backend/src/middleware/auth.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": true,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "FModel/api.fmodel.app",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "jsahleen/cldr-service",
+  "path": "src/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "beraujjwal/tem",
+  "path": "src/middlewares/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "GITANSHU7/smart-farm",
+  "path": "src/middleware/validator.ts",
+  "verify_calls": 2,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "secretKey"
+ },
+ {
+  "repo": "arfan-ahmed-shohag/Met-Club-Backend-Deploy",
+  "path": "src/utils/jwt.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "jwtGenerator;token"
+ },
+ {
+  "repo": "stephangrobler/budgelope",
+  "path": "server/server/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "Kirill-Bokov/I-ll-give-you-the-stone",
+  "path": "Code/Backend/src/user.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": true,
+  "keyobject_names": "secret"
+ },
+ {
+  "repo": "brendapc/API-nodejs-typescript",
+  "path": "src/services/auth.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "rajabmohammadi/user-management",
+  "path": "app/users/middleware/users.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "jcdev21/email-recording-api",
+  "path": "src/main/helpers/Authentication.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "olad5/p2p-wallet-system",
+  "path": "src/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "valocracy/moonvilla",
+  "path": "src/middlewares/jwt.middleware.ts",
+  "verify_calls": 2,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "goodvandro/rest-api-node-mongo",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "efcjunior/toptal-article-api",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "FathurRohmna/Fullstack-Expressjs-Mongodb-Reactjs-Typescript",
+  "path": "server/src/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 2,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": true,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "arfan-ahmed-shohag/project-thesis-automation-server",
+  "path": "src/shared/jwtGenerator.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "jwtGenerator;token"
+ },
+ {
+  "repo": "daniellaera/node-typescript-rest",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "bashketchum02/typescript-boilerplate",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "bashketchum02/barcamp-2021-api",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 2,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "andresestrella/api-territorio-rd",
+  "path": "src/auth/auth.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "kpachhai/pathsports-restapi-backend",
+  "path": "src/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "dunkmway/emlekezz",
+  "path": "src/server/services/jwt.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "Linksku/leo-framework",
+  "path": "framework/server/core/jwt.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "keyObj"
+ },
+ {
+  "repo": "ThiagoBussola/teste-gazin",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "david-dot-krupicka/products-review",
+  "path": "products/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "arfan-ahmed-shohag/STRIKERS-FC",
+  "path": "football-club-server/src/lib/jwt.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "jwtGenerator;token"
+ },
+ {
+  "repo": "lawalbolaji/p2p-wazobia",
+  "path": "src/modules/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "Neyen108/docker-nodejs-typescript-mongodb-rest-api",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "Neyen108/cross-blog-backend",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "ndungu-mbau/mashule-backend",
+  "path": "src/authentication/services/jwt.provider.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "victor-devv/mock-premier-league",
+  "path": "src/middlewares/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "n4matos/boticario-cashback-api",
+  "path": "src/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "abchakra/rest-api-ts",
+  "path": "app/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "arfan-ahmed-shohag/Income-Expense-Tracker",
+  "path": "Income_Expense_Backend/src/utils/jwt.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "jwtGenerator;token"
+ },
+ {
+  "repo": "gstvomacedo/cashback-app",
+  "path": "app/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "mwinel/ezziepos-backend",
+  "path": "src/auth/middlewares/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "ramu-narasinga/practicefrontend.tthroo.com",
+  "path": "backend/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "pirocorp/JS-Back-End",
+  "path": "Workshops/REST API/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "erkjbro/examples",
+  "path": "backend/pro-rest-api/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "geekreflex/ripple-api",
+  "path": "src/modules/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "nehaal10/medium-blog",
+  "path": "server/src/utils/utils.ts",
+  "verify_calls": 2,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "arfan-ahmed-shohag/csit_inventory",
+  "path": "csit_inventory_server/src/shared/jwtGenerator.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "jwtGenerator;token"
+ },
+ {
+  "repo": "predatorx7/FHN_Project",
+  "path": "nodejs/src/app/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "JunCodera1/green-footprint-backend",
+  "path": "src/modules/auth/auth.service.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "future4code/vaughan-Gabriel-Martins",
+  "path": "Modulo5/cookenu/src/services/Authenticator.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "ramu-narasinga/No-Code-Web-Builder",
+  "path": "backend/modules/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "JHorlamide/BioSeqAnalyzer",
+  "path": "user-service/app/modules/auth/middleware/jwtMiddleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "Gizmodo/BlackWords",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "ramu-narasinga/FoqusMap-BE",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "ramu-narasinga/Rest-Express-Starter",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "gitofdeepanshu/Rest-Api-BoilerPlate",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "maksymkhodakov/NodeREST",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "jaycchiu524/need-for-spend",
+  "path": "packages/server/src/common/middlewares/jwt.middleware.ts",
+  "verify_calls": 2,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "Rohan-Vij/api",
+  "path": "auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "ConnorMacDonell/dr-messaging-backend",
+  "path": "src/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "yanglindong0725/hyper-docs-backend",
+  "path": "src/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "TobitMisoi/express-ts-template",
+  "path": "src/auth/middelware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "AnnaAnnaNX/ts-express-rest",
+  "path": "src/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "TobitMisoi/express-ts-template",
+  "path": "src/auth/controller/auth.controllers.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "sergiycheck/diff--general-tasks-1",
+  "path": "3-encoding-ciphering-hashing/src/index.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "secretKey"
+ },
+ {
+  "repo": "NazmusSayad/one-time-jwt",
+  "path": "src/one-time-jwt.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "OTPSecret"
+ },
+ {
+  "repo": "filipve1994/angularfrontendbackendstatemanagement",
+  "path": "expressjstypescript/src/modules/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "samitatimsina/movie-ticketing-app",
+  "path": "bms-backend/src/modules/auth/token.sevice.ts",
+  "verify_calls": 2,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "Scott-Zeta/NodePlayground",
+  "path": "RestApiTS/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "stfnbssl/wizzi.cli",
+  "path": "packages/wizzi.cli.hub/gitclones/toptal-rest-series/auth/middleware/jwt.middleware.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "fafa-npu/VibeMobile",
+  "path": "web/server/services/auth.ts",
+  "verify_calls": 2,
+  "mentions_keyobject_api": false,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "beabee-communityrm/telegram-bot",
+  "path": "telegram-bot/services/network-communicator.service.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "DefinitelyTyped/DefinitelyTyped",
+  "path": "types/jsonwebtoken/jsonwebtoken-tests.ts",
+  "verify_calls": 38,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "Malkhalaf697/Visionx",
+  "path": "types/jsonwebtoken/jsonwebtoken-tests.ts",
+  "verify_calls": 31,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "talentosagiles/Ti",
+  "path": "types/jsonwebtoken/jsonwebtoken-tests.ts",
+  "verify_calls": 31,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "Malkhalaf697/git-clone-https-github.com-docker-welcome-to-docker",
+  "path": "types/jsonwebtoken/jsonwebtoken-tests.ts",
+  "verify_calls": 31,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "knoxio-labs/pops",
+  "path": "pillars/bfm/src/api/auth/__tests__/access-token.test.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "otherKey;signingKey"
+ },
+ {
+  "repo": "YYC-Cube/YYC3-Knowledge-Base",
+  "path": "YYC3-A/DefinitelyTyped/types/jsonwebtoken/jsonwebtoken-tests.ts",
+  "verify_calls": 38,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "YYC-Cube/YYC3-Knowledge-Base",
+  "path": "YYC3-E/types/definitely-typed/types/jsonwebtoken/jsonwebtoken-tests.ts",
+  "verify_calls": 38,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "beabee-communityrm/telegram-bot",
+  "path": "telegram-bot/services/network-communicator.service.test.ts",
+  "verify_calls": 1,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "secretKey"
+ },
+ {
+  "repo": "jasonhoang6201/presentation-server",
+  "path": "utils/token.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "mohansahu18/emai-verification",
+  "path": "backend/src/utils/cipher-util.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "SarthakNative/task-management",
+  "path": "backend/src/utils/Cipher.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "tan1423/email",
+  "path": "server/src/utils/Cipher-util.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "Pawanpathariya/pabbly-email-verification",
+  "path": "backend/src/utils/cipher-util.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "AbhayDixitDev/Email-Verification-Bouncify",
+  "path": "backend/src/utils/cipher-util.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "ONLYOFFICE/server",
+  "path": "Common/sources/utils.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "Euro-Office/server",
+  "path": "Common/sources/utils.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "SuperJeffrey/server",
+  "path": "Common/sources/utils.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "tusharpareenja/Doc",
+  "path": "server/Common/sources/utils.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "insinfo/my_office",
+  "path": "server/Common/sources/utils.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "Webber-Wei-RSP/OnlyOffice-Doc-Server-Docker",
+  "path": "server/Common/sources/utils.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "okaidigital/okaidocs",
+  "path": "editor-engine/server/Common/sources/utils.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "mohdiqbal-dev/square-aspen",
+  "path": "src/services/netlify-services/netlify-service.js",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "secretKey"
+ },
+ {
+  "repo": "aitiotekt/minellius",
+  "path": "server/src/auth/services/token.service.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "Gym/nestjs-seed",
+  "path": "server/src/auth/services/token.service.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "nestjs/jwt",
+  "path": "lib/jwt.service.spec.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "FModel/api.fmodel.app",
+  "path": "auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "jsahleen/cldr-service",
+  "path": "src/auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "MontaserHassan/school-management-system",
+  "path": "server/src/Utils/createToken.util.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "elissandroa/chamadaEscolar",
+  "path": "backend/src/helpers/create-user-token.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "efcjunior/toptal-article-api",
+  "path": "auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "daniellaera/node-typescript-rest",
+  "path": "auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "goodvandro/rest-api-node-mongo",
+  "path": "auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "bashketchum02/typescript-boilerplate",
+  "path": "auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "kpachhai/pathsports-restapi-backend",
+  "path": "src/auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "bashketchum02/barcamp-2021-api",
+  "path": "auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "victor-devv/mock-premier-league",
+  "path": "src/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "mwinel/ezziepos-backend",
+  "path": "src/auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "ThiagoBussola/teste-gazin",
+  "path": "auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "FathurRohmna/Fullstack-Expressjs-Mongodb-Reactjs-Typescript",
+  "path": "server/src/auth/auth.service.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "abchakra/rest-api-ts",
+  "path": "app/auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "n4matos/boticario-cashback-api",
+  "path": "src/auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "FathurRohmna/Commerce.---Order-system-shop-with-Next-js-Typescript",
+  "path": "apiFeatures/auth/auth.service.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "david-dot-krupicka/products-review",
+  "path": "products/auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "pirocorp/JS-Back-End",
+  "path": "Workshops/REST API/auth/services/jwt.service.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "arfan-ahmed-shohag/FixItNowBackend",
+  "path": "src/app/modules/auth/auth.service.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "erkjbro/examples",
+  "path": "backend/pro-rest-api/auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "geekreflex/ripple-api",
+  "path": "src/modules/auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "FathurRohmna/Delive-Delivered_shop_system_with_GraphQL",
+  "path": "graphql/authentication/authentication.service.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "predatorx7/FHN_Project",
+  "path": "nodejs/src/app/auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "Gizmodo/BlackWords",
+  "path": "auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "maksymkhodakov/NodeREST",
+  "path": "auth/controllers/auth.controllers.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "AnnaAnnaNX/ts-express-rest",
+  "path": "src/auth/controller/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "gitofdeepanshu/Rest-Api-BoilerPlate",
+  "path": "auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "jaycchiu524/need-for-spend",
+  "path": "packages/server/src/auth/auth.controllers.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "ConnorMacDonell/dr-messaging-backend",
+  "path": "src/auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "Rohan-Vij/api",
+  "path": "auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "ramu-narasinga/FoqusMap-BE",
+  "path": "auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "hugogallor/f1-backend",
+  "path": "auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "yanglindong0725/hyper-docs-backend",
+  "path": "src/auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "filipve1994/angularfrontendbackendstatemanagement",
+  "path": "expressjstypescript/src/modules/auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "Scott-Zeta/NodePlayground",
+  "path": "RestApiTS/auth/controllers/auth.controllers.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "stfnbssl/wizzi.cli",
+  "path": "packages/wizzi.cli.hub/gitclones/toptal-rest-series/auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ },
+ {
+  "repo": "arfan-ahmed-shohag/STRIKERS-FC",
+  "path": "football-club-server/src/app/modules/auth/auth.service.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": ""
+ },
+ {
+  "repo": "ramu-narasinga/Rest-Express-Starter",
+  "path": "auth/controllers/auth.controller.ts",
+  "verify_calls": 0,
+  "mentions_keyobject_api": true,
+  "keyobject_reaches_verify": false,
+  "keyobject_names": "salt"
+ }
+]

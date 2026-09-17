@@ -1,0 +1,316 @@
+repo,path,lang,bucket,algorithms,evidence
+12anupa-baral/Mern3_Project2,server.ts,ts,unknown,unspecified,envConfig.jwt as string
+12anupa-baral/Mern3_Project2,server.ts,ts,unknown,unspecified,envConfig.jwt as string
+24hourkirtan/audio-streaming-apis,utils/jwt.js,js,unknown,unspecified,SECRET (untraced)
+ANGELKORADIYA/Quiz,db.js,js,env_string,unspecified,secretKey = process.env.SECRET_KEY
+ANGELKORADIYA/Quiz,db.js,js,env_string,unspecified,secretKey = process.env.SECRET_KEY
+Amber-bisht/askSync,lib/jwt.ts,ts,env_string,unspecified,secret = process.env.NEXTAUTH_SECRET!
+Angelxv01/thullo,index.ts,ts,unknown,unspecified,SECRET (untraced)
+ApryseSDK/website-reviewer,auth.ts,ts,env_string,unspecified,process.env.COLLAB_KEY
+Asciugano/A11yLab,proxy.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+Asura-lab/meeting_app,lib/jwt.ts,ts,env_string,unspecified,secret = process.env.JWT_SECRET
+Ayomishuga/Cardano-Bounties,proxy.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET!
+Ayomishuga/Cardano-Bounties,proxy.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET!
+Ayush-207/mysubs-server,index.ts,ts,env_string,unspecified,"process.env.JWT_KEY || ""randomsecret"""
+Baiyuetribe/express-ffmpeg-docker,app.js,js,unknown,unspecified,setting[0].antikey
+BijuDey/express-backend,jwt.js,js,env_string,unspecified,process.env.JWT_SECRET
+Bishwajit-2810/Voting_Application_node,jwt.js,js,env_string,unspecified,process.env.JWT_SECRET
+Brajesh31/Voting_Application,jwt.js,js,env_string,unspecified,process.env.JWT_SECRET
+BrooklinJazz/dm-binder-deprecated,index.ts,ts,env_string,unspecified,"process.env.JWT_SECRET_KEY || """""
+BryanBerger98/lodge-v2,lib/jwt.ts,ts,unknown,unspecified,JWT_SECRET (untraced)
+CarlosHxH/autocar,auth.ts,ts,unknown,unspecified,"env.AUTH_SECRET (member, untraced)"
+CarlosHxH/autocar,auth.ts,ts,unknown,unspecified,secret as string
+CeleritasCodingZen/cryptography,proxy.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+CeleritasCodingZen/cryptography,proxy.ts,ts,env_string,unspecified,process.env.ADMIN_JWT_SECRET!
+CeleritasCodingZen/cryptography,proxy.ts,ts,env_string,unspecified,process.env.ADMIN_JWT_SECRET!
+Codaisseur/typestack-day-example,src/jwt.ts,ts,env_string,unspecified,secret = process.env.JWT_SECRET || '9u8nnjksfdt98*(&*%T$#hs
+Cosen95/rest_node_api,app/routes/users.js,js,unknown,unspecified,secret (untraced)
+D-Y-Innovations/casl-sample,src/jwt.ts,ts,string_literal,unspecified,'secret'
+DoubleXm/part-time,services/users.js,js,unknown,unspecified,secret (untraced)
+DoubleXm/part-time,services/users.js,js,unknown,unspecified,secret (untraced)
+DoubleXm/part-time,services/users.js,js,unknown,unspecified,secret (untraced)
+DoubleXm/part-time,services/users.js,js,unknown,unspecified,secret (untraced)
+DoubleXm/part-time,services/users.js,js,unknown,unspecified,secret (untraced)
+DzenDyn/baseBackend,src/utils/jwtHelper.js,js,file_contents,RS,"REFRESH_PUBLIC_KEY = fs.readFileSync(refreshPublic, 'utf8')"
+ErickWendel/postman-is-slowing-you-down,recorded/app/api.js,js,string_literal,unspecified,"TOKEN_KEY = ""abc123"""
+FilPassOps/FilPass,lib/jwt.ts,ts,env_string,unspecified,secretOrPublicKey || (process.env.APP_SECRET as string)
+FilipeFilpe/medium-api-jwt,src/auth.js,js,string_literal,unspecified,PRIVATE_KEY = '1010FFF'
+FollowTheFlo/DeliveryMagnet-Shopify-App,shared.ts,ts,env_string,unspecified,process.env.SHOPIFY_API_SECRET
+FullstackAcademy/acme-auth-notes,db.js,js,env_string,unspecified,process.env.JWT
+FullstackAcademy/acme-oauth-2207-fsa,db.js,js,env_string,unspecified,process.env.JWT
+FullstackAcademy/acme-oauth,db.js,js,env_string,unspecified,process.env.JWT
+GDGVIT/groff-editor-backend,app.js,js,env_string,unspecified,process.env.JWT_KEY
+Halocrea/halocrea-stream-overlay,server/io.js,js,env_string,unspecified,process.env.JWT_SECRET
+HandyOSS/HandyHost,CommonUtils.js,js,file_contents,unspecified,"jwtKey = fs.readFileSync(jwtPath,'utf8').trim()"
+HiFaraz/express-tokenware,spec/provideSpec.js,js,string_literal,unspecified,secretKey = 'someSecretKey'
+IExpreso/Backend,app.js,js,unknown,unspecified,secret (untraced)
+IExpreso/Backend,app.js,js,unknown,unspecified,secret (untraced)
+IhsanulAfkar/emoney-gopay-api,mw.js,js,env_string,unspecified,process.env.dbsecrectoken
+ImFropZ/CoffeeShopAPI,utils.ts,ts,env_string,unspecified,"process.env.ACCESS_TOKEN_SECRET ?? """""
+JartigaRox/00171124_practica7_seccion1,app.js,js,string_literal,unspecified,"JWT_SECRET = ""your_jwt_secret"""
+Jeeban-2006/DSA-Sync,lib/jwt.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-key-cha
+Jikuto4322/RTCtoBCS,src/ws.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET || 'dev_secret'
+Jikuto4322/RTCtoBCS,src/ws.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET || 'dev_secret'
+Karan0990/EduMart,proxy.ts,ts,env_string,unspecified,process.env.TOKEN_SECRET!
+Keith3895/financeTracker,api/middleware/index.js,js,env_string,unspecified,process.env.salt
+Kevin-Chen19/GoodJobs,server/util/JWT.js,js,string_literal,unspecified,secret = 'Kevin'
+Kevin-Chen19/GoodJobs,server/util/JWT.js,js,string_literal,unspecified,refresh_secret = 'Ckx'
+Knightluozichu/blogServer,jwt.ts,ts,unknown,unspecified,"config.secret (member, untraced)"
+MalikWhitten67/xavierdb,entry.ts,ts,env_string,unspecified,"process.env.TOKEN_SECRET || ""secret"""
+MalikWhitten67/xavierdb,entry.ts,ts,env_string,unspecified,"process.env.TOKEN_SECRET || ""secret"""
+MiG247/SmartLockerServer,jwt.js,js,string_literal,unspecified,secret = 'QIe1g0fDwAf7cQp$cx*Is4hfWI@67PRdwcI5CT@hjYD0QjTqQ
+MiljanSjekloca01/cinema-backend-2024,utils.ts,ts,env_string,unspecified,process.env.ACCESS_TOKEN_SECRET as string
+MiriSpitzer/de_pot,proxy.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+Monir-Ruet/Emap,proxy.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+MujtabaCoder/RMS-restaurant-management-system-nodejs,jwt.js,js,string_literal,unspecified,'muj7021'
+NSWSESMembers/availability-poc,server/src/main.js,js,unknown,unspecified,JWT_SECRET (untraced)
+Narendra0266/school-management-system,proxy.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET!
+NatCanCode/booking-table-v2,app.js,js,string_literal,unspecified,"SECRET_KEY = ""secretkey23456"""
+NisH-4x/node_hotels,jwt.js,js,env_string,unspecified,process.env.JWT_SECRET
+OXOYO/X-RESTful-API-Generator-Koa,src/auth.js,js,unknown,unspecified,"CookieConfig.keys.secret (member, untraced)"
+OXOYO/X-WebDesktop-Api-Koa,src/auth.js,js,unknown,unspecified,"cookieConfig.keys.secret (member, untraced)"
+OnZeng/chat-room-server,src/utils/jwt.js,js,env_string,unspecified,process.env.TOKEN_SECRET
+OnZeng/chat-room-server,src/utils/jwt.js,js,env_string,unspecified,process.env.TOKEN_SECRET
+Paarth5/Car_Service_Booking,index.ts,ts,env_string,unspecified,process.env.JWT_SECRET as string
+Paarth5/Car_Service_Booking,index.ts,ts,env_string,unspecified,process.env.JWT_SECRET as string
+Pi-Control/Pi-Control,src/app.ts,ts,unknown,unspecified,config.getSalt()
+R-s0n/Damn_Vulnerable_Node_App,app.js,js,string_literal,HS,'password'
+R-s0n/Damn_Vulnerable_Node_App,app.js,js,string_literal,HS,'password'
+R-s0n/Damn_Vulnerable_Node_App,app.js,js,string_literal,HS,'password'
+R-s0n/Damn_Vulnerable_Node_App,app.js,js,string_literal,HS,'password'
+R-s0n/Damn_Vulnerable_Node_App,app.js,js,string_literal,HS,'password'
+Rajesh23965/graphqlApi,index.ts,ts,env_string,unspecified,process.env.SECRET_KEY || 'RajeshYadav'
+Requenez-Diaz/Crud-conexion,auth.ts,ts,string_literal,unspecified,secretKey = 'ultra_secreto'
+RestDB/codehooks-auth,lib.ts,ts,unknown,unspecified,"settings.JWT_REFRESH_TOKEN_SECRET (member, untraced)"
+RestDB/codehooks-auth,lib.ts,ts,unknown,unspecified,"settings.JWT_ACCESS_TOKEN_SECRET (member, untraced)"
+RiddleASL/AJS-CA1,app.js,js,env_string,unspecified,process.env.APP_KEY
+RipanRenaldi25/rf_be,index.ts,ts,env_string,unspecified,"process.env.SECRET_ACCESS_TOKEN ?? ""ACCESS_TOKEN_RAHASIA"""
+Ritvik2021/linkedin-scraper-revised,src/mw.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+RiyanshYogi/JWT,app.js,js,string_literal,unspecified,"secretKey = ""secret_key_hai"""
+SURAJSCHAUHAN/transport_app,one.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET!
+Sakshamkhadka7/Eccomerce_MERN_Backend_OOPS,server.ts,ts,unknown,unspecified,envConfig.secretKey as string
+Sazkiasabrina/aivas-backend,proxy.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+Shivam-Dhaka12/chess_react_backend,socket.ts,ts,env_string,unspecified,process.env.JWT_SECRET as string
+Sohag-Ahmed056/tourBuddy_findYourPartner_Client,proxy.ts,ts,string_literal,unspecified,"""abcd"""
+Soumodeep084/cloudvault-storage-platform,proxy.ts,ts,env_string,unspecified,"process.env.JWT_SECRET || ""dev-only-secret-change-me"""
+Sudharshan348/VManage,proxy.ts,ts,env_string,unspecified,"process.env.JWT_SECRET || ""hackathon_secret_key"""
+TBA5854/Barcode-Scanner-Backend,app.ts,ts,string_literal,unspecified,"'This is supposed to be secret , made with <3 by tba'"
+TBA5854/Barcode-Scanner-Backend,app.ts,ts,string_literal,unspecified,"'This is supposed to be secret , made with <3 by tba'"
+TBA5854/Barcode-Scanner-Backend,app.ts,ts,string_literal,unspecified,"'This is supposed to be secret , made with <3 by tba'"
+TBA5854/Barcode-Scanner-Backend,app.ts,ts,string_literal,unspecified,"'This is supposed to be secret , made with <3 by tba'"
+TBA5854/Barcode-Scanner-Backend,app.ts,ts,string_literal,unspecified,"'This is supposed to be secret , made with <3 by tba'"
+TalaoDAO/qrcode-generator,app.js,js,unknown,unspecified,config.get('ACCESS_TOKEN_SECRET')
+ThatConference/that-api,src/security/jwt.js,js,unknown,unspecified,getKey (untraced)
+Vheissu/neblio-dice,api.ts,ts,env_string,unspecified,process.env.token_secret
+Videiraft/curious-server,app.js,js,env_string,unspecified,process.env.JWT_SECRET
+WenzelJoao/clinic_backend,token.ts,ts,string_literal,unspecified,"SECRET_KEY = ""chaveSuperSecreta123456"""
+WildCodeSchool/paris-js-0918-groupe9-node,app.js,js,unknown,unspecified,jwtSecret (untraced)
+William-Fernandes252/advisor.ai-web,auth.ts,ts,env_string,unspecified,process.env.AUTH_SECRET as string
+Woodykaixa/Woodykaixa-Website,lib/jwt.ts,ts,unknown,unspecified,"JwtConfig.SECRET (member, untraced)"
+Woodykaixa/WorldAxletreeWeb,lib/jwt.ts,ts,unknown,unspecified,"JwtConfig.Secret (member, untraced)"
+Zilong-L/gpt,lib/jwt.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET as string
+abdullah-zakarya/car-part,socket.ts,ts,env_string,unspecified,process.env.JWT_SECRET as string
+abid-arham/assignment-5,proxy.ts,ts,env_string,unspecified,process.env.JWT_ACCESS_SECRET!
+ad1tyaydv/fasturl,proxy.ts,ts,env_string,unspecified,JWT_SECRET = process.env.NEXTAUTH_SECRET!
+adir-jscode/Travel-360-Frontend,proxy.ts,ts,env_string,unspecified,process.env.JWT_SECRET as string
+agroXchange/backend,src/jwt.ts,ts,env_string,unspecified,secret = process.env.JWT_SECRET || 'Jalsdk#O@3o2849ahsDFAO3
+agroXchange/backend,src/jwt.ts,ts,unknown,unspecified,passwordSecret (untraced)
+ahsanhabibleon/ecom-backend,utils.ts,ts,env_string,unspecified,// @ts-ignore       process.env.JWT_SECRET
+akshitgrover/hacken,jwt.js,js,unknown,unspecified,secret (untraced)
+alexis-gss/ludaria,proxy.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET
+ali-eljerrari/nodemailer-app,src/app.ts,ts,env_string,unspecified,secretKey = process.env['secretKey']!
+amdryankz/karir-flow,proxy.ts,ts,env_string,unspecified,"process.env.BETTER_AUTH_SECRET || """""
+amdryankz/test-project-fullstack,proxy.ts,ts,env_string,unspecified,"process.env.SECRET_KEY || """""
+andygock/auth-server,app.js,js,env_string,unspecified,tokenSecret = process.env.AUTH_TOKEN_SECRET
+andzia913/FinanBackend,index.ts,ts,env_string,unspecified,process.env.SECRET_KEY
+anhpt-bss/nextjs-tailwind-starter,lib/jwt.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET || 'secret'
+anishkumarshrees/mern-project-shree-beauty-parlour-server,server.ts,ts,unknown,unspecified,envConfig.jwtsecretkey as string
+anisirji/mcp-server-remote-setup-with-jwt-auth,index.ts,ts,env_string,unspecified,"process.env.JWT_SECRET || ""your-secret-key"""
+arashdoescode/userStory,app/routes/api.js,js,unknown,unspecified,secretKey (untraced)
+arnia-unibuc/boilerplate,app.js,js,unknown,unspecified,JWT_SECRET (untraced)
+asifforizy/Apollo-Gears-Frontend,proxy.ts,ts,env_string,unspecified,process.env.ACCESS_TOKEN_SECRET as string
+bartdorsey/express-jwt-cookies-demo-app,app.js,js,string_literal,unspecified,secret = 'SSSSSSHHH'
+berkerozer/dblesslogin,index.ts,ts,unknown,unspecified,"this.publicKey (member, untraced)"
+bhavin-prajapati/react-redux-node-auth-starter,server/server.js,js,unknown,unspecified,JWT_SECRET (untraced)
+boostcode/torijs,app.js,js,unknown,unspecified,"tori.core.secret (member, untraced)"
+bshelling/user_authentication_pattern,src/fn.ts,ts,string_literal,unspecified,"""process.env.jwtSecret"""
+bwobbones/resource,app.js,js,env_string,unspecified,process.env.SECRET
+cbanluta2700/agrismart-,lib/jwt.ts,ts,unknown,unspecified,"AUTH_CONFIG.jwtSecret (member, untraced)"
+ceaplicados/ntropresupuesto-api,app.js,js,env_string,unspecified,process.env.SESSION_SECRET
+ceaplicados/ntropresupuesto-api,app.js,js,env_string,unspecified,process.env.SESSION_SECRET
+chanakaDe/Mint-REST,util/middlewares.js,js,unknown,unspecified,"config.secretKey (member, untraced)"
+chenkie/casino-api,server.ts,ts,env_string,unspecified,process.env.JWT_SECRET
+cherealnice/creditMe_api,server.ts,ts,env_string,unspecified,process.env.JWT_PRIVATE_KEY
+chingu-voyages/v8-chimeras-team-02,backend/index.js,js,env_string,unspecified,process.env.JWT_SECRET
+chronicled/jwt,jwt.js,js,unknown,unspecified,cert (untraced)
+coder-hunt/RESTfullAPI,server.js,js,string_literal,unspecified,'schoolcom'
+connor11528/task-app-backend,src/api/user.js,js,env_string,unspecified,process.env.SECRET_KEY
+cruzboj/web-server,JWT.js,js,env_string,unspecified,SECRET_KEY = process.env.JWT_SECRET
+cruzboj/web-server,JWT.js,js,env_string,unspecified,SECRET_KEY = process.env.JWT_SECRET
+cruzboj/web-server,JWT.js,js,env_string,unspecified,SECRET_KEY = process.env.JWT_SECRET
+cutls/TootDesk-push-server,verify.ts,ts,buffer,ES,Buffer.from(pem)
+cutls/TootDesk-push-server,verify.ts,ts,buffer,ES,Buffer.from(pem)
+cutls/TootDesk-push-server,verify.ts,ts,file_contents,ES,pub = fs.readFileSync('./public.pem')
+darwin-morocho/backend-curso-flutter,src/io.js,js,env_string,unspecified,process.env.SECRET
+davidfurlong/minimal-miniapp-template,jwt.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+dayvidwhy/simple-chat,server.ts,ts,env_string,unspecified,process.env.SOCKET_AUTH_SECRET as string
+denoland/jwt-mysql2-bench,deno.ts,ts,string_literal,unspecified,"jwtSecret = ""JWT_SECRET"""
+devscollab/pcet-covid-task-force-api,app.js,js,env_string,unspecified,process.env.JWT_KEY
+devscollab/pcet-covid-task-force-api,app.js,js,env_string,unspecified,process.env.JWT_KEY
+devscollab/pcet-covid-task-force-api,app.js,js,env_string,unspecified,process.env.JWT_KEY
+devscollab/pcet-covid-task-force-api,app.js,js,env_string,unspecified,process.env.JWT_KEY
+devscollab/pcet-covid-task-force-api,app.js,js,env_string,unspecified,process.env.JWT_KEY
+devscollab/pcet-covid-task-force-api,app.js,js,env_string,unspecified,process.env.JWT_KEY
+dottgonzo/jwt-auth-class,index.ts,ts,unknown,unspecified,"that.secret (member, untraced)"
+dottgonzo/jwt-http-utils,index.ts,ts,unknown,unspecified,"this.secret (member, untraced)"
+dronedeploy/function-wrapper,helpers/jwt.js,js,unknown,unspecified,key (untraced)
+duchuyhoang/chatAppSocket,app.ts,ts,env_string,unspecified,//       process.env.TOKEN_SECRET as string
+duchuyhoang/chatAppSocket,app.ts,ts,env_string,unspecified,process.env.TOKEN_SECRET as string
+egodasa/aplikasiujianberbasisweb,app.js,js,string_literal,unspecified,'Panther A 7.5cm kwk 42 L/70'
+ehasunulislam/Ph_l2_A5_FixItNow_frontend,proxy.ts,ts,env_string,unspecified,process.env.JWT_ACCESS_SECRET!
+eternalmangekyo022/hotels-backend,app.ts,ts,env_string,unspecified,process.env.JWT_ACCESS_SECRET!
+exlskills/spf-server,lib/jwt.ts,ts,string_literal,RS,jwtPublicKey = ''
+experoinc/aws-lambda-edge-oauth,index.js,js,unknown,unspecified,"config.certificate (member, untraced)"
+fedosejev/express-api-token-authentication,middleware/token.js,js,unknown,unspecified,TOKEN_SECRET (untraced)
+fredysiswanto/foodtrip-api,app.js,js,env_string,unspecified,process.env.TOKEN_SECRET
+frendifdp/Clone-Carousell-Backend,app.js,js,string_literal,unspecified,'secretkey'
+furkansimw/SOCIAL_MEDIA_APP,index.ts,ts,env_string,unspecified,"process.env.JWT_SECRET || """""
+furqanRupom/wareon-ui,proxy.ts,ts,env_string,unspecified,process.env.JWT_SECRET as string
+gauravlanjekar/lambda-oidc-authenticator,lib.js,js,unknown,unspecified,key (untraced)
+geri1997/hoxton-solo-project-backend,index.ts,ts,env_string,unspecified,// @ts-ignore             process.env.JWT_SECRET
+geri1997/hoxton-solo-project-backend,index.ts,ts,env_string,unspecified,process.env.JWT_SECRET
+geri1997/hoxton-solo-project-backend,index.ts,ts,env_string,unspecified,process.env.JWT_SECRET
+geri1997/hoxton-solo-project-backend,index.ts,ts,env_string,unspecified,process.env.JWT_SECRET
+geri1997/hoxton-solo-project-backend,index.ts,ts,env_string,unspecified,process.env.JWT_SECRET
+geri1997/hoxton-solo-project-backend,index.ts,ts,env_string,unspecified,process.env.JWT_SECRET
+geri1997/hoxton-solo-project-backend,index.ts,ts,env_string,unspecified,process.env.JWT_SECRET
+geri1997/hoxton-solo-project-backend,index.ts,ts,env_string,unspecified,process.env.JWT_SECRET
+geri1997/hoxton-solo-project-backend,index.ts,ts,env_string,unspecified,process.env.JWT_SECRET
+ging/fiware-pep-proxy,controllers/root.js,js,unknown,unspecified,"config.pep.token.secret (member, untraced)"
+gottasellemall69/card-test,proxy.ts,ts,env_string,unspecified,jwtSecret = process.env.JWT_SECRET
+gupta-ritik/ExpenseTracker,lib/jwt.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
+haizzdungnay/WebSiteOtakuShopVer2,lib/jwt.ts,ts,unknown,unspecified,JWT_SECRET (untraced)
+harshitnaik-ship-it/hack,auth.ts,ts,env_string,unspecified,secret = process.env.JWT_SECRET
+haxcod/fastwin-server,app.js,js,string_literal,unspecified,"""mySecretKey"""
+homanw104/pet-clinic,proxy.ts,ts,unknown,unspecified,JWT_SECRET!
+hudsonmcmanus/reminder-app,jwt.js,js,unknown,unspecified,secret (untraced)
+iopipe/lambda-requestbin,s3auth.js,js,unknown,unspecified,"keys.public (member, untraced)"
+jackmeagher/iqms,app.js,js,string_literal,unspecified,secret = 'tg6bhr5dxddrtcx'
+jerrychong25/node-express-mongo-nodemailer-password-reset-jwt,server.js,js,string_literal,unspecified,'RESTFULAPIs'
+kalibani/HireFazz,auth.ts,ts,unknown,unspecified,secretJwt (untraced)
+kedar09/nodejs-mongoose-jwt-authentication,app.js,js,string_literal,unspecified,"""httpskedar"""
+kharalnirmal/Learn-Auth,lib/jwt.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET!
+kharalnirmal/Learn-Auth,lib/jwt.ts,ts,env_string,unspecified,JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET!
+konnectrsk/Test,jwt.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-
+krshubham/codeslam,app.js,js,unknown,unspecified,secret (untraced)
+kyonenya/jwt-auth-playground,jwt.ts,ts,unknown,RS,publicKey (untraced)
+laibao101/captcha-demo,app.js,js,string_literal,unspecified,"privateKey = ""laobao101"""
+lizhensheng/vue-data-view,server/app.js,js,string_literal,unspecified,SECRET = 'lkui'
+lordrepha1980/MobAPI,app.js,js,unknown,unspecified,"config.auth.secret (member, untraced)"
+lukacera/torvely,server.ts,ts,unknown,RS,getKey (untraced)
+madjid123/Dexchat-full,server.ts,ts,env_string,unspecified,process.env.SECRET_KEY as string
+mary0077/escola,app.js,js,env_string,unspecified,process.env.JWT_SECRET
+mathcoll/t6,routes/ifttt.js,js,unknown,unspecified,"jwtsettings.secret (member, untraced)"
+mathcoll/t6,routes/ifttt.js,js,unknown,unspecified,"jwtsettings.secret (member, untraced)"
+mathcoll/t6,routes/ifttt.js,js,unknown,unspecified,"jwtsettings.secret (member, untraced)"
+matheusBizutti/dd-backend,app.js,js,string_literal,unspecified,'ddproject'
+matterconi/entropia,auth.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+mattetre/bitclout-jwt-validate,index.js,js,unknown,ES,rawPublicKeyEncoded (untraced)
+mavvystudio/miniserver,src/jwt.ts,ts,env_string,unspecified,jwtSecret = process.env.JWT_SECRET!
+mcebzkhumz-stack/EduPortal-,auth.ts,ts,unknown,unspecified,"config.JWT_SECRET (member, untraced)"
+mcebzkhumz-stack/EduPortal-,auth.ts,ts,unknown,unspecified,"config.JWT_SECRET (member, untraced)"
+mehediweb01/gear-up-web,proxy.ts,ts,env_string,unspecified,process.env.JWT_ACCESS_SECRET as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mihnea112/MarianApp_API,index.ts,ts,env_string,unspecified,process.env.TOKEN_KEY as string
+mirage-software/Kabooty,src/jwt.ts,ts,unknown,unspecified,env['JWT_SECRET']
+mishrasatyam/svelte_kit_jwt_auth,src/hooks.js,js,unknown,unspecified,"import.meta.env.VITE_JWT_PRIVATE_KEY (member, untraced)"
+mkai-lab/COD-Battle-Management-System,auth.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET || 'default_secret_key'
+mmansour88/wee,auth 5.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET || process.env.Service || '
+mmansour88/wee,auth 5.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET || process.env.Service || '
+mrizalbasri/Medivita-Rekam-Medis,lib/qr.ts,ts,unknown,unspecified,getQrSecret()
+mrtayguney/snapremote-server,app.js,js,env_string,unspecified,jwtSecretKey = process.env.JWT_SECRET_KEY
+mwondhaf/sec_dispatch_next,auth.ts,ts,env_string,unspecified,process.env.AUTH_SECRET as string
+naeemul-online/E-Commerce-and-Inventory-Management-System-Client,proxy.ts,ts,env_string,unspecified,process.env.JWT_SECRET as string
+nankailiang/billiards-server,jwt.js,js,unknown,unspecified,screat (untraced)
+navgurukul/snake-ladders-api,app.js,js,env_string,unspecified,process.env.JWT_SECRET
+notenoughneon/skein,api.ts,ts,unknown,unspecified,"this.site.config.jwtSecret (member, untraced)"
+oduyemi/AlasoVentures,proxy.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+olegabu/fabric-starter-rest,api/jwt-api.js,js,unknown,unspecified,jwtSecret (untraced)
+onixtoken/ONIX-Network-mining,server.ts,ts,env_string,unspecified,"process.env.JWT_SECRET || ""onixsecret"""
+opentok/opentok-jwt,lib.js,js,unknown,unspecified,secret (untraced)
+p1atdev/web2discord,auth.ts,ts,unknown,unspecified,this.key!
+paardarshee/wellnessAssessment,q4.ts,ts,string_literal,unspecified,"SECRET_KEY = ""This_is_very_Secured_key"""
+packing-discord/packing-discord-bot,jwt.ts,ts,env_string,unspecified,process.env.PRIVATE_KEY!
+programmer-666/jwtStuff,app.js,js,unknown,unspecified,secret (untraced)
+rafidzia/interview-griptech,app.ts,ts,env_string,unspecified,process.env.SECRET as string
+raj-kumar94/checkout-extension-react,app.js,js,env_string,unspecified,API_SECRET = process.env.SHOPIFY_API_SECRET
+rakhimalik015-star/Ai-Based-Emergency-Ambulance-Tracking-System,proxy.ts,ts,env_string,unspecified,//                 process.env.JWT_SECRET! //
+rakhimalik015-star/Ai-Based-Emergency-Ambulance-Tracking-System,proxy.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+riascho/authenticationCheatSheets,jwt.ts,ts,string_literal,unspecified,"JWT_SECRET = ""some_secret"""
+richTheAnalyst/xxshop,proxy.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+rohitranjanyadav/Homify-Marketplace-Server,server.ts,ts,unknown,unspecified,envConfig.jwtSecretKey as string
+salekmichal1/project-menagment-api,index.ts,ts,env_string,unspecified,tokenSecret = process.env.TOKEN_SECRET as string
+salekmichal1/project-menagment-api,index.ts,ts,env_string,unspecified,tokenSecret = process.env.TOKEN_SECRET as string
+scryinfo/dp-contracts-old,src/jwt.ts,ts,string_literal,unspecified,JWT_SECRET = 'secret'
+seanmavley/unifi-voucher-payment-server,app.js,js,unknown,unspecified,"config.secret (member, untraced)"
+shashankWork21/niche,proxy.ts,ts,env_string,unspecified,process.env.ACCESS_TOKEN_SECRET!
+shashankWork21/niche,proxy.ts,ts,env_string,unspecified,process.env.REFRESH_TOKEN_SECRET!
+shrutisharma-git/placement-prep-tracker,proxy.ts,ts,env_string,unspecified,process.env.JWT_SECRET
+siddhantdixit/LinkStack,app.js,js,env_string,unspecified,process.env.JWTLOGINSECRET
+siddhantdixit/LinkStack,app.js,js,env_string,unspecified,process.env.JWTVERIFICATIONSECRET
+siteslave/express-onefile,jwt.js,js,env_string,unspecified,secretKey = process.env.SECRET_KEY
+smart-on-fhir/bulk-data-server,lib.ts,ts,unknown,unspecified,"config.jwtSecret (member, untraced)"
+smart-on-fhir/bulk-data-server,lib.ts,ts,unknown,unspecified,"config.jwtSecret (member, untraced)"
+srtucker22/chatty,server/index.js,js,unknown,unspecified,JWT_SECRET (untraced)
+sspringer82/webinar,auth/index.js,js,env_string,unspecified,secret = process.env.SECRET
+stanford-oval/medxchange,lib/jwt.js,js,unknown,unspecified,secret (untraced)
+stoic1979/ScreenWatchApi,app.js,js,string_literal,unspecified,"SECRET_KEY = ""ScreenWatch"""
+stoic1979/teammanager,app.js,js,env_string,unspecified,SECRET_KEY = process.env.TEAM_MANAGER_SECRET_KEY
+sudeep7regmi/JobConnect,proxy.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+summerwollin/arenajs,app.js,js,string_literal,unspecified,'shhhhhhhhh'
+syousif94/aiprox,auth.ts,ts,env_string,unspecified,JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
+techtuxbr/Express.js-User-Auth-API,app.js,js,unknown,unspecified,"config.secret (member, untraced)"
+therealAJ/HomeSafe,app/routes/api.js,js,unknown,unspecified,secretKey (untraced)
+tmendes13/task-api,auth.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+tonymm81/web_page,index.ts,ts,env_string,unspecified,String(process.env.ACCESS_TOKEN_KEY)
+tonymm81/web_page,index.ts,ts,env_string,unspecified,String(process.env.ACCESS_TOKEN_KEY_SECONDARY)
+top-universe/cohort2.0_backend_api,app.js,js,unknown,unspecified,JWT_SECRET (untraced)
+tpiros/marklogic-jwt-authentication,app.js,js,string_literal,unspecified,'s3cr3t'
+traPtitech/vite-plugin-trap-auth,src/key.ts,ts,string_literal,RS,JWT_PUBLIC_KEY = `
+tushar-borole/node-enterprise-seed,app.js,js,unknown,unspecified,app.get('superSecret')
+tusharzalte/tusharesume,jwt.js,js,string_literal,unspecified,SECRET_TOKEN = 'tusharesumejwttokensecret'
+tvelic1/Medic-API,jwt.js,js,env_string,unspecified,process.env.JWT_SECRET
+twitchdev/extension-getting-started,services/backend.js,js,unknown,HS,secret (untraced)
+twitchdev/extensions-hello-world,services/backend.js,js,unknown,HS,secret (untraced)
+vlicvn/qrmenu,proxy.ts,ts,env_string,unspecified,jwtSecret = process.env.JWT_SECRET
+vlicvn/qrmenu,proxy.ts,ts,env_string,unspecified,jwtSecret = process.env.JWT_SECRET
+vonnieda/WhoaLife,app.js,js,unknown,unspecified,"config.jwtSecret (member, untraced)"
+vueneue/examples,api.js,js,string_literal,unspecified,'shhhhh'
+vueneue/examples,api.js,js,string_literal,unspecified,'shhhhh'
+vuquanganh77/hooper-gate,jwt.ts,ts,env_string,unspecified,"SECRET_KEY = process.env.JWT_SECRET || ""your-secret-key"""
+walidbosso/Nodejs_ExpenseTracker,middleware/auth.js,js,env_string,unspecified,process.env.jwt_salt
+wass08/tuto-jwt-express,app.js,js,env_string,unspecified,process.env.ACCESS_TOKEN_SECRET
+ymc9/petstore-openapi-zenstack,app.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
+yuzhou-shuai/hotel,2.js,js,string_literal,unspecified,"secretOrPrivateKey = ""jwt"""
+zwave-js/zwave-js-ui,api/app.ts,ts,unknown,unspecified,sessionSecret (untraced)

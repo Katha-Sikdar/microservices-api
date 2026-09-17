@@ -1,4 +1,5 @@
-<!-- DRAFT — not filed. Target: https://github.com/auth0/node-jsonwebtoken/issues -->
+<!-- FILED 2026-09-17 as https://github.com/auth0/node-jsonwebtoken/issues/1046
+     This file is the text as submitted. Edit only to track upstream replies. -->
 
 **Title:** `verify()` resolves a string secret by attempting `createPublicKey()` first, costing 4x–52x on the HS* path
 

@@ -1,0 +1,2185 @@
+[
+ {
+  "repo": "ErickWendel/aulao-tajs-template",
+  "path": "api.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "ErickWendel_aulao-tajs-template__api.js.txt"
+ },
+ {
+  "repo": "bartdorsey/express-jwt-cookies-demo-app",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "bartdorsey_express-jwt-cookies-demo-app__app.js.txt"
+ },
+ {
+  "repo": "opentok/opentok-jwt",
+  "path": "lib.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "opentok_opentok-jwt__lib.js.txt"
+ },
+ {
+  "repo": "akshitgrover/hacken",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "akshitgrover_hacken__jwt.js.txt"
+ },
+ {
+  "repo": "jackmeagher/iqms",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "jackmeagher_iqms__app.js.txt"
+ },
+ {
+  "repo": "hudsonmcmanus/reminder-app",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "hudsonmcmanus_reminder-app__jwt.js.txt"
+ },
+ {
+  "repo": "krshubham/codeslam",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "krshubham_codeslam__app.js.txt"
+ },
+ {
+  "repo": "FullstackAcademy/acme-auth-notes",
+  "path": "db.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "FullstackAcademy_acme-auth-notes__db.js.txt"
+ },
+ {
+  "repo": "andygock/auth-server",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "andygock_auth-server__app.js.txt"
+ },
+ {
+  "repo": "appacademy/practice-for-week-12-jwt-exploration-short-practice",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "appacademy_practice-for-week-12-jwt-exploration-short-practice__app.js.txt"
+ },
+ {
+  "repo": "vueneue/examples",
+  "path": "api.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "vueneue_examples__api.js.txt"
+ },
+ {
+  "repo": "siteslave/express-onefile",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "siteslave_express-onefile__jwt.js.txt"
+ },
+ {
+  "repo": "Baiyuetribe/express-ffmpeg-docker",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "Baiyuetribe_express-ffmpeg-docker__app.js.txt"
+ },
+ {
+  "repo": "MiG247/SmartLockerServer",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "MiG247_SmartLockerServer__jwt.js.txt"
+ },
+ {
+  "repo": "vonnieda/WhoaLife",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "vonnieda_WhoaLife__app.js.txt"
+ },
+ {
+  "repo": "summerwollin/arenajs",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "summerwollin_arenajs__app.js.txt"
+ },
+ {
+  "repo": "bwobbones/resource",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "bwobbones_resource__app.js.txt"
+ },
+ {
+  "repo": "GDGVIT/groff-editor-backend",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "GDGVIT_groff-editor-backend__app.js.txt"
+ },
+ {
+  "repo": "laibao101/captcha-demo",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "laibao101_captcha-demo__app.js.txt"
+ },
+ {
+  "repo": "IExpreso/Backend",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "IExpreso_Backend__app.js.txt"
+ },
+ {
+  "repo": "tpiros/marklogic-jwt-authentication",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "tpiros_marklogic-jwt-authentication__app.js.txt"
+ },
+ {
+  "repo": "top-universe/cohort2.0_backend_api",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "top-universe_cohort2.0_backend_api__app.js.txt"
+ },
+ {
+  "repo": "Bishwajit-2810/Voting_Application_node",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "Bishwajit-2810_Voting_Application_node__jwt.js.txt"
+ },
+ {
+  "repo": "R-s0n/Damn_Vulnerable_Node_App",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "R-s0n_Damn_Vulnerable_Node_App__app.js.txt"
+ },
+ {
+  "repo": "TalaoDAO/qrcode-generator",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "TalaoDAO_qrcode-generator__app.js.txt"
+ },
+ {
+  "repo": "techtuxbr/Express.js-User-Auth-API",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "techtuxbr_Express.js-User-Auth-API__app.js.txt"
+ },
+ {
+  "repo": "RiyanshYogi/JWT",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "RiyanshYogi_JWT__app.js.txt"
+ },
+ {
+  "repo": "gauravlanjekar/lambda-oidc-authenticator",
+  "path": "lib.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "gauravlanjekar_lambda-oidc-authenticator__lib.js.txt"
+ },
+ {
+  "repo": "mrtayguney/snapremote-server",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "mrtayguney_snapremote-server__app.js.txt"
+ },
+ {
+  "repo": "navgurukul/snake-ladders-api",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "navgurukul_snake-ladders-api__app.js.txt"
+ },
+ {
+  "repo": "fredysiswanto/foodtrip-api",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "fredysiswanto_foodtrip-api__app.js.txt"
+ },
+ {
+  "repo": "IhsanulAfkar/emoney-gopay-api",
+  "path": "mw.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "IhsanulAfkar_emoney-gopay-api__mw.js.txt"
+ },
+ {
+  "repo": "frendifdp/Clone-Carousell-Backend",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "frendifdp_Clone-Carousell-Backend__app.js.txt"
+ },
+ {
+  "repo": "NisH-4x/node_hotels",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "NisH-4x_node_hotels__jwt.js.txt"
+ },
+ {
+  "repo": "arnia-unibuc/boilerplate",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "arnia-unibuc_boilerplate__app.js.txt"
+ },
+ {
+  "repo": "WildCodeSchool/paris-js-0918-groupe9-node",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "WildCodeSchool_paris-js-0918-groupe9-node__app.js.txt"
+ },
+ {
+  "repo": "Brajesh31/Voting_Application",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "Brajesh31_Voting_Application__jwt.js.txt"
+ },
+ {
+  "repo": "ANGELKORADIYA/Quiz",
+  "path": "db.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "ANGELKORADIYA_Quiz__db.js.txt"
+ },
+ {
+  "repo": "FullstackAcademy/acme-oauth",
+  "path": "db.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "FullstackAcademy_acme-oauth__db.js.txt"
+ },
+ {
+  "repo": "ceaplicados/ntropresupuesto-api",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "ceaplicados_ntropresupuesto-api__app.js.txt"
+ },
+ {
+  "repo": "RiddleASL/AJS-CA1",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "RiddleASL_AJS-CA1__app.js.txt"
+ },
+ {
+  "repo": "cruzboj/web-server",
+  "path": "JWT.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "cruzboj_web-server__JWT.js.txt"
+ },
+ {
+  "repo": "JartigaRox/00171124_practica7_seccion1",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "JartigaRox_00171124_practica7_seccion1__app.js.txt"
+ },
+ {
+  "repo": "haxcod/fastwin-server",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "haxcod_fastwin-server__app.js.txt"
+ },
+ {
+  "repo": "BijuDey/express-backend",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "BijuDey_express-backend__jwt.js.txt"
+ },
+ {
+  "repo": "tvelic1/Medic-API",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "tvelic1_Medic-API__jwt.js.txt"
+ },
+ {
+  "repo": "programmer-666/jwtStuff",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "programmer-666_jwtStuff__app.js.txt"
+ },
+ {
+  "repo": "raj-kumar94/checkout-extension-react",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "raj-kumar94_checkout-extension-react__app.js.txt"
+ },
+ {
+  "repo": "kedar09/nodejs-mongoose-jwt-authentication",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "kedar09_nodejs-mongoose-jwt-authentication__app.js.txt"
+ },
+ {
+  "repo": "NatCanCode/booking-table-v2",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "NatCanCode_booking-table-v2__app.js.txt"
+ },
+ {
+  "repo": "siddhantdixit/LinkStack",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "siddhantdixit_LinkStack__app.js.txt"
+ },
+ {
+  "repo": "boostcode/torijs",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "boostcode_torijs__app.js.txt"
+ },
+ {
+  "repo": "wizac/apiiiii",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript"
+ },
+ {
+  "repo": "mary0077/escola",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "mary0077_escola__app.js.txt"
+ },
+ {
+  "repo": "devscollab/pcet-covid-task-force-api",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "devscollab_pcet-covid-task-force-api__app.js.txt"
+ },
+ {
+  "repo": "matheusBizutti/dd-backend",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "matheusBizutti_dd-backend__app.js.txt"
+ },
+ {
+  "repo": "gogh-zaa/api_login_nodejs_sqlserver",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "gogh-zaa_api_login_nodejs_sqlserver__app.js.txt"
+ },
+ {
+  "repo": "tushar-borole/node-enterprise-seed",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "tushar-borole_node-enterprise-seed__app.js.txt"
+ },
+ {
+  "repo": "FullstackAcademy/acme-oauth-2207-fsa",
+  "path": "db.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "FullstackAcademy_acme-oauth-2207-fsa__db.js.txt"
+ },
+ {
+  "repo": "yuzhou-shuai/hotel",
+  "path": "2.js",
+  "lang": "js",
+  "query": "jwt.verify language:javascript",
+  "file": "yuzhou-shuai_hotel__2.js.txt"
+ },
+ {
+  "repo": "smart-on-fhir/bulk-data-server",
+  "path": "lib.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "smart-on-fhir_bulk-data-server__lib.ts.txt"
+ },
+ {
+  "repo": "ApryseSDK/website-reviewer",
+  "path": "auth.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "ApryseSDK_website-reviewer__auth.ts.txt"
+ },
+ {
+  "repo": "exlskills/spf-server",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "exlskills_spf-server__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "agroXchange/backend",
+  "path": "src/jwt.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "agroXchange_backend__src_jwt.ts.txt"
+ },
+ {
+  "repo": "kalibani/HireFazz",
+  "path": "auth.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "kalibani_HireFazz__auth.ts.txt"
+ },
+ {
+  "repo": "notenoughneon/skein",
+  "path": "api.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "notenoughneon_skein__api.ts.txt"
+ },
+ {
+  "repo": "ymc9/petstore-openapi-zenstack",
+  "path": "app.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "ymc9_petstore-openapi-zenstack__app.ts.txt"
+ },
+ {
+  "repo": "bshelling/user_authentication_pattern",
+  "path": "src/fn.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "bshelling_user_authentication_pattern__src_fn.ts.txt"
+ },
+ {
+  "repo": "RestDB/codehooks-auth",
+  "path": "lib.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "RestDB_codehooks-auth__lib.ts.txt"
+ },
+ {
+  "repo": "homanw104/pet-clinic",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "homanw104_pet-clinic__proxy.ts.txt"
+ },
+ {
+  "repo": "cutls/TootDesk-push-server",
+  "path": "verify.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "cutls_TootDesk-push-server__verify.ts.txt"
+ },
+ {
+  "repo": "Zilong-L/gpt",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "Zilong-L_gpt__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "davidfurlong/minimal-miniapp-template",
+  "path": "jwt.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "davidfurlong_minimal-miniapp-template__jwt.ts.txt"
+ },
+ {
+  "repo": "ad1tyaydv/fasturl",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "ad1tyaydv_fasturl__proxy.ts.txt"
+ },
+ {
+  "repo": "benjajaja/qdice",
+  "path": "table.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "benjajaja_qdice__table.ts.txt"
+ },
+ {
+  "repo": "chenkie/casino-api",
+  "path": "server.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "chenkie_casino-api__server.ts.txt"
+ },
+ {
+  "repo": "William-Fernandes252/advisor.ai-web",
+  "path": "auth.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "William-Fernandes252_advisor.ai-web__auth.ts.txt"
+ },
+ {
+  "repo": "Vheissu/neblio-dice",
+  "path": "api.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "Vheissu_neblio-dice__api.ts.txt"
+ },
+ {
+  "repo": "kyonenya/jwt-auth-playground",
+  "path": "jwt.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "kyonenya_jwt-auth-playground__jwt.ts.txt"
+ },
+ {
+  "repo": "Requenez-Diaz/Crud-conexion",
+  "path": "auth.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "Requenez-Diaz_Crud-conexion__auth.ts.txt"
+ },
+ {
+  "repo": "p1atdev/web2discord",
+  "path": "auth.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "p1atdev_web2discord__auth.ts.txt"
+ },
+ {
+  "repo": "mcebzkhumz-stack/EduPortal-",
+  "path": "auth.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "mcebzkhumz-stack_EduPortal-__auth.ts.txt"
+ },
+ {
+  "repo": "denoland/jwt-mysql2-bench",
+  "path": "deno.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "denoland_jwt-mysql2-bench__deno.ts.txt"
+ },
+ {
+  "repo": "syousif94/aiprox",
+  "path": "auth.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "syousif94_aiprox__auth.ts.txt"
+ },
+ {
+  "repo": "harshitnaik-ship-it/hack",
+  "path": "auth.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "harshitnaik-ship-it_hack__auth.ts.txt"
+ },
+ {
+  "repo": "mkai-lab/COD-Battle-Management-System",
+  "path": "auth.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "mkai-lab_COD-Battle-Management-System__auth.ts.txt"
+ },
+ {
+  "repo": "tonymm81/web_page",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "tonymm81_web_page__index.ts.txt"
+ },
+ {
+  "repo": "MiriSpitzer/de_pot",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "MiriSpitzer_de_pot__proxy.ts.txt"
+ },
+ {
+  "repo": "oduyemi/AlasoVentures",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "oduyemi_AlasoVentures__proxy.ts.txt"
+ },
+ {
+  "repo": "alexis-gss/ludaria",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "alexis-gss_ludaria__proxy.ts.txt"
+ },
+ {
+  "repo": "dottgonzo/jwt-auth-class",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "dottgonzo_jwt-auth-class__index.ts.txt"
+ },
+ {
+  "repo": "MiljanSjekloca01/cinema-backend-2024",
+  "path": "utils.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "MiljanSjekloca01_cinema-backend-2024__utils.ts.txt"
+ },
+ {
+  "repo": "WenzelJoao/clinic_backend",
+  "path": "token.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "WenzelJoao_clinic_backend__token.ts.txt"
+ },
+ {
+  "repo": "Asciugano/A11yLab",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "Asciugano_A11yLab__proxy.ts.txt"
+ },
+ {
+  "repo": "berkerozer/dblesslogin",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "berkerozer_dblesslogin__index.ts.txt"
+ },
+ {
+  "repo": "vlicvn/qrmenu",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "vlicvn_qrmenu__proxy.ts.txt"
+ },
+ {
+  "repo": "Soumodeep084/cloudvault-storage-platform",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "Soumodeep084_cloudvault-storage-platform__proxy.ts.txt"
+ },
+ {
+  "repo": "Narendra0266/school-management-system",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "Narendra0266_school-management-system__proxy.ts.txt"
+ },
+ {
+  "repo": "CeleritasCodingZen/cryptography",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "CeleritasCodingZen_cryptography__proxy.ts.txt"
+ },
+ {
+  "repo": "Ayomishuga/Cardano-Bounties",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "Ayomishuga_Cardano-Bounties__proxy.ts.txt"
+ },
+ {
+  "repo": "mmansour88/wee",
+  "path": "auth 5.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "mmansour88_wee__auth 5.ts.txt"
+ },
+ {
+  "repo": "mrizalbasri/Medivita-Rekam-Medis",
+  "path": "lib/qr.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "mrizalbasri_Medivita-Rekam-Medis__lib_qr.ts.txt"
+ },
+ {
+  "repo": "Ritvik2021/linkedin-scraper-revised",
+  "path": "src/mw.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "Ritvik2021_linkedin-scraper-revised__src_mw.ts.txt"
+ },
+ {
+  "repo": "dayvidwhy/simple-chat",
+  "path": "server.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "dayvidwhy_simple-chat__server.ts.txt"
+ },
+ {
+  "repo": "Angelxv01/thullo",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "Angelxv01_thullo__index.ts.txt"
+ },
+ {
+  "repo": "anhpt-bss/nextjs-tailwind-starter",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "anhpt-bss_nextjs-tailwind-starter__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "gtramontina/elysia-authkit",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "gtramontina_elysia-authkit__index.ts.txt"
+ },
+ {
+  "repo": "furkansimw/SOCIAL_MEDIA_APP",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "furkansimw_SOCIAL_MEDIA_APP__index.ts.txt"
+ },
+ {
+  "repo": "Karan0990/EduMart",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "Karan0990_EduMart__proxy.ts.txt"
+ },
+ {
+  "repo": "Asura-lab/meeting_app",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "Asura-lab_meeting_app__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "Jikuto4322/RTCtoBCS",
+  "path": "src/ws.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "Jikuto4322_RTCtoBCS__src_ws.ts.txt"
+ },
+ {
+  "repo": "paardarshee/wellnessAssessment",
+  "path": "q4.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "paardarshee_wellnessAssessment__q4.ts.txt"
+ },
+ {
+  "repo": "vuquanganh77/hooper-gate",
+  "path": "jwt.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "vuquanganh77_hooper-gate__jwt.ts.txt"
+ },
+ {
+  "repo": "Knightluozichu/blogServer",
+  "path": "jwt.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "Knightluozichu_blogServer__jwt.ts.txt"
+ },
+ {
+  "repo": "riascho/authenticationCheatSheets",
+  "path": "jwt.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "riascho_authenticationCheatSheets__jwt.ts.txt"
+ },
+ {
+  "repo": "SURAJSCHAUHAN/transport_app",
+  "path": "one.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "SURAJSCHAUHAN_transport_app__one.ts.txt"
+ },
+ {
+  "repo": "konnectrsk/Test",
+  "path": "jwt.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "konnectrsk_Test__jwt.ts.txt"
+ },
+ {
+  "repo": "eternalmangekyo022/hotels-backend",
+  "path": "app.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "eternalmangekyo022_hotels-backend__app.ts.txt"
+ },
+ {
+  "repo": "TBA5854/Barcode-Scanner-Backend",
+  "path": "app.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "TBA5854_Barcode-Scanner-Backend__app.ts.txt"
+ },
+ {
+  "repo": "rafidzia/interview-griptech",
+  "path": "app.ts",
+  "lang": "ts",
+  "query": "jwt.verify language:typescript",
+  "file": "rafidzia_interview-griptech__app.ts.txt"
+ },
+ {
+  "repo": "srtucker22/chatty",
+  "path": "server/index.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "srtucker22_chatty__server_index.js.txt"
+ },
+ {
+  "repo": "mono-js/mono",
+  "path": "lib/jwt.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "mono-js_mono__lib_jwt.js.txt"
+ },
+ {
+  "repo": "lizhensheng/vue-data-view",
+  "path": "server/app.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "lizhensheng_vue-data-view__server_app.js.txt"
+ },
+ {
+  "repo": "PacktPublishing/React-Projects-Second-Edition",
+  "path": "Chapter09/server.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "PacktPublishing_React-Projects-Second-Edition__Chapter09_server.js.txt"
+ },
+ {
+  "repo": "twitchdev/extensions-hello-world",
+  "path": "services/backend.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "twitchdev_extensions-hello-world__services_backend.js.txt"
+ },
+ {
+  "repo": "bhavin-prajapati/react-redux-node-auth-starter",
+  "path": "server/server.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "bhavin-prajapati_react-redux-node-auth-starter__server_server.js.txt"
+ },
+ {
+  "repo": "dronedeploy/function-wrapper",
+  "path": "helpers/jwt.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "dronedeploy_function-wrapper__helpers_jwt.js.txt"
+ },
+ {
+  "repo": "ErickWendel/postman-is-slowing-you-down",
+  "path": "recorded/app/api.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "ErickWendel_postman-is-slowing-you-down__recorded_app_api.js.txt"
+ },
+ {
+  "repo": "ging/fiware-pep-proxy",
+  "path": "controllers/root.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "ging_fiware-pep-proxy__controllers_root.js.txt"
+ },
+ {
+  "repo": "twitchdev/extension-getting-started",
+  "path": "services/backend.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "twitchdev_extension-getting-started__services_backend.js.txt"
+ },
+ {
+  "repo": "welldone-software/node-toolbelt",
+  "path": "src/lib/jwt.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "welldone-software_node-toolbelt__src_lib_jwt.js.txt"
+ },
+ {
+  "repo": "HandyOSS/HandyHost",
+  "path": "CommonUtils.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "HandyOSS_HandyHost__CommonUtils.js.txt"
+ },
+ {
+  "repo": "mathcoll/t6",
+  "path": "routes/ifttt.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "mathcoll_t6__routes_ifttt.js.txt"
+ },
+ {
+  "repo": "chanakaDe/Mint-REST",
+  "path": "util/middlewares.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "chanakaDe_Mint-REST__util_middlewares.js.txt"
+ },
+ {
+  "repo": "Cosen95/rest_node_api",
+  "path": "app/routes/users.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "Cosen95_rest_node_api__app_routes_users.js.txt"
+ },
+ {
+  "repo": "dayofpay/V-Analytics",
+  "path": "lib/jwt.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "dayofpay_V-Analytics__lib_jwt.js.txt"
+ },
+ {
+  "repo": "mishrasatyam/svelte_kit_jwt_auth",
+  "path": "src/hooks.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "mishrasatyam_svelte_kit_jwt_auth__src_hooks.js.txt"
+ },
+ {
+  "repo": "mattetre/bitclout-jwt-validate",
+  "path": "index.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "mattetre_bitclout-jwt-validate__index.js.txt"
+ },
+ {
+  "repo": "stanford-oval/medxchange",
+  "path": "lib/jwt.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "stanford-oval_medxchange__lib_jwt.js.txt"
+ },
+ {
+  "repo": "walidbosso/Nodejs_ExpenseTracker",
+  "path": "middleware/auth.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "walidbosso_Nodejs_ExpenseTracker__middleware_auth.js.txt"
+ },
+ {
+  "repo": "olegabu/fabric-starter-rest",
+  "path": "api/jwt-api.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "olegabu_fabric-starter-rest__api_jwt-api.js.txt"
+ },
+ {
+  "repo": "experoinc/aws-lambda-edge-oauth",
+  "path": "index.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "experoinc_aws-lambda-edge-oauth__index.js.txt"
+ },
+ {
+  "repo": "stoic1979/teammanager",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "stoic1979_teammanager__app.js.txt"
+ },
+ {
+  "repo": "jerrychong25/node-express-mongo-nodemailer-password-reset-jwt",
+  "path": "server.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "jerrychong25_node-express-mongo-nodemailer-password-reset-jwt__server.js.txt"
+ },
+ {
+  "repo": "aws-samples/cdk-neptune-knowledge-graph",
+  "path": "lambda/jwt-get.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "aws-samples_cdk-neptune-knowledge-graph__lambda_jwt-get.js.txt"
+ },
+ {
+  "repo": "OXOYO/X-WebDesktop-Api-Koa",
+  "path": "src/auth.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "OXOYO_X-WebDesktop-Api-Koa__src_auth.js.txt"
+ },
+ {
+  "repo": "24hourkirtan/audio-streaming-apis",
+  "path": "utils/jwt.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "24hourkirtan_audio-streaming-apis__utils_jwt.js.txt"
+ },
+ {
+  "repo": "OXOYO/X-RESTful-API-Generator-Koa",
+  "path": "src/auth.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "OXOYO_X-RESTful-API-Generator-Koa__src_auth.js.txt"
+ },
+ {
+  "repo": "seanmavley/unifi-voucher-payment-server",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "seanmavley_unifi-voucher-payment-server__app.js.txt"
+ },
+ {
+  "repo": "aws-samples/lambdaedge-openidconnect-samples",
+  "path": "src/js/auth.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "aws-samples_lambdaedge-openidconnect-samples__src_js_auth.js.txt"
+ },
+ {
+  "repo": "NSWSESMembers/availability-poc",
+  "path": "server/src/main.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "NSWSESMembers_availability-poc__server_src_main.js.txt"
+ },
+ {
+  "repo": "Halocrea/halocrea-stream-overlay",
+  "path": "server/io.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "Halocrea_halocrea-stream-overlay__server_io.js.txt"
+ },
+ {
+  "repo": "SocexSolutions/agenda-v2",
+  "path": "api/lib/util/jwt.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "SocexSolutions_agenda-v2__api_lib_util_jwt.js.txt"
+ },
+ {
+  "repo": "fedosejev/express-api-token-authentication",
+  "path": "middleware/token.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "fedosejev_express-api-token-authentication__middleware_token.js.txt"
+ },
+ {
+  "repo": "stoic1979/ScreenWatchApi",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "stoic1979_ScreenWatchApi__app.js.txt"
+ },
+ {
+  "repo": "Keith3895/financeTracker",
+  "path": "api/middleware/index.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "Keith3895_financeTracker__api_middleware_index.js.txt"
+ },
+ {
+  "repo": "ivailopapazov/softuni-cubicle-may-2023",
+  "path": "src/lib/jwt.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "ivailopapazov_softuni-cubicle-may-2023__src_lib_jwt.js.txt"
+ },
+ {
+  "repo": "DzenDyn/baseBackend",
+  "path": "src/utils/jwtHelper.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "DzenDyn_baseBackend__src_utils_jwtHelper.js.txt"
+ },
+ {
+  "repo": "ThatConference/that-api",
+  "path": "src/security/jwt.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "ThatConference_that-api__src_security_jwt.js.txt"
+ },
+ {
+  "repo": "iopipe/lambda-requestbin",
+  "path": "s3auth.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "iopipe_lambda-requestbin__s3auth.js.txt"
+ },
+ {
+  "repo": "DoubleXm/part-time",
+  "path": "services/users.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "DoubleXm_part-time__services_users.js.txt"
+ },
+ {
+  "repo": "connor11528/task-app-backend",
+  "path": "src/api/user.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "connor11528_task-app-backend__src_api_user.js.txt"
+ },
+ {
+  "repo": "chingu-voyages/v8-chimeras-team-02",
+  "path": "backend/index.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "chingu-voyages_v8-chimeras-team-02__backend_index.js.txt"
+ },
+ {
+  "repo": "sspringer82/webinar",
+  "path": "auth/index.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "sspringer82_webinar__auth_index.js.txt"
+ },
+ {
+  "repo": "FilipeFilpe/medium-api-jwt",
+  "path": "src/auth.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "FilipeFilpe_medium-api-jwt__src_auth.js.txt"
+ },
+ {
+  "repo": "lordrepha1980/MobAPI",
+  "path": "app.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "lordrepha1980_MobAPI__app.js.txt"
+ },
+ {
+  "repo": "therealAJ/HomeSafe",
+  "path": "app/routes/api.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "therealAJ_HomeSafe__app_routes_api.js.txt"
+ },
+ {
+  "repo": "OnZeng/chat-room-server",
+  "path": "src/utils/jwt.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "OnZeng_chat-room-server__src_utils_jwt.js.txt"
+ },
+ {
+  "repo": "coder-hunt/RESTfullAPI",
+  "path": "server.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "coder-hunt_RESTfullAPI__server.js.txt"
+ },
+ {
+  "repo": "arashdoescode/userStory",
+  "path": "app/routes/api.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "arashdoescode_userStory__app_routes_api.js.txt"
+ },
+ {
+  "repo": "Kevin-Chen19/GoodJobs",
+  "path": "server/util/JWT.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "Kevin-Chen19_GoodJobs__server_util_JWT.js.txt"
+ },
+ {
+  "repo": "darwin-morocho/backend-curso-flutter",
+  "path": "src/io.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "darwin-morocho_backend-curso-flutter__src_io.js.txt"
+ },
+ {
+  "repo": "HiFaraz/express-tokenware",
+  "path": "spec/provideSpec.js",
+  "lang": "js",
+  "query": "jsonwebtoken.verify language:javascript",
+  "file": "HiFaraz_express-tokenware__spec_provideSpec.js.txt"
+ },
+ {
+  "repo": "mwondhaf/sec_dispatch_next",
+  "path": "auth.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "mwondhaf_sec_dispatch_next__auth.ts.txt"
+ },
+ {
+  "repo": "Sudharshan348/VManage",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "Sudharshan348_VManage__proxy.ts.txt"
+ },
+ {
+  "repo": "shrutisharma-git/placement-prep-tracker",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "shrutisharma-git_placement-prep-tracker__proxy.ts.txt"
+ },
+ {
+  "repo": "amdryankz/karir-flow",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "amdryankz_karir-flow__proxy.ts.txt"
+ },
+ {
+  "repo": "amdryankz/test-project-fullstack",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "amdryankz_test-project-fullstack__proxy.ts.txt"
+ },
+ {
+  "repo": "rakhimalik015-star/Ai-Based-Emergency-Ambulance-Tracking-System",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "rakhimalik015-star_Ai-Based-Emergency-Ambulance-Tracking-System__proxy.ts.txt"
+ },
+ {
+  "repo": "ehasunulislam/Ph_l2_A5_FixItNow_frontend",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "ehasunulislam_Ph_l2_A5_FixItNow_frontend__proxy.ts.txt"
+ },
+ {
+  "repo": "mehediweb01/gear-up-web",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "mehediweb01_gear-up-web__proxy.ts.txt"
+ },
+ {
+  "repo": "Monir-Ruet/Emap",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "Monir-Ruet_Emap__proxy.ts.txt"
+ },
+ {
+  "repo": "richTheAnalyst/xxshop",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "richTheAnalyst_xxshop__proxy.ts.txt"
+ },
+ {
+  "repo": "sudeep7regmi/JobConnect",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "sudeep7regmi_JobConnect__proxy.ts.txt"
+ },
+ {
+  "repo": "asifforizy/Apollo-Gears-Frontend",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "asifforizy_Apollo-Gears-Frontend__proxy.ts.txt"
+ },
+ {
+  "repo": "Sohag-Ahmed056/tourBuddy_findYourPartner_Client",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "Sohag-Ahmed056_tourBuddy_findYourPartner_Client__proxy.ts.txt"
+ },
+ {
+  "repo": "abdullah-zakarya/car-part",
+  "path": "socket.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "abdullah-zakarya_car-part__socket.ts.txt"
+ },
+ {
+  "repo": "Sakshamkhadka7/Eccomerce_MERN_Backend_OOPS",
+  "path": "server.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "Sakshamkhadka7_Eccomerce_MERN_Backend_OOPS__server.ts.txt"
+ },
+ {
+  "repo": "kharalnirmal/Learn-Auth",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "kharalnirmal_Learn-Auth__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "andzia913/FinanBackend",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "andzia913_FinanBackend__index.ts.txt"
+ },
+ {
+  "repo": "FollowTheFlo/DeliveryMagnet-Shopify-App",
+  "path": "shared.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "FollowTheFlo_DeliveryMagnet-Shopify-App__shared.ts.txt"
+ },
+ {
+  "repo": "anisirji/mcp-server-remote-setup-with-jwt-auth",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "anisirji_mcp-server-remote-setup-with-jwt-auth__index.ts.txt"
+ },
+ {
+  "repo": "mihnea112/MarianApp_API",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "mihnea112_MarianApp_API__index.ts.txt"
+ },
+ {
+  "repo": "shashankWork21/niche",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "shashankWork21_niche__proxy.ts.txt"
+ },
+ {
+  "repo": "CarlosHxH/autocar",
+  "path": "auth.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "CarlosHxH_autocar__auth.ts.txt"
+ },
+ {
+  "repo": "anishkumarshrees/mern-project-shree-beauty-parlour-server",
+  "path": "server.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "anishkumarshrees_mern-project-shree-beauty-parlour-server__server.ts.txt"
+ },
+ {
+  "repo": "dottgonzo/jwt-http-utils",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "dottgonzo_jwt-http-utils__index.ts.txt"
+ },
+ {
+  "repo": "furqanRupom/wareon-ui",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "furqanRupom_wareon-ui__proxy.ts.txt"
+ },
+ {
+  "repo": "premanandconsulting/node-fastify-secure-auth-api",
+  "path": "src/app.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "premanandconsulting_node-fastify-secure-auth-api__src_app.ts.txt"
+ },
+ {
+  "repo": "Rajesh23965/graphqlApi",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "Rajesh23965_graphqlApi__index.ts.txt"
+ },
+ {
+  "repo": "v1noid/image-gen-server",
+  "path": "app.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "v1noid_image-gen-server__app.ts.txt"
+ },
+ {
+  "repo": "tmendes13/task-api",
+  "path": "auth.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "tmendes13_task-api__auth.ts.txt"
+ },
+ {
+  "repo": "BrooklinJazz/dm-binder-deprecated",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "BrooklinJazz_dm-binder-deprecated__index.ts.txt"
+ },
+ {
+  "repo": "ahsanhabibleon/ecom-backend",
+  "path": "utils.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "ahsanhabibleon_ecom-backend__utils.ts.txt"
+ },
+ {
+  "repo": "12anupa-baral/Mern3_Project2",
+  "path": "server.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "12anupa-baral_Mern3_Project2__server.ts.txt"
+ },
+ {
+  "repo": "ImFropZ/CoffeeShopAPI",
+  "path": "utils.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "ImFropZ_CoffeeShopAPI__utils.ts.txt"
+ },
+ {
+  "repo": "cherealnice/creditMe_api",
+  "path": "server.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "cherealnice_creditMe_api__server.ts.txt"
+ },
+ {
+  "repo": "adir-jscode/Travel-360-Frontend",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "adir-jscode_Travel-360-Frontend__proxy.ts.txt"
+ },
+ {
+  "repo": "onixtoken/ONIX-Network-mining",
+  "path": "server.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "onixtoken_ONIX-Network-mining__server.ts.txt"
+ },
+ {
+  "repo": "madjid123/Dexchat-full",
+  "path": "server.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "madjid123_Dexchat-full__server.ts.txt"
+ },
+ {
+  "repo": "RipanRenaldi25/rf_be",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "RipanRenaldi25_rf_be__index.ts.txt"
+ },
+ {
+  "repo": "cbanluta2700/agrismart-",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "cbanluta2700_agrismart-__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "Sazkiasabrina/aivas-backend",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "Sazkiasabrina_aivas-backend__proxy.ts.txt"
+ },
+ {
+  "repo": "abid-arham/assignment-5",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "abid-arham_assignment-5__proxy.ts.txt"
+ },
+ {
+  "repo": "duchuyhoang/chatAppSocket",
+  "path": "app.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "duchuyhoang_chatAppSocket__app.ts.txt"
+ },
+ {
+  "repo": "naeemul-online/E-Commerce-and-Inventory-Management-System-Client",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "naeemul-online_E-Commerce-and-Inventory-Management-System-Client__proxy.ts.txt"
+ },
+ {
+  "repo": "hery-ae/cetta-environment-data",
+  "path": "app.mts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "hery-ae_cetta-environment-data__app.mts.txt"
+ },
+ {
+  "repo": "geri1997/hoxton-solo-project-backend",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "geri1997_hoxton-solo-project-backend__index.ts.txt"
+ },
+ {
+  "repo": "rohitranjanyadav/Homify-Marketplace-Server",
+  "path": "server.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "rohitranjanyadav_Homify-Marketplace-Server__server.ts.txt"
+ },
+ {
+  "repo": "MalikWhitten67/xavierdb",
+  "path": "entry.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "MalikWhitten67_xavierdb__entry.ts.txt"
+ },
+ {
+  "repo": "Ayush-207/mysubs-server",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "Ayush-207_mysubs-server__index.ts.txt"
+ },
+ {
+  "repo": "matterconi/entropia",
+  "path": "auth.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "matterconi_entropia__auth.ts.txt"
+ },
+ {
+  "repo": "lukacera/torvely",
+  "path": "server.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "lukacera_torvely__server.ts.txt"
+ },
+ {
+  "repo": "salekmichal1/project-menagment-api",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "salekmichal1_project-menagment-api__index.ts.txt"
+ },
+ {
+  "repo": "gottasellemall69/card-test",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "gottasellemall69_card-test__proxy.ts.txt"
+ },
+ {
+  "repo": "Paarth5/Car_Service_Booking",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "Paarth5_Car_Service_Booking__index.ts.txt"
+ },
+ {
+  "repo": "Shivam-Dhaka12/chess_react_backend",
+  "path": "socket.ts",
+  "lang": "ts",
+  "query": "\"jwt.verify(\" language:typescript",
+  "file": "Shivam-Dhaka12_chess_react_backend__socket.ts.txt"
+ },
+ {
+  "repo": "alavers/smooch-bot-example",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "alavers_smooch-bot-example__jwt.js.txt"
+ },
+ {
+  "repo": "google-wallet/pass-converter",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "google-wallet_pass-converter__app.js.txt"
+ },
+ {
+  "repo": "landalfYao/helpserver",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "landalfYao_helpserver__app.js.txt"
+ },
+ {
+  "repo": "tusharzalte/tusharesume",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "tusharzalte_tusharesume__jwt.js.txt"
+ },
+ {
+  "repo": "in-the-keyhole/byzantine-browser",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "in-the-keyhole_byzantine-browser__app.js.txt"
+ },
+ {
+  "repo": "tariqulislam/express-starter-kit",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "tariqulislam_express-starter-kit__app.js.txt"
+ },
+ {
+  "repo": "thompsonate/MusicKit-macOS",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "thompsonate_MusicKit-macOS__jwt.js.txt"
+ },
+ {
+  "repo": "amand1996/Votechain",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "amand1996_Votechain__app.js.txt"
+ },
+ {
+  "repo": "Evanfeenstra/helix",
+  "path": "api.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "Evanfeenstra_helix__api.js.txt"
+ },
+ {
+  "repo": "MujtabaCoder/RMS-restaurant-management-system-nodejs",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "MujtabaCoder_RMS-restaurant-management-system-nodejs__jwt.js.txt"
+ },
+ {
+  "repo": "iiitv/CTF-Backend",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "iiitv_CTF-Backend__app.js.txt"
+ },
+ {
+  "repo": "raultomescu/TorrentVideo",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "raultomescu_TorrentVideo__app.js.txt"
+ },
+ {
+  "repo": "nankailiang/billiards-server",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "nankailiang_billiards-server__jwt.js.txt"
+ },
+ {
+  "repo": "chronicled/jwt",
+  "path": "jwt.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "chronicled_jwt__jwt.js.txt"
+ },
+ {
+  "repo": "rohanoid5/leave-app-api",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "rohanoid5_leave-app-api__app.js.txt"
+ },
+ {
+  "repo": "wass08/tuto-jwt-express",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "wass08_tuto-jwt-express__app.js.txt"
+ },
+ {
+  "repo": "pantharshit00/jwtAuth",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "pantharshit00_jwtAuth__app.js.txt"
+ },
+ {
+  "repo": "scorum/blog-admin-ws",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "scorum_blog-admin-ws__app.js.txt"
+ },
+ {
+  "repo": "belaid-sarah/Park-Management",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "belaid-sarah_Park-Management__app.js.txt"
+ },
+ {
+  "repo": "leumashz/AdministracionSoftware",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "leumashz_AdministracionSoftware__app.js.txt"
+ },
+ {
+  "repo": "rchvalbo/jwt_react_node_starting_template_complete",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "rchvalbo_jwt_react_node_starting_template_complete__app.js.txt"
+ },
+ {
+  "repo": "panox/cyclevision-api",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "panox_cyclevision-api__app.js.txt"
+ },
+ {
+  "repo": "egodasa/aplikasiujianberbasisweb",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "egodasa_aplikasiujianberbasisweb__app.js.txt"
+ },
+ {
+  "repo": "jecarpenter/project2",
+  "path": "js.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "jecarpenter_project2__js.js.txt"
+ },
+ {
+  "repo": "magung/inventory-app-js-backend",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "magung_inventory-app-js-backend__app.js.txt"
+ },
+ {
+  "repo": "Manat-singh/workout-from-home",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "Manat-singh_workout-from-home__app.js.txt"
+ },
+ {
+  "repo": "abidrazaa/backend-node",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "abidrazaa_backend-node__app.js.txt"
+ },
+ {
+  "repo": "jsicu/koa-server",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "jsicu_koa-server__app.js.txt"
+ },
+ {
+  "repo": "Videiraft/curious-server",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "Videiraft_curious-server__app.js.txt"
+ },
+ {
+  "repo": "adithya-b-r/Scatch",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "adithya-b-r_Scatch__app.js.txt"
+ },
+ {
+  "repo": "ninarada/FESBook",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "ninarada_FESBook__app.js.txt"
+ },
+ {
+  "repo": "ProdCamp/sso-demo",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "ProdCamp_sso-demo__app.js.txt"
+ },
+ {
+  "repo": "sandeep1995/meany-service",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "sandeep1995_meany-service__app.js.txt"
+ },
+ {
+  "repo": "AhmedBilyameen/CareerEx-Project-FreshMart.app",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "AhmedBilyameen_CareerEx-Project-FreshMart.app__app.js.txt"
+ },
+ {
+  "repo": "casimon-rh/js-stack",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "casimon-rh_js-stack__app.js.txt"
+ },
+ {
+  "repo": "ZWkang/Graduation-Project",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "ZWkang_Graduation-Project__app.js.txt"
+ },
+ {
+  "repo": "madox35/Gestion-stock",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "madox35_Gestion-stock__app.js.txt"
+ },
+ {
+  "repo": "attehuhtakangas/todo-app-mean",
+  "path": "app.js",
+  "lang": "js",
+  "query": "\"require('jsonwebtoken')\" language:javascript",
+  "file": "attehuhtakangas_todo-app-mean__app.js.txt"
+ },
+ {
+  "repo": "zwave-js/zwave-js-ui",
+  "path": "api/app.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "zwave-js_zwave-js-ui__api_app.ts.txt"
+ },
+ {
+  "repo": "gitranks/gitranks-ui",
+  "path": "codegen.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "gitranks_gitranks-ui__codegen.ts.txt"
+ },
+ {
+  "repo": "neo9/n9-node-micro",
+  "path": "src/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "neo9_n9-node-micro__src_jwt.ts.txt"
+ },
+ {
+  "repo": "KOSASIH/pi-coin-tesla-pay",
+  "path": "api/api.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "KOSASIH_pi-coin-tesla-pay__api_api.ts.txt"
+ },
+ {
+  "repo": "pmcalabrese/express-typescript-boilerplate",
+  "path": "src/app.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "pmcalabrese_express-typescript-boilerplate__src_app.ts.txt"
+ },
+ {
+  "repo": "jitsi/token-generator",
+  "path": "src/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "jitsi_token-generator__src_jwt.ts.txt"
+ },
+ {
+  "repo": "gupta-ritik/ExpenseTracker",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "gupta-ritik_ExpenseTracker__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "balena-io/open-balena-registry-proxy",
+  "path": "src/app.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "balena-io_open-balena-registry-proxy__src_app.ts.txt"
+ },
+ {
+  "repo": "Rowadz/koa-ts-yt",
+  "path": "src/app.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "Rowadz_koa-ts-yt__src_app.ts.txt"
+ },
+ {
+  "repo": "Hyper-Solutions/hyper-sdk-js",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "Hyper-Solutions_hyper-sdk-js__index.ts.txt"
+ },
+ {
+  "repo": "sourcegraph/zendesk-discord-integration",
+  "path": "src/bot.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "sourcegraph_zendesk-discord-integration__src_bot.ts.txt"
+ },
+ {
+  "repo": "claretnnamocha/helpers",
+  "path": "src/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "claretnnamocha_helpers__src_jwt.ts.txt"
+ },
+ {
+  "repo": "pwn2winctf/nizkctf-v2",
+  "path": "utils.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "pwn2winctf_nizkctf-v2__utils.ts.txt"
+ },
+ {
+  "repo": "cisco-ce/workspace-integrations-nodejs",
+  "path": "src/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "cisco-ce_workspace-integrations-nodejs__src_jwt.ts.txt"
+ },
+ {
+  "repo": "FilPassOps/FilPass",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "FilPassOps_FilPass__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "cumulous/backend",
+  "path": "src/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "cumulous_backend__src_jwt.ts.txt"
+ },
+ {
+  "repo": "Pi-Control/Pi-Control",
+  "path": "src/app.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "Pi-Control_Pi-Control__src_app.ts.txt"
+ },
+ {
+  "repo": "chingu-voyage3/bears-10",
+  "path": "server.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "chingu-voyage3_bears-10__server.ts.txt"
+ },
+ {
+  "repo": "rafaelcascalho/keycloak-middleware-ts",
+  "path": "src/Jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "rafaelcascalho_keycloak-middleware-ts__src_Jwt.ts.txt"
+ },
+ {
+  "repo": "BryanBerger98/lodge-v2",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "BryanBerger98_lodge-v2__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "ALLTERCO/ushelly",
+  "path": "src/app.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "ALLTERCO_ushelly__src_app.ts.txt"
+ },
+ {
+  "repo": "sudo-bot/sudo-bot",
+  "path": "src/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "sudo-bot_sudo-bot__src_jwt.ts.txt"
+ },
+ {
+  "repo": "scryinfo/dp-contracts-old",
+  "path": "src/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "scryinfo_dp-contracts-old__src_jwt.ts.txt"
+ },
+ {
+  "repo": "programmarchy/directus-extension-jwt-sign",
+  "path": "src/api.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "programmarchy_directus-extension-jwt-sign__src_api.ts.txt"
+ },
+ {
+  "repo": "Jeeban-2006/DSA-Sync",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "Jeeban-2006_DSA-Sync__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "dickysudaryatmo/simple-template-next",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "dickysudaryatmo_simple-template-next__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "raphaelalmeidamartins/trybesmith",
+  "path": "src/msc.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "raphaelalmeidamartins_trybesmith__src_msc.ts.txt"
+ },
+ {
+  "repo": "neuland-ingolstadt/neuland.app-backend",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "neuland-ingolstadt_neuland.app-backend__index.ts.txt"
+ },
+ {
+  "repo": "traPtitech/vite-plugin-trap-auth",
+  "path": "src/key.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "traPtitech_vite-plugin-trap-auth__src_key.ts.txt"
+ },
+ {
+  "repo": "D-Y-Innovations/casl-sample",
+  "path": "src/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "D-Y-Innovations_casl-sample__src_jwt.ts.txt"
+ },
+ {
+  "repo": "Rowadz/Erela",
+  "path": "src/app.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "Rowadz_Erela__src_app.ts.txt"
+ },
+ {
+  "repo": "Woodykaixa/Woodykaixa-Website",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "Woodykaixa_Woodykaixa-Website__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "mavvystudio/miniserver",
+  "path": "src/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "mavvystudio_miniserver__src_jwt.ts.txt"
+ },
+ {
+  "repo": "mirage-software/Kabooty",
+  "path": "src/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "mirage-software_Kabooty__src_jwt.ts.txt"
+ },
+ {
+  "repo": "Amber-bisht/askSync",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "Amber-bisht_askSync__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "haizzdungnay/WebSiteOtakuShopVer2",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "haizzdungnay_WebSiteOtakuShopVer2__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "Codaisseur/typestack-day-example",
+  "path": "src/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "Codaisseur_typestack-day-example__src_jwt.ts.txt"
+ },
+ {
+  "repo": "Woodykaixa/WorldAxletreeWeb",
+  "path": "lib/jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "Woodykaixa_WorldAxletreeWeb__lib_jwt.ts.txt"
+ },
+ {
+  "repo": "packing-discord/packing-discord-bot",
+  "path": "jwt.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "packing-discord_packing-discord-bot__jwt.ts.txt"
+ },
+ {
+  "repo": "ali-eljerrari/nodemailer-app",
+  "path": "src/app.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "ali-eljerrari_nodemailer-app__src_app.ts.txt"
+ },
+ {
+  "repo": "V-Hoesein/auth-api",
+  "path": "config.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "V-Hoesein_auth-api__config.ts.txt"
+ },
+ {
+  "repo": "wdzeng/firefox-addon",
+  "path": "src/lib.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "wdzeng_firefox-addon__src_lib.ts.txt"
+ },
+ {
+  "repo": "arzkar/ao3-api-js",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "arzkar_ao3-api-js__index.ts.txt"
+ },
+ {
+  "repo": "maheshbasnet089/MERN2.0-P2Backend",
+  "path": "src/app.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "maheshbasnet089_MERN2.0-P2Backend__src_app.ts.txt"
+ },
+ {
+  "repo": "VAID-STUDIO/VIA-EDU-API",
+  "path": "app.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "VAID-STUDIO_VIA-EDU-API__app.ts.txt"
+ },
+ {
+  "repo": "sspringer82/nodeworkshop",
+  "path": "index.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "sspringer82_nodeworkshop__index.ts.txt"
+ },
+ {
+  "repo": "CDLUC3/dmptool-ui",
+  "path": "proxy.ts",
+  "lang": "ts",
+  "query": "\"from 'jsonwebtoken'\" language:typescript",
+  "file": "CDLUC3_dmptool-ui__proxy.ts.txt"
+ }
+]

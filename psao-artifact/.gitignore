@@ -54,3 +54,10 @@ paper/*.bbl
 paper/*.out
 paper/*.toc
 paper/*.synctex.gz
+
+# --- prevalence survey ------------------------------------------------------
+# Fetched third-party source files. The analysis output (callsites.csv,
+# counterexamples.json, hits.json) IS committed; the corpus itself is not, to
+# avoid redistributing other people's code. survey/collect.py regenerates it.
+survey/data/files/
+survey/data/counterexamples/
