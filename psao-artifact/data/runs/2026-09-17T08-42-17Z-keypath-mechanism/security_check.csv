@@ -1,0 +1,16 @@
+variant,case,expected,observed,detail
+stock,confusion_attack__rsa_public_pem_as_secret,reject,reject,ok | invalid algorithm
+stock,confusion_attack__algorithms_pinned_rs256,reject,reject,ok | invalid algorithm
+stock,legitimate_hs256_string_secret,accept,accept,ok
+stock,legitimate_rs256_pem,accept,accept,ok
+stock,legitimate_hs256_keyobject,accept,accept,ok
+naive,confusion_attack__rsa_public_pem_as_secret,accept,accept,ok
+naive,confusion_attack__algorithms_pinned_rs256,reject,reject,ok | invalid algorithm
+naive,legitimate_hs256_string_secret,accept,accept,ok
+naive,legitimate_rs256_pem,accept,accept,ok
+naive,legitimate_hs256_keyobject,accept,accept,ok
+safe,confusion_attack__rsa_public_pem_as_secret,reject,reject,ok | invalid algorithm
+safe,confusion_attack__algorithms_pinned_rs256,reject,reject,ok | invalid algorithm
+safe,legitimate_hs256_string_secret,accept,accept,ok
+safe,legitimate_rs256_pem,accept,accept,ok
+safe,legitimate_hs256_keyobject,accept,accept,ok

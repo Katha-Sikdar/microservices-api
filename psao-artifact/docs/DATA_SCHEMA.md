@@ -234,6 +234,72 @@ figure.
 
 ---
 
+## `keypath_mechanism.csv`
+
+One row per **process invocation**, written by `bench/keypath-mechanism.js` and
+driven by `experiments/run_keypath_mechanism.sh`. Aggregated by
+`analysis/keypath_stats.py`.
+
+| Column | Type | Description |
+|---|---|---|
+| `condition` | string | Which stage was measured. See the table below. |
+| `invocation` | int | Round number. The runner cycles through every condition inside each round, so rows sharing an `invocation` saw the same machine state and are legitimately paired. |
+| `n` | int | Calls timed in this invocation, after warmup. |
+| `mean_us` | float | Mean over those calls. Reported but not used as the headline: the distribution is right-skewed by preemption, so the median is the stabler summary. |
+| `median_us` | float | **The per-invocation figure the analysis aggregates.** |
+| `p90_us`, `p99_us` | float | Tail within the invocation. |
+| `min_us`, `max_us` | float | Extremes within the invocation. |
+| `stddev_us` | float | Sample standard deviation within the invocation. |
+| `timer_overhead_us` | float | Median cost of the `process.hrtime.bigint()` pair itself, measured in this same process. Reported, **never subtracted**. |
+| `node_version` | string | e.g. `v26.6.0`. |
+| `platform` | string | e.g. `darwin/arm64`. Present so host and container rows stay distinguishable when runs are concatenated. |
+
+### Conditions
+
+| `condition` | What it times |
+|---|---|
+| `jwt_hs_string` | `jwt.verify()`, HS256, **string** secret — what an ordinary service does. |
+| `jwt_hs_preparsed` | `jwt.verify()`, HS256, `KeyObject` secret. |
+| `jwt_hs_string_safe` | As `jwt_hs_string`, against the safe-patched library (`bench/keypath-patch.js`). |
+| `jwt_rs_pem_string` | `jwt.verify()`, RS256, PEM **string** — here the `createPublicKey()` probe succeeds. |
+| `jwt_rs_preparsed` | `jwt.verify()`, RS256, `KeyObject`. |
+| `probe_throws` | `createPublicKey(<hmac secret>)`, which throws and is discarded. |
+| `probe_succeeds` | `createPublicKey(<rsa pem>)`, which does not throw. |
+| `create_secret_key` | `createSecretKey(Buffer.from(secret))` — the conversion itself. |
+| `hmac_string` | `createHmac('sha256', <string>)` through `digest()`. |
+| `hmac_keyobject` | `createHmac('sha256', <KeyObject>)` through `digest()`. |
+| `decode_only` | Structural base64url + JSON decode, no signature check. |
+| `timer_overhead` | Empty body: the floor this clock resolves. |
+
+**Why one condition per process.** Measuring every condition in one process lets
+the first condition's compiled code, inline caches and heap layout follow the
+later ones, and reports one sample as if it were a population. Each row here
+comes from a separate `node` process, so the interval
+`analysis/keypath_stats.py` reports covers between-process variation. Rows from
+a single invocation must not be quoted as a result on their own.
+
+---
+
+## `security_check.csv`
+
+Written by `bench/keypath-security-check.js`. One row per (library variant,
+test case). Not a measurement — an assertion log, kept because the timing result
+for the patched library is only meaningful if the patch is sound.
+
+| Column | Type | Description |
+|---|---|---|
+| `variant` | `stock` \| `naive` \| `safe` | Which build of `jsonwebtoken` was exercised. |
+| `case` | string | Test case name. |
+| `expected` | `accept` \| `reject` | What that variant is **documented** to do. `naive` is expected to `accept` the confusion attack: that is the regression being demonstrated. |
+| `observed` | `accept` \| `reject` | What it did. |
+| `detail` | string | `ok` or `MISMATCH`, plus the rejection message where there was one. Commas are stripped from library messages so the field stays single-column. |
+
+The script exits non-zero if any variant departs from its documented behaviour —
+including if `naive` ever stopped being vulnerable, which would mean the
+demonstration had gone stale against a newer `jsonwebtoken`.
+
+---
+
 ## Combining runs
 
 Each runner writes into its own `data/runs/<ISO timestamp>-<label>/`. To analyse

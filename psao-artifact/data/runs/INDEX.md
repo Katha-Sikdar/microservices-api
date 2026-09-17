@@ -12,6 +12,32 @@ from").
 
 ---
 
+## The mechanism: a failed probe, not key conversion
+
+`2026-09-17T08-42-17Z-keypath-mechanism` — 15 rounds x 12 conditions, **one
+process per measurement** (181 invocations), conditions interleaved within each
+round. Percentile-bootstrap CIs over per-invocation medians; between-process
+CV is 0.4-3.5% on every condition. Has its own `FINDINGS.md`.
+
+`jsonwebtoken` resolves a non-`KeyObject` secret by trying `createPublicKey()`
+first. For an HMAC string secret that call always throws. **The discarded
+failure costs 18.042 us [17.834, 18.250]; the conversion it falls back to costs
+0.583 us [0.542, 0.583].** Confirmed independently by `--cpu-prof`, which puts
+67.87% of self-time in `createPublicKey` on the string path and does not list it
+at all on the pre-parsed path.
+
+**The obvious fix is an authentication bypass.** Skipping the probe whenever
+`alg` is `HS*` makes an RSA public key usable as an HMAC secret — stock
+jsonwebtoken is protected only by that probe succeeding. `security_check.csv`
+holds the demonstration and the safe variant that keeps the defence
+(`bench/keypath-security-check.js`, run as a precondition of the timing run).
+
+This corrects the mechanism claim in `paper/not-the-cryptography.tex`, and
+reverses its explanation of the Table 2 HS256/RS256 asymmetry. Host only —
+macOS arm64. The container replication is not done.
+
+---
+
 ## The one defensible result: the JWT stage decomposition
 
 `2026-09-13T20-34-41Z-microbench` — three passes, 200 000 iterations each,

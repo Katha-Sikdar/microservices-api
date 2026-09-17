@@ -1,0 +1,26 @@
+self_pct,self_ms,function,location
+19.30,290.9,Hmac,node:internal/crypto/hash
+10.67,160.8,digest,node:internal/crypto/hash
+8.92,134.5,safeJsonParse,jws/lib/verify-stream.js
+6.74,101.6,jwsDecode,jws/lib/verify-stream.js
+5.59,84.3,fromBase64,jwa/index.js
+5.24,78.9,base64Write,(native)
+3.67,55.3,module.exports,jsonwebtoken/verify.js
+3.59,54.0,(anonymous),(native)
+3.17,47.8,signatureFromJWS,jws/lib/verify-stream.js
+3.09,46.6,RegExp: ^[a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+)?$,(native)
+3.07,46.3,update,node:internal/crypto/hash
+2.77,41.8,securedInputFromJWS,jws/lib/verify-stream.js
+2.74,41.3,(garbage collector),(native)
+2.42,36.4,FastBuffer,node:internal/buffer
+2.17,32.7,headerFromJWS,jws/lib/verify-stream.js
+1.67,25.1,payloadFromJWS,jws/lib/verify-stream.js
+1.58,23.8,latin1Slice,(native)
+1.33,20.0,jwa,jwa/index.js
+1.25,18.9,toString,node:buffer
+1.17,17.7,utf8Slice,(native)
+1.00,15.1,(program),(native)
+0.92,13.9,(idle),(native)
+0.67,10.1,timingSafeEqual,jwa/index.js
+0.67,10.0,(anonymous),jsonwebtoken/verify.js
+0.60,9.0,fromStringFast,node:buffer

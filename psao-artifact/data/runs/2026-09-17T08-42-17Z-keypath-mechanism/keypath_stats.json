@@ -1,0 +1,245 @@
+{
+  "run_dir": "data/runs/2026-09-17T08-42-17Z-keypath-mechanism",
+  "source_csv": "data/runs/2026-09-17T08-42-17Z-keypath-mechanism/keypath_mechanism.csv",
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 20260917,
+  "unit_of_measurement": "one process invocation; each contributes its median of N calls",
+  "conditions": {
+    "create_secret_key": {
+      "n_invocations": 15,
+      "calls_per_invocation": 40000,
+      "median_of_medians_us": 0.583,
+      "ci95": [
+        0.542,
+        0.583
+      ],
+      "min_invocation_median_us": 0.542,
+      "max_invocation_median_us": 0.584,
+      "between_invocation_cv_pct": 3.5223655059090917,
+      "median_p99_us": 0.709,
+      "median_timer_overhead_us": 0.042
+    },
+    "decode_only": {
+      "n_invocations": 15,
+      "calls_per_invocation": 40000,
+      "median_of_medians_us": 1.292,
+      "ci95": [
+        1.25,
+        1.292
+      ],
+      "min_invocation_median_us": 1.25,
+      "max_invocation_median_us": 1.333,
+      "between_invocation_cv_pct": 1.9325261604796296,
+      "median_p99_us": 1.417,
+      "median_timer_overhead_us": 0.042
+    },
+    "hmac_keyobject": {
+      "n_invocations": 15,
+      "calls_per_invocation": 40000,
+      "median_of_medians_us": 2.166,
+      "ci95": [
+        2.125,
+        2.167
+      ],
+      "min_invocation_median_us": 2.083,
+      "max_invocation_median_us": 2.25,
+      "between_invocation_cv_pct": 1.9993972517574174,
+      "median_p99_us": 2.459,
+      "median_timer_overhead_us": 0.042
+    },
+    "hmac_string": {
+      "n_invocations": 15,
+      "calls_per_invocation": 40000,
+      "median_of_medians_us": 2.208,
+      "ci95": [
+        2.208,
+        2.25
+      ],
+      "min_invocation_median_us": 2.208,
+      "max_invocation_median_us": 2.291,
+      "between_invocation_cv_pct": 1.1528427132871353,
+      "median_p99_us": 2.625,
+      "median_timer_overhead_us": 0.042
+    },
+    "jwt_hs_preparsed": {
+      "n_invocations": 15,
+      "calls_per_invocation": 40000,
+      "median_of_medians_us": 6.042,
+      "ci95": [
+        5.958,
+        6.125
+      ],
+      "min_invocation_median_us": 5.916,
+      "max_invocation_median_us": 6.291,
+      "between_invocation_cv_pct": 1.8339431059632711,
+      "median_p99_us": 7.25,
+      "median_timer_overhead_us": 0.042
+    },
+    "jwt_hs_string": {
+      "n_invocations": 15,
+      "calls_per_invocation": 40000,
+      "median_of_medians_us": 29.917,
+      "ci95": [
+        29.75,
+        30.125
+      ],
+      "min_invocation_median_us": 29.291,
+      "max_invocation_median_us": 30.583,
+      "between_invocation_cv_pct": 1.1688624177911338,
+      "median_p99_us": 34.166,
+      "median_timer_overhead_us": 0.042
+    },
+    "jwt_hs_string_safe": {
+      "n_invocations": 15,
+      "calls_per_invocation": 40000,
+      "median_of_medians_us": 7.208,
+      "ci95": [
+        7.125,
+        7.334
+      ],
+      "min_invocation_median_us": 7.042,
+      "max_invocation_median_us": 7.459,
+      "between_invocation_cv_pct": 1.7482336816339146,
+      "median_p99_us": 8.667,
+      "median_timer_overhead_us": 0.042
+    },
+    "jwt_rs_pem_string": {
+      "n_invocations": 15,
+      "calls_per_invocation": 40000,
+      "median_of_medians_us": 52.583,
+      "ci95": [
+        52.416,
+        52.708
+      ],
+      "min_invocation_median_us": 52.042,
+      "max_invocation_median_us": 52.833,
+      "between_invocation_cv_pct": 0.4228679976230492,
+      "median_p99_us": 58.625,
+      "median_timer_overhead_us": 0.042
+    },
+    "jwt_rs_preparsed": {
+      "n_invocations": 15,
+      "calls_per_invocation": 40000,
+      "median_of_medians_us": 25.334,
+      "ci95": [
+        25.291,
+        25.5
+      ],
+      "min_invocation_median_us": 25.042,
+      "max_invocation_median_us": 25.791,
+      "between_invocation_cv_pct": 0.8118305123851483,
+      "median_p99_us": 28.958,
+      "median_timer_overhead_us": 0.042
+    },
+    "probe_succeeds": {
+      "n_invocations": 15,
+      "calls_per_invocation": 40000,
+      "median_of_medians_us": 13.833,
+      "ci95": [
+        13.625,
+        13.916
+      ],
+      "min_invocation_median_us": 13.5,
+      "max_invocation_median_us": 13.958,
+      "between_invocation_cv_pct": 1.0655532723040462,
+      "median_p99_us": 17.125,
+      "median_timer_overhead_us": 0.042
+    },
+    "probe_throws": {
+      "n_invocations": 15,
+      "calls_per_invocation": 40000,
+      "median_of_medians_us": 18.042,
+      "ci95": [
+        17.834,
+        18.25
+      ],
+      "min_invocation_median_us": 17.75,
+      "max_invocation_median_us": 18.625,
+      "between_invocation_cv_pct": 1.547076122602238,
+      "median_p99_us": 21.25,
+      "median_timer_overhead_us": 0.042
+    },
+    "timer_overhead": {
+      "n_invocations": 15,
+      "calls_per_invocation": 40000,
+      "median_of_medians_us": 0.042,
+      "ci95": [
+        0.042,
+        0.042
+      ],
+      "min_invocation_median_us": 0.042,
+      "max_invocation_median_us": 0.042,
+      "between_invocation_cv_pct": 1.710104179648926e-14,
+      "median_p99_us": 0.084,
+      "median_timer_overhead_us": 0.042
+    }
+  },
+  "contrasts": {
+    "string_key_penalty_hs256": {
+      "a": "jwt_hs_string",
+      "b": "jwt_hs_preparsed",
+      "n_rounds": 15,
+      "median_diff_us": 23.917,
+      "ci95": [
+        23.583000000000002,
+        24.0
+      ]
+    },
+    "safe_patch_saving_hs256": {
+      "a": "jwt_hs_string",
+      "b": "jwt_hs_string_safe",
+      "n_rounds": 15,
+      "median_diff_us": 22.709000000000003,
+      "ci95": [
+        22.542,
+        22.875999999999998
+      ]
+    },
+    "safe_patch_residual": {
+      "a": "jwt_hs_string_safe",
+      "b": "jwt_hs_preparsed",
+      "n_rounds": 15,
+      "median_diff_us": 1.2080000000000002,
+      "ci95": [
+        1.0839999999999996,
+        1.2510249999999852
+      ]
+    },
+    "string_key_penalty_rs256": {
+      "a": "jwt_rs_pem_string",
+      "b": "jwt_rs_preparsed",
+      "n_rounds": 15,
+      "median_diff_us": 27.291,
+      "ci95": [
+        27.0,
+        27.374
+      ]
+    }
+  },
+  "decomposition": {
+    "n_rounds": 15,
+    "observed_penalty_us": {
+      "median": 23.917,
+      "ci95": [
+        23.583000000000002,
+        24.0
+      ]
+    },
+    "predicted_from_parts_us": {
+      "median": 18.624,
+      "ci95": [
+        18.416999999999998,
+        18.833
+      ]
+    },
+    "residual_us": {
+      "median": 5.292000000000002,
+      "ci95": [
+        4.916,
+        5.501000000000001
+      ]
+    },
+    "explained_fraction": 0.7786929798887819,
+    "_note": "Residual is what the failed probe plus the key conversion do NOT account for: jsonwebtoken's own type and claim checks on the non-KeyObject path. A residual whose CI excludes zero means the two measured parts are not the whole story."
+  }
+}
