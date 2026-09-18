@@ -1,16 +1,38 @@
-# PSAO reproducibility artifact
+# Replication package: where token-validation cost actually goes
 
-Code that **produces** the measurements behind *predictive security-aware
-offloading* (PSAO) of JWT verification in a Kubernetes microservice under layered
-Zero Trust enforcement.
+Supports **`paper/key-resolution-cost.tex`** --- *It Is Not the Cryptography: A
+Discarded Exception Dominates Token Validation Cost in a Node.js Service*.
 
-The paper it supports measures event-loop saturation in a Node.js service as
-Edge TLS, Istio mTLS and application-level JWT validation are layered on, models
-the service as a single-server queue, and proposes relocating token verification
-to the Envoy sidecar *before* the saturation point is reached. It was desk
-rejected for two reasons: the policy existed only as pseudocode, and several
-reported quantities were derived rather than measured. This repository closes
-both gaps.
+The finding: when a shared secret is supplied as a string, `jsonwebtoken`
+resolves it by attempting an **asymmetric** parse first and falling back to the
+symmetric constructor only after that attempt throws. The discarded failure is
+the dominant per-request cost --- not the signature, and not the key conversion
+it falls back to, which costs well under a microsecond. Its magnitude is governed
+by the OpenSSL version the base image pins, varying by a factor of 25 across
+container runtimes while the rest of the validation path varies by less than two.
+
+| Where to look | What is there |
+|---|---|
+| `paper/key-resolution-cost.tex` | the manuscript; every number is a generated macro |
+| `analysis/make_keypath_macros.py` | generates them from `data/runs/` and `survey/` |
+| `bench/keypath-mechanism.js` | the harness: one condition per process |
+| `experiments/run_keypath_mechanism.sh` | the host decomposition |
+| `experiments/run_keypath_container.sh` | the runtime matrix |
+| `survey/` | the prevalence survey and its corpus manifest |
+| `upstream/` | the patch, the tests, and the issue as filed |
+| `data/runs/INDEX.md` | every run, including the ones that failed |
+
+### Earlier work in this repository
+
+`paper/not-the-cryptography.tex` is a **superseded** manuscript, kept with its
+`SUPERSEDED.md` as the record of what was corrected; see
+`Section~7` of the current paper. `controller/`, `scenarios/`, the Istio manifests
+and the cluster runners belong to an earlier study of event-loop saturation and
+sidecar offloading (PSAO). They are retained because the runs under `data/runs/`
+that they produced are part of the record, and because the offload result is
+discussed in the current paper. **They are not what this artifact is for**, and
+the cluster measurements from 2026-09-13 are in doubt for reasons documented in
+`data/runs/INDEX.md`.
 
 ---
 

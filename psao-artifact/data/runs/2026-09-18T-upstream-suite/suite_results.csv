@@ -1,0 +1,4 @@
+variant,verify_js,passing,pending,failing,failing_tests,source
+stock,released v9.0.3 unmodified,511,1,0,,auth0/node-jsonwebtoken@v9.0.3 tag (ed59e76)
+patched_narrow,upstream/verify.js.patch applied,511,1,0,,auth0/node-jsonwebtoken@v9.0.3 + patch
+naive,material restriction removed from the patch,509,1,2,"test/wrong_alg.tests.js: 'should not allow HMAC verification with an RSA key in PEM format'; 'should not verify'",auth0/node-jsonwebtoken@v9.0.3 + unsafe variant

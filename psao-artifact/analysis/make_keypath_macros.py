@@ -210,31 +210,81 @@ if cm.exists():
 else:
     MISSING.append('ManifestFiles')
 
-# --- cpu profile -------------------------------------------------------------
-for macro, f in [('ProfEighteenPct', MATRIX / 'cpuprof_node_18_20_8-alpine.csv'),
-                 ('ProfTwentySixPct', MATRIX / 'cpuprof_node_26_6_0-alpine.csv'),
-                 ('ProfHostPct', MECH / 'cpuprof_jwt_hs_string.csv')]:
-    if f.exists():
-        r = list(csv.DictReader(f.open()))
-        top = next((x for x in r if 'createPublicKey' in x['function']), None)
-        put(macro, float(top['self_pct']) if top else None, f, '{:.1f}')
-    else:
+# --- cpu profile, matched iterations, three repeats ------------------------
+# The first pass used different iteration counts per environment, which made the
+# percentages incomparable. This reads the matched re-run and reports a median
+# with the observed range, so the figure carries its own dispersion.
+PROF = RUNS / '2026-09-18T-profile-matched' / 'cpuprof_matched.csv'
+if PROF.exists():
+    import statistics
+    by_env: dict[str, list[float]] = {}
+    for r in csv.DictReader(PROF.open()):
+        if r['createPublicKey_self_pct']:
+            by_env.setdefault(r['environment'], []).append(float(r['createPublicKey_self_pct']))
+    NAMES = {'host': 'ProfHost', 'node_18_20_8-alpine': 'ProfEighteen',
+             'node_26_6_0-alpine': 'ProfTwentySix'}
+    for env, macro in NAMES.items():
+        v = by_env.get(env)
+        if not v:
+            MISSING.append(macro + 'Pct'); continue
+        put(macro + 'Pct', statistics.median(v), PROF, '{:.1f}')
+        put(macro + 'PctLo', min(v), PROF, '{:.1f}')
+        put(macro + 'PctHi', max(v), PROF, '{:.1f}')
+    put('ProfRepeats', max((len(v) for v in by_env.values()), default=None), PROF)
+    put('ProfIterations', next((int(r['iterations']) for r in csv.DictReader(PROF.open())), None), PROF)
+else:
+    for macro in ('ProfHostPct', 'ProfEighteenPct', 'ProfTwentySixPct'):
         MISSING.append(macro)
+
+# --- the library's own suite ------------------------------------------------
+SUITE = RUNS / '2026-09-18T-upstream-suite' / 'suite_results.csv'
+if SUITE.exists():
+    rows = {r['variant']: r for r in csv.DictReader(SUITE.open())}
+    for v, macro in [('stock', 'SuiteStock'), ('patched_narrow', 'SuitePatched'),
+                     ('naive', 'SuiteNaive')]:
+        r = rows.get(v)
+        if not r:
+            MISSING.append(macro + 'Passing'); continue
+        put(macro + 'Passing', int(r['passing']), SUITE)
+        put(macro + 'Failing', int(r['failing']), SUITE)
+else:
+    MISSING.append('SuiteStockPassing')
 
 # --- survey ------------------------------------------------------------------
 pc = SURVEY / 'population_counts.csv'
 if pc.exists():
     rows = {r['query']: int(r['total_count']) for r in csv.DictReader(pc.open()) if r['total_count']}
-    def g(q): return rows.get(q)
-    js, jsk = g("require('jsonwebtoken') language:javascript"), g("require('jsonwebtoken') createSecretKey language:javascript")
-    ts, tsk = g("from 'jsonwebtoken' language:typescript"), g("from 'jsonwebtoken' createSecretKey language:typescript")
-    put('PopJsFiles', js, pc); put('PopJsKeyObject', jsk, pc)
-    put('PopTsFiles', ts, pc); put('PopTsKeyObject', tsk, pc)
-    if None not in (js, jsk, ts, tsk):
-        put('PopTotalFiles', js + ts, pc)
-        put('PopTotalKeyObject', jsk + tsk, pc)
-        put('PopKeyObjectPct', 100 * (jsk + tsk) / (js + ts), pc, '{:.3f}')
-        put('PopOneIn', round((js + ts) / (jsk + tsk)), pc)
+    CELLS = {
+        'JsRequire': ("require('jsonwebtoken') language:javascript",
+                      "require('jsonwebtoken') createSecretKey language:javascript"),
+        'JsImport':  ("from 'jsonwebtoken' language:javascript",
+                      "from 'jsonwebtoken' createSecretKey language:javascript"),
+        'TsRequire': ("require('jsonwebtoken') language:typescript",
+                      "require('jsonwebtoken') createSecretKey language:typescript"),
+        'TsImport':  ("from 'jsonwebtoken' language:typescript",
+                      "from 'jsonwebtoken' createSecretKey language:typescript"),
+    }
+    dens, nums, rates = [], [], []
+    for name, (dq, nq) in CELLS.items():
+        d, n = rows.get(dq), rows.get(nq)
+        put('Pop' + name + 'Files', d, pc)
+        put('Pop' + name + 'KeyObject', n, pc)
+        if d and n is not None:
+            put('Pop' + name + 'Pct', 100 * n / d, pc, '{:.4f}')
+            dens.append(d); nums.append(n); rates.append(100 * n / d)
+    # Cells are NOT summed into a headline proportion: a file using both import
+    # forms would be counted twice. The sum is an upper bound on the union and
+    # the largest cell a lower bound, so both are reported as such.
+    if dens:
+        put('PopSumFiles', sum(dens), pc)
+        put('PopSumKeyObject', sum(nums), pc)
+        put('PopLargestCellFiles', max(dens), pc)
+        put('PopWorstCellPct', max(rates), pc, '{:.4f}')
+        put('PopBestCellPct', min(rates), pc, '{:.4f}')
+        put('PopSumPct', 100 * sum(nums) / sum(dens), pc, '{:.4f}')
+        put('PopSumOneIn', round(sum(dens) / sum(nums)), pc)
+    capt = [r['captured_at_utc'] for r in csv.DictReader(pc.open())]
+    put('PopCapturedAt', capt[0][:10] if capt else None, pc)
 
 cs = SURVEY / 'callsites.csv'
 if cs.exists():

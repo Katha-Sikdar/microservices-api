@@ -46,8 +46,8 @@ Exception Dominates Token Validation Cost in a Node.js Service}
 
 \abstract{The per-request cost of JSON Web Token validation is routinely
 attributed to cryptography. We show that in a widely used Node.js library the
-attribution is wrong, and that the true mechanism is neither cryptography nor,
-as we ourselves previously reported, the conversion of key material. When the
+attribution is wrong, and that the true mechanism is neither cryptography nor the
+conversion of key material. When the
 caller supplies a shared secret as a string --- which is what the library's
 interface invites --- \texttt{jsonwebtoken} resolves it by attempting to parse it
 as an \emph{asymmetric} key first, and falling back to the symmetric constructor
@@ -63,10 +63,10 @@ version both pay roughly
 \NodeTwentySixMuslOpensslSeries{} runtime pays \NodeTwentySixMuslProbeThrows~$\mu$s. Everything else in the
 validation path varies by at most \SpanJwtPreparsed$\times$ across the same
 runtimes; the discarded attempt varies by \SpanProbeThrows$\times$. A survey of
-public code finds the avoiding pattern essentially absent: of \PopTotalFiles{}
-files importing the library, \PopTotalKeyObject{} also mention the pre-parsing
-API, and in a sample of \SampleCallSites{} call sites across \SampleRepos{}
-repositories, \SampleKeyObject{} pass a pre-parsed key. We propose a fix, and
+public code finds the avoiding pattern essentially absent: across four
+combinations of language and import form, no cell exceeds \PopWorstCellPct\% of
+files importing the library, and in a sample of \SampleCallSites{} call sites
+across \SampleRepos{} repositories, \SampleKeyObject{} pass a pre-parsed key. We propose a fix, and
 report a constraint on it that we believe is the more important result: the
 discarded attempt is load-bearing for an existing key-type defence, so the
 obvious form of the optimisation must not be applied.}
@@ -114,8 +114,6 @@ cost of \HostJwtString~$\mu$s.
 \item A fix, together with a constraint on it: the discarded attempt is
       load-bearing for an existing key-type defence, and the natural form of the
       optimisation is therefore unsafe (Section~\ref{sec:fix}).
-\item A correction of our own previously reported mechanism, stated explicitly
-      rather than quietly revised (Section~\ref{sec:correction}).
 \end{enumerate}
 
 \section{Background and related work}\label{sec:related}
@@ -308,11 +306,18 @@ absorb it into the headline.
 
 \subsection{Confirmation without differencing}
 
-V8's sampling profiler attributes \ProfHostPct\% of self time on the host to the
-asymmetric key parse when a string secret is supplied. Under the Node \NodeEighteenNodeMajor{} runtime
-the same frame accounts for \ProfEighteenPct\%; under Node \NodeTwentySixMuslNodeMajor, \ProfTwentySixPct\%.
-The frame does not appear among the top frames of the pre-parsed path at all. Two
-methods, one answer.
+V8's sampling profiler attributes self time to named frames directly. At
+\ProfIterations{} iterations per run and \ProfRepeats{} runs per environment ---
+matched, because an earlier pass used different iteration counts per environment
+and the resulting percentages were not comparable --- the asymmetric key parse
+accounts for a median \ProfHostPct\% of self time on the host
+(\ProfHostPctLo--\ProfHostPctHi across runs), \ProfEighteenPct\%
+(\ProfEighteenPctLo--\ProfEighteenPctHi) under Node \NodeEighteenNodeMajor{} and
+\ProfTwentySixPct\% (\ProfTwentySixPctLo--\ProfTwentySixPctHi) under Node
+\NodeTwentySixMuslNodeMajor. The frame does not appear among the top frames of
+the pre-parsed path in any environment. Two methods, one answer. We rely on the
+ordering and the dominance, not on the exact percentages: sampling attribution
+depends on rate and on what else the process is doing.
 
 \section{The magnitude is a property of the runtime}\label{sec:runtime}
 
@@ -372,10 +377,37 @@ result it discards.
 
 A defect that nobody triggers is a curiosity. Three measurements.
 
-\paragraph{Population counts.} Of \PopJsFiles{} public JavaScript files importing
-the library, \PopJsKeyObject{} also mention the pre-parsing API; for TypeScript
-the figures are \PopTsFiles{} and \PopTsKeyObject{}. Together \PopTotalKeyObject{}
-of \PopTotalFiles{}, or \PopKeyObjectPct\% --- about one file in \PopOneIn.
+\paragraph{Population counts.} Code search over public repositories, by language
+and import form (captured \PopCapturedAt). Both forms are counted in both
+languages: an earlier version of this analysis queried \texttt{require} in
+JavaScript and \texttt{import} in TypeScript only, which excluded ECMAScript
+modules in JavaScript --- the largest single cell --- altogether.
+
+\begin{center}
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+Lang. & Import form & Files & With API & \% \\
+\midrule
+JS & \texttt{require} & \PopJsRequireFiles  & \PopJsRequireKeyObject  & \PopJsRequirePct \\
+JS & \texttt{import}  & \PopJsImportFiles   & \PopJsImportKeyObject   & \PopJsImportPct \\
+TS & \texttt{require} & \PopTsRequireFiles  & \PopTsRequireKeyObject  & \PopTsRequirePct \\
+TS & \texttt{import}  & \PopTsImportFiles   & \PopTsImportKeyObject   & \PopTsImportPct \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Cells are reported separately rather than pooled: a file using both import forms
+would be counted twice by a sum, so the sum \PopSumFiles{} is an upper bound on
+the union and the largest cell \PopLargestCellFiles{} a lower bound. The rate
+varies between cells --- from \PopBestCellPct\% to \PopWorstCellPct\% --- but
+no cell exceeds \PopWorstCellPct\%. Pooling the cells, which we do not rely on,
+would give \PopSumKeyObject{} of \PopSumFiles{}, or \PopSumPct\%: roughly one
+file in \PopSumOneIn.
+
+These are search-engine estimates of file counts, not a census. They drift
+between captures, they cover public repositories only, and they include forks,
+vendored dependencies and teaching material. They are reported to establish an
+order of magnitude and should not be read as a population proportion.
 
 \paragraph{Sampled call sites.} \SampleCallSites{} call sites across
 \SampleRepos{} distinct repositories, one file per repository so that no single
@@ -425,14 +457,27 @@ take the fast path alters which inputs reach that check.
 
 The fix must therefore be narrow: the fast path is restricted to string secrets
 that cannot be asymmetric key material, so that anything which might be resolves
-exactly as it does today. We verified that the narrow form preserves the check
-and that a form without the material restriction does not. Two observations
-sharpen the point. First, a regression test that passes on both a correct and an
-incorrect build constrains nothing; the test reported here fails on the
-unrestricted form, which is what makes it evidence rather than decoration.
-Second, the independent defence against this class of confusion is for the caller
-to restrict permitted algorithms --- and \SampleNoAlgorithmsPct\% of surveyed call
-sites do not.
+exactly as it does today.
+
+We tested this against the library's own suite rather than only against
+assertions of our own. Cloned at the release tag, the patch applies cleanly and
+the suite is unchanged: \SuiteStockPassing{} passing and \SuiteStockFailing{}
+failing unpatched, \SuitePatchedPassing{} and \SuitePatchedFailing{} patched.
+Removing the material restriction --- the form of the optimisation we argue
+against --- produces \SuiteNaiveFailing{} failures, both in the suite's
+\texttt{wrong\_alg} tests, which exist for exactly this property.
+
+That last result is worth stating plainly because it reduces our own
+contribution. The upstream suite already constrains this: a contributor
+proposing the unrestricted optimisation would be caught by tests they are
+required to run. We therefore do not claim a new regression test. What we claim
+is narrower --- that the cost documented in Section~\ref{sec:mechanism} cannot be
+removed by the obvious route, and that the reason is a property the maintainers
+already test for but which is not evident from the code being changed.
+
+The independent defence against this class of confusion is for the caller to
+restrict permitted algorithms~\cite{rfc8725} --- and \SampleNoAlgorithmsPct\% of
+surveyed call sites do not.
 
 \section{Implications for practice}\label{sec:implications}
 
@@ -517,6 +562,40 @@ inflated in the same way as the denominator, but the ratio is not a clean
 population proportion and should not be read as one. Public code also skews
 toward small projects, and the \AdjudicatedGenuineProjects{} projects found using
 the API correctly are all small.
+
+\paragraph{The adjudication had a single rater with an interest in the outcome.}
+The \AdjudicatedTotal{} automatically flagged call sites were read and classified
+by the author, who is not disinterested: the paper's claim is stronger the more
+of them are false positives, and \AdjudicatedFalsePositive{} were classified that
+way. There was no second rater, no blinding and therefore no inter-rater
+agreement to report. The per-case verdicts, the evidence for each and the hashes
+of the files they were read from are published so the adjudication can be
+repeated by someone else, which is a weaker guarantee than having done so.
+
+\paragraph{Query selection shapes the sample, and did so once.} An earlier
+iteration of the call-site sample included a query term naming environment
+variables, which biased the corpus toward the very category under investigation.
+That query was removed and the sample regenerated. We report it because the error
+is invisible in the result: a biased query returns a plausible corpus, and
+nothing downstream distinguishes it from an unbiased one.
+
+\paragraph{A search tool failed silently during this study.} The GitHub CLI's
+code-search subcommand returns an empty result for multi-term queries that the
+underlying REST API answers normally. The counter-search of
+Section~\ref{sec:prevalence} initially returned nothing through that path --- a
+result indistinguishable from the pattern being absent, which is what the
+counter-search exists to test. It was caught by checking that the counter-search
+queries appeared in the corpus at all. Studies using code search should verify
+that each query contributed to the corpus rather than trusting that it ran.
+
+\paragraph{Dispersion is not uniform across conditions.} The claim in
+Section~\ref{sec:runtime} that non-parsing operations are stable across runtimes
+rests partly on conditions whose between-process variation is among the highest
+we measured: the noisiest matrix condition at \MatrixCvMax\% is an HMAC
+measurement. The spans reported there are ratios of medians and the
+between-runtime differences they describe are one to two orders of magnitude
+larger than this dispersion, but the stability claim is correspondingly weaker
+than the difference claim.
 
 \paragraph{Absolute figures are from a shared laptop.} The host also ran a
 desktop environment. Contention inflates a duration rather than deflating it, so

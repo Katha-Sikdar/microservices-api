@@ -15,10 +15,17 @@ q() {
   printf '  %-62s %s\n' "$1" "${n:-FAILED}"
   sleep 7
 }
+# Full 2x2 of (language) x (import form). An earlier version queried only
+# require() in JavaScript and `from` in TypeScript, which excluded ESM-in-JS
+# (the largest single cell) and CommonJS-in-TS entirely. Cells are reported
+# separately rather than summed: a file containing both forms would be counted
+# twice by a sum, so the union is at most the sum and at least the largest cell.
 q "require('jsonwebtoken') language:javascript"
 q "require('jsonwebtoken') createSecretKey language:javascript"
+q "from 'jsonwebtoken' language:javascript"
+q "from 'jsonwebtoken' createSecretKey language:javascript"
+q "require('jsonwebtoken') language:typescript"
+q "require('jsonwebtoken') createSecretKey language:typescript"
 q "from 'jsonwebtoken' language:typescript"
 q "from 'jsonwebtoken' createSecretKey language:typescript"
-q "jwt.verify language:javascript"
-q "jwt.verify createSecretKey language:javascript"
 echo "wrote $OUT"

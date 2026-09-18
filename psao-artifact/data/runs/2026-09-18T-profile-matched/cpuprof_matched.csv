@@ -1,0 +1,10 @@
+environment,repeat,iterations,createPublicKey_self_pct
+host,1,50000,65.33
+host,2,50000,66.23
+host,3,50000,67.41
+node_18_20_8-alpine,1,50000,95.34
+node_18_20_8-alpine,2,50000,95.14
+node_18_20_8-alpine,3,50000,95.64
+node_26_6_0-alpine,1,50000,61.53
+node_26_6_0-alpine,2,50000,61.65
+node_26_6_0-alpine,3,50000,58.52

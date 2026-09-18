@@ -1,7 +1,9 @@
 captured_at_utc,query,total_count
-2026-09-18T16:01:02Z,"require('jsonwebtoken') language:javascript",790528
-2026-09-18T16:01:10Z,"require('jsonwebtoken') createSecretKey language:javascript",29
-2026-09-18T16:01:19Z,"from 'jsonwebtoken' language:typescript",333824
-2026-09-18T16:01:27Z,"from 'jsonwebtoken' createSecretKey language:typescript",101
-2026-09-18T16:01:36Z,"jwt.verify language:javascript",1163264
-2026-09-18T16:01:44Z,"jwt.verify createSecretKey language:javascript",46
+2026-09-18T17:18:41Z,"require('jsonwebtoken') language:javascript",790528
+2026-09-18T17:18:49Z,"require('jsonwebtoken') createSecretKey language:javascript",29
+2026-09-18T17:18:57Z,"from 'jsonwebtoken' language:javascript",524288
+2026-09-18T17:19:05Z,"from 'jsonwebtoken' createSecretKey language:javascript",38
+2026-09-18T17:19:13Z,"require('jsonwebtoken') language:typescript",8288
+2026-09-18T17:19:21Z,"require('jsonwebtoken') createSecretKey language:typescript",0
+2026-09-18T17:19:30Z,"from 'jsonwebtoken' language:typescript",333824
+2026-09-18T17:19:39Z,"from 'jsonwebtoken' createSecretKey language:typescript",101
