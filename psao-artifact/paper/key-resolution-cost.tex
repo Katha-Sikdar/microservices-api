@@ -79,15 +79,15 @@ Node.js, OpenSSL, software defect}
 \section{Introduction}\label{sec:intro}
 
 Authentication in cloud-native services is commonly described as imposing a
-per-request cryptographic cost. The reasoning is intuitive: validating a JSON
+per-request cryptographic cost~\cite{zhu2023dissecting,sikdar2026quantifying}. The reasoning is intuitive: validating a JSON
 Web Token means verifying a signature, signatures are cryptography, and
 cryptography is expensive relative to parsing. The conclusion usually drawn is
 that the cost should be \emph{moved} --- to a sidecar proxy, a gateway, or
 dedicated hardware --- because specialised components do cryptographic work well.
 
-We report that for the most widely deployed JavaScript implementation the premise
+We report that for a widely used JavaScript implementation the premise
 is wrong, and that our own earlier attempt to correct it was also wrong, in a way
-worth recording. That earlier work established that the signature primitive is a
+worth recording. That earlier work~\cite{sikdar2026quantifying} established that the signature primitive is a
 negligible share of the cost and attributed the remainder to converting key
 material from a string into a key object on every call. Measuring the conversion
 directly shows it costs \HostCreateSecretKey~$\mu$s --- too small to be the
@@ -118,6 +118,59 @@ cost of \HostJwtString~$\mu$s.
       rather than quietly revised (Section~\ref{sec:correction}).
 \end{enumerate}
 
+\section{Background and related work}\label{sec:related}
+
+\paragraph{What a validation call does.} A JSON Web Token carries a header, a
+payload and a signature over the first two~\cite{rfc7519}. Validating one means
+decoding the first two segments, resolving key material into a form the
+cryptographic library accepts, and verifying the signature. The cost of the
+middle step --- key resolution --- is the subject of this paper, and it is the
+step most often left implicit when validation cost is discussed.
+
+\paragraph{Where the cost is usually attributed.} Published measurement of
+layered enforcement in microservices concentrates on the transport and proxy
+layers. Zhu et al.~\cite{zhu2023dissecting} decompose service-mesh sidecar
+overhead and show the dominant contributors depend on configuration and workload
+rather than being a fixed tax --- a conclusion we reach independently, one layer
+up, for application-level validation. Application-level token validation itself
+is thinly evidenced: it is commonly reported as a difference between scenario
+averages, which attributes to validation every difference between two runs. Our
+own earlier study did exactly that~\cite{sikdar2026quantifying}, and
+Section~\ref{sec:correction} reports what that approach captured. We are not able
+to cite a study that measures the key-resolution step directly, which is part of
+why the misattribution has persisted; we state this as an absence we searched
+for rather than as a claim about the whole literature.
+
+\paragraph{Why the measurement protocol matters here.} The methodological core
+of this paper is not new. Georges et al.~\cite{georges2007statistically}
+established that a single execution of a managed-runtime benchmark is not a
+measurement and that intervals must be computed across executions, not within
+one. Mytkowicz et al.~\cite{mytkowicz2009wrong} showed that environmental
+details unrelated to the code under study can produce effects larger than those
+being measured, and that such bias is easy to produce without any obvious
+mistake. Traini et al.~\cite{traini2022steady} found steady state is frequently
+not reached at all and that developers misjudge when warmup ends. Our
+contribution is not to these methods but an instance of what they warn about: two
+of the errors we correct in Section~\ref{sec:correction} are our own, and both
+have the structure Mytkowicz et al. describe --- a second variable moving
+unrecorded alongside the one under study.
+
+\paragraph{Environment as a confounder.} Laaber et al.~\cite{laaber2019cloud}
+quantify how far cloud environments degrade microbenchmark reliability, and
+Leitner and Cito~\cite{leitner2016patterns} characterise performance variation
+across public IaaS providers. Their concern is variance between nominally
+identical environments. Ours is adjacent and, we think, less examined: a
+\emph{systematic} difference between environments that are not identical and are
+routinely treated as though they were --- two container base images differing in
+a bundled library version.
+
+\paragraph{Key-type confusion.} That a token declaring an HMAC algorithm must not
+be validated against asymmetric key material is long established; RFC
+8725~\cite{rfc8725} describes the attack and the mitigations, citing
+CVE-2015-9235. Section~\ref{sec:fix} does not report a new attack. It reports
+that an existing defence depends on the control flow whose cost this paper
+measures, so that removing the cost naively removes the defence.
+
 \section{Methodology}\label{sec:method}
 
 \subsection{What is measured, and at what granularity}
@@ -132,9 +185,17 @@ This matters because the alternative is misleading in a specific way. An interva
 computed over the calls inside one process describes that process's steady state
 and is far too narrow: it cannot observe the compilation decisions, inline-cache
 states and heap layouts that differ between runs of the same code, which is
-precisely what makes a microbenchmark hard to reproduce. Every condition here was
-run in \HostInvocations{} separate processes. Between-process coefficient of
-variation did not exceed \HostCvMax\% on any condition.
+precisely what makes a microbenchmark hard to reproduce~\cite{georges2007statistically}.
+Conditions in the decomposition of Section~\ref{sec:mechanism} were run in
+\HostInvocations{} separate processes of \HostCallsPerInvocation{} calls;
+conditions in the runtime matrix of Section~\ref{sec:runtime} in
+\MatrixInvocations{} processes of \MatrixCallsPerInvocation{} calls. Dispersion
+between processes differs correspondingly: the largest between-process
+coefficient of variation is \HostCvMax\% on the host and \MatrixCvMax\% in the
+matrix, the latter on \MatrixCvMaxCondition. Matrix conditions are therefore
+noisier than host conditions by roughly a factor of \MatrixCvRatio, which is why
+the matrix is used for the large between-runtime contrasts and not for
+fine-grained comparisons within a runtime.
 
 Conditions are interleaved within each round rather than run in blocks. Under
 block ordering, a thermal excursion or a background process lands entirely on
@@ -163,10 +224,14 @@ attribution. Here containerisation is held constant and the runtime is varied:
 four container images spanning two OpenSSL series and three V8 major versions,
 all on one machine, under one container engine.
 
-The decisive pair is Node \NodeEighteenNodeMajor{} and Node \NodeTwentyNodeMajor.
-They ship different V8 major versions and share the OpenSSL
-\NodeEighteenOpensslSeries{} series. In stock images Node and OpenSSL versions
-otherwise co-vary, which would leave the attribution underdetermined.
+The decisive pair is Node \NodeEighteenNodeMajor{} and Node \NodeTwentyNodeMajor:
+they ship V8 \NodeEighteenVeight{} and V8 \NodeTwentyVeight{} respectively while
+sharing the OpenSSL \NodeEighteenOpensslSeries{} series. In stock images Node and
+OpenSSL versions otherwise co-vary, which would leave the attribution
+underdetermined. Because that pairing carries the attribution, the runtime
+identity of each image --- Node, OpenSSL and V8 version, libc, architecture and
+image digest --- is itself recorded as a datum rather than asserted, and is
+checked against the versions each measurement row carried.
 
 \subsection{Independent confirmation}
 
@@ -258,30 +323,37 @@ Table~\ref{tab:matrix} varies the runtime with containerisation held constant.
 \MatrixInvocations{} processes each, \MatrixCallsPerInvocation{} calls per
 process. The host row is from Table~\ref{tab:host}.}
 \label{tab:matrix}
-\begin{tabular}{@{}llrr@{}}
+\begin{tabular}{@{}lllrr@{}}
 \toprule
-Runtime & OpenSSL & Failed parse & Pre-parsed \\
-        &         & ($\mu$s)     & \texttt{verify()} \\
+Runtime & OpenSSL & V8 & Failed parse & Pre-parsed \\
+        &         &    & ($\mu$s)     & \texttt{verify()} \\
 \midrule
-Node \NodeEighteenNodeMajor, musl  & \NodeEighteenOpensslLiteral     & \NodeEighteenProbeThrows      & \NodeEighteenJwtPreparsed \\
-Node \NodeTwentyNodeMajor, musl  & \NodeTwentyOpensslLiteral       & \NodeTwentyProbeThrows        & \NodeTwentyJwtPreparsed \\
-Node \NodeTwentySixMuslNodeMajor, musl  & \NodeTwentySixMuslOpensslLiteral  & \NodeTwentySixMuslProbeThrows  & \NodeTwentySixMuslJwtPreparsed \\
-Node \NodeTwentySixGlibcNodeMajor, glibc & \NodeTwentySixGlibcOpensslLiteral & \NodeTwentySixGlibcProbeThrows & \NodeTwentySixGlibcJwtPreparsed \\
-host (no container) & --- & \HostProbeThrows & \HostJwtPreparsed \\
+Node \NodeEighteenNodeMajor, musl  & \NodeEighteenOpensslLiteral & \NodeEighteenVeight     & \NodeEighteenProbeThrows      & \NodeEighteenJwtPreparsed \\
+Node \NodeTwentyNodeMajor, musl  & \NodeTwentyOpensslLiteral & \NodeTwentyVeight       & \NodeTwentyProbeThrows        & \NodeTwentyJwtPreparsed \\
+Node \NodeTwentySixMuslNodeMajor, musl  & \NodeTwentySixMuslOpensslLiteral & \NodeTwentySixMuslVeight  & \NodeTwentySixMuslProbeThrows  & \NodeTwentySixMuslJwtPreparsed \\
+Node \NodeTwentySixGlibcNodeMajor, glibc & \NodeTwentySixGlibcOpensslLiteral & \NodeTwentySixGlibcVeight & \NodeTwentySixGlibcProbeThrows & \NodeTwentySixGlibcJwtPreparsed \\
+host (no container) & --- & --- & \HostProbeThrows & \HostJwtPreparsed \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 Three things follow.
 
-\paragraph{It is not containerisation.} Containerised Node \NodeTwentySixGlibcNodeMajor{} on glibc costs
-\NodeTwentySixGlibcProbeThrows~$\mu$s against \HostProbeThrows~$\mu$s on the
-uncontainerised host, a ratio of \ContainerVersusHostRatio. The container is
-marginally \emph{faster}. Whatever produces the large costs in this table, the
-act of running inside a container is not it.
+\paragraph{Containerisation is not isolated by this design, and we do not claim
+it.} A reader may notice that the uncontainerised host row is of the same order
+as the Node \NodeTwentySixGlibcNodeMajor{} container row
+(\HostProbeThrows{} against \NodeTwentySixGlibcProbeThrows~$\mu$s). That
+comparison is confounded and should not be read as evidence about
+containerisation: the host runs macOS and the containers run Linux, so operating
+system, C library and Node build all change alongside the container boundary.
+Isolating containerisation would require a Linux-native baseline, which we did
+not obtain. The claims below concern only the four container rows, among which
+containerisation is held constant.
 
-\paragraph{It is OpenSSL, not the JavaScript engine.} Node \NodeEighteenNodeMajor{} and Node \NodeTwentyNodeMajor{} ship
-different V8 major versions and share the OpenSSL \NodeEighteenOpensslSeries{} series. Both pay of order
+\paragraph{It is OpenSSL, not the JavaScript engine.} Node \NodeEighteenNodeMajor{}
+and Node \NodeTwentyNodeMajor{} ship V8 \NodeEighteenVeight{} and
+\NodeTwentyVeight{} --- different major versions of the engine --- and share the
+OpenSSL \NodeEighteenOpensslSeries{} series. Both pay of order
 \NodeEighteenProbeThrows--\NodeTwentyProbeThrows~$\mu$s. Node \NodeTwentySixMuslNodeMajor{} ships OpenSSL
 \NodeTwentySixMuslOpensslSeries{} and pays \NodeTwentySixMuslProbeThrows~$\mu$s on the same libc. Because Node
 and OpenSSL versions co-vary in stock images, this attribution is normally
@@ -313,6 +385,14 @@ identifiers and member expressions \SampleUnknown{}, string literals
 \SampleBuffer{}. Pre-parsed keys account for \SampleKeyObject{}. No file in this
 corpus contains the pre-parsing API at all, so the zero reflects the pattern's
 absence rather than a classifier that cannot see it.
+
+The corpus is third-party source and is not redistributed. To make that claim
+checkable rather than merely asserted, the replication package ships a manifest
+of all \ManifestFiles{} files examined across \ManifestRepos{} repositories,
+recording for each the repository, path, git blob hash, SHA-256 of the exact
+bytes analysed, and --- where applicable --- the adjudication verdict. A reader
+can re-fetch any file, hash it, and establish either that they hold what we held
+or that it has since changed~\cite{artifact2026}.
 
 Incidentally, \SampleNoAlgorithms{} of \SampleCallSites{} call sites
 (\SampleNoAlgorithmsPct\%) pass no algorithm restriction. This is not what the
@@ -354,6 +434,35 @@ Second, the independent defence against this class of confusion is for the calle
 to restrict permitted algorithms --- and \SampleNoAlgorithmsPct\% of surveyed call
 sites do not.
 
+\section{Implications for practice}\label{sec:implications}
+
+\paragraph{Pre-parse key material once, at startup.} On the runtimes measured
+here this removes \HostStringPenalty~$\mu$s per validation
+[\HostStringPenaltyCiLo, \HostStringPenaltyCiHi] and requires no architectural
+change, no new component and no movement of a trust boundary. It is a one-line
+change at the point where the secret is read.
+
+\paragraph{Do not reach for an architectural remedy first.} A cost believed to be
+cryptographic invites relocation --- to a sidecar, a gateway, dedicated hardware.
+Section~\ref{sec:fix} is the argument against treating that as the default
+response: the cost here is not cryptographic, it is largely avoidable in place,
+and the remedy that moves validation elsewhere also moves a trust boundary. An
+optimisation that alters which key material reaches a type check is not a
+performance change with a security footnote; it is a security change.
+
+\paragraph{Pin the algorithm.} Independently of anything in this paper, callers
+should restrict permitted algorithms~\cite{rfc8725}.
+\SampleNoAlgorithmsPct\% of the call sites we surveyed do not, which leaves them
+relying entirely on library-internal key typing for a property they could assert
+directly in one argument.
+
+\paragraph{Treat the base image as part of the measurement.} The same code, the
+same library and the same architecture differ by \SpanProbeThrows$\times$ on this
+path across the container images we measured, because they pin different OpenSSL
+versions. A performance figure quoted without the base image it was obtained on
+is not reproducible, and a regression that appears after a base-image bump may
+have nothing to do with the application.
+
 \section{Correcting our own earlier report}\label{sec:correction}
 
 Our earlier manuscript reported that the dominant term was key material converted
@@ -369,8 +478,8 @@ That manuscript further compared a host microbenchmark against an in-container
 measurement and attributed the difference to deployment. Section~\ref{sec:runtime}
 shows the comparison spanned two OpenSSL major series, so it could not support
 that attribution. It also stated a runtime version for the system under test that
-was read from the host rather than from the container, and was wrong by two major
-versions.
+was read from the host rather than from the container: it reported Node
+\HostNodeVersion{} where the service ran Node \NodeEighteenNodeLiteral.
 
 We record these rather than revise them silently because the errors share a
 structure worth naming: in each case a quantity was attributed to the variable we
@@ -415,13 +524,21 @@ the reported costs are upper bounds and the comparisons between conditions ---
 which is where every claim here rests --- are unaffected in direction. Absolute
 values should not be compared against dedicated hardware.
 
-\paragraph{The host's cryptographic library moved mid-study.} Installing an
-unrelated command-line tool upgraded the host's OpenSSL beneath an unchanged Node
-binary, because the runtime links it dynamically. No reported measurement is
-affected: the affected runs predate the upgrade and recorded their OpenSSL
-version, and container measurements bundle their own. It was detectable only
-because that version is recorded per measurement rather than per run, which we
-note as a methodological recommendation rather than an incident.
+\paragraph{The host's cryptographic library moved mid-study, and we could not
+prove from the record that it had not.} Installing an unrelated command-line tool
+upgraded the host's OpenSSL beneath an unchanged Node binary, which links it
+dynamically; \texttt{node --version} was unchanged throughout. The host
+decomposition of Section~\ref{sec:mechanism} precedes the upgrade by wall-clock
+timestamp and the container measurements bundle their own OpenSSL, so we believe
+no reported figure is affected --- but that host run recorded only the Node
+version, not the OpenSSL version, so the inference rests on run timestamps rather
+than on the measurement record itself. We report this as a limitation of the
+host rows and not as a resolved issue. The per-measurement OpenSSL field was
+added in response, which is why the runtime matrix carries it and the host
+decomposition does not. The recommendation we draw --- record the identity of
+the component whose behaviour is being measured at the granularity at which it
+can change --- is one this study failed to follow before it needed it, not one
+it demonstrates.
 
 \section{Conclusion}\label{sec:conclusion}
 
@@ -447,5 +564,7 @@ by hand. Quantities that were not measured appear as red placeholders rather tha
 as absences.
 
 \bmhead{Competing interests} The author declares no competing interests.
+
+\bibliography{key-resolution-cost}
 
 \end{document}

@@ -18,7 +18,7 @@ So `node --version` still reports v26.6.0 from the same binary installed on
 
 | | |
 |---|---|
-| `2026-09-17T08-42-17Z-keypath-mechanism` (host) | **Unaffected.** Ran before 16:02 and recorded `openssl_version 3.6.3` on every row. |
+| `2026-09-17T08-42-17Z-keypath-mechanism` (host) | **Believed unaffected, but not provable from the record.** It ran before 16:02 by wall-clock timestamp. It did **not** record `openssl_version` — that column did not exist yet; the run carries `node_version` only. The inference rests on run timestamps, not on the measurement file. |
 | `2026-09-17T08-57-13Z-keypath-runtime-matrix` (containers) | **Unaffected.** Container images bundle their own OpenSSL; the host's is not on the path. |
 | Any NEW host measurement | On 3.6.4. Not directly comparable to the Phase 1 host rows without saying so. |
 
@@ -31,10 +31,13 @@ unreplicated number against an interval is not a comparison.
 
 Two reasons.
 
-1. **It was only detectable because the harness records
-   `process.versions.openssl` per row.** Had it recorded only the Node version,
-   this would have been an invisible change to the exact library the finding is
-   about, on the exact machine producing the numbers. That column stays.
+1. **The per-row OpenSSL field was added BECAUSE of this, not before it.** An
+   earlier version of this note claimed the drift was detectable because the
+   harness recorded `process.versions.openssl` per row. That is wrong for the run
+   that matters most: the host decomposition predates the column and records only
+   the Node version. The drift was noticed by hand, while re-running a
+   reproduction, and the column was added afterwards. The recommendation stands,
+   but it is a lesson this study learned late rather than a safeguard it had.
 
 2. **It is a small instance of the paper's own claim.** The cost under
    investigation is governed by the bundled OpenSSL version, and here that

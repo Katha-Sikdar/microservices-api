@@ -20,6 +20,7 @@ RUNS = ROOT / 'data' / 'runs'
 MECH = RUNS / '2026-09-17T08-42-17Z-keypath-mechanism'
 MATRIX = RUNS / '2026-09-17T08-57-13Z-keypath-runtime-matrix'
 SURVEY = ROOT / 'survey' / 'data'
+IDENTITY = RUNS / 'runtime_identity.csv'
 
 NUM: dict[str, str] = {}
 SRC: dict[str, str] = {}
@@ -152,6 +153,62 @@ if mx:
     if m:
         put('ContainerVersusHostRatio',
             cond(mx, 'node:26.6.0-bookworm', 'probe_throws') / cond(m, 'host', 'probe_throws'), pm)
+
+# --- runtime identity (V8 is load-bearing for the OpenSSL-not-V8 attribution) --
+if IDENTITY.exists():
+    ident = {r['image']: r for r in csv.DictReader(IDENTITY.open())}
+    for prefix, env in ENVS.items():
+        r = ident.get(env)
+        if not r:
+            MISSING.append(prefix + 'Veight'); continue
+        put(prefix + 'Veight', r['v8_major'], IDENTITY)
+        put(prefix + 'VeightFull', r['v8_version'], IDENTITY)
+        put(prefix + 'ImageId', r['image_id'].replace('sha256:', '')[:12], IDENTITY)
+    # Cross-check: identity must agree with the versions the measurement rows
+    # carried, or it describes a different image than the one measured.
+    envcsv = MATRIX / 'environments.csv'
+    if envcsv.exists():
+        mismatch = [r['image'] for r in csv.DictReader(envcsv.open())
+                    if r['image'] in ident
+                    and (ident[r['image']]['node_version'] != r['node_version']
+                         or ident[r['image']]['openssl_version'] != r['openssl_version'])]
+        put('IdentityMismatches', len(mismatch), envcsv)
+else:
+    for prefix in ENVS:
+        MISSING.append(prefix + 'Veight')
+
+# --- matrix dispersion, reported rather than represented by the host's ------
+if mx:
+    worst_env, worst_cond, worst_cv = None, None, 0.0
+    for env, d in mx['environments'].items():
+        for cname, c in d['conditions'].items():
+            cv = c['between_invocation_cv_pct']
+            if cv == cv and cv > worst_cv:
+                worst_env, worst_cond, worst_cv = env, cname, cv
+    put('MatrixCvMax', worst_cv, pm, '{:.1f}')
+    put('MatrixCvMaxCondition', worst_cond.replace('_', '\\_'), pm)
+    put('MatrixCvMaxEnvironment', worst_env, pm)
+    if m:
+        hostcv = max(c['between_invocation_cv_pct']
+                     for c in m['environments']['host']['conditions'].values())
+        put('MatrixCvRatio', worst_cv / hostcv, pm, '{:.1f}')
+
+# --- the host's own runtime, for the correction section ---------------------
+if m:
+    put('HostNodeVersion', m['environments']['host']['runtime']['node_version'][0].lstrip('v'),
+        MECH / 'keypath_stats.json')
+
+# --- corpus manifest ---------------------------------------------------------
+cm = SURVEY / 'corpus_manifest.csv'
+if cm.exists():
+    rows = list(csv.DictReader(cm.open()))
+    put('ManifestFiles', len(rows), cm)
+    put('ManifestRepos', len({r['repo'] for r in rows}), cm)
+    put('ManifestSampleFiles', sum(1 for r in rows if r['corpus'] == 'sample'), cm)
+    put('ManifestCounterFiles', sum(1 for r in rows if r['corpus'] == 'counter_search'), cm)
+    put('ManifestHeadResolved', sum(1 for r in rows if r['repo_head_commit_at_manifest_time']), cm)
+else:
+    MISSING.append('ManifestFiles')
 
 # --- cpu profile -------------------------------------------------------------
 for macro, f in [('ProfEighteenPct', MATRIX / 'cpuprof_node_18_20_8-alpine.csv'),

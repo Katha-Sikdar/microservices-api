@@ -859,6 +859,30 @@ people who actually need it.
 Neither document is the sanitised version of the other. They answer different
 questions for different readers.
 
+## The survey corpus is not redistributed
+
+`survey/data/files/` and `survey/data/counterexamples/` hold source fetched from
+public repositories belonging to other people. They are gitignored. Republishing
+several hundred third-party files --- of varying and largely unexamined licences
+--- as part of this artifact is not something an authorship claim over this
+repository entitles us to do.
+
+That would ordinarily make the corpus-level claims uncheckable, so
+`survey/data/corpus_manifest.csv` stands in for it. For every file examined it
+records the repository, the path, the git blob hash (directly comparable to the
+`sha` field GitHub's contents API returns for that path), the SHA-256 of the
+exact bytes analysed, the adjudication verdict where one was made, and the
+repository's HEAD commit at manifest time.
+
+A reviewer can therefore re-fetch any file and hash it: a match establishes they
+are looking at what we looked at, and a mismatch establishes the file changed
+after we fetched it. `survey/collect.py` and `survey/counterexamples.py`
+regenerate the corpus itself.
+
+The HEAD commit column is the weakest of these and is labelled as such in the
+generator: it was captured at manifest time, not at fetch time, which was not
+recorded. The blob hash is the authoritative pin.
+
 ## Requirements
 
 | Tool | Needed for | Notes |
