@@ -1,5 +1,6 @@
 # --- generated analysis output ----------------------------------------------
 paper/generated_macros.tex
+paper/*.log
 analysis/output/
 figures/output/
 

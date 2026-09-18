@@ -47,10 +47,12 @@ A sample can only show the good pattern is rare if it could have found it. So
 every file co-occurring `jsonwebtoken` with `createSecretKey` was fetched
 directly: **191 distinct files, of which 120 contain a `verify()` call.**
 
-An automated pass flagged 13 as passing a `KeyObject`. **All 13 were then read by
-hand, and 6 of them are false positives** — they define their own helper *named*
+An automated pass flagged 13 as passing a `KeyObject`. **All 13 were then read by hand: 5 are false positives, 1 is unresolved, and 7
+are genuine.** The false positives define their own helper *named*
 `createSecretKey` (one returns a string via `crypto.randomBytes`), or the matched
-call passes `config.tokenKey`, `process.env.JWT_SECRET`, `'shhhh'` or `null`.
+call passes `config.tokenKey`, `process.env.JWT_SECRET`, `'shhhh'` or `null`. The
+unresolved case binds its identifier outside the file. Per-case verdicts and
+evidence are in `survey/data/hand_adjudication.csv`.
 
 Verified genuine: **7 call sites across 6 distinct projects.**
 

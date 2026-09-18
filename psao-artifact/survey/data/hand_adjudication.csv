@@ -1,0 +1,14 @@
+repo,path_kind,arg2_at_matched_callsite,resolves_to,verdict,note
+jasonhoang6201/be-template-postgres,application,config.tokenKey,"require(""../config/app.json"")",false_positive,file exports its own helper named createSecretKey; the verify call takes a JSON config value
+lethanhkhoi/vinamoon-authentication,application,config.tokenKey,"require(""../config/app.json"")",false_positive,same pattern as above
+maitrungduc1410/vivari,benchmark,'shhhh',string literal,false_positive,library benchmark harness; deliberately exercises both string and KeyObject forms. A KeyObject IS used in one case but this is not application code
+jest123/varprog_jwt,demo,null,not assigned,false_positive,"vulnerability demonstration (algorithms: [""none"",""RS256"",""HS256""], signature ignored in one branch)"
+SnackyTater/learn-nestjs,application,secret,process.env.JWT_SECRET as string,false_positive,defines its own createSecretKey() that returns a string from crypto.randomBytes
+FathurRohmna/Fullstack-Expressjs-Mongodb-Reactjs-Typescript,application,jwtSecret,not assigned in file,unresolved,imports crypto and mentions the API but the identifier is not bound in this file; cross-file resolution not attempted
+graduate-project-sut/engineering-curriculum-system,application,secretKey,"createSecretKey(Buffer.from(SECRET_KEY, ""base64""))",genuine,resolved at module scope
+graduate-project-sut/engineering-curriculum-system,application,secretKey,"createSecretKey(Buffer.from(SECRET_KEY, ""base64""))",genuine,second file in the same project
+felipe-software/feridinha.com,application,secretKey,"createSecretKey(env.JWT_SECRET, ""utf-8"")",genuine,resolved at module scope
+tuatui/xe-ai,application,secretKey,c.createSecretKey(...),genuine,resolved at module scope
+patilprashant48/sakhalas-admin,application,secret,createSecretKey(Buffer.from(rawSecret)),genuine,resolved at module scope
+emilebilodeau/survey-creation-2,application,createSecretKey(Buffer.from(process.env.JWT_SECRET)),inline,genuine,"KeyObject constructed INLINE on every call; avoids the probe but re-converts per call"
+Kirill-Bokov/I-ll-give-you-the-stone,application,secret,"createSecretKey(""6688...."")",genuine,resolved at module scope
