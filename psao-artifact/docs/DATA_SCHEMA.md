@@ -302,6 +302,63 @@ demonstration had gone stale against a newer `jsonwebtoken`.
 
 ---
 
+## `survey/data/hand_adjudication.csv`
+
+One row per call site read and classified **by hand**. Written by the author,
+not by a script: the automated classifier's output is in `callsites.csv`, and
+this file records where a human overrode or confirmed it.
+
+| Column | Type | Description |
+|---|---|---|
+| `round` | string | **Which question was being asked.** See below. Two rounds live in this file and must not be pooled. |
+| `repo` | string | `owner/name`. |
+| `path_kind` | `application` \| `benchmark` \| `demo` | What kind of code the file is. A library benchmark or a vulnerability demonstration is not evidence about deployed practice. |
+| `arg2_at_matched_callsite` | string | The second argument as written at the call site. |
+| `resolves_to` | string | What that argument resolves to within the file, or a note that it does not. |
+| `verdict` | string | Round-specific; see below. |
+| `note` | string | Why the verdict was reached. |
+| `git_blob_sha1` | hex \| empty | Git blob hash of the bytes read. Comparable to the `sha` field GitHub's contents API returns for that path. **May be empty — see below.** |
+| `sha256` | hex \| empty | SHA-256 of the same bytes. |
+| `repo_head_commit` | hex \| empty | Repository HEAD at manifest time, not at fetch time. The weakest column; the blob hash is the authoritative pin. |
+| `adjudicator` | string | Who classified it. Currently `author` for every row: there was no second rater, and the paper states this as a limitation. |
+
+### The `round` column
+
+The two rounds asked **different questions of different corpora**, and their
+`verdict` vocabularies are therefore disjoint. Pooling them produces a number
+that answers neither question.
+
+| `round` | Corpus | Question | `verdict` values |
+|---|---|---|---|
+| `counter_search_2026-09-17` | Files co-occurring `jsonwebtoken` with the pre-parsing API, fetched deliberately | *Does this file really pass a pre-parsed key to `verify()`?* | `genuine`, `false_positive`, `unresolved` |
+| `sample_rematch_2026-09-18` | The residue of the random-ish sample that the first matcher did not classify | *What key form does this call site use?* | `not_keyobject` |
+
+`analysis/make_keypath_macros.py` filters on this column. `\Adjudicated*`
+macros are computed from the **counter-search** rows only; `\Rematch*` macros
+from the rematch rows only. Both are correct for what they name.
+
+The filter removes no genuine site: every rematch row is `not_keyobject`, so the
+count of genuine pre-parsed call sites is **7 across 6 projects whether the
+rounds are filtered or pooled**. This was checked rather than assumed.
+
+### Why three rows have blank hashes
+
+`git_blob_sha1`, `sha256` and `repo_head_commit` were added after the
+counter-search round had already been adjudicated, and were backfilled from
+`corpus_manifest.csv` by matching on repository.
+
+**That match is ambiguous for a repository that contributed more than one file**,
+because this file records `repo` but no `path`. Three counter-search rows are in
+that position — two repositories contributed two files each. Rather than attach a
+hash that might belong to the other file, those cells are left empty.
+
+Empty here therefore means *not determinable*, consistent with the convention at
+the top of this document: it is never a zero, and never a guess. The affected
+rows can be resolved by hand against `corpus_manifest.csv`, which does record
+paths. Rows written after the schema change carry all three columns.
+
+---
+
 ## Combining runs
 
 Each runner writes into its own `data/runs/<ISO timestamp>-<label>/`. To analyse
