@@ -63,10 +63,12 @@ version both pay roughly
 \NodeTwentySixMuslOpensslSeries{} runtime pays \NodeTwentySixMuslProbeThrows~$\mu$s. Everything else in the
 validation path varies by at most \SpanJwtPreparsed$\times$ across the same
 runtimes; the discarded attempt varies by \SpanProbeThrows$\times$. A survey of
-public code finds the avoiding pattern essentially absent: across four
+public code finds the avoiding pattern rare rather than absent: across four
 combinations of language and import form, no cell exceeds \PopWorstCellPct\% of
-files importing the library, and in a sample of \SampleCallSites{} call sites
-across \SampleRepos{} repositories, \SampleKeyObject{} pass a pre-parsed key. We propose a fix, and
+files importing the library; in a sample of \SampleCallSites{} call sites across
+\SampleRepos{} repositories, \SampleKeyObject{} pass a pre-parsed key; and a
+search targeted at the pattern found it genuinely used at
+\AdjudicatedGenuine{} call sites across \AdjudicatedGenuineProjects{} projects. We propose a fix, and
 report a constraint on it that we believe is the more important result: the
 discarded attempt is load-bearing for an existing key-type defence, so the
 obvious form of the optimisation must not be applied.}
@@ -109,8 +111,10 @@ cost of \HostJwtString~$\mu$s.
       bundled OpenSSL version rather than by containerisation, virtualisation or
       the JavaScript engine, using a runtime pair that separates OpenSSL from V8
       (Section~\ref{sec:runtime}).
-\item A survey of public code establishing that the pattern which avoids the cost
-      is close to absent in practice (Section~\ref{sec:prevalence}).
+\item A survey of public code establishing that the pattern which avoids the
+      cost is rare in practice --- found at \AdjudicatedGenuine{} call sites
+      across \AdjudicatedGenuineProjects{} projects by a search designed to
+      find it (Section~\ref{sec:prevalence}).
 \item A fix, together with a constraint on it: the discarded attempt is
       load-bearing for an existing key-type defence, and the natural form of the
       optimisation is therefore unsafe (Section~\ref{sec:fix}).
@@ -375,7 +379,7 @@ result it discards.
 
 \section{How common is the pattern?}\label{sec:prevalence}
 
-A defect that nobody triggers is a curiosity. Three measurements.
+A defect that nothing triggers is a curiosity. Three measurements.
 
 \paragraph{Population counts.} Code search over public repositories, by language
 and import form (captured \PopCapturedAt). Both forms are counted in both
@@ -414,9 +418,18 @@ order of magnitude and should not be read as a population proportion.
 project dominates. Environment variables account for \SampleEnvString{}, untraced
 identifiers and member expressions \SampleUnknown{}, string literals
 \SampleStringLiteral{}, file contents \SampleFileContents{} and buffers
-\SampleBuffer{}. Pre-parsed keys account for \SampleKeyObject{}. No file in this
-corpus contains the pre-parsing API at all, so the zero reflects the pattern's
-absence rather than a classifier that cannot see it.
+\SampleBuffer{}. Pre-parsed keys account for \SampleKeyObject{}.
+
+The first version of this classifier recognised only the conventional
+\texttt{jwt.verify()} spelling, which filtered the corpus toward one import
+idiom. It was re-run over the previously unclassified residue with a matcher that
+resolves the local binding of the import --- covering arbitrary aliases,
+namespace imports, destructured and renamed imports, and direct calls on the
+require expression. That recovered \SampleRematchAdded{} further call sites,
+included above, and \RematchKeyObject{} of them pass a pre-parsed key. No file in
+this corpus contains the pre-parsing API at all, in any spelling, so the zero
+reflects the pattern's absence from this sample rather than a classifier that
+cannot see it.
 
 The corpus is third-party source and is not redistributed. To make that claim
 checkable rather than merely asserted, the replication package ships a manifest
@@ -627,7 +640,9 @@ parse attempted in the wrong order, whose failure is constructed and thrown away
 on every request, and whose price is set by the OpenSSL version a base image
 happens to pin --- varying \SpanProbeThrows$\times$ across runtimes while the rest
 of the validation path varies by at most \SpanJwtPreparsed$\times$. The pattern
-that avoids it is close to absent from public code.
+that avoids it is rare in public code: a search targeted at finding it located
+\AdjudicatedGenuine{} genuine call sites across \AdjudicatedGenuineProjects{}
+projects.
 
 The methodological lesson is not that one should measure in deployment. It is
 narrower and, we think, more useful: attribute a cost only to a variable you

@@ -290,6 +290,7 @@ cs = SURVEY / 'callsites.csv'
 if cs.exists():
     rows = list(csv.DictReader(cs.open()))
     put('SampleCallSites', len(rows), cs)
+    put('SampleRematchAdded', len(rows) - 315, cs)
     put('SampleRepos', len({r['repo'] for r in rows}), cs)
     for bucket, macro in [('env_string', 'SampleEnvString'), ('unknown', 'SampleUnknown'),
                           ('string_literal', 'SampleStringLiteral'),
@@ -302,7 +303,15 @@ if cs.exists():
 
 ha = SURVEY / 'hand_adjudication.csv'
 if ha.exists():
-    rows = list(csv.DictReader(ha.open()))
+    allrows = list(csv.DictReader(ha.open()))
+    # Two adjudication rounds live in this file and must not be pooled: the
+    # counter-search round asked "is this really a KeyObject?", the rematch round
+    # asked "what bucket is this call site?". Macros about the former would be
+    # wrong if the latter were counted in.
+    rows = [r for r in allrows if r.get('round', '').startswith('counter_search')]
+    rematch = [r for r in allrows if r.get('round', '').startswith('sample_rematch')]
+    put('RematchAdjudicated', len(rematch), ha)
+    put('RematchKeyObject', sum(1 for r in rematch if r['verdict'] == 'keyobject'), ha)
     put('AdjudicatedTotal', len(rows), ha)
     gen = [r for r in rows if r['verdict'] == 'genuine']
     put('AdjudicatedGenuine', len(gen), ha)

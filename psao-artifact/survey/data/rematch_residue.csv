@@ -1,0 +1,13 @@
+repo,path,file,how,pos,previously_matched
+ErickWendel/aulao-tajs-template,api.js,ErickWendel_aulao-tajs-template__api.js.txt,JWT.verify,728,False
+PacktPublishing/React-Projects-Second-Edition,Chapter09/server.js,PacktPublishing_React-Projects-Second-Edition__Chapter09_server.js.txt,JsonWebToken.verify,1158,False
+welldone-software/node-toolbelt,src/lib/jwt.js,welldone-software_node-toolbelt__src_lib_jwt.js.txt,jsonWebToken.verify,316,False
+aws-samples/lambdaedge-openidconnect-samples,src/js/auth.js,aws-samples_lambdaedge-openidconnect-samples__src_js_auth.js.txt,JsonWebToken.verify,7048,False
+SocexSolutions/agenda-v2,api/lib/util/jwt.js,SocexSolutions_agenda-v2__api_lib_util_jwt.js.txt,jsonWebToken.verify,1732,False
+v1noid/image-gen-server,app.ts,v1noid_image-gen-server__app.ts.txt,JWT.verify,1714,False
+hery-ae/cetta-environment-data,app.mts,hery-ae_cetta-environment-data__app.mts.txt,JWT.verify,989,False
+Rowadz/koa-ts-yt,src/app.ts,Rowadz_koa-ts-yt__src_app.ts.txt,destructured verify,1155,False
+claretnnamocha/helpers,src/jwt.ts,claretnnamocha_helpers__src_jwt.ts.txt,JWT.verify,646,False
+cisco-ce/workspace-integrations-nodejs,src/jwt.ts,cisco-ce_workspace-integrations-nodejs__src_jwt.ts.txt,destructured verify,1913,False
+cumulous/backend,src/jwt.ts,cumulous_backend__src_jwt.ts.txt,destructured verify,1025,False
+Rowadz/Erela,src/app.ts,Rowadz_Erela__src_app.ts.txt,destructured verify,1588,False

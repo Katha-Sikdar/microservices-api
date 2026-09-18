@@ -314,3 +314,15 @@ wass08/tuto-jwt-express,app.js,js,env_string,unspecified,process.env.ACCESS_TOKE
 ymc9/petstore-openapi-zenstack,app.ts,ts,env_string,unspecified,process.env.JWT_SECRET!
 yuzhou-shuai/hotel,2.js,js,string_literal,unspecified,"secretOrPrivateKey = ""jwt"""
 zwave-js/zwave-js-ui,api/app.ts,ts,unknown,unspecified,sessionSecret (untraced)
+ErickWendel/aulao-tajs-template,api.js,js,string_literal,unspecified,JWT_KEY = 'abc123'
+PacktPublishing/React-Projects-Second-Edition,Chapter09/server.js,js,string_literal,unspecified,jwtSecret = '34%%##@#FGFKFL'
+welldone-software/node-toolbelt,src/lib/jwt.js,js,unknown,unspecified,jwtSecret (untraced)
+aws-samples/lambdaedge-openidconnect-samples,src/js/auth.js,js,unknown,unspecified,pem (untraced)
+SocexSolutions/agenda-v2,api/lib/util/jwt.js,js,file_contents,RS,"PUB_KEY = fs.readFileSync(pathToPubKey, ""utf8"")"
+v1noid/image-gen-server,app.ts,ts,string_literal,unspecified,"""I hate Myself :)"""
+hery-ae/cetta-environment-data,app.mts,ts,unknown,unspecified,env['SECRET_KEY'] as string
+Rowadz/koa-ts-yt,src/app.ts,ts,unknown,unspecified,JWT_SECRET (untraced)
+claretnnamocha/helpers,src/jwt.ts,ts,unknown,unspecified,secret || JWT_SECRET
+cisco-ce/workspace-integrations-nodejs,src/jwt.ts,ts,unknown,unspecified,key (untraced)
+cumulous/backend,src/jwt.ts,ts,unknown,RS,cert (untraced)
+Rowadz/Erela,src/app.ts,ts,unknown,unspecified,JWT_SECRET as string
