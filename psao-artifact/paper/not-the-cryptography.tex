@@ -1,3 +1,60 @@
+%% ============================================================================
+%%
+%%   S U P E R S E D E D   --   D O   N O T   C I T E
+%%
+%% This manuscript has been withdrawn. It is retained in the repository so that
+%% the correction which replaced it remains traceable, not because any claim in
+%% it still stands.
+%%
+%% WHAT IN THIS MANUSCRIPT DID NOT SURVIVE MEASUREMENT
+%%
+%%   The attribution of per-request cost to KEY CONVERSION. This document
+%%   reports that the dominant term is "key material re-converted from a string
+%%   on every call" (see the abstract, the introduction, and contribution 2).
+%%   Direct measurement of that conversion puts it at 0.583 us -- far too small
+%%   to be the explanation. The dominant term is a discarded exception: the
+%%   library attempts an ASYMMETRIC key parse before the symmetric one and
+%%   throws the failure away on every call, at 18.04 us, 60% of the call.
+%%
+%%   Its explanation of the HMAC-versus-RSA asymmetry is backwards. It ascribes
+%%   the difference to secret conversion being dearer than parsing a PEM; a
+%%   successful asymmetric parse costs 13.83 us against 0.583 us for the
+%%   conversion. The real asymmetry is that the RSA path's parse SUCCEEDS,
+%%   making its cost useful work, while the HMAC path's FAILS.
+%%
+%%   Its in-situ versus isolated comparison attributes a difference to
+%%   deployment across two environments that also differed by two OpenSSL major
+%%   series, so the comparison cannot support that attribution.
+%%
+%%   Its stated runtime version for the system under test was read from the
+%%   host, not from the container, and is wrong.
+%%
+%% A SEPARATE WITHDRAWN CLAIM, NOT MADE IN THIS FILE
+%%
+%%   An earlier manuscript from this project argued that layered Zero Trust
+%%   enforcement drives the service toward EVENT-LOOP SATURATION, and proposed
+%%   relocating verification into the Envoy sidecar before that point. Direct
+%%   in-situ measurement did not reproduce that behaviour and the claim is
+%%   withdrawn. That manuscript's source was never committed to this
+%%   repository; this file does not contain the claim and in fact disclaims it
+%%   (see its threats to validity: "We make no claim about throughput ceilings,
+%%   saturation points or autoscaling thresholds"). It is named here only so a
+%%   reader who arrives looking for it knows its status.
+%%
+%% THE CURRENT MANUSCRIPT
+%%
+%%   key-resolution-cost.tex, in this directory.
+%%
+%% WHERE THE CORRECTION LANDED
+%%
+%%   commit 0b8f08f620977c9c0fe8b0bfe60a0d2d70306602 (2026-09-18)
+%%   "Phase 5: rewrite the manuscript around the measured mechanism"
+%%   released in tag v2.0.0
+%%
+%% See also SUPERSEDED.md in this directory.
+%%
+%% ============================================================================
+
 %% not-the-cryptography.tex
 %%
 %% "It Is Not the Cryptography: Where the Cost of Token Validation Actually

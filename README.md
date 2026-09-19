@@ -117,7 +117,13 @@ results/              raw logs from that earliest study
 tls-cert/             certificate only; see "Test certificate" below
 
 psao-artifact/        the current work
-  paper/              manuscript, bibliography, generated macros, provenance
+  paper/              manuscripts, bibliography, generated macros, provenance
+                      LIVE: key-resolution-cost.tex — the only manuscript that
+                      should be cited. The others are retained for history only:
+                      not-the-cryptography.tex carries a SUPERSEDED header, and
+                      its compiled output is renamed
+                      SUPERSEDED-DO-NOT-CITE-not-the-cryptography.pdf so the
+                      warning survives being downloaded on its own.
   bench/              the measurement harness: one condition per process
   experiments/        runners for the host decomposition and runtime matrix
   analysis/           statistics and LaTeX macro generation
