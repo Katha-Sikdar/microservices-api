@@ -65,3 +65,18 @@ psao-artifact/paper/*.bbl
 psao-artifact/paper/*.out
 psao-artifact/paper/*.toc
 psao-artifact/paper/*.synctex.gz
+
+# --- release hygiene (added 2026-09-19) -------------------------------------
+# Purged from history with git filter-repo. A private key matching the
+# committed certificate was reachable from the initial commit until then.
+tls.key
+tls-cert/tls.key
+*.key
+
+# Istio is installed via istioctl, never vendored. A vendored arm64 istioctl
+# binary is ~96 MB and belongs in no artifact.
+kubernetes/istio-*/
+
+# Dependency trees are reconstructed from the committed lockfiles.
+node_modules/
+**/node_modules/
