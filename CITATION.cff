@@ -1,36 +1,51 @@
 cff-version: 1.2.0
 message: >-
-  If you use this repository, please cite it. The current work is PSAO, in
-  psao-artifact/. Material under results/, load-tests/ and the root manifests
-  belongs to the earlier study and is retained for provenance.
-title: "PSAO: predictive security-aware offloading of JWT verification in a Zero Trust service mesh"
+  If you use this repository, please cite it. The current work is the
+  key-resolution cost study in psao-artifact/paper/discarded-exception.tex.
+  Earlier manuscripts in that directory are superseded and carry SUPERSEDED
+  headers; material under results/, load-tests/ and the root manifests belongs
+  to an earlier study and is retained for provenance.
+title: "Replication package: where the cost of JWT verification actually goes"
 abstract: >-
-  A Kubernetes testbed and reproducibility artifact for measuring event-loop
-  saturation in a Node.js microservice under layered Zero Trust enforcement
-  (Edge TLS, Istio mTLS, application-level JWT validation with HS256 and RS256),
-  modelling the service as a single-server queue, and evaluating PSAO -- a
-  controller that relocates token verification into the Envoy sidecar before the
-  saturation point is reached and reverts, with hysteresis, when load falls back.
-  Includes open-loop load generation, a four-stage decomposition of jwt.verify(),
-  and the analysis pipeline that produces the paper's figures and LaTeX macros.
+  Measurement, control and analysis code for a study of JSON Web Token
+  verification cost in Kubernetes microservices under Istio. The dominant
+  per-request cost is neither the signature primitive nor the conversion of key
+  material, but a discarded exception: the library attempts an asymmetric key
+  parse before the symmetric one and throws the failure away on every call. Its
+  magnitude is governed by the bundled OpenSSL version rather than by the
+  JavaScript engine or by containerisation. Includes the measurement harness
+  (one condition per process), a four-runtime matrix, in-situ measurement across
+  seven arrival rates, a prevalence survey with a hash-pinned corpus manifest,
+  and the analysis pipeline that generates every numeric value in the paper.
 type: software
 authors:
-  - family-names: Sikdar
-    given-names: Katha
-    email: ferdouskatha35@gmail.com
-license: MIT
-version: 2.0.0
-date-released: "2026-09-13"
+  - family-names: Katha
+    given-names: Jannatul Ferdous
+    email: ferdous.katha@elitelab.ai
+    affiliation: >-
+      Department of CSE, Bangladesh University of Professionals (BUP), Dhaka,
+      Bangladesh; ELITE Research Lab, Queens, NY, USA
+  - family-names: Prova
+    given-names: Tasmia Tahmid
+    email: tasmia.prova@elitelab.ai
+    affiliation: >-
+      Department of CSE, Bangladesh University of Business and Technology
+      (BUBT), Dhaka, Bangladesh; ELITE Research Lab, Queens, NY, USA
+  - family-names: Morol
+    given-names: Md Kishor
+    email: kishormorol@ieee.org
+    affiliation: "ELITE Research Lab, Queens, NY, USA"
+  - family-names: Liew
+    given-names: Tze Hui
+    email: thliew@mmu.edu.my
+    affiliation: >-
+      Faculty of Information Science and Technology, Multimedia University,
+      Melaka, Malaysia
+  - family-names: Nandi
+    given-names: Dip
+    email: dip.nandi@aiub.edu
+    affiliation: >-
+      ELITE Research Lab, Queens, NY, USA; Department of Computer Science,
+      American International University-Bangladesh (AIUB), Dhaka, Bangladesh
 repository-code: "https://github.com/Katha-Sikdar/microservices-api"
-keywords:
-  - zero trust
-  - service mesh
-  - Istio
-  - Envoy
-  - JWT
-  - event loop
-  - queueing model
-  - offloading
-  - reproducibility
-  - Kubernetes
-  - performance measurement
+license: MIT

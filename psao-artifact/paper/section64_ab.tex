@@ -1,0 +1,72 @@
+%% Section 6.4 replacement. Requires \input{ab_macros} in the preamble.
+%% Every value is a macro emitted by analysis/make_ab_macros.py from the two
+%% committed runs; no digit is typed here.
+
+\subsection{Corroboration: the cost is real processor time}\label{sec:abcorroboration}
+
+An in-situ figure of this magnitude has two readings. Either it is processor
+time the service spends, or it is time a request spends waiting --- queued, or
+descheduled --- which a latency histogram cannot distinguish from work. We
+separate them with an A/B of the same deployment at one arrival rate: one window
+with the validation call in the handler, one with it removed, the same images,
+the same ingress and the same open-loop driver. Table~\ref{tab:ab} reports it.
+
+\begin{table}[t]
+\caption{Validation enabled against validation disabled, at \ABRate~requests/s,
+\ABReqs{} requests per arm. \emph{Processor time is the row that carries the
+argument}: \texttt{cpu\_app} is CPU consumed by the application container,
+divided here by the achieved rate, and a request that waits accrues none of it.
+The sidecar and event-loop rows are controls. These are two single windows run
+minutes apart, not interleaved rounds; no interval is computed from them, and
+the load averages differ (Section~\ref{sec:threats}).}
+\label{tab:ab}
+\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+                       & enabled & disabled & difference \\
+\midrule
+app CPU ($\mu$s/req)   & \ABEnabledCpuUs   & \ABDisabledCpuUs   & \ABDeltaCpuUs \\
+app CPU (millicores)   & \ABEnabledCpuMc   & \ABDisabledCpuMc   & \\
+mean latency (ms)      & \ABEnabledWall    & \ABDisabledWall    & \ABDeltaWall \\
+p99 latency (ms)       & \ABEnabledWallPNine & \ABDisabledWallPNine & \\
+\midrule
+\multicolumn{4}{@{}l}{\emph{controls}}\\
+sidecar CPU (millicores) & \ABEnabledSideMc & \ABDisabledSideMc & \ABDeltaSideMc \\
+event-loop lag p99 (ms)  & \ABEnabledLoopLag & \ABDisabledLoopLag & \\
+host load at window start & \ABEnabledLoad  & \ABDisabledLoad   & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Withdrawing the validation call removes \ABDeltaCpuUs~$\mu$s of application CPU
+per request, \ABDeltaCpuPct\% of the enabled arm's. That quantity is processor
+time by construction: a request that queues or is descheduled accrues wall clock
+but no CPU, so a difference this size in CPU cannot be queueing delay. The mean
+latency falls by \ABDeltaWall~ms over the same windows, and the near equality of
+that figure with the CPU difference is the expected relation if the added time
+is spent executing rather than waiting.
+
+Two controls hold while it does. Sidecar CPU moves by
+\ABDeltaSideMc{} millicores --- in the opposite direction, and by a small
+fraction of the application's change --- so the difference is work in the
+application container and not in the mesh. Event-loop lag at the 99th percentile
+is \ABEnabledLoopLag~ms against \ABDisabledLoopLag~ms, unchanged within the
+resolution of the measurement, so the service is not near saturation in either
+arm and the cost is not an artefact of a blocked loop.
+
+The magnitude also reconciles with Section~\ref{sec:rq2} without any fitting.
+The deployed image is \texttt{node:18-alpine}, whose discarded parse
+Table~\ref{tab:matrix} times at \NodeEighteenProbeThrows~$\mu$s in isolation.
+The A/B attributes \ABDeltaCpuUs~$\mu$s of CPU per request to the validation
+call in deployment. Two instruments that share no code and no arithmetic ---
+a single-process microbenchmark and a container CPU accounting over
+\ABReqs{} requests --- land within a few percent of one another.
+
+What this does not establish, we state plainly. The two arms are separate
+windows rather than interleaved rounds, so the difference is a difference of two
+observations and carries no interval. The host load averages at the two window
+starts stand at \ABEnabledLoad{} and \ABDisabledLoad, a ratio of
+\ABLoadRatio, and the heavier load falls on the enabled arm; contention inflates
+a duration rather than deflating it, so the latency difference is an upper bound
+on the effect and the CPU difference, which is far less sensitive to contention,
+is the figure to rely on.

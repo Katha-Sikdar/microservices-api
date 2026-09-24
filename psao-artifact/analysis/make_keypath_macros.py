@@ -43,6 +43,44 @@ def put(name: str, value, source: Path, fmt='{:.2f}'):
     SRC[name] = str(Path(source).relative_to(ROOT))
 
 
+
+def put_triple(name: str, est, lo, hi, source: Path):
+    """Emit an estimate and its two bounds at ONE precision.
+
+    Formatting the point estimate and its interval independently produced
+    \\HostCreateSecretKey 0.583 against [0.54, 0.58] -- an estimate above its own
+    upper bound, and three further rows where the estimate landed exactly on a
+    bound. Precision is therefore chosen for the triple, not per value, and is
+    increased until the rounded values still satisfy lo <= est <= hi. A triple
+    that cannot be rendered consistently is reported rather than emitted.
+    """
+    if est is None or lo is None or hi is None:
+        for suffix in ('', 'CiLo', 'CiHi'):
+            MISSING.append(name + suffix)
+        return
+    # Precision is set by magnitude first, so a sub-microsecond quantity keeps
+    # three significant figures instead of collapsing to two decimals, and is
+    # only increased further if rounding would break the ordering. Note that
+    # est == bound occurs in the RAW data for several conditions: a percentile
+    # bootstrap over a small number of discrete per-process medians can place a
+    # bound exactly on the median. That is a property of the estimator, not of
+    # the formatting, and is preserved rather than hidden.
+    start = 2 if abs(est) >= 10 else 3
+    for decimals in range(start, 7):
+        f = '{:.%df}' % decimals
+        r_est, r_lo, r_hi = (float(f.format(v)) for v in (est, lo, hi))
+        if r_lo <= r_est <= r_hi:
+            put(name, est, source, f)
+            put(name + 'CiLo', lo, source, f)
+            put(name + 'CiHi', hi, source, f)
+            return
+    print(f'  WARNING: {name} cannot be rendered with lo<=est<=hi '
+          f'({lo}, {est}, {hi})', file=sys.stderr)
+    put(name, est, source, '{:.6f}')
+    put(name + 'CiLo', lo, source, '{:.6f}')
+    put(name + 'CiHi', hi, source, '{:.6f}')
+
+
 def stats(run: Path) -> dict | None:
     p = run / 'keypath_stats.json'
     return json.loads(p.read_text()) if p.exists() else None
@@ -78,10 +116,8 @@ if m:
                      ('HostTimerOverhead', 'timer_overhead'),
                      ('HostJwtRsPemString', 'jwt_rs_pem_string'),
                      ('HostJwtRsPreparsed', 'jwt_rs_preparsed')]:
-        put(macro, cond(m, 'host', c), p, '{:.3f}' if c in ('create_secret_key', 'timer_overhead') else '{:.2f}')
         b = ci(m, 'host', c)
-        if b:
-            put(macro + 'CiLo', b[0], p, '{:.2f}'); put(macro + 'CiHi', b[1], p, '{:.2f}')
+        put_triple(macro, cond(m, 'host', c), b[0] if b else None, b[1] if b else None, p)
     env = m['environments']['host']
     put('HostInvocations', env['conditions']['jwt_hs_string']['n_invocations'], p)
     put('HostCallsPerInvocation', env['conditions']['jwt_hs_string']['calls_per_invocation'], p)
@@ -93,16 +129,14 @@ if m:
                        ('HostRsStringPenalty', 'string_key_penalty_rs256')]:
         c = env['contrasts'].get(key)
         if c:
-            put(macro, c['median_diff_us'], p)
-            put(macro + 'CiLo', c['ci95'][0], p); put(macro + 'CiHi', c['ci95'][1], p)
+            put_triple(macro, c['median_diff_us'], c['ci95'][0], c['ci95'][1], p)
             put(macro + 'Rounds', c['n_rounds'], p)
     d = env.get('decomposition')
     if d:
         put('DecompObserved', d['observed_penalty_us']['median'], p)
         put('DecompPredicted', d['predicted_from_parts_us']['median'], p)
-        put('DecompResidual', d['residual_us']['median'], p)
-        put('DecompResidualCiLo', d['residual_us']['ci95'][0], p)
-        put('DecompResidualCiHi', d['residual_us']['ci95'][1], p)
+        put_triple('DecompResidual', d['residual_us']['median'],
+                   d['residual_us']['ci95'][0], d['residual_us']['ci95'][1], p)
         put('DecompExplainedPct', 100 * d['explained_fraction'], p, '{:.1f}')
     put('HostProbeShareOfCall',
         100 * cond(m, 'host', 'probe_throws') / cond(m, 'host', 'jwt_hs_string'), p, '{:.0f}')
@@ -123,10 +157,11 @@ if mx:
         for macro, c in [('ProbeThrows', 'probe_throws'), ('ProbeSucceeds', 'probe_succeeds'),
                          ('JwtString', 'jwt_hs_string'), ('JwtPreparsed', 'jwt_hs_preparsed'),
                          ('HmacString', 'hmac_string'), ('DecodeOnly', 'decode_only')]:
-            put(prefix + macro, cond(mx, env, c), pm)
             b = ci(mx, env, c)
             if b and macro == 'ProbeThrows':
-                put(prefix + macro + 'CiLo', b[0], pm); put(prefix + macro + 'CiHi', b[1], pm)
+                put_triple(prefix + macro, cond(mx, env, c), b[0], b[1], pm)
+            else:
+                put(prefix + macro, cond(mx, env, c), pm)
         rt = mx['environments'][env]['runtime']
         put(prefix + 'OpensslLiteral', rt['openssl_version'][0], pm)
         # Version labels are read from the data too, so that a runtime relabelled
@@ -138,6 +173,21 @@ if mx:
     # spans across every environment measured, host included
     allenvs = {**{v: mx for v in ENVS.values()}}
     def span(c):
+        """Ratio of max to min across the FOUR CONTAINER ROWS ONLY.
+
+        The host row is excluded deliberately. Section~\\ref{sec:rq2} states that
+        its claims concern only the container rows, among which containerisation
+        is held constant; the host runs a different operating system, so a span
+        that took a bound from it would be measuring something the section
+        explicitly declines to measure. An earlier version included the host and
+        two of the four spans silently took their minimum from it."""
+        vals = [cond(mx, e, c) for e in ENVS.values()]
+        vals = [v for v in vals if v]
+        return max(vals) / min(vals) if vals else None
+
+    def span_with_host(c):
+        """Same ratio including the uncontainerised host. Named so it cannot be
+        mistaken for the container-only span."""
         vals = [cond(mx, e, c) for e in ENVS.values()] + ([cond(m, 'host', c)] if m else [])
         vals = [v for v in vals if v]
         return max(vals) / min(vals) if vals else None
@@ -145,6 +195,7 @@ if mx:
                      ('SpanHmacString', 'hmac_string'), ('SpanDecodeOnly', 'decode_only'),
                      ('SpanProbeSucceeds', 'probe_succeeds')]:
         put(macro, span(c), pm)
+        put(macro + 'WithHost', span_with_host(c), pm)
     put('MatrixInvocations',
         mx['environments'][ENVS['NodeEighteen']]['conditions']['probe_throws']['n_invocations'], pm)
     put('MatrixCallsPerInvocation',
@@ -195,6 +246,17 @@ if mx:
 
 # --- the host's own runtime, for the correction section ---------------------
 if m:
+    # V8 is statically linked into the node binary, which is unchanged since the
+    # run (same Cellar path, same reported version), so the engine version is a
+    # property of the measured runtime and is recordable after the fact.
+    #
+    # The host's OpenSSL version is NOT recorded here and deliberately so. The
+    # host run predates the per-row openssl_version field, and the host's
+    # OpenSSL has since moved 3.6.3 -> 3.6.4 (see
+    # data/runs/HOST-OPENSSL-DRIFT-2026-09-17.md). Capturing it now would record
+    # a version that did not run. Table 2's host OpenSSL cell stays empty.
+    put('HostVeight', '14', MECH / 'run_metadata.json')
+    put('HostVeightFull', '14.6.202.34-node.26', MECH / 'run_metadata.json')
     put('HostNodeVersion', m['environments']['host']['runtime']['node_version'][0].lstrip('v'),
         MECH / 'keypath_stats.json')
 
@@ -205,7 +267,6 @@ if cm.exists():
     put('ManifestFiles', len(rows), cm)
     put('ManifestRepos', len({r['repo'] for r in rows}), cm)
     put('ManifestSampleFiles', sum(1 for r in rows if r['corpus'] == 'sample'), cm)
-    put('ManifestCounterFiles', sum(1 for r in rows if r['corpus'] == 'counter_search'), cm)
     put('ManifestHeadResolved', sum(1 for r in rows if r['repo_head_commit_at_manifest_time']), cm)
 else:
     MISSING.append('ManifestFiles')
@@ -250,6 +311,141 @@ if SUITE.exists():
 else:
     MISSING.append('SuiteStockPassing')
 
+# --- in-situ sweeps: paired-scrape differences, ascending and descending -----
+# Seven arrival rates, two passes in opposite order, on one process. The pair is
+# a RANGE OF TWO, not an interval, and the sign test below shows it is not even
+# two independent samples. Macro names use letter suffixes because LaTeX parses
+# a digit in a macro name as literal text.
+SWEEPS = {
+    'String':    RUNS / '2026-09-14T05-57-22Z-verifyrate-hs256' / 'verify_rate_curve.csv',
+    'Preparsed': RUNS / '2026-09-14T15-01-36Z-verifyrate-hs256-preparsed' / 'verify_rate_curve.csv',
+    'Rs':        RUNS / '2026-09-14T06-41-56Z-verifyrate-rs256' / 'verify_rate_curve.csv',
+}
+LETTERS = 'ABCDEFG'
+_alldiffs = []
+for label, path in SWEEPS.items():
+    if not path.exists():
+        MISSING.append('Insitu' + label + 'AscA'); continue
+    by = {}
+    for r in csv.DictReader(path.open()):
+        by.setdefault(int(r['rate_rps']), {})[r['pass']] = (
+            float(r['verify_mean_us']), float(r['host_load1']))
+    rates = sorted(by)
+    for i, rate in enumerate(rates[:len(LETTERS)]):
+        L = LETTERS[i]
+        if label == 'String':
+            put('InsituRate' + L, rate, path)
+        a = by[rate].get('asc'); d = by[rate].get('desc')
+        if a: put('Insitu' + label + 'Asc' + L, a[0], path)
+        if d: put('Insitu' + label + 'Desc' + L, d[0], path)
+        if a and d:
+            _alldiffs.append((label, rate, abs(a[0] - d[0]), max(a[1], d[1])))
+    # drift: how many rate points share the sign of (asc - desc)
+    signs = [1 if by[r]['asc'][0] > by[r]['desc'][0] else -1
+             for r in rates if 'asc' in by[r] and 'desc' in by[r]]
+    if signs:
+        put('Insitu' + label + 'Points', len(signs), path)
+        put('Insitu' + label + 'SameSign', max(signs.count(1), signs.count(-1)), path)
+if _alldiffs:
+    tight = min(_alldiffs, key=lambda x: x[2])
+    put('InsituTightestAgreement', tight[2], SWEEPS['Rs'], '{:.2f}')
+
+# --- A/B: validation enabled vs disabled, one arrival rate -------------------
+# Two 180 s windows on the same service, same token on the wire in both, the
+# only difference being whether the handler calls jwt.verify(). The carried
+# quantity is container CPU time from cgroup accounting, not wall-clock, so the
+# per-call figure is CPU per request and the latency columns are context.
+#
+# Host load is the single `uptime` sample taken at window start -- the same
+# quantity and the same capture path as host_load1 in the rate sweeps above.
+# These runs carry no within-window load series, so no window mean is emitted:
+# there is nothing in the data to average.
+AB = {'Jwt': RUNS / 'INSITU-AB-authmode-jwt', 'None': RUNS / 'INSITU-AB-authmode-none'}
+LOADAVG = re.compile(r'load averages?: *([0-9.]+)[ ,]+([0-9.]+)[ ,]+([0-9.]+)')
+
+_ab_cpu = {}
+_ab_clock = {}
+for arm, d in AB.items():
+    ramp = d / 'openloop_ramp.csv'
+    if not ramp.exists():
+        MISSING.append('AbCpu' + arm); continue
+    rows = list(csv.DictReader(ramp.open()))
+    if not rows:
+        MISSING.append('AbCpu' + arm); continue
+    r = rows[0]
+    cpu, rate = float(r['cpu_app_millicores']), float(r['achieved_rps'])
+    _ab_cpu[arm] = (cpu, rate)
+    put('AbCpu' + arm, cpu, ramp)
+    put('AbRate' + arm, rate, ramp, '{:.3f}')
+    # millicores / (requests/s) * 1000 = microseconds of CPU per request
+    put('AbCpuPerCall' + arm, cpu / rate * 1000.0, ramp, '{:.1f}')
+    put('AbLatency' + arm, float(r['latency_mean_ms']), ramp, '{:.4f}')
+    put('AbLatencyPNineNine' + arm, float(r['latency_p99_ms']), ramp, '{:.4f}')
+    put('AbSidecarCpu' + arm, float(r['cpu_sidecar_millicores']), ramp)
+    # MEAN of the per-scrape p99 event-loop lag, per docs/DATA_SCHEMA.md.
+    # Not a p99 over the window, and must not be described as one.
+    put('AbEventLoopLag' + arm, float(r['eventloop_lag_p99_ms']), ramp, '{:.3f}')
+
+    meta = d / 'run_metadata.json'
+    js_meta = json.loads(meta.read_text()) if meta.exists() else {}
+    host = js_meta.get('host') or {}
+    m = LOADAVG.search(host.get('uptime_at_run_start') or '')
+    for name, i in (('One', 0), ('Five', 1), ('Fifteen', 2)):
+        put('AbLoad' + name + arm, float(m.group(i + 1)) if m else None, meta)
+    # Busiest host process at window start, from the same `top` snapshot. One
+    # sample over top's own interval, so it is an indicator and not a mean.
+    top = host.get('top_cpu_at_run_start') or []
+    put('AbTopProcPct' + arm, float(top[0]['percent']) if top else None, meta, '{:.1f}')
+    _ab_clock[arm] = (js_meta.get('started_at_utc'), js_meta.get('finished_at_utc'))
+
+    # Arm separation without a distributional assumption. A t-test over 1 Hz
+    # samples would assume independence these do not have.
+    samples = d / 'pod_cpu_samples.csv'
+    v = []
+    if samples.exists():
+        with samples.open() as fh:
+            for row in csv.DictReader(l for l in fh if not l.startswith('#')):
+                if row.get('container') == 'service-a' and row.get('cpu_millicores'):
+                    v.append(float(row['cpu_millicores']))
+    put('AbCpuSampleMin' + arm, min(v) if v else None, samples, '{:.3f}')
+    put('AbCpuSampleMax' + arm, max(v) if v else None, samples, '{:.3f}')
+    put('AbCpuSamples' + arm, len(v) if v else None, samples)
+
+    k6 = d / 'k6_summary.json'
+    if k6.exists():
+        js = json.loads(k6.read_text())
+        dur = (js.get('state') or {}).get('testRunDurationMs')
+        cnt = (((js.get('metrics') or {}).get('http_reqs') or {}).get('values') or {}).get('count')
+        put('AbWindowSeconds' + arm, dur / 1000.0 if dur is not None else None, k6, '{:.0f}')
+        put('AbRequests' + arm, cnt, k6)
+    else:
+        MISSING.append('AbRequests' + arm)
+
+if 'Jwt' in _ab_cpu and 'None' in _ab_cpu:
+    (cj, rj), (cn, rn) = _ab_cpu['Jwt'], _ab_cpu['None']
+    ramp = AB['Jwt'] / 'openloop_ramp.csv'
+    put('AbCpuDelta', cj - cn, ramp)
+    # Attributed at the jwt arm's own achieved rate; the two rates agree to
+    # three decimals, so the choice does not move the figure.
+    put('AbCpuPerCallDelta', (cj - cn) / rj * 1000.0, ramp, '{:.1f}')
+    lj = float(list(csv.DictReader((AB['Jwt'] / 'openloop_ramp.csv').open()))[0]['latency_mean_ms'])
+    ln = float(list(csv.DictReader((AB['None'] / 'openloop_ramp.csv').open()))[0]['latency_mean_ms'])
+    put('AbLatencyDeltaUs', (lj - ln) * 1000.0, ramp, '{:.1f}')
+else:
+    MISSING.extend(['AbCpuDelta', 'AbCpuPerCallDelta', 'AbLatencyDeltaUs'])
+
+# Idle gap between the two windows. The enabled arm ran second, so its
+# window-start load average still carries a decaying contribution from the
+# disabled arm; the gap is what says how much decay there was time for.
+if _ab_clock.get('None', (None,))[1] and _ab_clock.get('Jwt', (None,))[0]:
+    from datetime import datetime
+    t_end = datetime.fromisoformat(_ab_clock['None'][1])
+    t_start = datetime.fromisoformat(_ab_clock['Jwt'][0])
+    put('AbGapSeconds', (t_start - t_end).total_seconds(),
+        AB['Jwt'] / 'run_metadata.json', '{:.0f}')
+else:
+    MISSING.append('AbGapSeconds')
+
 # --- survey ------------------------------------------------------------------
 pc = SURVEY / 'population_counts.csv'
 if pc.exists():
@@ -268,7 +464,7 @@ if pc.exists():
     for name, (dq, nq) in CELLS.items():
         d, n = rows.get(dq), rows.get(nq)
         put('Pop' + name + 'Files', d, pc)
-        put('Pop' + name + 'KeyObject', n, pc)
+        put('Pop' + name + 'FilesWithApi', n, pc)
         if d and n is not None:
             put('Pop' + name + 'Pct', 100 * n / d, pc, '{:.4f}')
             dens.append(d); nums.append(n); rates.append(100 * n / d)
@@ -277,7 +473,7 @@ if pc.exists():
     # the largest cell a lower bound, so both are reported as such.
     if dens:
         put('PopSumFiles', sum(dens), pc)
-        put('PopSumKeyObject', sum(nums), pc)
+        put('PopSumFilesWithApi', sum(nums), pc)
         put('PopLargestCellFiles', max(dens), pc)
         put('PopWorstCellPct', max(rates), pc, '{:.4f}')
         put('PopBestCellPct', min(rates), pc, '{:.4f}')
@@ -296,7 +492,7 @@ if cs.exists():
                           ('string_literal', 'SampleStringLiteral'),
                           ('file_contents', 'SampleFileContents'), ('buffer', 'SampleBuffer')]:
         put(macro, sum(1 for r in rows if r['bucket'] == bucket), cs)
-    put('SampleKeyObject', sum(1 for r in rows if r['bucket'] == 'keyobject'), cs)
+    put('SampleSitesPreparsed', sum(1 for r in rows if r['bucket'] == 'keyobject'), cs)
     unspec = sum(1 for r in rows if r['algorithms'] == 'unspecified')
     put('SampleNoAlgorithms', unspec, cs)
     put('SampleNoAlgorithmsPct', 100 * unspec / len(rows), cs, '{:.0f}')
@@ -311,11 +507,18 @@ if ha.exists():
     rows = [r for r in allrows if r.get('round', '').startswith('counter_search')]
     rematch = [r for r in allrows if r.get('round', '').startswith('sample_rematch')]
     put('RematchAdjudicated', len(rematch), ha)
-    put('RematchKeyObject', sum(1 for r in rematch if r['verdict'] == 'keyobject'), ha)
+    put('RematchSitesPreparsed', sum(1 for r in rematch if r['verdict'] == 'keyobject'), ha)
     put('AdjudicatedTotal', len(rows), ha)
     gen = [r for r in rows if r['verdict'] == 'genuine']
     put('AdjudicatedGenuine', len(gen), ha)
     put('AdjudicatedGenuineProjects', len({r['repo'] for r in gen}), ha)
+    _den = None
+    _ce = SURVEY / 'counterexamples.json'
+    if _ce.exists():
+        _recs = json.loads(_ce.read_text())
+        _den = len({r['repo'] for r in _recs if r['verify_calls'] > 0})
+    if _den:
+        put('AdjudicatedGenuinePct', 100 * len({r['repo'] for r in gen}) / _den, ha, '{:.2f}')
     put('AdjudicatedFalsePositive', sum(1 for r in rows if r['verdict'] == 'false_positive'), ha)
     put('AdjudicatedUnresolved', sum(1 for r in rows if r['verdict'] == 'unresolved'), ha)
 
@@ -323,7 +526,13 @@ ce = SURVEY / 'counterexamples.json'
 if ce.exists():
     recs = json.loads(ce.read_text())
     put('CounterFilesFetched', len(recs), ce)
-    put('CounterWithVerify', sum(1 for r in recs if r['verify_calls'] > 0), ce)
+    withv = [r for r in recs if r['verify_calls'] > 0]
+    put('CounterWithVerify', len(withv), ce)
+    # The denominator for the rarity claim: repositories whose files both mention
+    # the pre-parsing API and call verify(). This is the MOST favourable
+    # denominator available -- these projects demonstrably know the API exists --
+    # and it is not the population. Named so it cannot be read as one.
+    put('CounterReposWithVerify', len({r['repo'] for r in withv}), ce)
 
 # --- emit --------------------------------------------------------------------
 def main() -> int:

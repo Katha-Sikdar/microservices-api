@@ -208,9 +208,11 @@ verification.
 ## Citation
 
 ```bibtex
-@misc{sikdar2026artifact,
-  author       = {Sikdar, Katha},
-  title        = {Replication package: key-resolution cost in token validation},
+@misc{katha2026artifact,
+  author       = {Katha, Jannatul Ferdous and Prova, Tasmia Tahmid and
+                  Morol, Md Kishor and Liew, Tze Hui and Nandi, Dip},
+  title        = {Replication package: where the cost of JWT verification
+                  actually goes},
   year         = {2026},
   howpublished = {\url{https://github.com/Katha-Sikdar/microservices-api}},
   note         = {Measurements under psao-artifact/data/runs/}
