@@ -350,6 +350,31 @@ if _alldiffs:
     tight = min(_alldiffs, key=lambda x: x[2])
     put('InsituTightestAgreement', tight[2], SWEEPS['Rs'], '{:.2f}')
 
+# --- quantities main.tex (authors' draft of 2026-09) uses that no earlier
+# version of this generator emitted. Added 2026-09-24; definitions follow the
+# sentences that use them.
+#   PreparsedUnattributed : pre-parsed verify() less structural decode less the
+#                           pre-parsed HMAC, host (Section "The parts do not
+#                           account for all of it").
+#   InsituPredictedFromMatrix : the deployed runtime's discarded parse plus its
+#                           pre-parsed verify(), from the runtime matrix.
+#   InsituObservedLo/Hi   : min / max per-call mean across BOTH passes of the
+#                           string-secret sweep.
+#   InsituUnaccountedLo/Hi: observed less predicted, at those two extremes.
+if m:
+    put('PreparsedUnattributed',
+        cond(m, 'host', 'jwt_hs_preparsed') - cond(m, 'host', 'decode_only')
+        - cond(m, 'host', 'hmac_keyobject'), MECH / 'keypath_stats.json')
+if mx and SWEEPS['String'].exists():
+    pred = (cond(mx, 'node:18.20.8-alpine', 'probe_throws')
+            + cond(mx, 'node:18.20.8-alpine', 'jwt_hs_preparsed'))
+    obs = [float(r['verify_mean_us']) for r in csv.DictReader(SWEEPS['String'].open())]
+    put('InsituPredictedFromMatrix', pred, pm, '{:.0f}')
+    put('InsituObservedLo', min(obs), SWEEPS['String'], '{:.0f}')
+    put('InsituObservedHi', max(obs), SWEEPS['String'], '{:.0f}')
+    put('InsituUnaccountedLo', min(obs) - pred, SWEEPS['String'], '{:.0f}')
+    put('InsituUnaccountedHi', max(obs) - pred, SWEEPS['String'], '{:.0f}')
+
 # --- A/B: validation enabled vs disabled, one arrival rate -------------------
 # Two 180 s windows on the same service, same token on the wire in both, the
 # only difference being whether the handler calls jwt.verify(). The carried

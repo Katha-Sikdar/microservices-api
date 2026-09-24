@@ -1,0 +1,6 @@
+{
+  "name": "psao-crosslib-node",
+  "private": true,
+  "description": "Cross-library HS256 key-resolution benchmark: Node.js libraries",
+  "dependencies": { "jsonwebtoken": "9.0.3", "jose": "6.2.12", "fast-jwt": "6.3.3" }
+}

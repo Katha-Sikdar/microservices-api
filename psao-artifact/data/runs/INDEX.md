@@ -238,3 +238,24 @@ so a reviewer who never gunzips anything can still reproduce every figure.
 | `service-a:psao-4` | `82d6db7b` | express **5.2.1**, jwt 9.0.3 | the regression run only |
 | `service-a:psao-5` | `1c74d9a6` | express **5.1.0** pinned, jwt 9.0.3 | evening sweep |
 | `psao-scenarios:psao-5` | `bacd5526` | matched to psao-5 | evening S8/S9 |
+
+---
+
+## Revision 2026-09-24: second architecture, C probe, exception baseline, other libraries
+
+All on one x86_64 **shared cloud VM** (Intel Xeon @ 2.80GHz, 4 vCPU, KVM) —
+used for orderings and within-run ratios only, never for magnitudes compared
+with the ARM64 host. `PSAO_ENV_LABEL=x86_64-cloud-vm` in every row. Driven by
+`experiments/run_revision_suite.sh`, one experiment at a time.
+
+| run | what | rests on it |
+|---|---|---|
+| `2026-09-24T17-10-07Z-openssl-c-probe` | `bench/c/openssl-probe.c` against 8 OpenSSL releases (3.0.16 … 3.6.1) built from source with one compiler/flags; 15 processes × 5000 calls per (release, condition). 0 loaded-vs-linked mismatches. | Table `tab:cprobe`; the causal claim (3.0.16 ≈ 394 µs vs 3.5.8 ≈ 8.4 µs in plain C) |
+| `…-exception-cost` | `bench/exception-cost.js` under 6 official Node binaries (18, 20, 22, 23, 24, 26); 15 × 10000 | Table `tab:decomp`; the Node 22 (V8 12.4 / OpenSSL 3.5.8) vs Node 23 (V8 12.9 / OpenSSL 3.0.16) crossed pair |
+| `2026-09-24T17-29-16Z-crosslib` | 7 JWT libraries, 4 languages, string vs pre-parsed; 15 × 20000 | Table `tab:xlib`, §RQ4 |
+| `…-keypath-mechanism` (2026-09-24) | Table 1 repeated, unchanged script, Node 22.22.2 / OpenSSL 3.5.5 | §`rq2-arch` ordering check |
+| `…-keypath-runtime-matrix` (2026-09-24) | Table 2 repeated, same four images, x86_64 | Table `tab:arch` |
+| `2026-09-24-upstream-suite-x86_64` | jsonwebtoken v9.0.3 own suite: stock / narrow patch / unrestricted, x86_64 | §Fix (511/511, 2 key-confusion failures unrestricted; test titles) |
+
+`HOST-OPENSSL-DRIFT` does not apply to these runs: every row records the
+OpenSSL version the process actually loaded.

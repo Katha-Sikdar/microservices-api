@@ -112,6 +112,9 @@ HostTimerOverheadCiLo,0.042,data/runs/2026-09-17T08-42-17Z-keypath-mechanism/key
 HostVeight,14,data/runs/2026-09-17T08-42-17Z-keypath-mechanism/run_metadata.json
 HostVeightFull,14.6.202.34-node.26,data/runs/2026-09-17T08-42-17Z-keypath-mechanism/run_metadata.json
 IdentityMismatches,0,data/runs/2026-09-17T08-57-13Z-keypath-runtime-matrix/environments.csv
+InsituObservedHi,1028,data/runs/2026-09-14T05-57-22Z-verifyrate-hs256/verify_rate_curve.csv
+InsituObservedLo,453,data/runs/2026-09-14T05-57-22Z-verifyrate-hs256/verify_rate_curve.csv
+InsituPredictedFromMatrix,381,data/runs/2026-09-17T08-57-13Z-keypath-runtime-matrix/keypath_stats.json
 InsituPreparsedAscA,221.42,data/runs/2026-09-14T15-01-36Z-verifyrate-hs256-preparsed/verify_rate_curve.csv
 InsituPreparsedAscB,235.01,data/runs/2026-09-14T15-01-36Z-verifyrate-hs256-preparsed/verify_rate_curve.csv
 InsituPreparsedAscC,168.44,data/runs/2026-09-14T15-01-36Z-verifyrate-hs256-preparsed/verify_rate_curve.csv
@@ -168,6 +171,8 @@ InsituStringDescG,467.62,data/runs/2026-09-14T05-57-22Z-verifyrate-hs256/verify_
 InsituStringPoints,7,data/runs/2026-09-14T05-57-22Z-verifyrate-hs256/verify_rate_curve.csv
 InsituStringSameSign,6,data/runs/2026-09-14T05-57-22Z-verifyrate-hs256/verify_rate_curve.csv
 InsituTightestAgreement,0.02,data/runs/2026-09-14T06-41-56Z-verifyrate-rs256/verify_rate_curve.csv
+InsituUnaccountedHi,647,data/runs/2026-09-14T05-57-22Z-verifyrate-hs256/verify_rate_curve.csv
+InsituUnaccountedLo,71,data/runs/2026-09-14T05-57-22Z-verifyrate-hs256/verify_rate_curve.csv
 ManifestFiles,502,survey/data/corpus_manifest.csv
 ManifestHeadResolved,501,survey/data/corpus_manifest.csv
 ManifestRepos,457,survey/data/corpus_manifest.csv
@@ -258,6 +263,7 @@ PopTsRequireFiles,8288,survey/data/population_counts.csv
 PopTsRequireFilesWithApi,0,survey/data/population_counts.csv
 PopTsRequirePct,0.0000,survey/data/population_counts.csv
 PopWorstCellPct,0.0303,survey/data/population_counts.csv
+PreparsedUnattributed,2.58,data/runs/2026-09-17T08-42-17Z-keypath-mechanism/keypath_stats.json
 ProfEighteenPct,95.3,data/runs/2026-09-18T-profile-matched/cpuprof_matched.csv
 ProfEighteenPctHi,95.6,data/runs/2026-09-18T-profile-matched/cpuprof_matched.csv
 ProfEighteenPctLo,95.1,data/runs/2026-09-18T-profile-matched/cpuprof_matched.csv
