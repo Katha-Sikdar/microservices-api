@@ -62,3 +62,13 @@ paper/*.synctex.gz
 # avoid redistributing other people's code. survey/collect.py regenerates it.
 survey/data/files/
 survey/data/counterexamples/
+
+# Revision 2026-09-24: cross-library harness dependencies and build outputs.
+# Each is re-created by experiments/run_crosslib.sh from the pinned manifests
+# (package.json + package-lock.json, requirements.txt, go.mod/go.sum,
+# fetch_jars.sh).
+bench/libs/node/node_modules/
+bench/libs/python/.venv/
+bench/libs/go/crosslib-go
+bench/libs/java/lib/
+bench/libs/java/*.class

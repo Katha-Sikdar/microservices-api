@@ -1,0 +1,239 @@
+{
+  "run_dir": "/home/user/microservices-api/psao-artifact/data/runs/2026-09-24T17-39-59Z-keypath-mechanism",
+  "source_csv": "/home/user/microservices-api/psao-artifact/data/runs/2026-09-24T17-39-59Z-keypath-mechanism/keypath_mechanism.csv",
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 20260917,
+  "unit_of_measurement": "one process invocation; each contributes its median of N calls",
+  "environments": {
+    "host": {
+      "runtime": {
+        "node_version": [
+          "v22.22.2"
+        ],
+        "openssl_version": [
+          "3.5.5"
+        ],
+        "platform": [
+          "linux/x64"
+        ]
+      },
+      "conditions": {
+        "create_secret_key": {
+          "n_invocations": 15,
+          "calls_per_invocation": 40000,
+          "median_of_medians_us": 1.261,
+          "ci95": [
+            1.253,
+            1.27
+          ],
+          "between_invocation_cv_pct": 1.3358840551865856,
+          "median_p99_us": 3.489,
+          "median_timer_overhead_us": 0.055
+        },
+        "decode_only": {
+          "n_invocations": 15,
+          "calls_per_invocation": 40000,
+          "median_of_medians_us": 1.795,
+          "ci95": [
+            1.787,
+            1.803
+          ],
+          "between_invocation_cv_pct": 19.97640546927749,
+          "median_p99_us": 4.968,
+          "median_timer_overhead_us": 0.054
+        },
+        "hmac_keyobject": {
+          "n_invocations": 15,
+          "calls_per_invocation": 40000,
+          "median_of_medians_us": 2.974,
+          "ci95": [
+            2.961,
+            2.986
+          ],
+          "between_invocation_cv_pct": 0.5357912901604018,
+          "median_p99_us": 8.174,
+          "median_timer_overhead_us": 0.052
+        },
+        "hmac_string": {
+          "n_invocations": 15,
+          "calls_per_invocation": 40000,
+          "median_of_medians_us": 3.105,
+          "ci95": [
+            3.086,
+            3.113
+          ],
+          "between_invocation_cv_pct": 1.0568292507183406,
+          "median_p99_us": 8.822,
+          "median_timer_overhead_us": 0.052
+        },
+        "jwt_hs_preparsed": {
+          "n_invocations": 15,
+          "calls_per_invocation": 40000,
+          "median_of_medians_us": 9.083,
+          "ci95": [
+            9.05,
+            9.118
+          ],
+          "between_invocation_cv_pct": 2.0928828974255644,
+          "median_p99_us": 38.939,
+          "median_timer_overhead_us": 0.054
+        },
+        "jwt_hs_string": {
+          "n_invocations": 15,
+          "calls_per_invocation": 40000,
+          "median_of_medians_us": 36.478,
+          "ci95": [
+            36.316,
+            36.753
+          ],
+          "between_invocation_cv_pct": 1.0410585286037708,
+          "median_p99_us": 114.328,
+          "median_timer_overhead_us": 0.054
+        },
+        "jwt_hs_string_safe": {
+          "n_invocations": 15,
+          "calls_per_invocation": 40000,
+          "median_of_medians_us": 11.09,
+          "ci95": [
+            11.035,
+            11.331
+          ],
+          "between_invocation_cv_pct": 2.0688792795820783,
+          "median_p99_us": 48.312,
+          "median_timer_overhead_us": 0.052
+        },
+        "jwt_rs_pem_string": {
+          "n_invocations": 15,
+          "calls_per_invocation": 40000,
+          "median_of_medians_us": 59.024,
+          "ci95": [
+            58.67,
+            59.366
+          ],
+          "between_invocation_cv_pct": 1.0170975928186934,
+          "median_p99_us": 161.018,
+          "median_timer_overhead_us": 0.052
+        },
+        "jwt_rs_preparsed": {
+          "n_invocations": 15,
+          "calls_per_invocation": 40000,
+          "median_of_medians_us": 30.636,
+          "ci95": [
+            30.494,
+            30.98
+          ],
+          "between_invocation_cv_pct": 0.975365753142974,
+          "median_p99_us": 83.258,
+          "median_timer_overhead_us": 0.053
+        },
+        "probe_succeeds": {
+          "n_invocations": 15,
+          "calls_per_invocation": 40000,
+          "median_of_medians_us": 13.662,
+          "ci95": [
+            13.646,
+            13.69
+          ],
+          "between_invocation_cv_pct": 0.4197275118218291,
+          "median_p99_us": 46.676,
+          "median_timer_overhead_us": 0.053
+        },
+        "probe_throws": {
+          "n_invocations": 15,
+          "calls_per_invocation": 40000,
+          "median_of_medians_us": 19.417,
+          "ci95": [
+            19.35,
+            19.461
+          ],
+          "between_invocation_cv_pct": 0.4691944688803511,
+          "median_p99_us": 62.478,
+          "median_timer_overhead_us": 0.053
+        },
+        "timer_overhead": {
+          "n_invocations": 15,
+          "calls_per_invocation": 40000,
+          "median_of_medians_us": 0.058,
+          "ci95": [
+            0.058,
+            0.061
+          ],
+          "between_invocation_cv_pct": 20.91732173797319,
+          "median_p99_us": 0.147,
+          "median_timer_overhead_us": 0.056
+        }
+      },
+      "contrasts": {
+        "string_key_penalty_hs256": {
+          "a": "jwt_hs_string",
+          "b": "jwt_hs_preparsed",
+          "n_rounds": 15,
+          "median_diff_us": 27.296,
+          "ci95": [
+            27.131000000000004,
+            27.612
+          ]
+        },
+        "safe_patch_saving_hs256": {
+          "a": "jwt_hs_string",
+          "b": "jwt_hs_string_safe",
+          "n_rounds": 15,
+          "median_diff_us": 25.354000000000003,
+          "ci95": [
+            25.154999999999998,
+            25.648
+          ]
+        },
+        "safe_patch_residual": {
+          "a": "jwt_hs_string_safe",
+          "b": "jwt_hs_preparsed",
+          "n_rounds": 15,
+          "median_diff_us": 1.9969999999999999,
+          "ci95": [
+            1.936,
+            2.176
+          ]
+        },
+        "string_key_penalty_rs256": {
+          "a": "jwt_rs_pem_string",
+          "b": "jwt_rs_preparsed",
+          "n_rounds": 15,
+          "median_diff_us": 28.404,
+          "ci95": [
+            27.761,
+            28.641
+          ]
+        }
+      },
+      "decomposition": {
+        "n_rounds": 15,
+        "observed_penalty_us": {
+          "median": 27.296,
+          "ci95": [
+            27.193000000000005,
+            27.646
+          ]
+        },
+        "predicted_from_parts_us": {
+          "median": 20.679,
+          "ci95": [
+            20.622,
+            20.743000000000002
+          ]
+        },
+        "residual_us": {
+          "median": 6.681999999999999,
+          "ci95": [
+            6.452000000000005,
+            6.965
+          ]
+        },
+        "explained_fraction": 0.7575835287221571
+      }
+    }
+  },
+  "cross_environment": {
+    "reference": "host",
+    "ratio_vs_reference": {}
+  }
+}

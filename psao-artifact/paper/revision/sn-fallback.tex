@@ -1,0 +1,29 @@
+%% sn-fallback.tex -- minimal stand-ins for the sn-jnl.cls commands main.tex
+%% uses, so the manuscript still compiles under `article` when the Springer
+%% class is unavailable. Layout is not the journal's; content is identical.
+%% (Stand-in written in the 2026-09-24 revision; replace with your own copy if
+%% you have one.)
+\usepackage{hyperref}
+\makeatletter
+\def\title{\@ifnextchar[{\sn@title}{\sn@title[]}}
+\def\sn@title[#1]#2{\gdef\@title{#2}}
+\newcommand{\fnm}[1]{#1}
+\newcommand{\sur}[1]{#1}
+\newcommand{\email}[1]{}
+\let\sn@author\author
+\gdef\sn@authors{}
+\renewcommand{\author}{\@ifstar{\sn@auth}{\sn@auth}}
+\newcommand{\sn@auth}[2][]{\g@addto@macro\sn@authors{\and #2\textsuperscript{#1}}}
+\newcommand{\affil}[2][]{}
+\newcommand{\orgdiv}[1]{#1}\newcommand{\orgname}[1]{#1}
+\newcommand{\city}[1]{#1}\newcommand{\state}[1]{#1}\newcommand{\country}[1]{#1}
+\long\def\abstract#1{\gdef\sn@abstract{#1}}
+\newcommand{\keywords}[1]{\gdef\sn@keywords{#1}}
+\let\sn@maketitle\maketitle
+\renewcommand{\maketitle}{%
+  \expandafter\sn@author\expandafter{\sn@authors}%
+  \twocolumn[{\sn@maketitle\begin{quote}\small\textbf{Abstract.} \sn@abstract
+  \par\medskip\textbf{Keywords:} \sn@keywords\end{quote}\medskip}]}
+\newcommand{\backmatter}{}
+\newcommand{\bmhead}[1]{\paragraph{#1}}
+\makeatother

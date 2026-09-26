@@ -1,0 +1,9 @@
+openssl_requested,binary,cc,cflags
+3.0.16,bin/probe-3.0.16,"gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",-O2 -Wall
+3.0.19,bin/probe-3.0.19,"gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",-O2 -Wall
+3.1.8,bin/probe-3.1.8,"gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",-O2 -Wall
+3.2.6,bin/probe-3.2.6,"gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",-O2 -Wall
+3.3.5,bin/probe-3.3.5,"gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",-O2 -Wall
+3.4.3,bin/probe-3.4.3,"gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",-O2 -Wall
+3.5.8,bin/probe-3.5.8,"gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",-O2 -Wall
+3.6.1,bin/probe-3.6.1,"gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",-O2 -Wall

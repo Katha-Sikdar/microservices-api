@@ -80,3 +80,4 @@ kubernetes/istio-*/
 # Dependency trees are reconstructed from the committed lockfiles.
 node_modules/
 **/node_modules/
+psao-artifact/data/runs/*-openssl-c-probe/bin/
