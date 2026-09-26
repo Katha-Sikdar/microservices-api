@@ -92,3 +92,31 @@ measured value was typed.
 - **Figure captions** no longer name `figures/make_figures.py`, which is not in
   the repository (consistent with the pasted in-situ caption).
 - Build: 0 errors, 0 overfull boxes, 0 undefined references.
+
+# Fourth round (2026-09-26): submission readiness
+
+Text only. No measurement, macro or table value changed; every number is
+still a macro.
+
+| Issue | Fix |
+|---|---|
+| Traces of earlier drafts ("an earlier version of this paper", "an earlier draft", "including by us", "the explanation we held before measuring it", "we therefore withdraw that contribution", "the relocation the earlier design proposed") | Removed or restated as present-tense findings: §2.1 gaps paragraph, §4.1, §4.2 (the successful-parse bound now argued from Table 1), §5.2, §6.5 (classifier described as method), §8 (paragraph retitled "The existing suite already guards the property"), §9.1 |
+| Relevance on current runtimes | New Introduction paragraph: 3.2+ runtimes pay tens of µs, 3.0 pays hundreds; OpenSSL 3.0 is the system library of Ubuntu 22.04 and Debian 12, inherited by Node builds that link it and by images pinned to older bases |
+| "Is this a single-library bug report?" | New Introduction paragraph stating the two general results (the design choice of RQ4; the unrecorded-component methodology lesson). Abstract now says the cost follows a design choice |
+| Current-runtime saving without context | §9 "Pre-parse key material once" now sets the OpenSSL 3.5 penalty (`\XlibJsonwebtokenNewSslPenalty`) beside the service's validation-disabled CPU per request (`\AbCpuPerCallNone`), as orders of magnitude only |
+| Prevalence wording in the abstract | "rare in public code" → "rare in the public code we sampled" (matches §3.9's no-population-proportion rule) |
+| Figure 1 line numbers printed in the column gap, touching the left column | `xleftmargin=1.4em` |
+| Raw identifiers in §3.1 prose (`probe_succeeds`, `node:26.6.0-bookworm`) | Set in `\texttt` |
+
+Still for the authors (need new data or a decision; not faked here):
+
+1. Re-run the host decomposition with the OpenSSL version recorded per row;
+   then drop the † in Table 3 and the Threats paragraph "The headline host
+   figure has no per-row OpenSSL version".
+2. Second rater for the 13 adjudicated call sites; report Cohen's κ in §6.5
+   and drop the Threats paragraph "One rater".
+3. Optional: measure the patched library on the Node 18/20 containers and
+   replace the "lower bound" wording in §8.
+4. If the chosen venue reviews double-anonymously, replace the GitHub URL in
+   Data availability and `artifact2026` with an anonymised mirror.
+5. Update the upstream-status sentence in §8 at submission.

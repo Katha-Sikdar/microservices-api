@@ -15,7 +15,7 @@
 %%  keypath_macros_provenance.csv and revision_macros_provenance.csv map each
 %%  macro to the file it was read from.
 %%
-%%  REVISION 2026-09-24 (base: main_1.tex). See CHANGES.md for every edit.
+%%  Revisions 2026-09-24 to 2026-09-26. See CHANGES.md for every edit.
 %%
 %%  Figures are built from committed data by
 %%  figures/make_revision_standin_figures.py.
@@ -141,7 +141,7 @@ not verify''}
   columns=fullflexible,
   keepspaces=true,
   showstringspaces=false,
-  xleftmargin=2pt,
+  xleftmargin=1.4em,
   aboveskip=4pt,
   belowskip=2pt,
 }
@@ -217,8 +217,9 @@ OpenSSL is the slow runtime, and the exception V8 builds costs a few
 microseconds. In deployment, validation adds \AbCpuPerCallDelta~$\mu$s of
 processor time per request, within \AbCpuVsPredictedPct\% of the
 microbenchmark prediction. Of seven JWT libraries in four languages, only this
-one attempts the parse; five pay nothing for a raw secret. The avoiding pattern
-is rare in public code, and the obvious fix would disable a key-type defence
+one attempts the parse; five pay nothing for a raw secret, so the cost follows
+a design choice rather than JWT validation as such. The avoiding pattern is
+rare in the public code we sampled, and the obvious fix would disable a key-type defence
 that the discarded parse makes possible; we give a narrow fix that preserves
 it and have reported the defect upstream.}
 
@@ -269,6 +270,26 @@ from C and by measuring an exception of the same shape with no OpenSSL call.
 Where the attempt is expensive it is almost all parse; the exception is a few
 microseconds. The title's ``key-parse attempt'' is therefore the accurate
 name, and ``discarded exception'' would not be.
+
+How much the attempt costs depends on which OpenSSL release performs it, by more
+than an order of magnitude (Section~\ref{sec:rq2}). Runtimes carrying an OpenSSL
+release from 3.2 onward, which include the current Node.js release lines, pay
+tens of microseconds per validation; runtimes carrying the 3.0 series pay
+hundreds. The 3.0 series is not confined to retired Node.js releases. It is the
+system OpenSSL of long-term-support distributions still in wide use, among them
+Ubuntu 22.04 and Debian 12, and a Node.js build that links the system library
+rather than its bundled copy inherits it; so does any service whose image is
+pinned to an older base layer, which is common in
+practice~\citep{zerouali2019outdated}. At either price the discarded attempt is
+the largest single component of the call, and in every case it is avoidable.
+
+The result is broader than one library in two respects. The design that
+produces the cost --- resolving key material on every call, by way of a parse
+whose failure serves as a type test --- can be named independently of
+\LibraryName{}, and Section~\ref{sec:rq4} shows it predicts which of seven
+libraries pay. And the reason the cost went unattributed is methodological: the
+component that sets its price, the bundled OpenSSL release, is one that
+measurement protocols rarely record at the granularity at which it changes.
 
 \paragraph{Research questions}
 \begin{list}{}{\setlength{\labelwidth}{2.2em}\setlength{\labelsep}{0.5em}%
@@ -493,11 +514,11 @@ removing the cost naively removes the defence.
 Three areas bear directly on this result and we were unable to locate
 verifiable peer-reviewed work in any of them. We state each as an absence we
 searched for rather than as a claim about the whole literature; each is also,
-in part, why the misattribution corrected here survived as long as it did. Two
-further gaps recorded in an earlier draft --- error-construction cost in V8,
-and attribution of key-parsing cost inside OpenSSL --- are now closed by
-measurements in this paper (Sections~\ref{sec:granularity}
-and~\ref{sec:rq2-causal}) and are no longer listed.
+in part, why the misattribution corrected here survived as long as it did.
+Two adjacent questions --- the cost of error construction in V8, and where
+key-parsing cost lies inside OpenSSL --- were equally unstudied, and this paper
+measures both directly (Sections~\ref{sec:granularity}
+and~\ref{sec:rq2-causal}).
 
 \emph{OpenSSL 3.x performance regressions.} We found no peer-reviewed study of
 performance regressions across the OpenSSL 3.x series. Evidence exists as a
@@ -539,8 +560,8 @@ Section~\ref{sec:rq1} were run in \HostInvocations{} separate processes of
 Section~\ref{sec:rq2} in \MatrixInvocations{} processes of
 \MatrixCallsPerInvocation{} calls. The largest between-process coefficient of
 variation is \HostCvMax\% on the host; in the matrix it is \MatrixCvMax\%,
-occurring on the \MatrixCvMaxCondition{} condition under
-\MatrixCvMaxEnvironment{} rather than across the matrix generally.
+occurring on the \texttt{\MatrixCvMaxCondition} condition under
+\texttt{\MatrixCvMaxEnvironment} rather than across the matrix generally.
 
 Bootstrap intervals over \HostInvocations{} or \MatrixInvocations{} units are
 coarse, and we report them as indicative rather than as calibrated coverage.
@@ -818,7 +839,7 @@ penalty: the \DecompResidual~$\mu$s remainder is unattributed
 
 The two emphasised rows are the result. The signature primitive costs
 \HostHmacString~$\mu$s of a \HostJwtString~$\mu$s call. The conversion to which
-the remainder had been attributed, including by us, costs
+the remainder is most readily attributed costs
 \HostCreateSecretKey~$\mu$s. The discarded attempt that precedes that conversion
 costs \HostProbeThrows~$\mu$s, which is \HostProbeShareOfCall\% of the whole call
 and its largest single component.
@@ -830,8 +851,8 @@ Supplying a pre-parsed key instead of a string reduces the call by
 \paragraph{The natural repair is also wrong.} Once the signature primitive is
 shown to be small, one explanation for the remainder suggests itself immediately:
 that the cost lies in converting key material from a string into a key object on
-every call. It is the explanation we held before measuring it, and
-Table~\ref{tab:host} refutes it. That conversion costs
+every call. It is the natural explanation, and Table~\ref{tab:host} refutes
+it. That conversion costs
 \HostCreateSecretKey~$\mu$s, so the attribution is wrong by roughly the ratio
 between that figure and \HostProbeThrows~$\mu$s.
 
@@ -848,11 +869,11 @@ of}\label{sec:granularity}
 The \HostProbeThrows~$\mu$s is the cost of the discarded attempt taken whole. It
 contains at least two things: the work OpenSSL performs before concluding that
 the input is not an asymmetric key, and the construction and unwinding of the
-exception that returns that conclusion to the library. An earlier version of
-this paper could only bound the split, from the observation that a
-\emph{successful} asymmetric parse --- the same entry point, reaching a
-conclusion and throwing nothing --- costs \HostProbeSucceeds~$\mu$s, the same
-order as the failing one. Table~\ref{tab:decomp} replaces the bound with a
+exception that returns that conclusion to the library. Table~\ref{tab:host}
+already bounds the split: a \emph{successful} asymmetric parse --- the same
+entry point, reaching a conclusion and throwing nothing --- costs
+\HostProbeSucceeds~$\mu$s, the same order as the failing one, so the exception
+cannot be most of it. Table~\ref{tab:decomp} replaces the bound with a
 decomposition, combining the C measurement of the same OpenSSL release
 (Section~\ref{sec:c-method}) with the exception baseline
 (Section~\ref{sec:exc-method}) on six official runtimes.
@@ -1040,9 +1061,8 @@ slow images differ in engine major version and do not differ in magnitude; and
 the two libc variants of one image differ by less than the difference between
 series. Separating OpenSSL from the engine requires a crossed design --- a
 runtime pairing a newer engine with an older OpenSSL, or the parse measured
-outside Node entirely. An earlier version of this paper had neither and wrote
-\emph{co-varies with} throughout. Section~\ref{sec:rq2-causal} reports both,
-and it is on them, not on this matrix, that the causal wording now used rests.
+outside Node entirely. Section~\ref{sec:rq2-causal} reports both, and it is on
+them, not on this matrix, that the causal wording used in this paper rests.
 
 \subsection{The effect is confined to key parsing}
 
@@ -1391,14 +1411,13 @@ it. Incidentally, \SampleNoAlgorithms{} of \SampleCallSites{} call sites
 (\SampleNoAlgorithmsPct\%) pass no algorithm restriction, which
 Section~\ref{sec:fix} returns to.
 
-An earlier version of the classifier recognised only the conventional
-\texttt{jwt.verify()} spelling, which filtered the corpus toward one import
-idiom. It was re-run over the previously unclassified residue with a matcher that
-resolves the local binding of the import --- covering arbitrary aliases,
-namespace imports, destructured and renamed imports, and direct calls on the
-require expression. That recovered \SampleRematchAdded{} further call sites,
-included in the totals above, of which \RematchSitesPreparsed{} pass a pre-parsed
-key.
+Matching only the conventional \texttt{jwt.verify()} spelling would filter the
+corpus toward one import idiom, so call sites are found by resolving the local
+binding of the import --- covering arbitrary aliases, namespace imports,
+destructured and renamed imports, and direct calls on the require expression.
+That binding resolution contributes \SampleRematchAdded{} of the call sites
+above that the conventional spelling misses, of which \RematchSitesPreparsed{}
+pass a pre-parsed key.
 
 \paragraph{Targeted counter-search.} A sample can only show a pattern is rare if
 it could have found it. Every file co-occurring the library with the pre-parsing
@@ -1561,15 +1580,13 @@ narrow patch, two key-confusion failures without its guard --- reproduce on the
 x86\_64 machine of Section~\ref{sec:arch-method} under a different Node and
 OpenSSL release~\citep{artifact2026}.
 
-\paragraph{A reduction of our own contribution.} We had written a regression test
-for this property and intended to offer it upstream. Running the library's
-existing suite showed that it already constrains the change: a contributor
-proposing the unrestricted optimisation would be caught by tests they are
-required to run. We therefore withdraw that contribution. What remains is
-narrower and, we think, still worth stating: the cost documented in
-Section~\ref{sec:rq1} cannot be removed by the obvious route, and the reason is a
-property the maintainers already test for but which is not evident from the code
-being changed.
+\paragraph{The existing suite already guards the property.} No new regression
+test is needed: the library's existing suite constrains the change, and a
+contributor proposing the unrestricted optimisation would be caught by tests
+they are required to run. The finding is therefore not a missing test but a
+hidden coupling: the cost documented in Section~\ref{sec:rq1} cannot be removed
+by the obvious route, and the reason is a property the maintainers already test
+for but which is not evident from the code being changed.
 
 The independent defence against this class of confusion is for the caller to
 restrict permitted algorithms~\citep{rfc8725}, and \SampleNoAlgorithmsPct\% of the
@@ -1602,6 +1619,12 @@ a response may postdate publication.
 actually deploys, where the discarded parse costs
 \NodeEighteenProbeThrows~$\mu$s, it removes far more. It requires no
 architectural change, no new component and no movement of a trust boundary.
+On a current runtime bundling OpenSSL~3.5 the saving is smaller ---
+\XlibJsonwebtokenNewSslPenalty~$\mu$s per validation in Table~\ref{tab:xlib} ---
+but it is not negligible beside the \AbCpuPerCallNone~$\mu$s of processor time
+the deployed service spends on a request with validation disabled
+(Table~\ref{tab:ab}). The two figures come from different machines and are
+compared as orders of magnitude only.
 
 \paragraph{Treat the base image as part of the measurement.} The same code, the
 same library and the same architecture differ by \SpanProbeThrows$\times$ on this
@@ -1630,8 +1653,8 @@ property they could assert directly in one argument.
 A cost believed to be cryptographic invites relocation to a sidecar or gateway.
 The cost measured here is not cryptographic and is largely avoidable in place,
 so an architectural remedy that also moves a trust boundary should not be the
-first thing reached for. We implemented the relocation the earlier design
-proposed; applying a mesh validation policy duplicates verification rather
+first thing reached for. We implemented that relocation for the service
+studied here; applying a mesh validation policy duplicates verification rather
 than moving it, and making it effective requires the application to trust a
 proxy-supplied claims header --- a known anti-pattern that needs a filter
 stripping client-supplied copies. We report that only as a design note: it
