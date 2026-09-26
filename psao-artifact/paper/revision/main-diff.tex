@@ -1,7 +1,7 @@
 
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL main_1.tex   Sat Sep 26 07:56:08 2026
-%DIF ADD main.tex     Sat Sep 26 07:56:08 2026
+%DIF DEL main_1.tex   Sat Sep 26 09:49:11 2026
+%DIF ADD main.tex     Sat Sep 26 09:48:43 2026
 %% ============================================================================
 %%  It Is Not the Signature: A Discarded Key-Parse Attempt Dominates Token
 %%  Validation Cost in a Node.js Service
@@ -10,7 +10,7 @@
 %%  two-column, numeric citations).
 %%
 %%  EVERY numeric value in the body is a macro from keypath_macros.tex, which
-%DIF 10-12c10-18
+%DIF 10-12c10-16
 %DIF < %%  the replication package generates from files under data/runs/ and survey/.
 %DIF < %%  No digit is typed below. keypath_macros_provenance.csv maps each macro to
 %DIF < %%  the file it was read from.
@@ -22,11 +22,16 @@
 %%  the cross-library comparison. No digit is typed below. %DIF > 
 %%  keypath_macros_provenance.csv and revision_macros_provenance.csv map each %DIF > 
 %%  macro to the file it was read from. %DIF > 
-%% %DIF > 
-%%  REVISION 2026-09-24 (base: main_1.tex). See CHANGES.md for every edit. %DIF > 
 %DIF -------
 %%
-%%  Figures are built from committed CSVs by figures/make_figures.py.
+%DIF 14c18-21
+%DIF < %%  Figures are built from committed CSVs by figures/make_figures.py.
+%DIF -------
+%%  REVISION 2026-09-24 (base: main_1.tex). See CHANGES.md for every edit. %DIF > 
+%% %DIF > 
+%%  Figures are built from committed data by %DIF > 
+%%  figures/make_revision_standin_figures.py. %DIF > 
+%DIF -------
 %%
 %%  BUILD
 %%      latexmk -pdf main.tex          (or: pdflatex, bibtex, pdflatex x2)
@@ -42,6 +47,21 @@
   \documentclass[10pt,twocolumn,a4paper]{article}%
 }
 
+%DIF 30a37-49
+%% --------------------------------------------------------------------------- %DIF > 
+%%  Page area. In two-column mode sn-jnl sets a 160 x 216 mm text block 26 mm %DIF > 
+%%  from the top of an A4 page, which leaves about 55 mm empty at the foot of %DIF > 
+%%  every page. \fillpagetrue enlarges the text block so pages are used fully. %DIF > 
+%%  Springer re-typesets accepted papers in its own layout, so this only affects %DIF > 
+%%  the submission PDF. Set \fillpagefalse to restore the template exactly. %DIF > 
+%% --------------------------------------------------------------------------- %DIF > 
+\newif\iffillpage %DIF > 
+\fillpagetrue %DIF > 
+\ifdefined\SNJNL\iffillpage %DIF > 
+  \geometry{top=20mm,text={170mm,250mm},headsep=4mm,footskip=8mm,bindingoffset=0mm} %DIF > 
+\fi\fi %DIF > 
+ %DIF > 
+%DIF -------
 \IfFileExists{lmodern.sty}{\usepackage{lmodern}}{} % optional; present on Overleaf
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -50,7 +70,7 @@
 \usepackage{url}
 \usepackage{xcolor}
 \usepackage{listings}
-%DIF 38a44-46
+%DIF 38a58-60
 % sn-jnl.cls declares its footnote set with manyfoot at \begin{document}; %DIF > 
 % main_1.tex no longer loaded it, which stops the build under the class. %DIF > 
 \ifdefined\SNJNL\usepackage{manyfoot}\fi %DIF > 
@@ -61,11 +81,11 @@
 \graphicspath{{figures/}}
 
 \input{keypath_macros}
-%DIF 44a53
+%DIF 44a67
 \input{revision_macros}   % revision items 6, 7, 8, 10 %DIF > 
 %DIF -------
 
-%DIF 45-87c55-57
+%DIF 45-87c69-71
 %DIF < %% ---------------------------------------------------------------------------
 %DIF < %%  A/B corroboration macros (Section~\ref{sec:abcorroboration}).
 %DIF < %%
@@ -135,7 +155,7 @@
   \textbf{[AUTHORS]\ }#1\par\endgroup\fi}
 
 \newcommand{\LibraryName}{\texttt{jsonwebtoken}}
-%DIF 109-111c79-86
+%DIF 109-111c93-100
 %DIF < \newcommand{\LibraryVersion}{\TODO{version~9.0.3}}
 %DIF < \newcommand{\LibraryTag}{\TODO{tag~v9.0.3}}
 %DIF < \newcommand{\CodeFileLines}{\TODO{verify.js, lines 99--110}}
@@ -154,7 +174,7 @@
 %% pinned release; run it and \input the file it writes, which overrides them:
 %%     python3 make_codepath_figure.py path/to/node_modules/jsonwebtoken
 %%     \input{figures/codepath_macros}
-%DIF 117-119c92-96
+%DIF 117-119c106-110
 %DIF < %% The values below are placeholders taken from the package's master branch and
 %DIF < %% MUST be confirmed against the release you actually measured.
 %DIF < \newcommand{\CodeFirstLine}{99}
@@ -166,7 +186,7 @@
 \newcommand{\CodeFirstLine}{120} %DIF > 
 %DIF -------
 \newcommand{\CodeExcerptHash}{sha256:4c4781826f49fa90}
-%DIF 121c98-101
+%DIF 121c112-115
 %DIF < \newcommand{\NaiveFailingTests}{\TODO{both in \texttt{test/wrong\_alg.tests.js}; insert the two \texttt{it()} titles from the failing run}}
 %DIF -------
 %% Read from data/runs/2026-09-24-upstream-suite-x86_64/unrestricted.txt. %DIF > 
@@ -216,7 +236,34 @@ not verify''} %DIF >
   Ku-ber-netes side-car side-cars name-space through-put
   pre-parsed re-pro-duc-i-ble de-ploy-ment mea-sure-ment
 }
-\raggedbottom
+%DIF < \raggedbottom
+%DIF -------
+%% --------------------------------------------------------------------------- %DIF > 
+%%  Page filling. LaTeX's default float limits (at most 70% of a page, at most %DIF > 
+%%  two floats at the top) push floats to later pages and leave columns short; %DIF > 
+%%  with \raggedbottom that showed as blank space at the foot of many pages. %DIF > 
+%%  These values let floats sit where they are first referenced and make both %DIF > 
+%%  columns end at the same height. %DIF > 
+%% --------------------------------------------------------------------------- %DIF > 
+\renewcommand{\topfraction}{0.9} %DIF > 
+\renewcommand{\bottomfraction}{0.8} %DIF > 
+\renewcommand{\textfraction}{0.07} %DIF > 
+\renewcommand{\floatpagefraction}{0.85} %DIF > 
+\renewcommand{\dbltopfraction}{0.9} %DIF > 
+\renewcommand{\dblfloatpagefraction}{0.85} %DIF > 
+\setcounter{topnumber}{4} %DIF > 
+\setcounter{bottomnumber}{3} %DIF > 
+\setcounter{totalnumber}{6} %DIF > 
+\setcounter{dbltopnumber}{3} %DIF > 
+\setlength{\floatsep}{8pt plus 2pt minus 2pt} %DIF > 
+\setlength{\textfloatsep}{10pt plus 2pt minus 3pt} %DIF > 
+\setlength{\intextsep}{8pt plus 2pt minus 2pt} %DIF > 
+\setlength{\dblfloatsep}{8pt plus 2pt minus 2pt} %DIF > 
+\setlength{\dbltextfloatsep}{10pt plus 2pt minus 3pt} %DIF > 
+\flushbottom %DIF > 
+%% A little vertical stretch between paragraphs so \flushbottom can fill a %DIF > 
+%% column without leaving the slack at its foot. %DIF > 
+\AtBeginDocument{\setlength{\parskip}{0pt plus 1.5pt}} %DIF > 
 %DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
 %DIF UNDERLINE PREAMBLE %DIF PREAMBLE
 \RequirePackage[normalem]{ulem} %DIF PREAMBLE
@@ -417,21 +464,42 @@ input is not an asymmetric key, plus the construction and unwinding of the
 exception that carries that decision back to the library.
 \DIFdelbegin \DIFdel{We measure the pair.
 We do not separate them, and }\DIFdelend Section~\ref{sec:granularity} \DIFdelbegin \DIFdel{states the bound our
-data does place on the split. The paper's title and claims are pitched at the granularity we measured}\DIFdelend \DIFaddbegin \DIFadd{separates the two, by reissuing the OpenSSL calls
+data does place on the split. The paper's title and claims are pitched at the granularity we measured.
+}\DIFdelend \DIFaddbegin \DIFadd{separates the two, by reissuing the OpenSSL calls
 from C and by measuring an exception of the same shape with no OpenSSL call.
 Where the attempt is expensive it is almost all parse; the exception is a few
 microseconds. The title's ``key-parse attempt'' is therefore the accurate
-name, and ``discarded exception'' would not be}\DIFaddend .
+name, and ``discarded exception'' would not be.
+}\DIFaddend 
 
 \paragraph{Research questions}
-\begin{description}
-\item[RQ1] Where does the per-request cost of token validation actually go?
-\item[RQ2] What \DIFdelbegin \DIFdel{does }\DIFdelend \DIFaddbegin \DIFadd{governs }\DIFaddend the magnitude of that cost\DIFdelbegin \DIFdel{co-vary with}\DIFdelend ?
-\item[RQ3] Does it matter in a deployed service, and how common is the pattern
+\DIFdelbegin %DIFDELCMD < \begin{description}
+\begin{description}%DIFAUXCMD
+%DIFDELCMD < \item[RQ1] %%%
+\item[\DIFdel{RQ1}]%DIFAUXCMD
+\DIFdel{Where does the per-request cost of token validation actually go?
+}%DIFDELCMD < \item[RQ2] %%%
+\item[\DIFdel{RQ2}]%DIFAUXCMD
+\DIFdel{What does the magnitude of that cost co-vary with?
+}%DIFDELCMD < \item[RQ3] %%%
+\item[\DIFdel{RQ3}]%DIFAUXCMD
+\DIFdel{Does it matter in a deployed service, and how common is the pattern
            that avoids it?
-\DIFaddbegin \item[\DIFadd{RQ4}] \DIFadd{Is the defect a property of one library, or of a design choice other
-           libraries could share?
-}\DIFaddend \end{description}
+}
+\end{description}%DIFAUXCMD
+%DIFDELCMD < \end{description}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \begin{list}{}{\setlength{\labelwidth}{2.2em}\setlength{\labelsep}{0.5em}%
+  \setlength{\leftmargin}{2.7em}\setlength{\itemsep}{1pt}\setlength{\topsep}{2pt}%
+  \setlength{\parsep}{0pt}\renewcommand{\makelabel}[1]{\textbf{#1}\hfill}}
+\item[\DIFadd{RQ1}] Where does the per-request cost of token validation actually go?
+\item[\DIFadd{RQ2}] What governs the magnitude of that cost?
+\item[\DIFadd{RQ3}] Does it matter in a deployed service, and how common is the
+  pattern that avoids it?
+\item[\DIFadd{RQ4}] Is the defect a property of one library, or of a design choice
+  other libraries could share?
+\end{list}
+\DIFaddend 
 
 \paragraph{Contributions} All supported by measurements in the replication
 package~\DIFdelbegin %DIFDELCMD < \cite{artifact2026}%%%
@@ -807,8 +875,10 @@ throws and the case where it succeeds.
 The library measured throughout is \LibraryName{} \LibraryVersion{}, cloned at
 \LibraryTag. The code path at issue is shown in Figure~\ref{fig:codepath}.
 
-\begin{figure}[t]
-\lstinputlisting[firstnumber=\CodeFirstLine]{figures/codepath_excerpt.js}
+\DIFdelbegin %DIFDELCMD < \begin{figure}[t]
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \begin{figure}[!htbp]
+\DIFaddendFL \lstinputlisting[firstnumber=\CodeFirstLine]{figures/codepath_excerpt.js}
 \DIFdelbeginFL %DIFDELCMD < \caption{Key resolution in \LibraryName{} \LibraryVersion{},
 %DIFDELCMD < \texttt{\CodeFileLines}. Verbatim but for the common leading indentation,
 %DIFDELCMD < which is removed to fit the column; line numbers are the file's own. A secret
@@ -827,9 +897,7 @@ that is not already a \texttt{KeyObject} is offered to
 \texttt{createPublicKey()} first, and \texttt{createSecretKey()} is reached only
 from the exception handler. For an HMAC secret supplied as a string the outer
 \texttt{try} can never succeed, so the asymmetric parse is attempted and
-discarded on every validation. The excerpt is extracted from the pinned release
-by \texttt{analysis/make\_codepath\_figure.py} and pinned by content hash
-\texttt{\CodeExcerptHash} in the replication package~\citep{artifact2026}.}
+discarded on every validation.}
 \DIFaddendFL \label{fig:codepath}
 \end{figure}
 
@@ -1057,14 +1125,14 @@ Figure~\ref{fig:decomposition} plots it.
 %DIFDELCMD < \end{tabular}
 %DIFDELCMD < \end{table}
 %DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \begin{table*}[t]
+\DIFdelend \DIFaddbegin \begin{table}[!htbp]
 \caption{Cost of each operation in the validation path. Medians of per-process
 medians over \HostInvocations{} processes of \HostCallsPerInvocation{} calls;
 95\% percentile bootstrap intervals over processes, which with
 \HostInvocations{} units are indicative rather than calibrated
 (Section~\ref{sec:unit}).}
 \label{tab:host}
-\small\setlength{\tabcolsep}{4pt}
+\footnotesize\setlength{\tabcolsep}{1.6pt}
 \begin{tabular}{@{}lrr@{}}
 \toprule
 Operation & Median & 95\% interval \\
@@ -1081,11 +1149,13 @@ structural decode                  & \HostDecodeOnly     & [\HostDecodeOnlyCiLo,
 timer overhead                     & \HostTimerOverhead  & [\HostTimerOverheadCiLo, \HostTimerOverheadCiHi] \\
 \bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 \DIFaddend 
 
-\begin{figure*}[t]
-\centering
+\DIFdelbegin %DIFDELCMD < \begin{figure*}[t]
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \begin{figure*}[!t]
+\DIFaddendFL \centering
 \includegraphics[width=\textwidth]{fig_decomposition.pdf}
 \DIFdelbeginFL %DIFDELCMD < \caption{(a) Every operation in Table~\ref{tab:host}, on a linear scale, with
 %DIFDELCMD < the two components the paper turns on emphasised; whiskers are the 95\%
@@ -1104,8 +1174,7 @@ percentile bootstrap intervals over \HostInvocations{} processes. (b) The
 pre-parsed key, decomposed. The three segments are medians of per-round paired
 differences, not a partition of a single measurement, and they do not sum to the
 penalty: the \DecompResidual~$\mu$s remainder is unattributed
-(Section~\ref{sec:residual}). Both panels are generated from
-\texttt{figures/data/} by \texttt{figures/make\_figures.py}~\citep{artifact2026}.}
+(Section~\ref{sec:residual}).}
 \DIFaddendFL \label{fig:decomposition}
 \end{figure*}
 
@@ -1165,7 +1234,7 @@ decomposition, combining the C measurement of the same OpenSSL release
 (Section~\ref{sec:exc-method}) on six official runtimes.
 }
 
-\begin{table*}[t]
+\begin{table*}[!t]
 \caption{The discarded attempt decomposed, per runtime, in $\mu$s (x86\_64).
 \emph{Probe}: \texttt{createPublicKey(secret)} inside Node, thrown and caught.
 \emph{C parse}: the same OpenSSL calls issued from C against the OpenSSL
@@ -1314,16 +1383,16 @@ and Figure~\ref{fig:matrix} plots the two columns that matter.
 %DIFDELCMD < \end{tabular}
 %DIFDELCMD < \end{table}
 %DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \begin{table*}[t]
+\DIFdelend \DIFaddbegin \begin{table}[!htbp]
 \caption{The same measurement across four container runtimes on one machine,
 \MatrixInvocations{} processes each of \MatrixCallsPerInvocation{} calls. The
 \emph{Disc.\ parse}: the discarded asymmetric parse; \emph{Pre-parsed}:
-\texttt{verify()} with a pre-parsed key. The host row is from
+\texttt{verify()} with a pre-parsed key. $^{\ddagger}$The host row is from
 Table~\ref{tab:host} and is not containerised.
 $^{\dagger}$Inferred from the run timestamp, not recorded per row: that run
 predates the per-measurement OpenSSL field (Section~\ref{sec:threats}).}
 \label{tab:matrix}
-\footnotesize\setlength{\tabcolsep}{3pt}
+\footnotesize\setlength{\tabcolsep}{1.6pt}
 \begin{tabular}{@{}lllrr@{}}
 \toprule
 Runtime & OpenSSL & V8 & Disc.\ parse & Pre-parsed \\
@@ -1333,14 +1402,16 @@ Node \NodeEighteenNodeMajor{} musl        & \NodeEighteenOpensslLiteral       & 
 Node \NodeTwentyNodeMajor{} musl          & \NodeTwentyOpensslLiteral         & \NodeTwentyVeight         & \NodeTwentyProbeThrows         & \NodeTwentyJwtPreparsed \\
 Node \NodeTwentySixMuslNodeMajor{} musl   & \NodeTwentySixMuslOpensslLiteral  & \NodeTwentySixMuslVeight  & \NodeTwentySixMuslProbeThrows  & \NodeTwentySixMuslJwtPreparsed \\
 Node \NodeTwentySixGlibcNodeMajor{} glibc & \NodeTwentySixGlibcOpensslLiteral & \NodeTwentySixGlibcVeight & \NodeTwentySixGlibcProbeThrows & \NodeTwentySixGlibcJwtPreparsed \\
-host, no container                        & \HostOpensslInferred$^{\dagger}$  & \HostVeight               & \HostProbeThrows               & \HostJwtPreparsed \\
+host$^{\ddagger}$                         & \HostOpensslInferred$^{\dagger}$  & \HostVeight               & \HostProbeThrows               & \HostJwtPreparsed \\
 \bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 \DIFaddend 
 
-\begin{figure*}[t]
-\centering
+\DIFdelbegin %DIFDELCMD < \begin{figure*}[t]
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \begin{figure*}[!t]
+\DIFaddendFL \centering
 \includegraphics[width=\textwidth]{fig_runtime_matrix.pdf}
 \DIFdelbeginFL %DIFDELCMD < \caption{The four container rows of Table~\ref{tab:matrix} on a logarithmic
 %DIFDELCMD < axis. The discarded parse spans \SpanProbeThrows$\times$ across images while the
@@ -1357,8 +1428,7 @@ pre-parsed call spans \SpanJwtPreparsed$\times$. The dashed rule marks the
 OpenSSL series boundary. Within this matrix it is not a controlled boundary,
 because the two fast images also carry a newer engine and a different build
 (Section~\ref{sec:cannot-separate}); Section~\ref{sec:rq2-causal} controls it. The uncontainerised host row is omitted
-because its comparison with the container rows is confounded. Generated by
-\texttt{figures/make\_figures.py}~\citep{artifact2026}.}
+because its comparison with the container rows is confounded.}
 \DIFaddendFL \label{fig:matrix}
 \end{figure*}
 
@@ -1437,7 +1507,7 @@ containerisation is constant.
 }\CProbeVersionCount{} \DIFadd{OpenSSL releases built identically.
 }
 
-\begin{table*}[t]
+\begin{table*}[!t]
 \caption{The failed asymmetric parse issued from C, with no JavaScript engine,
 against \CProbeVersionCount{} OpenSSL releases built from source with one
 compiler and one set of flags (x86\_64), in $\mu$s. Medians of per-process
@@ -1508,7 +1578,7 @@ scripts, on x86\_64 (Section~\ref{sec:arch-method}). Absolute values are not
 compared across the two machines; the question is whether the ordering holds.
 }
 
-\begin{table*}[t]
+\begin{table*}[!t]
 \caption{The runtime matrix of Table~\ref{tab:matrix} on two architectures,
 same images and scripts, in $\mu$s. ARM64: \MatrixInvocations{} processes of
 \MatrixCallsPerInvocation{} calls. x86\_64, a shared cloud virtual machine:
@@ -1556,7 +1626,30 @@ run ascending and then descending on one process. Table~\ref{tab:insitu} reports
 the range across the two passes at each rate for the configuration the service
 deploys, a string secret, and Figure~\ref{fig:insitu} plots it.
 
-\begin{table}[t]
+\DIFdelbegin %DIFDELCMD < \begin{table}[t]
+%DIFDELCMD < \caption{In-situ validation cost with a string secret, by arrival rate. The two
+%DIFDELCMD < columns are the ascending and the descending pass over the same seven rates on
+%DIFDELCMD < one process; each is a single window, and the pair is two observations rather
+%DIFDELCMD < than an interval. Host load average during each window is committed with the
+%DIFDELCMD < measurement.}
+%DIFDELCMD < \label{tab:insitu}
+%DIFDELCMD < \begin{tabular}{@{}lrr@{}}
+%DIFDELCMD < \toprule
+%DIFDELCMD < Arrival rate & \multicolumn{2}{c}{Mean per call ($\mu$s)} \\
+%DIFDELCMD < (requests/s) & ascending & descending \\
+%DIFDELCMD < \midrule
+%DIFDELCMD < \InsituRateA & \InsituStringAscA & \InsituStringDescA \\
+%DIFDELCMD < \InsituRateB & \InsituStringAscB & \InsituStringDescB \\
+%DIFDELCMD < \InsituRateC & \InsituStringAscC & \InsituStringDescC \\
+%DIFDELCMD < \InsituRateD & \InsituStringAscD & \InsituStringDescD \\
+%DIFDELCMD < \InsituRateE & \InsituStringAscE & \InsituStringDescE \\
+%DIFDELCMD < \InsituRateF & \InsituStringAscF & \InsituStringDescF \\
+%DIFDELCMD < \InsituRateG & \InsituStringAscG & \InsituStringDescG \\
+%DIFDELCMD < \bottomrule
+%DIFDELCMD < \end{tabular}
+%DIFDELCMD < \end{table}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \begin{table}[!htbp]
 \caption{In-situ validation cost with a string secret, by arrival rate. The two
 columns are the ascending and the descending pass over the same seven rates on
 one process; each is a single window, and the pair is two observations rather
@@ -1578,9 +1671,12 @@ Arrival rate & \multicolumn{2}{c}{Mean per call ($\mu$s)} \\
 \bottomrule
 \end{tabular}
 \end{table}
+\DIFaddend 
 
-\begin{figure}[t]
-\centering
+\DIFdelbegin %DIFDELCMD < \begin{figure}[t]
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \begin{figure}[!htbp]
+\DIFaddendFL \centering
 \includegraphics[width=\columnwidth]{fig_insitu_rate.pdf}
 \DIFdelbeginFL %DIFDELCMD < \caption{In-situ validation cost against arrival rate, string secret. The two
 %DIFDELCMD < passes are drawn separately rather than averaged: Section~\ref{sec:drift} reports
@@ -1593,8 +1689,7 @@ Arrival rate & \multicolumn{2}{c}{Mean per call ($\mu$s)} \\
 passes are drawn separately rather than averaged: Section~\ref{sec:drift} reports
 that they differ systematically, and averaging would conceal that. The shaded
 band is the range between the passes, which is two observations rather than an
-interval. Generated by
-\texttt{figures/make\_figures.py}~\citep{artifact2026}.}
+interval.}
 \DIFaddendFL \label{fig:insitu}
 \end{figure}
 
@@ -1733,7 +1828,7 @@ Table~\ref{tab:ab} reports it.
 %DIFDELCMD < \end{tabular}
 %DIFDELCMD < \end{table}
 %DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \begin{table}[t]
+\DIFdelend \DIFaddbegin \begin{table}[!htbp]
 \caption{Validation enabled against validation disabled, at one arrival rate,
 two \AbWindowSecondsJwt~s windows on the same pod and image, \AbRequestsNone{}
 requests each. A signed token is on the wire in both arms; the disabled arm
@@ -1939,7 +2034,7 @@ that the material is a shared secret}}\DIFadd{. Table~\ref{tab:xlib} tests the
 prediction against six further libraries.
 }
 
-\begin{table*}[t]
+\begin{table*}[!t]
 \caption{HS256 verification across seven JWT libraries in four languages
 (x86\_64), in $\mu$s. \emph{Asym.\ first?}: given a string HMAC secret, does
 the library attempt to parse it as an asymmetric key, as read from its source.

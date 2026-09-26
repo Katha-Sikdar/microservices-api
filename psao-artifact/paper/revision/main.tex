@@ -17,7 +17,8 @@
 %%
 %%  REVISION 2026-09-24 (base: main_1.tex). See CHANGES.md for every edit.
 %%
-%%  Figures are built from committed CSVs by figures/make_figures.py.
+%%  Figures are built from committed data by
+%%  figures/make_revision_standin_figures.py.
 %%
 %%  BUILD
 %%      latexmk -pdf main.tex          (or: pdflatex, bibtex, pdflatex x2)
@@ -32,6 +33,19 @@
 }{%
   \documentclass[10pt,twocolumn,a4paper]{article}%
 }
+
+%% ---------------------------------------------------------------------------
+%%  Page area. In two-column mode sn-jnl sets a 160 x 216 mm text block 26 mm
+%%  from the top of an A4 page, which leaves about 55 mm empty at the foot of
+%%  every page. \fillpagetrue enlarges the text block so pages are used fully.
+%%  Springer re-typesets accepted papers in its own layout, so this only affects
+%%  the submission PDF. Set \fillpagefalse to restore the template exactly.
+%% ---------------------------------------------------------------------------
+\newif\iffillpage
+\fillpagetrue
+\ifdefined\SNJNL\iffillpage
+  \geometry{top=20mm,text={170mm,250mm},headsep=4mm,footskip=8mm,bindingoffset=0mm}
+\fi\fi
 
 \IfFileExists{lmodern.sty}{\usepackage{lmodern}}{} % optional; present on Overleaf
 \usepackage{amsmath}
@@ -141,7 +155,32 @@ not verify''}
   Ku-ber-netes side-car side-cars name-space through-put
   pre-parsed re-pro-duc-i-ble de-ploy-ment mea-sure-ment
 }
-\raggedbottom
+%% ---------------------------------------------------------------------------
+%%  Page filling. LaTeX's default float limits (at most 70% of a page, at most
+%%  two floats at the top) push floats to later pages and leave columns short;
+%%  with \raggedbottom that showed as blank space at the foot of many pages.
+%%  These values let floats sit where they are first referenced and make both
+%%  columns end at the same height.
+%% ---------------------------------------------------------------------------
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.85}
+\renewcommand{\dbltopfraction}{0.9}
+\renewcommand{\dblfloatpagefraction}{0.85}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{6}
+\setcounter{dbltopnumber}{3}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{10pt plus 2pt minus 3pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\setlength{\dblfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\dbltextfloatsep}{10pt plus 2pt minus 3pt}
+\flushbottom
+%% A little vertical stretch between paragraphs so \flushbottom can fill a
+%% column without leaving the slack at its foot.
+\AtBeginDocument{\setlength{\parskip}{0pt plus 1.5pt}}
 
 \begin{document}
 
@@ -232,14 +271,16 @@ microseconds. The title's ``key-parse attempt'' is therefore the accurate
 name, and ``discarded exception'' would not be.
 
 \paragraph{Research questions}
-\begin{description}
+\begin{list}{}{\setlength{\labelwidth}{2.2em}\setlength{\labelsep}{0.5em}%
+  \setlength{\leftmargin}{2.7em}\setlength{\itemsep}{1pt}\setlength{\topsep}{2pt}%
+  \setlength{\parsep}{0pt}\renewcommand{\makelabel}[1]{\textbf{#1}\hfill}}
 \item[RQ1] Where does the per-request cost of token validation actually go?
 \item[RQ2] What governs the magnitude of that cost?
-\item[RQ3] Does it matter in a deployed service, and how common is the pattern
-           that avoids it?
-\item[RQ4] Is the defect a property of one library, or of a design choice other
-           libraries could share?
-\end{description}
+\item[RQ3] Does it matter in a deployed service, and how common is the
+  pattern that avoids it?
+\item[RQ4] Is the defect a property of one library, or of a design choice
+  other libraries could share?
+\end{list}
 
 \paragraph{Contributions} All supported by measurements in the replication
 package~\citep{artifact2026}.
@@ -532,7 +573,7 @@ throws and the case where it succeeds.
 The library measured throughout is \LibraryName{} \LibraryVersion{}, cloned at
 \LibraryTag. The code path at issue is shown in Figure~\ref{fig:codepath}.
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \lstinputlisting[firstnumber=\CodeFirstLine]{figures/codepath_excerpt.js}
 \caption{Key resolution in \LibraryName{} \LibraryVersion{},
 \texttt{\CodeFileLines}. Verbatim but for the common leading indentation,
@@ -541,9 +582,7 @@ that is not already a \texttt{KeyObject} is offered to
 \texttt{createPublicKey()} first, and \texttt{createSecretKey()} is reached only
 from the exception handler. For an HMAC secret supplied as a string the outer
 \texttt{try} can never succeed, so the asymmetric parse is attempted and
-discarded on every validation. The excerpt is extracted from the pinned release
-by \texttt{analysis/make\_codepath\_figure.py} and pinned by content hash
-\texttt{\CodeExcerptHash} in the replication package~\citep{artifact2026}.}
+discarded on every validation.}
 \label{fig:codepath}
 \end{figure}
 
@@ -737,14 +776,14 @@ Table~\ref{tab:host} gives each operation in the validation path, timed in
 isolation on the host under the protocol of Section~\ref{sec:method}, and
 Figure~\ref{fig:decomposition} plots it.
 
-\begin{table*}[t]
+\begin{table}[!htbp]
 \caption{Cost of each operation in the validation path. Medians of per-process
 medians over \HostInvocations{} processes of \HostCallsPerInvocation{} calls;
 95\% percentile bootstrap intervals over processes, which with
 \HostInvocations{} units are indicative rather than calibrated
 (Section~\ref{sec:unit}).}
 \label{tab:host}
-\small\setlength{\tabcolsep}{4pt}
+\footnotesize\setlength{\tabcolsep}{1.6pt}
 \begin{tabular}{@{}lrr@{}}
 \toprule
 Operation & Median & 95\% interval \\
@@ -761,9 +800,9 @@ structural decode                  & \HostDecodeOnly     & [\HostDecodeOnlyCiLo,
 timer overhead                     & \HostTimerOverhead  & [\HostTimerOverheadCiLo, \HostTimerOverheadCiHi] \\
 \bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 
-\begin{figure*}[t]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{fig_decomposition.pdf}
 \caption{(a) Every operation in Table~\ref{tab:host}, on a linear scale, with
@@ -773,8 +812,7 @@ percentile bootstrap intervals over \HostInvocations{} processes. (b) The
 pre-parsed key, decomposed. The three segments are medians of per-round paired
 differences, not a partition of a single measurement, and they do not sum to the
 penalty: the \DecompResidual~$\mu$s remainder is unattributed
-(Section~\ref{sec:residual}). Both panels are generated from
-\texttt{figures/data/} by \texttt{figures/make\_figures.py}~\citep{artifact2026}.}
+(Section~\ref{sec:residual}).}
 \label{fig:decomposition}
 \end{figure*}
 
@@ -819,7 +857,7 @@ decomposition, combining the C measurement of the same OpenSSL release
 (Section~\ref{sec:c-method}) with the exception baseline
 (Section~\ref{sec:exc-method}) on six official runtimes.
 
-\begin{table*}[t]
+\begin{table*}[!t]
 \caption{The discarded attempt decomposed, per runtime, in $\mu$s (x86\_64).
 \emph{Probe}: \texttt{createPublicKey(secret)} inside Node, thrown and caught.
 \emph{C parse}: the same OpenSSL calls issued from C against the OpenSSL
@@ -931,16 +969,16 @@ process is doing.
 Table~\ref{tab:matrix} varies the runtime with containerisation held constant,
 and Figure~\ref{fig:matrix} plots the two columns that matter.
 
-\begin{table*}[t]
+\begin{table}[!htbp]
 \caption{The same measurement across four container runtimes on one machine,
 \MatrixInvocations{} processes each of \MatrixCallsPerInvocation{} calls. The
 \emph{Disc.\ parse}: the discarded asymmetric parse; \emph{Pre-parsed}:
-\texttt{verify()} with a pre-parsed key. The host row is from
+\texttt{verify()} with a pre-parsed key. $^{\ddagger}$The host row is from
 Table~\ref{tab:host} and is not containerised.
 $^{\dagger}$Inferred from the run timestamp, not recorded per row: that run
 predates the per-measurement OpenSSL field (Section~\ref{sec:threats}).}
 \label{tab:matrix}
-\footnotesize\setlength{\tabcolsep}{3pt}
+\footnotesize\setlength{\tabcolsep}{1.6pt}
 \begin{tabular}{@{}lllrr@{}}
 \toprule
 Runtime & OpenSSL & V8 & Disc.\ parse & Pre-parsed \\
@@ -950,12 +988,12 @@ Node \NodeEighteenNodeMajor{} musl        & \NodeEighteenOpensslLiteral       & 
 Node \NodeTwentyNodeMajor{} musl          & \NodeTwentyOpensslLiteral         & \NodeTwentyVeight         & \NodeTwentyProbeThrows         & \NodeTwentyJwtPreparsed \\
 Node \NodeTwentySixMuslNodeMajor{} musl   & \NodeTwentySixMuslOpensslLiteral  & \NodeTwentySixMuslVeight  & \NodeTwentySixMuslProbeThrows  & \NodeTwentySixMuslJwtPreparsed \\
 Node \NodeTwentySixGlibcNodeMajor{} glibc & \NodeTwentySixGlibcOpensslLiteral & \NodeTwentySixGlibcVeight & \NodeTwentySixGlibcProbeThrows & \NodeTwentySixGlibcJwtPreparsed \\
-host, no container                        & \HostOpensslInferred$^{\dagger}$  & \HostVeight               & \HostProbeThrows               & \HostJwtPreparsed \\
+host$^{\ddagger}$                         & \HostOpensslInferred$^{\dagger}$  & \HostVeight               & \HostProbeThrows               & \HostJwtPreparsed \\
 \bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 
-\begin{figure*}[t]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{fig_runtime_matrix.pdf}
 \caption{The four container rows of Table~\ref{tab:matrix} on a logarithmic
@@ -964,8 +1002,7 @@ pre-parsed call spans \SpanJwtPreparsed$\times$. The dashed rule marks the
 OpenSSL series boundary. Within this matrix it is not a controlled boundary,
 because the two fast images also carry a newer engine and a different build
 (Section~\ref{sec:cannot-separate}); Section~\ref{sec:rq2-causal} controls it. The uncontainerised host row is omitted
-because its comparison with the container rows is confounded. Generated by
-\texttt{figures/make\_figures.py}~\citep{artifact2026}.}
+because its comparison with the container rows is confounded.}
 \label{fig:matrix}
 \end{figure*}
 
@@ -1034,7 +1071,7 @@ Table~\ref{tab:cprobe} removes Node entirely: the OpenSSL calls
 \texttt{createPublicKey()} makes for an HMAC secret, issued from C against
 \CProbeVersionCount{} OpenSSL releases built identically.
 
-\begin{table*}[t]
+\begin{table*}[!t]
 \caption{The failed asymmetric parse issued from C, with no JavaScript engine,
 against \CProbeVersionCount{} OpenSSL releases built from source with one
 compiler and one set of flags (x86\_64), in $\mu$s. Medians of per-process
@@ -1101,7 +1138,7 @@ Table~\ref{tab:arch} repeats the runtime matrix, with the same images and
 scripts, on x86\_64 (Section~\ref{sec:arch-method}). Absolute values are not
 compared across the two machines; the question is whether the ordering holds.
 
-\begin{table*}[t]
+\begin{table*}[!t]
 \caption{The runtime matrix of Table~\ref{tab:matrix} on two architectures,
 same images and scripts, in $\mu$s. ARM64: \MatrixInvocations{} processes of
 \MatrixCallsPerInvocation{} calls. x86\_64, a shared cloud virtual machine:
@@ -1148,7 +1185,7 @@ run ascending and then descending on one process. Table~\ref{tab:insitu} reports
 the range across the two passes at each rate for the configuration the service
 deploys, a string secret, and Figure~\ref{fig:insitu} plots it.
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{In-situ validation cost with a string secret, by arrival rate. The two
 columns are the ascending and the descending pass over the same seven rates on
 one process; each is a single window, and the pair is two observations rather
@@ -1171,15 +1208,14 @@ Arrival rate & \multicolumn{2}{c}{Mean per call ($\mu$s)} \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=\columnwidth]{fig_insitu_rate.pdf}
 \caption{In-situ validation cost against arrival rate, string secret. The two
 passes are drawn separately rather than averaged: Section~\ref{sec:drift} reports
 that they differ systematically, and averaging would conceal that. The shaded
 band is the range between the passes, which is two observations rather than an
-interval. Generated by
-\texttt{figures/make\_figures.py}~\citep{artifact2026}.}
+interval.}
 \label{fig:insitu}
 \end{figure}
 
@@ -1275,7 +1311,7 @@ running the same image, and read the processor time the application container
 was charged from its cgroup accounting rather than from a clock.
 Table~\ref{tab:ab} reports it.
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{Validation enabled against validation disabled, at one arrival rate,
 two \AbWindowSecondsJwt~s windows on the same pod and image, \AbRequestsNone{}
 requests each. A signed token is on the wire in both arms; the disabled arm
@@ -1395,7 +1431,7 @@ attempting the asymmetric parse first, and treating its failure as the signal
 that the material is a shared secret}. Table~\ref{tab:xlib} tests the
 prediction against six further libraries.
 
-\begin{table*}[t]
+\begin{table*}[!t]
 \caption{HS256 verification across seven JWT libraries in four languages
 (x86\_64), in $\mu$s. \emph{Asym.\ first?}: given a string HMAC secret, does
 the library attempt to parse it as an asymmetric key, as read from its source.

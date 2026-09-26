@@ -9,7 +9,7 @@ cp "$HERE/main.tex" "$HERE/main_1.tex" "$HERE/CHANGES.md" "$HERE/sn-fallback.tex
 [ -f "$HERE/main.pdf" ] && cp "$HERE/main.pdf" "$T/"
 [ -f "$HERE/main-diff.tex" ] && cp "$HERE/main-diff.tex" "$T/"
 [ -f "$HERE/main-diff.pdf" ] && cp "$HERE/main-diff.pdf" "$T/"
-[ -f "$HERE/main-diff-round2.pdf" ] && cp "$HERE/main-diff-round2.pdf" "$T/"
+[ -f "$HERE/main-diff-round3.pdf" ] && cp "$HERE/main-diff-round3.pdf" "$T/"
 cp "$P/keypath_macros.tex" "$P/revision_macros.tex" "$P/discarded-exception.bib" \
    "$P/sn-jnl.cls" "$P/sn-basic.bst" "$T/"
 cp "$P/keypath_macros_provenance.csv" "$P/revision_macros_provenance.csv" "$T/provenance/"

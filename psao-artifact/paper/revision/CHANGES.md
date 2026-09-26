@@ -69,3 +69,26 @@ measured value was typed.
 | Abstract ≈380 words | Rewritten to 221 words, leading with the methodology lesson |
 | Tables overflowing the column | Tables 1 and 3 are now full-width; the A/B table is compact; the cross-library table scales to text width. **Build has 0 overfull boxes** |
 | Figures | All three regenerated from committed data with a colour-blind-safe palette, legends outside the data, identity by marker as well as colour: Fig. 2 (decomposition), Fig. 3 (runtime matrix), Fig. 4 (in-situ, now matching its caption: string secret, two passes, shaded range) |
+
+# Third round (2026-09-26): layout and cosmetics
+
+- **Blank space at the foot of pages.** Cause: in two-column mode `sn-jnl.cls`
+  fixes a 160 x 216 mm text block 26 mm from the top of an A4 page, leaving
+  ~55 mm empty on every page. A switch `\fillpagetrue` (preamble, "Page area")
+  enlarges it to 170 x 250 mm. Springer re-typesets accepted papers, so this
+  affects only the submission PDF; `\fillpagefalse` restores the template
+  exactly. 33 pages -> 21.
+- **Floats.** Float limits relaxed (`\topfraction`, `\dbltopfraction`, counts,
+  `\floatpagefraction`), float separation tightened, single-column floats
+  `[!htbp]`, wide floats `[!t]`, `\flushbottom` instead of `\raggedbottom`, so
+  floats sit near their first reference and both columns end level.
+- **Tables 1 and 3** moved back to single-column (compact font); the stretched
+  full-width versions left large gaps.
+- **Research questions** set as a hanging-indent list (labels no longer
+  collide with the text).
+- **Figure 1** keeps `\label{fig:codepath}` (the pasted version had it
+  commented out, which would print "Figure ??"); the caption sentence about
+  extraction and hash is dropped as in the pasted version.
+- **Figure captions** no longer name `figures/make_figures.py`, which is not in
+  the repository (consistent with the pasted in-situ caption).
+- Build: 0 errors, 0 overfull boxes, 0 undefined references.

@@ -8,7 +8,7 @@ Compiles cleanly with TeX Live 2023 and the bundled `sn-jnl.cls`.
 | `main.tex` | **the revised manuscript** (base: your `main_1.tex`) |
 | `main.pdf` | compiled |
 | `main-diff.pdf` | every change against your original `main_1.tex` |
-| `main-diff-round2.pdf` | only this round's changes (citations, abstract, A/B, threats, tables, figures, backmatter) |
+| `main-diff-round3.pdf` | only the latest round's changes (page layout, float placement, RQ list, captions) |
 | `main_1.tex` | your version, unchanged |
 | `CHANGES.md` | every edit, why, and what is still for the authors |
 | `UPSTREAM_STATUS.md` | auth0/node-jsonwebtoken #966 / #1046 / #1047 status and draft comment |
