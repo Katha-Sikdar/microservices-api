@@ -453,6 +453,35 @@ else:
     MISSING.append('XmEighteenProbeThrows')
 
 # =============================================================================
+# Between-process dispersion of the x86_64-only runs (shared VM). The largest
+# coefficient of variation of per-process medians across every condition that
+# carries a claim; the timer-overhead rows are excluded (their CV is the clock's
+# resolution, not the machine's noise). Added 2026-09-26.
+# =============================================================================
+def cv_max(csvpath: Path, keys: list[str], exclude=('timer_overhead',)):
+    d = pd.read_csv(csvpath)
+    d = d[~d['condition'].isin(exclude)]
+    g = d.groupby(keys)['median_us']
+    cv = 100 * g.std(ddof=1) / g.mean()
+    return float(cv.max()), float(cv.median())
+
+if C:
+    _mx, _md = cv_max(C / 'openssl_c_probe.csv', ['openssl_requested', 'condition'])
+    put('CProbeCvMedian', _md, C / 'openssl_c_probe.csv', '{:.1f}')
+    put('CProbeCvMax', _mx,
+        C / 'openssl_c_probe.csv', '{:.1f}')
+if E:
+    _mx, _md = cv_max(E / 'exception_cost.csv', ['environment', 'condition'])
+    put('ExcCvMedian', _md, E / 'exception_cost.csv', '{:.1f}')
+    put('ExcCvMax', _mx,
+        E / 'exception_cost.csv', '{:.1f}')
+if X:
+    _mx, _md = cv_max(X / 'crosslib.csv', ['library', 'crypto_backend', 'condition'])
+    put('XlibCvMedian', _md, X / 'crosslib.csv', '{:.1f}')
+    put('XlibCvMax', _mx,
+        X / 'crosslib.csv', '{:.1f}')
+
+# =============================================================================
 ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
 ap.add_argument('--out', default=str(ROOT / 'paper' / 'revision_macros.tex'))
 args = ap.parse_args()

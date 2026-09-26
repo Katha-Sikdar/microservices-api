@@ -11,6 +11,7 @@ AbCpuSampleMinJwt,114.963,data/runs/INSITU-AB-authmode-jwt/pod_cpu_samples.csv
 AbCpuSampleMinNone,53.088,data/runs/INSITU-AB-authmode-none/pod_cpu_samples.csv
 AbCpuSamplesJwt,127,data/runs/INSITU-AB-authmode-jwt/pod_cpu_samples.csv
 AbCpuSamplesNone,127,data/runs/INSITU-AB-authmode-none/pod_cpu_samples.csv
+AbCpuVsPredictedPct,0.8,data/runs/INSITU-AB-authmode-jwt/openloop_ramp.csv
 AbEventLoopLagJwt,3.159,data/runs/INSITU-AB-authmode-jwt/openloop_ramp.csv
 AbEventLoopLagNone,3.137,data/runs/INSITU-AB-authmode-none/openloop_ramp.csv
 AbGapSeconds,78,data/runs/INSITU-AB-authmode-jwt/run_metadata.json
@@ -82,6 +83,8 @@ HostJwtStringSafe,7.208,data/runs/2026-09-17T08-42-17Z-keypath-mechanism/keypath
 HostJwtStringSafeCiHi,7.334,data/runs/2026-09-17T08-42-17Z-keypath-mechanism/keypath_stats.json
 HostJwtStringSafeCiLo,7.125,data/runs/2026-09-17T08-42-17Z-keypath-mechanism/keypath_stats.json
 HostNodeVersion,26.6.0,data/runs/2026-09-17T08-42-17Z-keypath-mechanism/keypath_stats.json
+HostOpensslAfterDrift,3.6.4,data/runs/HOST-OPENSSL-DRIFT-2026-09-17.md
+HostOpensslInferred,3.6.3,data/runs/HOST-OPENSSL-DRIFT-2026-09-17.md
 HostProbeShareOfCall,60,data/runs/2026-09-17T08-42-17Z-keypath-mechanism/keypath_stats.json
 HostProbeSucceeds,13.83,data/runs/2026-09-17T08-42-17Z-keypath-mechanism/keypath_stats.json
 HostProbeSucceedsCiHi,13.92,data/runs/2026-09-17T08-42-17Z-keypath-mechanism/keypath_stats.json

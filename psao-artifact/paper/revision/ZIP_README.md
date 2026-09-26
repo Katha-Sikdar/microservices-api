@@ -7,17 +7,17 @@ Compiles cleanly with TeX Live 2023 and the bundled `sn-jnl.cls`.
 |---|---|
 | `main.tex` | **the revised manuscript** (base: your `main_1.tex`) |
 | `main.pdf` | compiled |
-| `main-diff.tex`, `main-diff.pdf` | `latexdiff main_1.tex main.tex` — every change marked |
+| `main-diff.pdf` | every change against your original `main_1.tex` |
+| `main-diff-round2.pdf` | only this round's changes (citations, abstract, A/B, threats, tables, figures, backmatter) |
 | `main_1.tex` | your version, unchanged |
 | `CHANGES.md` | every edit, why, and what is still for the authors |
 | `UPSTREAM_STATUS.md` | auth0/node-jsonwebtoken #966 / #1046 / #1047 status and draft comment |
 | `keypath_macros.tex` | original measurements (regenerated; additions only — see CHANGES.md) |
 | `revision_macros.tex` | the new measurements (C probe, exception baseline, x86_64, cross-library) |
 | `provenance/*.csv` | each macro → the run file it was read from |
-| `discarded-exception.bib` | 60 scholarly references + 2 issue entries |
+| `discarded-exception.bib` | 60 scholarly references (the upstream issues are linked directly in the text) |
 | `figures/codepath_excerpt.js` | verify.js lines 120–130 at v9.0.3 (sha256 prefix matches `\CodeExcerptHash`) |
-| `figures/fig_decomposition.pdf`, `figures/fig_runtime_matrix.pdf` | **stand-ins** drawn from the committed data by `figures/make_revision_standin_figures.py`; replace with your originals if you have them |
-| `figures/fig_insitu_rate.pdf` | from the repository |
+| `figures/fig_decomposition.pdf`, `figures/fig_runtime_matrix.pdf`, `figures/fig_insitu_rate.pdf` | generated from the committed data by `figures/make_revision_standin_figures.py` |
 | `sn-fallback.tex` | minimal stand-in, used only if `sn-jnl.cls` is absent |
 
 The measurement code and every run directory are in the repository

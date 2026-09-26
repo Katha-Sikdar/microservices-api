@@ -52,3 +52,20 @@ measured value was typed.
 5. **Dedicated x86_64 repetition (item 8).** The x86_64 numbers come from a shared 4-vCPU cloud VM, which the paper uses for ordering only. To turn it into a replication of magnitudes, run on a dedicated box (e.g. AWS c7i metal / Hetzner dedicated):
    `experiments/build_openssl_versions.sh && experiments/fetch_node_runtimes.sh && PSAO_ENV_LABEL=x86_64-dedicated experiments/run_revision_suite.sh`
 6. `figures/fig_decomposition.pdf`, `figures/fig_runtime_matrix.pdf` and `sn-fallback.tex` are referenced by your file but are not in the repository. The zip includes stand-in versions generated from the committed data (see the zip README) so the archive compiles; replace them with your originals if you have them.
+
+# Second round (2026-09-26): review-readiness fixes
+
+| Issue raised | Fix |
+|---|---|
+| Citations read "Jin et al. Jin et al (2012)" — `sn-basic` renders `\cite` author-year, so names typed before it doubled | Every "X et al.~\cite" / "X and Y~\cite" became `\citet{}` (51); every other citation `\citep{}` (30). No doubled names remain (checked on the compiled text) |
+| "The authors (2026)" citing our own upstream issue | Both GitHub issues (#966, #1046) are now linked directly in footnotes; their bib entries were removed |
+| Funding / author-contributions placeholders | Funding: "The authors did not receive support from any organization for the submitted work." Author contributions: CRediT statement, first author led — **check the roles before submission** |
+| Zenodo DOI | Removed. The artifact is cited by its GitHub URL only (`https://github.com/Katha-Sikdar/microservices-api`, directory `psao-artifact/`); add the Zenodo ID later in `discarded-exception.bib` → `artifact2026` |
+| Headline 18.04 µs has no recorded OpenSSL version | Threat paragraph rewritten: version inferred from the timestamped drift note (OpenSSL 3.6.3, macro `\HostOpensslInferred`, read from `HOST-OPENSSL-DRIFT-2026-09-17.md`); Table 3 host row shows it with a † "inferred, not recorded". Bounded by three version-recorded measurements of the same probe (Node 26.10.0/3.5.8, x86_64 host/3.5.5, Node 26 glibc/3.5.7) — all the same order, all post-3.2 |
+| Deployment gap 453–1028 µs vs ≈381 µs, "unreconciled" | **Reconciled on processor time.** The A/B section now uses the committed cgroup CPU data: validation adds 384.6 µs of CPU per call, within 0.8% of the 381 µs microbenchmark prediction (new macro `\AbCpuVsPredictedPct`). The wall-clock excess is time off the processor on a shared host. New Table (A/B) replaces the unmapped `\AB…` alias block, which is removed |
+| Single rater | Unchanged, by your choice (threat paragraph kept as is) |
+| C probe / exception / cross-library only on a shared VM | Threat paragraph now quantifies the VM's noise: median between-process CV 1.5% / 2.9% / 2.8% in the three runs; the maxima (≈20–28%) are on sub-µs or JIT-dominated conditions that carry no claim |
+| §9.1 sidecar relocation | Cut from ~600 words to one paragraph; details left to the replication package |
+| Abstract ≈380 words | Rewritten to 221 words, leading with the methodology lesson |
+| Tables overflowing the column | Tables 1 and 3 are now full-width; the A/B table is compact; the cross-library table scales to text width. **Build has 0 overfull boxes** |
+| Figures | All three regenerated from committed data with a colour-blind-safe palette, legends outside the data, identity by marker as well as colour: Fig. 2 (decomposition), Fig. 3 (runtime matrix), Fig. 4 (in-situ, now matching its caption: string secret, two passes, shaded range) |

@@ -459,6 +459,26 @@ if 'Jwt' in _ab_cpu and 'None' in _ab_cpu:
 else:
     MISSING.extend(['AbCpuDelta', 'AbCpuPerCallDelta', 'AbLatencyDeltaUs'])
 
+# CPU the validation call adds per request, against the per-call cost the
+# runtime matrix predicts for the deployed runtime (node:18.20.8-alpine). The
+# in-situ WALL-CLOCK means exceed that prediction; this is the processor-time
+# check on the same question. Added 2026-09-26.
+if 'Jwt' in _ab_cpu and 'None' in _ab_cpu and mx:
+    _pred = (cond(mx, 'node:18.20.8-alpine', 'probe_throws')
+             + cond(mx, 'node:18.20.8-alpine', 'jwt_hs_preparsed'))
+    _delta = (_ab_cpu['Jwt'][0] - _ab_cpu['None'][0]) / _ab_cpu['Jwt'][1] * 1000.0
+    put('AbCpuVsPredictedPct', 100.0 * abs(_delta - _pred) / _pred, AB['Jwt'] / 'openloop_ramp.csv', '{:.1f}')
+
+# The host decomposition predates the per-row OpenSSL field. The version in
+# force at the time is recorded by timestamp in the drift note; it is emitted
+# from that note so the manuscript cannot state a different one.
+_drift = RUNS / 'HOST-OPENSSL-DRIFT-2026-09-17.md'
+if _drift.exists():
+    _m = re.search(r"from (\d+\.\d+\.\d+) to (\d+\.\d+\.\d+)", _drift.read_text())
+    if _m:
+        put('HostOpensslInferred', _m.group(1), _drift)
+        put('HostOpensslAfterDrift', _m.group(2), _drift)
+
 # Idle gap between the two windows. The enabled arm ran second, so its
 # window-start load average still carries a decaying contribution from the
 # disabled arm; the gap is what says how much decay there was time for.

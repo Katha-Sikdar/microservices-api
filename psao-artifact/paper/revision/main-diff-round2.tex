@@ -1,4 +1,7 @@
 
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL main_prev.tex   Sat Sep 26 07:56:08 2026
+%DIF ADD main.tex        Sat Sep 26 07:56:08 2026
 %% ============================================================================
 %%  It Is Not the Signature: A Discarded Key-Parse Attempt Dominates Token
 %%  Validation Cost in a Node.js Service
@@ -52,9 +55,55 @@
 \input{keypath_macros}
 \input{revision_macros}   % revision items 6, 7, 8, 10
 
-%% A/B corroboration (Section~\ref{sec:abcorroboration}) reads the cgroup CPU
-%% macros \Ab... that make_keypath_macros.py emits; the earlier \AB... alias
-%% block and its no-numbers fallback are no longer needed and were removed.
+%DIF 55-97c55-57
+%DIF < %% ---------------------------------------------------------------------------
+%DIF < %%  A/B corroboration macros (Section~\ref{sec:abcorroboration}).
+%DIF < %%
+%DIF < %%  ALIAS BLOCK — edit ONLY this, then delete it once the names match.
+%DIF < %%  make_keypath_macros.py emits its own A/B names; map them on with \let, e.g.
+%DIF < %%
+%DIF < %%      \let\ABEnabledMean\AbValidationOnMeanUs
+%DIF < %%
+%DIF < %%  or rename in the generator and drop this block. The \providecommand lines
+%DIF < %%  render "??" so an unmapped macro cannot be shipped by accident.
+%DIF < %% ---------------------------------------------------------------------------
+%DIF < \providecommand{\ABRunId}{??}          % run directory, e.g. INSITU-2026-09-14-ab
+%DIF < \providecommand{\ABRate}{??}           % arrival rate, requests/s
+%DIF < \providecommand{\ABWindowSeconds}{??}  % window duration, seconds
+%DIF < \providecommand{\ABEnabledMean}{??}    % per-call mean, validation enabled (us)
+%DIF < \providecommand{\ABDisabledMean}{??}   % per-call mean, validation disabled (us)
+%DIF < \providecommand{\ABEnabledCalls}{??}   % histogram _count delta, enabled
+%DIF < \providecommand{\ABDisabledCalls}{??}  % histogram _count delta, disabled
+%DIF < \providecommand{\ABEnabledLoad}{??}    % 1-min load average at window start
+%DIF < \providecommand{\ABDisabledLoad}{??}   % 1-min load average at window start
+%DIF < \providecommand{\ABDelta}{??}          % enabled minus disabled (us)
+%DIF < \providecommand{\ABDeltaPct}{??}       % delta as a share of the enabled mean
+%DIF < \providecommand{\ABQuantity}{per-request handler time}  % what the means time
+%DIF < 
+%DIF < %% GUARD. If any A/B macro is still the literal "??", Section 6.4 falls back to
+%DIF < %% a version that reports no numbers, and the build prints a warning. It is
+%DIF < %% therefore impossible to submit a PDF containing "??" in Table 4.
+%DIF < %% Once the alias block above is mapped, this flips itself and the full
+%DIF < %% subsection with Table 4 is typeset. No manual switch to remember.
+%DIF < \newif\ifabdata \abdatatrue
+%DIF < \makeatletter
+%DIF < \newcommand{\ab@unset}{??}  % \newcommand, not \def: both must be \long for \ifx
+%DIF < \newcommand{\ab@check}[1]{\ifx#1\ab@unset\global\abdatafalse\fi}
+%DIF < \ab@check\ABRunId        \ab@check\ABRate          \ab@check\ABWindowSeconds
+%DIF < \ab@check\ABEnabledMean  \ab@check\ABDisabledMean  \ab@check\ABEnabledCalls
+%DIF < \ab@check\ABDisabledCalls\ab@check\ABEnabledLoad   \ab@check\ABDisabledLoad
+%DIF < \ab@check\ABDelta        \ab@check\ABDeltaPct
+%DIF < \ifabdata\else
+%DIF <   \AtBeginDocument{\typeout{^^J*** A/B data not mapped: Section 6.4 is in its
+%DIF <   no-numbers form and Table 4 is omitted. Map the \string\AB... alias block
+%DIF <   to restore it. ***^^J}}
+%DIF < \fi
+%DIF < \makeatother
+%DIF -------
+%% A/B corroboration (Section~\ref{sec:abcorroboration}) reads the cgroup CPU %DIF > 
+%% macros \Ab... that make_keypath_macros.py emits; the earlier \AB... alias %DIF > 
+%% block and its no-numbers fallback are no longer needed and were removed. %DIF > 
+%DIF -------
 
 %% ---------------------------------------------------------------------------
 %%  Author-facing placeholders.
@@ -142,6 +191,84 @@ not verify''}
   pre-parsed re-pro-duc-i-ble de-ploy-ment mea-sure-ment
 }
 \raggedbottom
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+\newcommand{\DIFscaledelfig}{0.5}
+%DIF HIGHLIGHTGRAPHICS PREAMBLE %DIF PREAMBLE
+\RequirePackage{settobox} %DIF PREAMBLE
+\RequirePackage{letltxmacro} %DIF PREAMBLE
+\newsavebox{\DIFdelgraphicsbox} %DIF PREAMBLE
+\newlength{\DIFdelgraphicswidth} %DIF PREAMBLE
+\newlength{\DIFdelgraphicsheight} %DIF PREAMBLE
+% store original definition of \includegraphics %DIF PREAMBLE
+\LetLtxMacro{\DIFOincludegraphics}{\includegraphics} %DIF PREAMBLE
+\newcommand{\DIFaddincludegraphics}[2][]{{\color{blue}\fbox{\DIFOincludegraphics[#1]{#2}}}} %DIF PREAMBLE
+\newcommand{\DIFdelincludegraphics}[2][]{% %DIF PREAMBLE
+\sbox{\DIFdelgraphicsbox}{\DIFOincludegraphics[#1]{#2}}% %DIF PREAMBLE
+\settoboxwidth{\DIFdelgraphicswidth}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\settoboxtotalheight{\DIFdelgraphicsheight}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\scalebox{\DIFscaledelfig}{% %DIF PREAMBLE
+\parbox[b]{\DIFdelgraphicswidth}{\usebox{\DIFdelgraphicsbox}\\[-\baselineskip] \rule{\DIFdelgraphicswidth}{0em}}\llap{\resizebox{\DIFdelgraphicswidth}{\DIFdelgraphicsheight}{% %DIF PREAMBLE
+\setlength{\unitlength}{\DIFdelgraphicswidth}% %DIF PREAMBLE
+\begin{picture}(1,1)% %DIF PREAMBLE
+\thicklines\linethickness{2pt} %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\framebox(1,1){}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\line( 1,1){1}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,1){\line(1,-1){1}}}% %DIF PREAMBLE
+\end{picture}% %DIF PREAMBLE
+}\hspace*{3pt}}} %DIF PREAMBLE
+} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbegin}{\DIFaddbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddend}{\DIFaddend} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbegin}{\DIFdelbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelend}{\DIFdelend} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbegin}{\DIFOaddbegin \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbegin}{\DIFOdelbegin \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbeginFL}{\DIFaddbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddendFL}{\DIFaddendFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbeginFL}{\DIFdelbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelendFL}{\DIFdelendFL} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbeginFL}{\DIFOaddbeginFL \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbeginFL}{\DIFOdelbeginFL \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+%DIF COLORLISTINGS PREAMBLE %DIF PREAMBLE
+\RequirePackage{listings} %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\lstdefinelanguage{DIFcode}{ %DIF PREAMBLE
+%DIF DIFCODE_UNDERLINE %DIF PREAMBLE
+  moredelim=[il][\color{red}\sout]{\%DIF\ <\ }, %DIF PREAMBLE
+  moredelim=[il][\color{blue}\uwave]{\%DIF\ >\ } %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstdefinestyle{DIFverbatimstyle}{ %DIF PREAMBLE
+	language=DIFcode, %DIF PREAMBLE
+	basicstyle=\ttfamily, %DIF PREAMBLE
+	columns=fullflexible, %DIF PREAMBLE
+	keepspaces=true %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim}{\lstset{style=DIFverbatimstyle}}{} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim*}{\lstset{style=DIFverbatimstyle,showspaces=true}}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document}
 
@@ -160,7 +287,45 @@ Attempt Dominates Token Validation Cost in a Node.js Service}
 \affil[4]{\orgdiv{Faculty of Information Science and Technology}, \orgname{Multimedia University}, \city{Melaka}, \country{Malaysia}}
 \affil[5]{\orgdiv{Department of Computer Science}, \orgname{American International University-Bangladesh (AIUB)}, \city{Dhaka}, \country{Bangladesh}}
 
-\abstract{A performance cost is only as well attributed as the components
+\DIFdelbegin %DIFDELCMD < \abstract{The per-request cost of JSON Web Token validation is routinely
+%DIFDELCMD < attributed to cryptography. We report that for a widely used Node.js library
+%DIFDELCMD < the attribution is wrong, and that the natural repair --- moving the cost to key
+%DIFDELCMD < conversion --- is wrong too. When a shared secret is supplied as a string, which
+%DIFDELCMD < is what the
+%DIFDELCMD < library's interface invites --- \LibraryName{} resolves it by attempting to
+%DIFDELCMD < parse it as an \emph{asymmetric} key first, falling back to the symmetric
+%DIFDELCMD < constructor only after that attempt throws. The conversion it falls back to
+%DIFDELCMD < costs \HostCreateSecretKey~$\mu$s and explains nothing. The discarded attempt
+%DIFDELCMD < preceding it costs \HostProbeThrows~$\mu$s, \HostProbeShareOfCall\% of the call
+%DIFDELCMD < and its largest single component. Two independent methods agree: differencing
+%DIFDELCMD < timed conditions across \HostInvocations{} separate processes, and a sampling
+%DIFDELCMD < profiler attributing a median \ProfHostPct\% of self time to that parse.
+%DIFDELCMD < Where the cost is large, it is almost entirely OpenSSL work: the V8 exception
+%DIFDELCMD < that ends the attempt costs a few microseconds, measured separately. Its
+%DIFDELCMD < magnitude is \emph{caused} by the OpenSSL release, not merely correlated with
+%DIFDELCMD < it: the same OpenSSL calls issued from a C program with no JavaScript engine,
+%DIFDELCMD < linked in turn against \CProbeVersionCount{} releases built identically, cost
+%DIFDELCMD < \CFullVThreeZeroSixteen~$\mu$s on \CVersionLiteralVThreeZeroSixteen{} and \CFullVThreeFiveEight~$\mu$s on
+%DIFDELCMD < \CVersionLiteralVThreeFiveEight, and a runtime with a newer engine but an older OpenSSL is the slow one.
+%DIFDELCMD < The split between OpenSSL series reproduces on a second architecture. The cost follows a design choice rather than JWT validation: of seven
+%DIFDELCMD < libraries in four languages, only \LibraryName{} attempts an asymmetric parse
+%DIFDELCMD < on an HMAC secret; one other re-imports the key on every call and pays an
+%DIFDELCMD < order of magnitude less; the remaining five resolve the key once or not at all
+%DIFDELCMD < and pay nothing measurable. The cost persists in a deployed
+%DIFDELCMD < service, measured across seven arrival rates. The avoiding pattern is rare
+%DIFDELCMD < \emph{in our sample}: \SampleSitesPreparsed{} of \SampleCallSites{} classified
+%DIFDELCMD < call sites across \SampleRepos{} repositories pass a pre-parsed key, and among
+%DIFDELCMD < \CounterReposWithVerify{} repositories that both reference the pre-parsing
+%DIFDELCMD < interface and call the validator, \AdjudicatedGenuineProjects{} use it. These
+%DIFDELCMD < are samples with unknown inclusion probabilities and no population proportion
+%DIFDELCMD < follows from them. We propose a fix, and report a constraint on it we consider
+%DIFDELCMD < the more important result: the discarded attempt is load-bearing for an
+%DIFDELCMD < existing key-type defence, so the obvious form of the optimisation must not be
+%DIFDELCMD < applied. We reported the defect upstream, where a user had observed its
+%DIFDELCMD < symptom two years earlier without a diagnosis. Primary measurements come from
+%DIFDELCMD < one ARM64 host; the second architecture is used for orderings only.}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \abstract{A performance cost is only as well attributed as the components
 recorded alongside it. We show this for JSON Web Token validation, whose
 per-request cost is routinely attributed to cryptography. In
 \LibraryName{}, the widely used Node.js library, the signature primitive is
@@ -182,6 +347,7 @@ one attempts the parse; five pay nothing for a raw secret. The avoiding pattern
 is rare in public code, and the obvious fix would disable a key-type defence
 that the discarded parse makes possible; we give a narrow fix that preserves
 it and have reported the defect upstream.}
+\DIFaddend 
 
 \keywords{JSON Web Token, JWT, key resolution, performance measurement,
 benchmarking methodology, Node.js, OpenSSL 3.x, software defect}
@@ -192,15 +358,19 @@ benchmarking methodology, Node.js, OpenSSL 3.x, software defect}
 \section{Introduction}\label{sec:intro}
 
 Authentication in cloud-native services is commonly described as imposing a
-per-request cryptographic cost~\citep{zhu2023dissecting}.
-The assumption is old and has been tested before, one layer down: \citet{coarfa2006performance} instrumented TLS web servers and found RSA
+per-request cryptographic cost~\DIFdelbegin %DIFDELCMD < \cite{zhu2023dissecting}%%%
+\DIFdelend \DIFaddbegin \citep{zhu2023dissecting}\DIFaddend .
+The assumption is old and has been tested before, one layer down: \DIFdelbegin \DIFdel{Coarfa et
+al.~}%DIFDELCMD < \cite{coarfa2006performance} %%%
+\DIFdelend \DIFaddbegin \citet{coarfa2006performance} \DIFaddend instrumented TLS web servers and found RSA
 responsible for only a minority of server cost, the remainder falling to
 symmetric operations, hashing and protocol handling. Our result is that
 argument repeated at the application layer, and reaching a sharper version of
 the same conclusion.
 
 The reasoning being tested is intuitive: validating a JSON Web
-Token~\citep{rfc7519} means verifying a signature, signatures are cryptography,
+Token~\DIFdelbegin %DIFDELCMD < \cite{rfc7519} %%%
+\DIFdelend \DIFaddbegin \citep{rfc7519} \DIFaddend means verifying a signature, signatures are cryptography,
 and cryptography is expensive relative to parsing. The conclusion usually drawn
 is that the cost should be \emph{moved} --- to a sidecar proxy, a gateway, or
 dedicated hardware --- because specialised components do cryptographic work
@@ -242,7 +412,8 @@ name, and ``discarded exception'' would not be.
 \end{description}
 
 \paragraph{Contributions} All supported by measurements in the replication
-package~\citep{artifact2026}.
+package~\DIFdelbegin %DIFDELCMD < \cite{artifact2026}%%%
+\DIFdelend \DIFaddbegin \citep{artifact2026}\DIFaddend .
 
 \begin{enumerate}
 \item A decomposition of the validation call, by two independent methods,
@@ -271,7 +442,8 @@ package~\citep{artifact2026}.
 \section{Background and related work}\label{sec:related}
 
 \paragraph{What a validation call does.} A JSON Web Token carries a header, a
-payload and a signature over the first two~\citep{rfc7519}. Validating one means
+payload and a signature over the first two~\DIFdelbegin %DIFDELCMD < \cite{rfc7519}%%%
+\DIFdelend \DIFaddbegin \citep{rfc7519}\DIFaddend . Validating one means
 decoding two segments, resolving key material into a form the cryptographic
 library accepts, and verifying the signature. The middle step --- key
 resolution --- is the subject of this paper, and it is the step most often left
@@ -279,7 +451,8 @@ implicit when validation cost is discussed.
 
 \paragraph{Where the cost is usually attributed.} Published measurement of
 layered enforcement in microservices concentrates on transport and proxy
-layers. \citet{zhu2023dissecting} decompose service-mesh sidecar
+layers. \DIFdelbegin \DIFdel{Zhu et al.~}%DIFDELCMD < \cite{zhu2023dissecting} %%%
+\DIFdelend \DIFaddbegin \citet{zhu2023dissecting} \DIFaddend decompose service-mesh sidecar
 overhead and show that the dominant contributors depend on configuration and
 workload rather than being a fixed tax; we reach an analogous conclusion one
 layer up, for application-level validation. Application-level token validation
@@ -290,79 +463,123 @@ directly;
 we state that as an absence we searched for rather than as a claim about the
 whole literature.
 
-\paragraph{Cryptographic cost has been over-attributed before.} \citet{coarfa2006performance} remains the clearest precedent: measuring TLS
+\paragraph{Cryptographic cost has been over-attributed before.} \DIFdelbegin \DIFdel{Coarfa et
+al.~}%DIFDELCMD < \cite{coarfa2006performance} %%%
+\DIFdelend \DIFaddbegin \citet{coarfa2006performance} \DIFaddend remains the clearest precedent: measuring TLS
 web servers rather than primitives, they found the public-key operation was a
 minority of server cost. Work on cryptographic library performance since has
 largely stayed at the level of the primitive or the protocol
-exchange~\citep{naser2020performance,sikeridis2020assessing}, with \citet{tuveri2019engines} a notable exception in examining how a library
+exchange~\DIFdelbegin %DIFDELCMD < \cite{naser2020performance,sikeridis2020assessing}%%%
+\DIFdel{, with Tuveri and
+Brumley~}%DIFDELCMD < \cite{tuveri2019engines} %%%
+\DIFdelend \DIFaddbegin \citep{naser2020performance,sikeridis2020assessing}\DIFadd{, with }\citet{tuveri2019engines} \DIFaddend a notable exception in examining how a library
 loads and dispatches implementations rather than how fast those
 implementations run. Our result concerns neither: it is the cost of getting key
 material \emph{into} the library.
 
-\paragraph{Performance bugs as a class.} \citet{jin2012understanding} studied real-world performance bugs across five
+\paragraph{Performance bugs as a class.} \DIFdelbegin \DIFdel{Jin et
+al.~}%DIFDELCMD < \cite{jin2012understanding} %%%
+\DIFdelend \DIFaddbegin \citet{jin2012understanding} \DIFaddend studied real-world performance bugs across five
 code bases and found that most follow a small number of recurring patterns ---
 among them uncoordinated and skippable function calls --- and that fixes are
-usually local. \citet{zaman2012qualitative} found, from 400
+usually local. \DIFdelbegin \DIFdel{Zaman et al.~}%DIFDELCMD < \cite{zaman2012qualitative} %%%
+\DIFdelend \DIFaddbegin \citet{zaman2012qualitative} \DIFaddend found, from 400
 Firefox and Chrome reports, that performance bugs differ from other bugs in
 how they are reported, discussed and fixed, in part because reproducing them
-is hard; \citet{nistor2013discovering} report that most are found
-by code reasoning rather than by observing symptoms. \citet{liu2014characterizing} reach similar conclusions for mobile
+is hard; \DIFdelbegin \DIFdel{Nistor et al.~}%DIFDELCMD < \cite{nistor2013discovering} %%%
+\DIFdelend \DIFaddbegin \citet{nistor2013discovering} \DIFaddend report that most are found
+by code reasoning rather than by observing symptoms. \DIFdelbegin \DIFdel{Liu et
+al.~}%DIFDELCMD < \cite{liu2014characterizing} %%%
+\DIFdelend \DIFaddbegin \citet{liu2014characterizing} \DIFaddend reach similar conclusions for mobile
 applications. Detection work targets structural symptoms: redundant traversals
-with similar memory-access patterns~\citep{nistor2013toddler}, or predicates
-that separate slow from fast runs~\citep{song2014statistical}. The defect here
+with similar memory-access patterns~\DIFdelbegin %DIFDELCMD < \cite{nistor2013toddler}%%%
+\DIFdelend \DIFaddbegin \citep{nistor2013toddler}\DIFaddend , or predicates
+that separate slow from fast runs~\DIFdelbegin %DIFDELCMD < \cite{song2014statistical}%%%
+\DIFdelend \DIFaddbegin \citep{song2014statistical}\DIFaddend . The defect here
 is of the ``skippable call'' kind Jin et al.\ describe, but it has none of the
 structural signatures those detectors look for: it is one call, executed once
 per request, whose failure is its only observable effect. It is also the shape
 that makes a performance bug hard to report: our own upstream report was
 preceded by a two-year-old report of the symptom with no diagnosed cause
-(Section~\ref{sec:fix}).
+\DIFdelbegin \DIFdel{~}%DIFDELCMD < \cite{jsonwebtoken2024issue966} %%%
+\DIFdelend (Section~\ref{sec:fix}).
 
-\paragraph{JavaScript and Node.js performance.} \citet{selakovic2016performance} classified performance issues in
+\paragraph{JavaScript and Node.js performance.} \DIFdelbegin \DIFdel{Selakovic and
+Pradel~}%DIFDELCMD < \cite{selakovic2016performance} %%%
+\DIFdelend \DIFaddbegin \citet{selakovic2016performance} \DIFaddend classified performance issues in
 JavaScript projects and found that inefficient API usage --- correct calls made
 in a costly way --- is among the most common root causes, and that the fixes
-are typically a few lines. Their later profiler~\citep{selakovic2017actionable}
-targets precisely the \emph{order} in which a program evaluates conditions, the
+are typically a few lines. Their later profiler~\DIFdelbegin %DIFDELCMD < \cite{selakovic2017actionable}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \citep{selakovic2017actionable}
+\DIFaddend targets precisely the \emph{order} in which a program evaluates conditions, the
 axis on which this defect lives: a check that almost always fails is evaluated
-before one that almost always succeeds. \citet{gong2015jitprof}
-locate code that defeats JIT optimisation; exception-heavy control flow is one
+before one that almost always succeeds. \DIFdelbegin \DIFdel{Gong et al.~}%DIFDELCMD < \cite{gong2015jitprof}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \citet{gong2015jitprof}
+\DIFaddend locate code that defeats JIT optimisation; exception-heavy control flow is one
 such pattern, and Section~\ref{sec:granularity} measures what it costs here.
 Work on the Node.js event loop shows why a per-request synchronous cost matters
 beyond its magnitude: a single slow handler delays every other
-client~\citep{davis2018sense,staicu2018freezing}. We make no availability or
+client~\DIFdelbegin %DIFDELCMD < \cite{davis2018sense,staicu2018freezing}%%%
+\DIFdelend \DIFaddbegin \citep{davis2018sense,staicu2018freezing}\DIFaddend . We make no availability or
 capacity claim, but the mechanism by which a synchronous per-request cost
 propagates is the same.
 
 \paragraph{Version and environment variation.} That software performance
 changes across versions in ways maintainers do not anticipate is established:
-\citet{kaltenecker2023performance} track performance across
-configurable systems' release histories, and \citet{chen2017exploratory} study the code changes that introduce
-regressions. \citet{laaber2018evaluation} assess whether
-microbenchmark suites detect such changes at all, and \citet{stefan2017unit} find performance unit testing rare in practice.
+\DIFdelbegin \DIFdel{Kaltenecker et al.~}%DIFDELCMD < \cite{kaltenecker2023performance} %%%
+\DIFdelend \DIFaddbegin \citet{kaltenecker2023performance} \DIFaddend track performance across
+configurable systems' release histories, and \DIFdelbegin \DIFdel{Chen and
+Shang~}%DIFDELCMD < \cite{chen2017exploratory} %%%
+\DIFdelend \DIFaddbegin \citet{chen2017exploratory} \DIFaddend study the code changes that introduce
+regressions. \DIFdelbegin \DIFdel{Laaber and Leitner~}%DIFDELCMD < \cite{laaber2018evaluation} %%%
+\DIFdelend \DIFaddbegin \citet{laaber2018evaluation} \DIFaddend assess whether
+microbenchmark suites detect such changes at all, and \DIFdelbegin \DIFdel{Stefan et
+al.~}%DIFDELCMD < \cite{stefan2017unit} %%%
+\DIFdelend \DIFaddbegin \citet{stefan2017unit} \DIFaddend find performance unit testing rare in practice.
 Container images make this concrete by pinning a dependency set implicitly:
-\citet{cito2017empirical} characterise how the ecosystem uses them,
-\citet{zerouali2019outdated} show that images routinely ship
-outdated packages, and \citet{malka2026docker} show that an image
+\DIFdelbegin \DIFdel{Cito et al.~}%DIFDELCMD < \cite{cito2017empirical} %%%
+\DIFdelend \DIFaddbegin \citet{cito2017empirical} \DIFaddend characterise how the ecosystem uses them,
+\DIFdelbegin \DIFdel{Zerouali et al.~}%DIFDELCMD < \cite{zerouali2019outdated} %%%
+\DIFdelend \DIFaddbegin \citet{zerouali2019outdated} \DIFaddend show that images routinely ship
+outdated packages, and \DIFdelbegin \DIFdel{Malka et al.~}%DIFDELCMD < \cite{malka2026docker} %%%
+\DIFdelend \DIFaddbegin \citet{malka2026docker} \DIFaddend show that an image
 tag does not guarantee a reproducible build. For OpenSSL~3 specifically, the
 maintainers of a major downstream library have stated publicly that parsing and
-key loading regressed substantially against 1.1.1~\citep{pyca2026stateofopenssl};
+key loading regressed substantially against 1.1.1~\DIFdelbegin %DIFDELCMD < \cite{pyca2026stateofopenssl}%%%
+\DIFdelend \DIFaddbegin \citep{pyca2026stateofopenssl}\DIFaddend ;
 that statement is not peer reviewed and was not produced under a protocol we
 can assess, and Section~\ref{sec:rq2-causal} supplies a controlled measurement
 for the one path this paper concerns. Section~\ref{sec:rq2} is an instance with
 a measured cost attached.
 
 \paragraph{Measurement protocol is the thing at stake.} The methodological core
-of this paper is not new. \citet{georges2007statistically}
-established that a single execution of a managed-runtime benchmark is not a
+of this paper is not new. \DIFdelbegin \DIFdel{Georges et al.~}%DIFDELCMD < \cite{georges2007statistically}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \citet{georges2007statistically}
+\DIFaddend established that a single execution of a managed-runtime benchmark is not a
 measurement, and that intervals must be computed across executions rather than
-within one; \citet{kalibera2013rigorous} show how to spend a
+within one; \DIFdelbegin \DIFdel{Kalibera and Jones~}%DIFDELCMD < \cite{kalibera2013rigorous} %%%
+\DIFdelend \DIFaddbegin \citet{kalibera2013rigorous} \DIFaddend show how to spend a
 fixed budget across levels of repetition, which is the reasoning behind our
-choice of many short processes over few long ones. \citet{mytkowicz2009wrong} showed that environmental details unrelated to
+choice of many short processes over few long ones. \DIFdelbegin \DIFdel{Mytkowicz et
+al.~}%DIFDELCMD < \cite{mytkowicz2009wrong} %%%
+\DIFdelend \DIFaddbegin \citet{mytkowicz2009wrong} \DIFaddend showed that environmental details unrelated to
 the code under study can produce effects larger than the one being measured,
-without any obvious mistake, and \citet{curtsinger2013stabilizer} that memory layout alone can do so.
-\citet{barrett2017warmup} found that virtual machines frequently
-do not reach a steady state, \citet{traini2023steady} that
-developers misjudge when warmup ends, and \citet{costa2021wrong}
-catalogue how microbenchmarks go wrong in practice. \citet{mytkowicz2010profilers} showed that sampling profilers disagree on
+without any obvious mistake, and \DIFdelbegin \DIFdel{Curtsinger and
+Berger~}%DIFDELCMD < \cite{curtsinger2013stabilizer} %%%
+\DIFdelend \DIFaddbegin \citet{curtsinger2013stabilizer} \DIFaddend that memory layout alone can do so.
+\DIFdelbegin \DIFdel{Barrett et al.~}%DIFDELCMD < \cite{barrett2017warmup} %%%
+\DIFdelend \DIFaddbegin \citet{barrett2017warmup} \DIFaddend found that virtual machines frequently
+do not reach a steady state, \DIFdelbegin \DIFdel{Traini et al.~}%DIFDELCMD < \cite{traini2023steady} %%%
+\DIFdelend \DIFaddbegin \citet{traini2023steady} \DIFaddend that
+developers misjudge when warmup ends, and \DIFdelbegin \DIFdel{Costa et al.~}%DIFDELCMD < \cite{costa2021wrong}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \citet{costa2021wrong}
+\DIFaddend catalogue how microbenchmarks go wrong in practice. \DIFdelbegin \DIFdel{Mytkowicz et
+al.~}%DIFDELCMD < \cite{mytkowicz2010profilers} %%%
+\DIFdelend \DIFaddbegin \citet{mytkowicz2010profilers} \DIFaddend showed that sampling profilers disagree on
 which method is hot, which is why Section~\ref{sec:rq1} uses the profiler only
 as corroboration of a result obtained by differencing and relies on ordering
 rather than on its percentages. Our contribution is not to these methods but is
@@ -371,9 +588,12 @@ exactly the structure Mytkowicz et al.\ describe: a second variable --- the
 bundled OpenSSL version --- moving unrecorded alongside the one under study, at
 a granularity coarse enough to hide it (Section~\ref{sec:rq2}).
 
-\paragraph{Environment as a confounder.} \citet{laaber2019cloud}
-quantify how far cloud environments degrade microbenchmark reliability, and
-\citet{leitner2016patterns} characterise performance variation
+\paragraph{Environment as a confounder.} \DIFdelbegin \DIFdel{Laaber et al.~}%DIFDELCMD < \cite{laaber2019cloud}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \citet{laaber2019cloud}
+\DIFaddend quantify how far cloud environments degrade microbenchmark reliability, and
+\DIFdelbegin \DIFdel{Leitner and Cito~}%DIFDELCMD < \cite{leitner2016patterns} %%%
+\DIFdelend \DIFaddbegin \citet{leitner2016patterns} \DIFaddend characterise performance variation
 across public infrastructure providers. Their concern is variance between
 nominally identical environments. Ours is adjacent and, we think, less
 examined: a \emph{systematic} difference between environments that are not
@@ -384,30 +604,50 @@ reported as an ordering check rather than as a replication of magnitudes.
 
 \paragraph{Cryptographic interfaces are hard to use correctly.} The defect
 reported here is not a cryptographic weakness but a consequence of how a
-cryptographic interface is invoked, which is a well-documented class. \citet{lazar2014why} found that most of the cryptographic vulnerabilities
+cryptographic interface is invoked, which is a well-documented class. \DIFdelbegin \DIFdel{Lazar et
+al.~}%DIFDELCMD < \cite{lazar2014why} %%%
+\DIFdelend \DIFaddbegin \citet{lazar2014why} \DIFaddend found that most of the cryptographic vulnerabilities
 they studied were misuses of libraries by applications rather than bugs in the
-libraries. \citet{egele2013empirical} found cryptographic misuse
-widespread in deployed applications and \citet{georgiev2012dangerous} found certificate validation broken across a
-wide range of non-browser software; \citet{nadi2016jumping}
-attribute much of it to the interfaces themselves rather than to developer
-inattention, a position \citet{green2016developers} put directly
-and \citet{indela2016helping} respond to with interface proposals;
-and \citet{acar2017comparing} show experimentally that API design
+libraries. \DIFdelbegin \DIFdel{Egele et al.~}%DIFDELCMD < \cite{egele2013empirical} %%%
+\DIFdelend \DIFaddbegin \citet{egele2013empirical} \DIFaddend found cryptographic misuse
+widespread in deployed applications and \DIFdelbegin \DIFdel{Georgiev et
+al.~}%DIFDELCMD < \cite{georgiev2012dangerous} %%%
+\DIFdelend \DIFaddbegin \citet{georgiev2012dangerous} \DIFaddend found certificate validation broken across a
+wide range of non-browser software; \DIFdelbegin \DIFdel{Nadi et al.~}%DIFDELCMD < \cite{nadi2016jumping}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \citet{nadi2016jumping}
+\DIFaddend attribute much of it to the interfaces themselves rather than to developer
+inattention, a position \DIFdelbegin \DIFdel{Green and Smith~}%DIFDELCMD < \cite{green2016developers} %%%
+\DIFdelend \DIFaddbegin \citet{green2016developers} \DIFaddend put directly
+and \DIFdelbegin \DIFdel{Indela et al.~}%DIFDELCMD < \cite{indela2016helping} %%%
+\DIFdelend \DIFaddbegin \citet{indela2016helping} \DIFaddend respond to with interface proposals;
+and \DIFdelbegin \DIFdel{Acar et al.~}%DIFDELCMD < \cite{acar2017comparing} %%%
+\DIFdelend \DIFaddbegin \citet{acar2017comparing} \DIFaddend show experimentally that API design
 materially changes whether developers produce correct code. Detection has been
-automated by specifying correct usage, as CrySL does~\citep{kruger2018crysl},
-and by static analysis at scale~\citep{rahaman2019cryptoguard}. Our finding sits
+automated by specifying correct usage, as CrySL does~\DIFdelbegin %DIFDELCMD < \cite{kruger2018crysl}%%%
+\DIFdelend \DIFaddbegin \citep{kruger2018crysl}\DIFaddend ,
+and by static analysis at scale~\DIFdelbegin %DIFDELCMD < \cite{rahaman2019cryptoguard}%%%
+\DIFdelend \DIFaddbegin \citep{rahaman2019cryptoguard}\DIFaddend . Our finding sits
 within that line with one difference: the interface here admits a use that is
 \emph{correct}, and costly only for a reason invisible at the call site. A
 CrySL-style rule could express ``pass a key object, not a string'', but the
 rule sets we know of encode security properties only, so none would report it.
 
 \paragraph{JWT and JOSE libraries.} Security analyses of JWT implementations
-consistently find key-handling defects. \citet{detering2017jose} demonstrated attacks, key confusion among them,
-against several popular JOSE libraries; \citet{xu2023jwtkey}
-automated the detection of cryptographic vulnerabilities in applications that
-use JWT; \citet{yang2026tokentimebomb} evaluated 43 JWT libraries
-across 16 programming languages for vulnerabilities; and \citet{shatnawi2024python} surveyed Python JWT libraries for security
-warnings and adoption. RFC 8725~\citep{rfc8725} codifies the resulting practice.
+consistently find key-handling defects. \DIFdelbegin \DIFdel{Detering et
+al.~}%DIFDELCMD < \cite{detering2017jose} %%%
+\DIFdelend \DIFaddbegin \citet{detering2017jose} \DIFaddend demonstrated attacks, key confusion among them,
+against several popular JOSE libraries; \DIFdelbegin \DIFdel{Xu et al.~}%DIFDELCMD < \cite{xu2023jwtkey}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \citet{xu2023jwtkey}
+\DIFaddend automated the detection of cryptographic vulnerabilities in applications that
+use JWT; \DIFdelbegin \DIFdel{Yang et al.~}%DIFDELCMD < \cite{yang2026tokentimebomb} %%%
+\DIFdelend \DIFaddbegin \citet{yang2026tokentimebomb} \DIFaddend evaluated 43 JWT libraries
+across 16 programming languages for vulnerabilities; and \DIFdelbegin \DIFdel{Shatnawi et
+al.~}%DIFDELCMD < \cite{shatnawi2024python} %%%
+\DIFdelend \DIFaddbegin \citet{shatnawi2024python} \DIFaddend surveyed Python JWT libraries for security
+warnings and adoption. RFC 8725~\DIFdelbegin %DIFDELCMD < \cite{rfc8725} %%%
+\DIFdelend \DIFaddbegin \citep{rfc8725} \DIFaddend codifies the resulting practice.
 All of this work treats a library's handling of key material as a security
 surface. Section~\ref{sec:rq4} treats the same surface as a cost site, across
 seven libraries, and Section~\ref{sec:fix} shows the two views are coupled: the
@@ -416,7 +656,8 @@ its key-type check.
 
 \paragraph{Mining public repositories.} Section~\ref{sec:prevalence} draws on
 code hosted publicly, and the hazards of doing so are catalogued by
-\citet{kalliamvakou2014promises} --- among them that many
+\DIFdelbegin \DIFdel{Kalliamvakou et al.~}%DIFDELCMD < \cite{kalliamvakou2014promises} %%%
+\DIFdelend \DIFaddbegin \citet{kalliamvakou2014promises} \DIFaddend --- among them that many
 repositories are not software projects, that activity is not uniformly
 distributed, and that a search result is not a random sample. Our sampling
 frame is stated in Section~\ref{sec:frames} with those hazards in view, which
@@ -424,15 +665,27 @@ is why no population proportion is computed from it.
 
 \paragraph{The cost of exceptions.} That exceptions are expensive in managed
 runtimes, and that their cost is concentrated in construction rather than in
-unwinding, is long established: \citet{ogasawara2006edo}
-optimise around exception paths in a Java virtual machine, and \citet{renwick2019lowcost} quantify the cost in a compiled setting.
-\citet{parravicini2021cost} provide the closest
+unwinding, is long established: \DIFdelbegin \DIFdel{Ogasawara et al.~}%DIFDELCMD < \cite{ogasawara2006edo}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \citet{ogasawara2006edo}
+\DIFaddend optimise around exception paths in a Java virtual machine, and \DIFdelbegin \DIFdel{Renwick et
+al.~}%DIFDELCMD < \cite{renwick2019lowcost} %%%
+\DIFdelend \DIFaddbegin \citet{renwick2019lowcost} \DIFaddend quantify the cost in a compiled setting.
+\DIFdelbegin \DIFdel{Parravicini and Mueller~}%DIFDELCMD < \cite{parravicini2021cost} %%%
+\DIFdelend \DIFaddbegin \citet{parravicini2021cost} \DIFaddend provide the closest
 available cost-attribution baseline for the V8 engine, though on speculation
 rather than exceptions. Empirical studies of how exceptions are \emph{used}
-find handlers that discard what they catch to be common: \citet{cabral2007exception} report that handlers in the Java and .NET
-code they studied rarely attempt recovery, \citet{kery2016examining} find that handlers mostly log, print, return or
-rethrow, and \citet{depadua2017prevalence} measure the
-prevalence of handling anti-patterns, as \citet{weimer2004finding} did earlier for error-handling mistakes. That
+find handlers that discard what they catch to be common: \DIFdelbegin \DIFdel{Cabral and
+Marques~}%DIFDELCMD < \cite{cabral2007exception} %%%
+\DIFdelend \DIFaddbegin \citet{cabral2007exception} \DIFaddend report that handlers in the Java and .NET
+code they studied rarely attempt recovery, \DIFdelbegin \DIFdel{Kery et
+al.~}%DIFDELCMD < \cite{kery2016examining} %%%
+\DIFdelend \DIFaddbegin \citet{kery2016examining} \DIFaddend find that handlers mostly log, print, return or
+rethrow, and \DIFdelbegin \DIFdel{de P\'adua and Shang~}%DIFDELCMD < \cite{depadua2017prevalence} %%%
+\DIFdelend \DIFaddbegin \citet{depadua2017prevalence} \DIFaddend measure the
+prevalence of handling anti-patterns, as \DIFdelbegin \DIFdel{Weimer and
+Necula~}%DIFDELCMD < \cite{weimer2004finding} %%%
+\DIFdelend \DIFaddbegin \citet{weimer2004finding} \DIFaddend did earlier for error-handling mistakes. That
 literature treats a swallowed exception as a correctness and maintainability
 smell. The handler at the centre of this paper is a swallowed exception used as
 control flow on a hot path, and it is a performance defect rather than a
@@ -442,7 +695,8 @@ the exception itself the smaller part.
 
 \paragraph{Key-type confusion.} That a token declaring an HMAC algorithm must
 not be validated against asymmetric key material is long established; RFC
-8725~\citep{rfc8725} describes the attack and its mitigations.
+8725~\DIFdelbegin %DIFDELCMD < \cite{rfc8725} %%%
+\DIFdelend \DIFaddbegin \citep{rfc8725} \DIFaddend describes the attack and its mitigations.
 Section~\ref{sec:fix} reports no new attack. It reports that an existing
 defence depends on the control flow whose cost this paper measures, so that
 removing the cost naively removes the defence.
@@ -460,7 +714,8 @@ and~\ref{sec:rq2-causal}) and are no longer listed.
 
 \emph{OpenSSL 3.x performance regressions.} We found no peer-reviewed study of
 performance regressions across the OpenSSL 3.x series. Evidence exists as a
-maintainer statement~\citep{pyca2026stateofopenssl}, as project issues --- for
+maintainer statement~\DIFdelbegin %DIFDELCMD < \cite{pyca2026stateofopenssl}%%%
+\DIFdelend \DIFaddbegin \citep{pyca2026stateofopenssl}\DIFaddend , as project issues --- for
 instance \texttt{openssl/openssl} issues \#17627 and \#20698, which concern
 performance of the 3.x provider and decoder machinery --- and as mailing-list
 discussion. None was produced under a measurement protocol we can assess, so
@@ -468,9 +723,12 @@ Section~\ref{sec:rq2-causal} measures the path directly rather than adopting
 the mechanism those sources propose.
 
 \emph{Base image to bundled library to application performance.} We found no
-academic study tracing that chain. \citet{malka2026docker} address
-build reproducibility, \citet{zerouali2019outdated} package
-staleness and \citet{cito2017empirical} ecosystem practice; none
+academic study tracing that chain. \DIFdelbegin \DIFdel{Malka et al.~}%DIFDELCMD < \cite{malka2026docker} %%%
+\DIFdelend \DIFaddbegin \citet{malka2026docker} \DIFaddend address
+build reproducibility, \DIFdelbegin \DIFdel{Zerouali et al.~}%DIFDELCMD < \cite{zerouali2019outdated} %%%
+\DIFdelend \DIFaddbegin \citet{zerouali2019outdated} \DIFaddend package
+staleness and \DIFdelbegin \DIFdel{Cito et al.~}%DIFDELCMD < \cite{cito2017empirical} %%%
+\DIFdelend \DIFaddbegin \citet{cito2017empirical} \DIFaddend ecosystem practice; none
 measures how the library version an image pins changes application
 performance.
 
@@ -492,7 +750,8 @@ per-process medians, with percentile bootstrap intervals taken over processes.
 An interval computed over the calls inside one process describes that process's
 steady state and is far too narrow: it cannot observe the compilation decisions,
 inline-cache states and heap layouts that differ between runs of the same
-code~\citep{georges2007statistically}. Conditions in the decomposition of
+code~\DIFdelbegin %DIFDELCMD < \cite{georges2007statistically}%%%
+\DIFdelend \DIFaddbegin \citep{georges2007statistically}\DIFaddend . Conditions in the decomposition of
 Section~\ref{sec:rq1} were run in \HostInvocations{} separate processes of
 \HostCallsPerInvocation{} calls; conditions in the runtime matrix of
 Section~\ref{sec:rq2} in \MatrixInvocations{} processes of
@@ -534,7 +793,18 @@ The library measured throughout is \LibraryName{} \LibraryVersion{}, cloned at
 
 \begin{figure}[t]
 \lstinputlisting[firstnumber=\CodeFirstLine]{figures/codepath_excerpt.js}
-\caption{Key resolution in \LibraryName{} \LibraryVersion{},
+\DIFdelbeginFL %DIFDELCMD < \caption{Key resolution in \LibraryName{} \LibraryVersion{},
+%DIFDELCMD < \texttt{\CodeFileLines}. Verbatim but for the common leading indentation,
+%DIFDELCMD < which is removed to fit the column; line numbers are the file's own. A secret
+%DIFDELCMD < that is not already a \texttt{KeyObject} is offered to
+%DIFDELCMD < \texttt{createPublicKey()} first, and \texttt{createSecretKey()} is reached only
+%DIFDELCMD < from the exception handler. For an HMAC secret supplied as a string the outer
+%DIFDELCMD < \texttt{try} can never succeed, so the asymmetric parse is attempted and
+%DIFDELCMD < discarded on every validation. The excerpt is extracted from the pinned release
+%DIFDELCMD < by \texttt{analysis/make\_codepath\_figure.py} and pinned by content hash
+%DIFDELCMD < \texttt{\CodeExcerptHash} in the replication package~\cite{artifact2026}.}
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \caption{Key resolution in \LibraryName{} \LibraryVersion{},
 \texttt{\CodeFileLines}. Verbatim but for the common leading indentation,
 which is removed to fit the column; line numbers are the file's own. A secret
 that is not already a \texttt{KeyObject} is offered to
@@ -544,7 +814,7 @@ from the exception handler. For an HMAC secret supplied as a string the outer
 discarded on every validation. The excerpt is extracted from the pinned release
 by \texttt{analysis/make\_codepath\_figure.py} and pinned by content hash
 \texttt{\CodeExcerptHash} in the replication package~\citep{artifact2026}.}
-\label{fig:codepath}
+\DIFaddendFL \label{fig:codepath}
 \end{figure}
 
 \subsection{Separating the runtime from the deployment}\label{sec:matrix-method}
@@ -652,7 +922,8 @@ four virtual CPUs), including the four container images of
 Table~\ref{tab:matrix}; Sections~\ref{sec:c-method}--\ref{sec:xlib-method}
 were measured on the same machine. That machine is a virtual machine on shared
 cloud infrastructure, not the dedicated host a replication of magnitudes would
-require~\citep{laaber2019cloud,leitner2016patterns}. We use it for what it can
+require~\DIFdelbegin %DIFDELCMD < \cite{laaber2019cloud,leitner2016patterns}%%%
+\DIFdelend \DIFaddbegin \citep{laaber2019cloud,leitner2016patterns}\DIFaddend . We use it for what it can
 support: whether the \emph{ordering} of conditions and runtimes holds on a
 second instruction set, and ratios between conditions measured interleaved in
 the same rounds. We do not compare its absolute magnitudes with the ARM64
@@ -722,7 +993,8 @@ sidecars is measured together with whatever else that host is doing. We observed
 this directly while building the instrument: re-running one configuration with a
 background indexing process consuming host CPU moved the point at which
 throughput collapsed by hundreds of requests per second, and both runs are
-committed in the replication package~\citep{artifact2026}. A curve that moves
+committed in the replication package~\DIFdelbegin %DIFDELCMD < \cite{artifact2026}%%%
+\DIFdelend \DIFaddbegin \citep{artifact2026}\DIFaddend . A curve that moves
 with unrelated host activity does not characterise the service, and this paper
 therefore makes no capacity claim. Every in-situ window instead carries the host
 load average observed during it, committed beside the measurement, and
@@ -737,7 +1009,33 @@ Table~\ref{tab:host} gives each operation in the validation path, timed in
 isolation on the host under the protocol of Section~\ref{sec:method}, and
 Figure~\ref{fig:decomposition} plots it.
 
-\begin{table*}[t]
+\DIFdelbegin %DIFDELCMD < \begin{table}[t]
+%DIFDELCMD < \caption{Cost of each operation in the validation path. Medians of per-process
+%DIFDELCMD < medians over \HostInvocations{} processes of \HostCallsPerInvocation{} calls;
+%DIFDELCMD < 95\% percentile bootstrap intervals over processes, which with
+%DIFDELCMD < \HostInvocations{} units are indicative rather than calibrated
+%DIFDELCMD < (Section~\ref{sec:unit}).}
+%DIFDELCMD < \label{tab:host}
+%DIFDELCMD < \small\setlength{\tabcolsep}{4pt}
+%DIFDELCMD < \begin{tabular}{@{}lrr@{}}
+%DIFDELCMD < \toprule
+%DIFDELCMD < Operation & Median & 95\% interval \\
+%DIFDELCMD <            & ($\mu$s) & ($\mu$s) \\
+%DIFDELCMD < \midrule
+%DIFDELCMD < \texttt{verify()}, string secret   & \HostJwtString      & [\HostJwtStringCiLo, \HostJwtStringCiHi] \\
+%DIFDELCMD < \textbf{discarded asym.\ parse}    & \textbf{\HostProbeThrows} & [\HostProbeThrowsCiLo, \HostProbeThrowsCiHi] \\
+%DIFDELCMD < successful asym.\ parse            & \HostProbeSucceeds  & [\HostProbeSucceedsCiLo, \HostProbeSucceedsCiHi] \\
+%DIFDELCMD < \texttt{verify()}, pre-parsed key  & \HostJwtPreparsed   & [\HostJwtPreparsedCiLo, \HostJwtPreparsedCiHi] \\
+%DIFDELCMD < HMAC, string key                   & \HostHmacString     & [\HostHmacStringCiLo, \HostHmacStringCiHi] \\
+%DIFDELCMD < HMAC, pre-parsed key               & \HostHmacKeyObject  & [\HostHmacKeyObjectCiLo, \HostHmacKeyObjectCiHi] \\
+%DIFDELCMD < structural decode                  & \HostDecodeOnly     & [\HostDecodeOnlyCiLo, \HostDecodeOnlyCiHi] \\
+%DIFDELCMD < \textbf{symmetric key constructor} & \textbf{\HostCreateSecretKey} & [\HostCreateSecretKeyCiLo, \HostCreateSecretKeyCiHi] \\
+%DIFDELCMD < timer overhead                     & \HostTimerOverhead  & [\HostTimerOverheadCiLo, \HostTimerOverheadCiHi] \\
+%DIFDELCMD < \bottomrule
+%DIFDELCMD < \end{tabular}
+%DIFDELCMD < \end{table}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \begin{table*}[t]
 \caption{Cost of each operation in the validation path. Medians of per-process
 medians over \HostInvocations{} processes of \HostCallsPerInvocation{} calls;
 95\% percentile bootstrap intervals over processes, which with
@@ -762,11 +1060,22 @@ timer overhead                     & \HostTimerOverhead  & [\HostTimerOverheadCi
 \bottomrule
 \end{tabular}
 \end{table*}
+\DIFaddend 
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{fig_decomposition.pdf}
-\caption{(a) Every operation in Table~\ref{tab:host}, on a linear scale, with
+\DIFdelbeginFL %DIFDELCMD < \caption{(a) Every operation in Table~\ref{tab:host}, on a linear scale, with
+%DIFDELCMD < the two components the paper turns on emphasised; whiskers are the 95\%
+%DIFDELCMD < percentile bootstrap intervals over \HostInvocations{} processes. (b) The
+%DIFDELCMD < \HostStringPenalty~$\mu$s penalty for supplying a string secret rather than a
+%DIFDELCMD < pre-parsed key, decomposed. The three segments are medians of per-round paired
+%DIFDELCMD < differences, not a partition of a single measurement, and they do not sum to the
+%DIFDELCMD < penalty: the \DecompResidual~$\mu$s remainder is unattributed
+%DIFDELCMD < (Section~\ref{sec:residual}). Both panels are generated from
+%DIFDELCMD < \texttt{figures/data/} by \texttt{figures/make\_figures.py}~\cite{artifact2026}.}
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \caption{(a) Every operation in Table~\ref{tab:host}, on a linear scale, with
 the two components the paper turns on emphasised; whiskers are the 95\%
 percentile bootstrap intervals over \HostInvocations{} processes. (b) The
 \HostStringPenalty~$\mu$s penalty for supplying a string secret rather than a
@@ -775,7 +1084,7 @@ differences, not a partition of a single measurement, and they do not sum to the
 penalty: the \DecompResidual~$\mu$s remainder is unattributed
 (Section~\ref{sec:residual}). Both panels are generated from
 \texttt{figures/data/} by \texttt{figures/make\_figures.py}~\citep{artifact2026}.}
-\label{fig:decomposition}
+\DIFaddendFL \label{fig:decomposition}
 \end{figure*}
 
 The two emphasised rows are the result. The signature primitive costs
@@ -931,7 +1240,30 @@ process is doing.
 Table~\ref{tab:matrix} varies the runtime with containerisation held constant,
 and Figure~\ref{fig:matrix} plots the two columns that matter.
 
-\begin{table*}[t]
+\DIFdelbegin %DIFDELCMD < \begin{table}[t]
+%DIFDELCMD < \caption{The same measurement across four container runtimes on one machine,
+%DIFDELCMD < \MatrixInvocations{} processes each of \MatrixCallsPerInvocation{} calls. The
+%DIFDELCMD < host row is from Table~\ref{tab:host} and is not containerised; its OpenSSL
+%DIFDELCMD < version is marked n/r because that run predates the per-measurement OpenSSL field
+%DIFDELCMD < and the host's OpenSSL has since changed, so no version can be recorded for it
+%DIFDELCMD < after the fact (Section~\ref{sec:threats}).}
+%DIFDELCMD < \label{tab:matrix}
+%DIFDELCMD < \footnotesize\setlength{\tabcolsep}{3.5pt}
+%DIFDELCMD < \begin{tabular}{@{}lllrr@{}}
+%DIFDELCMD < \toprule
+%DIFDELCMD < Runtime & OpenSSL & V8 & Disc.\ parse & Pre-parsed \\
+%DIFDELCMD <         &         &    & ($\mu$s)     & \texttt{verify()} \\
+%DIFDELCMD < \midrule
+%DIFDELCMD < Node \NodeEighteenNodeMajor, musl        & \NodeEighteenOpensslLiteral     & \NodeEighteenVeight     & \NodeEighteenProbeThrows     & \NodeEighteenJwtPreparsed \\
+%DIFDELCMD < Node \NodeTwentyNodeMajor, musl          & \NodeTwentyOpensslLiteral       & \NodeTwentyVeight       & \NodeTwentyProbeThrows       & \NodeTwentyJwtPreparsed \\
+%DIFDELCMD < Node \NodeTwentySixMuslNodeMajor, musl   & \NodeTwentySixMuslOpensslLiteral & \NodeTwentySixMuslVeight & \NodeTwentySixMuslProbeThrows & \NodeTwentySixMuslJwtPreparsed \\
+%DIFDELCMD < Node \NodeTwentySixGlibcNodeMajor, glibc & \NodeTwentySixGlibcOpensslLiteral & \NodeTwentySixGlibcVeight & \NodeTwentySixGlibcProbeThrows & \NodeTwentySixGlibcJwtPreparsed \\
+%DIFDELCMD < host (no container)                      & n/r                             & \HostVeight             & \HostProbeThrows             & \HostJwtPreparsed \\
+%DIFDELCMD < \bottomrule
+%DIFDELCMD < \end{tabular}
+%DIFDELCMD < \end{table}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \begin{table*}[t]
 \caption{The same measurement across four container runtimes on one machine,
 \MatrixInvocations{} processes each of \MatrixCallsPerInvocation{} calls. The
 \emph{Disc.\ parse}: the discarded asymmetric parse; \emph{Pre-parsed}:
@@ -954,11 +1286,21 @@ host, no container                        & \HostOpensslInferred$^{\dagger}$  & 
 \bottomrule
 \end{tabular}
 \end{table*}
+\DIFaddend 
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{fig_runtime_matrix.pdf}
-\caption{The four container rows of Table~\ref{tab:matrix} on a logarithmic
+\DIFdelbeginFL %DIFDELCMD < \caption{The four container rows of Table~\ref{tab:matrix} on a logarithmic
+%DIFDELCMD < axis. The discarded parse spans \SpanProbeThrows$\times$ across images while the
+%DIFDELCMD < pre-parsed call spans \SpanJwtPreparsed$\times$. The dashed rule marks the
+%DIFDELCMD < OpenSSL series boundary. Within this matrix it is not a controlled boundary,
+%DIFDELCMD < because the two fast images also carry a newer engine and a different build
+%DIFDELCMD < (Section~\ref{sec:cannot-separate}); Section~\ref{sec:rq2-causal} controls it. The uncontainerised host row is omitted
+%DIFDELCMD < because its comparison with the container rows is confounded. Generated by
+%DIFDELCMD < \texttt{figures/make\_figures.py}~\cite{artifact2026}.}
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \caption{The four container rows of Table~\ref{tab:matrix} on a logarithmic
 axis. The discarded parse spans \SpanProbeThrows$\times$ across images while the
 pre-parsed call spans \SpanJwtPreparsed$\times$. The dashed rule marks the
 OpenSSL series boundary. Within this matrix it is not a controlled boundary,
@@ -966,7 +1308,7 @@ because the two fast images also carry a newer engine and a different build
 (Section~\ref{sec:cannot-separate}); Section~\ref{sec:rq2-causal} controls it. The uncontainerised host row is omitted
 because its comparison with the container rows is confounded. Generated by
 \texttt{figures/make\_figures.py}~\citep{artifact2026}.}
-\label{fig:matrix}
+\DIFaddendFL \label{fig:matrix}
 \end{figure*}
 
 \subsection{Engine major version does not distinguish the two slow runtimes}
@@ -1174,13 +1516,20 @@ Arrival rate & \multicolumn{2}{c}{Mean per call ($\mu$s)} \\
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{fig_insitu_rate.pdf}
-\caption{In-situ validation cost against arrival rate, string secret. The two
+\DIFdelbeginFL %DIFDELCMD < \caption{In-situ validation cost against arrival rate, string secret. The two
+%DIFDELCMD < passes are drawn separately rather than averaged: Section~\ref{sec:drift} reports
+%DIFDELCMD < that they differ systematically, and averaging would conceal that. The shaded
+%DIFDELCMD < band is the range between the passes, which is two observations rather than an
+%DIFDELCMD < interval. Generated by
+%DIFDELCMD < \texttt{figures/make\_figures.py}~\cite{artifact2026}.}
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \caption{In-situ validation cost against arrival rate, string secret. The two
 passes are drawn separately rather than averaged: Section~\ref{sec:drift} reports
 that they differ systematically, and averaging would conceal that. The shaded
 band is the range between the passes, which is two observations rather than an
 interval. Generated by
 \texttt{figures/make\_figures.py}~\citep{artifact2026}.}
-\label{fig:insitu}
+\DIFaddendFL \label{fig:insitu}
 \end{figure}
 
 One observation follows, and it is the one this section claims: the cost is
@@ -1188,22 +1537,29 @@ present in deployment and is far larger than the isolated host figure of
 Table~\ref{tab:host}, consistent with Section~\ref{sec:rq2} in that the deployed
 runtime is the one carrying the older OpenSSL.
 
-Two things visible in Table~\ref{tab:insitu} need care, and we set them out
+Two things visible in Table~\ref{tab:insitu} \DIFdelbegin \DIFdel{are }\emph{\DIFdel{not}} %DIFAUXCMD
+\DIFdel{claimed}\DIFdelend \DIFaddbegin \DIFadd{need care}\DIFaddend , and we set them out
 explicitly.
 
-\paragraph{Wall-clock exceeds the prediction; processor time does not.} The
+\DIFdelbegin %DIFDELCMD < \paragraph{The magnitude is not reconciled with the microbenchmark.} %%%
+\DIFdelend \DIFaddbegin \paragraph{Wall-clock exceeds the prediction; processor time does not.} \DIFaddend The
 deployed runtime's discarded parse costs \NodeEighteenProbeThrows~$\mu$s
 (Table~\ref{tab:matrix}), and the remainder of the validation path is of order
 \NodeEighteenJwtPreparsed~$\mu$s, giving an expected total near
-\InsituPredictedFromMatrix~$\mu$s. The wall-clock means observed across the
-sweep are \InsituObservedLo--\InsituObservedHi~$\mu$s, exceeding that by
-\InsituUnaccountedLo--\InsituUnaccountedHi~$\mu$s. Contention inflates a
-duration rather than deflating it, so these are upper bounds, and
+\InsituPredictedFromMatrix~$\mu$s. The \DIFdelbegin \DIFdel{observed figures }\DIFdelend \DIFaddbegin \DIFadd{wall-clock means observed across the
+sweep }\DIFaddend are \InsituObservedLo--\InsituObservedHi~$\mu$s\DIFaddbegin \DIFadd{, exceeding that by
+}\InsituUnaccountedLo\DIFadd{--}\InsituUnaccountedHi\DIFadd{~$\mu$s}\DIFaddend . Contention inflates a
+duration rather than deflating it, so these are upper bounds\DIFdelbegin \DIFdel{and are notinconsistent
+with the microbenchmark; but a gap of roughly
+}%DIFDELCMD < \InsituUnaccountedLo%%%
+\DIFdel{--}%DIFDELCMD < \InsituUnaccountedHi%%%
+\DIFdel{~$\mu$s is unaccounted for, and we
+report it as unaccounted rather than attributing it. It was not decomposed}\DIFdelend \DIFaddbegin \DIFadd{, and
 Section~\ref{sec:abcorroboration} shows where the excess is not: measured as
-processor time, the validation call costs within \AbCpuVsPredictedPct\% of the
+processor time, the validation call costs within }\AbCpuVsPredictedPct\DIFadd{\% of the
 prediction. The excess is therefore time the call spent off the processor on a
 shared host, not additional work. We did not decompose that off-processor time
-further, and no claim below depends on it.
+further, and no claim below depends on it}\DIFaddend .
 
 \paragraph{The decline with arrival rate is not interpreted.} Cost falls
 monotonically from \InsituStringAscA~$\mu$s at \InsituRateA~requests/s to
@@ -1263,19 +1619,55 @@ The operative consequence is that in-situ figures are reported with the host loa
 recorded during their window, and comparisons between windows at different loads
 are not treated as comparisons between conditions.
 
-\subsection{Corroboration: the cost is processor time, and it matches the
-prediction}\label{sec:abcorroboration}
+\DIFdelbegin %DIFDELCMD < \ifabdata
+%DIFDELCMD < \subsection{Corroboration: the cost belongs to the validation
+%DIFDELCMD < call}%%%
+\DIFdelend \DIFaddbegin \subsection{Corroboration: the cost is processor time, and it matches the
+prediction}\DIFaddend \label{sec:abcorroboration}
+%DIF < % If an arm records PROCESS CPU TIME rather than wall clock, use this title
+%DIF < % instead and swap in the commented paragraph below:
+%DIF < % \subsection{Corroboration: the cost is real processor time}
 
 An in-situ figure of this magnitude has two readings. Either it is work the
-service performs, or it is time the request spends waiting --- queued behind
-other requests, descheduled by a contended host, or inflated by the instrument.
+service performs, or it is \DIFdelbegin \DIFdel{an artefact of the surrounding measurement }\DIFdelend \DIFaddbegin \DIFadd{time the request spends waiting }\DIFaddend --- \DIFdelbegin \DIFdel{ambient handler cost that would be there without validation, or a property of
+the instrumentrather than of the code}\DIFdelend \DIFaddbegin \DIFadd{queued behind
+other requests, descheduled by a contended host, or inflated by the instrument}\DIFaddend .
 We separate them with an A/B of the same service at one arrival rate, with
-validation enabled in one window and disabled in the next, on the same pod
+validation enabled in one window and disabled in the next\DIFdelbegin \DIFdel{under otherwise identical conditions}\DIFdelend \DIFaddbegin \DIFadd{, on the same pod
 running the same image, and read the processor time the application container
-was charged from its cgroup accounting rather than from a clock.
+was charged from its cgroup accounting rather than from a clock}\DIFaddend .
 Table~\ref{tab:ab} reports it.
 
-\begin{table}[t]
+\DIFdelbegin %DIFDELCMD < \begin{table}[t]
+%DIFDELCMD < \caption{Validation enabled against validation disabled, run
+%DIFDELCMD < \texttt{\ABRunId}, at \ABRate~requests/s over \ABWindowSeconds~s per window.
+%DIFDELCMD < The means time \ABQuantity, computed as the difference of the histogram's
+%DIFDELCMD < \texttt{\_sum} divided by the difference of its \texttt{\_count}, as in
+%DIFDELCMD < Section~\ref{sec:insitu-method}. \emph{Two caveats govern how this table may be
+%DIFDELCMD < read.} First, the load figure is a single \texttt{uptime} sample taken at window
+%DIFDELCMD < start --- the same quantity and capture path as the per-window load recorded
+%DIFDELCMD < with the rate sweeps --- and not a mean over the window; no within-window load
+%DIFDELCMD < series exists for these two runs. Second, the difference is a difference of two
+%DIFDELCMD < window means, not the median of per-round paired differences used everywhere
+%DIFDELCMD < else in this paper (Section~\ref{sec:unit}), because the two arms are separate
+%DIFDELCMD < windows and cannot be paired. It is the only quantity in the paper of that kind,
+%DIFDELCMD < and no other result depends on it.}
+%DIFDELCMD < \label{tab:ab}
+%DIFDELCMD < \small\setlength{\tabcolsep}{4pt}
+%DIFDELCMD < \begin{tabular}{@{}lrrr@{}}
+%DIFDELCMD < \toprule
+%DIFDELCMD <             & Mean per call & Calls & Load at \\
+%DIFDELCMD < Arm         & ($\mu$s)      &       & window start \\
+%DIFDELCMD < \midrule
+%DIFDELCMD < validation enabled  & \ABEnabledMean  & \ABEnabledCalls  & \ABEnabledLoad  \\
+%DIFDELCMD < validation disabled & \ABDisabledMean & \ABDisabledCalls & \ABDisabledLoad \\
+%DIFDELCMD < \midrule
+%DIFDELCMD < difference          & \ABDelta        &                  &                 \\
+%DIFDELCMD < \bottomrule
+%DIFDELCMD < \end{tabular}
+%DIFDELCMD < \end{table}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \begin{table}[t]
 \caption{Validation enabled against validation disabled, at one arrival rate,
 two \AbWindowSecondsJwt~s windows on the same pod and image, \AbRequestsNone{}
 requests each. A signed token is on the wire in both arms; the disabled arm
@@ -1299,28 +1691,113 @@ Host load, 1 min                   & \AbLoadOneNone             & \AbLoadOneJwt 
 \bottomrule
 \end{tabular}
 \end{table}
+\DIFaddend 
 
-Enabling validation adds \AbCpuPerCallDelta~$\mu$s of processor time per
-call. The runtime matrix predicts \InsituPredictedFromMatrix~$\mu$s for the same
+\DIFdelbegin \DIFdel{Removing validation removes }%DIFDELCMD < \ABDelta%%%
+\DIFdelend \DIFaddbegin \DIFadd{Enabling validation adds }\AbCpuPerCallDelta\DIFaddend ~$\mu$s \DIFdelbegin \DIFdel{per call, }%DIFDELCMD < \ABDeltaPct%%%
+\DIFdel{\% of the
+enabled mean. The arrival rate, the request path and the rest of the handler are
+unchanged between the arms; only the validation call is withdrawn. The in-situ
+figure is therefore attributable to that call rather than to ambient handler
+cost or to the instrument, which is what this table is for. }%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{Whether the time is spent executing or spent descheduled inside the call is a further question}\DIFdelend \DIFaddbegin \DIFadd{of processor time per
+call. The runtime matrix predicts }\InsituPredictedFromMatrix\DIFadd{~$\mu$s for the same
 work on the same runtime (Section~\ref{sec:insitu}); the two agree to within
-\AbCpuVsPredictedPct\%. They are obtained by instruments that share no code:
-cgroup CPU accounting on a deployed pod, and a single-process microbenchmark
+}\AbCpuVsPredictedPct\DIFadd{\%. They are obtained by instruments that share no code:
+cgroup CPU accounting on a deployed pod}\DIFaddend , and a \DIFdelbegin \DIFdel{wall-clock difference does not answer it. Three
+observations together do. The isolated microbenchmark
+of Section~\ref{sec:rq1}
+measures the same operation in a single process with no concurrent load at all
+and finds it dominated by the same component. The sampling profiler of
+Section~\ref{sec:rq1} attributes a median }%DIFDELCMD < \ProfHostPct%%%
+\DIFdel{\% of }\emph{\DIFdel{self}} %DIFAUXCMD
+\DIFdel{time to
+that frame, and self time is time on processor.
+And the A/B above shows the cost
+survives into deployment and belongs to the
+call. The microbenchmark and the
+profiler establish that the work is processor time; the A/B establishes that the
+deployed figure is the same work and not something else.
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+%DIF < % CPU-TIME alternative. Use INSTEAD of the two paragraphs above, with the
+%DIF < % original subsection title, ONLY if an arm records process CPU time. Replace
+%DIF < % the bracketed phrase with what was actually recorded.
+%DIF < %
+%DIF < % Removing validation removes \ABDelta~$\mu$s per call, \ABDeltaPct\% of the
+%DIF < % enabled mean. Because the means are computed from [process CPU time rather
+%DIF < % than wall clock], the difference is processor time and not time the request
+%DIF < % spent queued or descheduled: a request that waits accrues no CPU. The arrival
+%DIF < % rate, the request path and the rest of the handler are unchanged between the
+%DIF < % arms; only the validation call is withdrawn. This is the deployment-side
+%DIF < % counterpart of the profiler attribution in Section~\ref{sec:rq1}, which
+%DIF < % assigns a median \ProfHostPct\% of self time to the same frame in isolation.
+\DIFdelend \DIFaddbegin \DIFadd{single-process microbenchmark
 in an isolated container. A request that queues or is descheduled accrues
 wall-clock time but no CPU, so this figure cannot contain queueing delay.
+}\DIFaddend 
 
-Three observations weigh against reading the difference as an artefact of the
+\DIFdelbegin \DIFdel{That is the whole of what this table establishes, and we are explicit about what
+it does not. It does not
+reconcile the in-situ magnitude with the microbenchmark: Section~\ref{sec:insitu} reports a gap of roughly
+}%DIFDELCMD < \InsituUnaccountedLo%%%
+\DIFdel{--}%DIFDELCMD < \InsituUnaccountedHi%%%
+\DIFdel{~$\mu$s between the observed means and
+the sum of the components measured on the deployed runtime, and one A/B at one
+rate does not decompose it. It does not
+bound the contribution of host load, because the load figures are window-start snapshots rather than means. And }\DIFdelend \DIFaddbegin \DIFadd{Three observations weigh against reading the difference as an artefact of the
 two windows. The sidecar, in the same pod under the same contention, did not
-rise with the application: \AbSidecarCpuNone{} millicores disabled against
-\AbSidecarCpuJwt{} enabled. The one-second CPU samples of the two arms do not
-overlap at all --- disabled never exceeded \AbCpuSampleMaxNone{} millicores in
-\AbCpuSamplesNone{} samples, enabled never fell below \AbCpuSampleMinJwt{} in
-\AbCpuSamplesJwt{} --- which separates the arms without a distributional
+rise with the application: }\AbSidecarCpuNone{} \DIFadd{millicores disabled against
+}\AbSidecarCpuJwt{} \DIFadd{enabled. The one-second CPU samples of the two arms do not
+overlap at all --- disabled never exceeded }\AbCpuSampleMaxNone{} \DIFadd{millicores in
+}\AbCpuSamplesNone{} \DIFadd{samples, enabled never fell below }\AbCpuSampleMinJwt{} \DIFadd{in
+}\AbCpuSamplesJwt{} \DIFadd{--- which separates the arms without a distributional
 assumption. And event-loop lag is unchanged, so neither arm was near
-saturation. The two windows are two observations, not a sample: the difference
-carries no interval and we compute none.
+saturation. The }\DIFaddend two windows are two observations\DIFaddbegin \DIFadd{, not a sample}\DIFaddend : the difference
+carries no interval \DIFdelbegin \DIFdel{, }\DIFdelend and we compute none\DIFdelbegin \DIFdel{from it}\DIFdelend .
 
 
-\subsection{How common is the avoiding pattern, in our
+\DIFdelbegin %DIFDELCMD < \else
+%DIFDELCMD < 
+
+%DIFDELCMD < \subsection{Corroboration: the cost is not an artefact of the
+%DIFDELCMD < instrument}\label{sec:abcorroboration}
+%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{An in-situ figure of this magnitude has two readings. Either it is work the
+service performs, or it is an artefact of the surrounding measurement --- ambient
+handler cost that would be there without validation, or a property of the
+instrument rather than of the code. The second is excluded by an A/B of the same
+service at one arrival rate, with validation enabled in one window and disabled
+in the next under otherwise identical conditions; the two runs are committed with
+the rest of the measurements in the replication package~}%DIFDELCMD < \cite{artifact2026}%%%
+\DIFdel{.
+Withdrawing the validation call, with the arrival rate, the request path and the
+remainder of the handler unchanged, removes the great majority of the per-call
+cost, which locates it in that call.
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{Whether the time is spent executing or spent descheduled inside the call is a
+further question that this comparison does not answer. Two instruments do. The
+isolated microbenchmark of Section~\ref{sec:rq1} measures the same operation in a
+single process with no concurrent load at all and finds it dominated by the same
+component, and the sampling profiler of Section~\ref{sec:rq1} attributes a median
+}%DIFDELCMD < \ProfHostPct%%%
+\DIFdel{\% of }\emph{\DIFdel{self}} %DIFAUXCMD
+\DIFdel{time to that frame, self time being time on
+processor.
+}%DIFDELCMD < 
+
+%DIFDELCMD < \fi
+%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend \subsection{How common is the avoiding pattern, in our
 sample?}\label{sec:prevalence}
 
 Three instruments, three frames, reported separately as Section~\ref{sec:frames}
@@ -1476,7 +1953,8 @@ resolving key material on every call, and not JSON Web Token validation, HMAC
 or OpenSSL as such: OpenSSL~3.0 sets the price, but only a library that makes
 that choice is charged it, and one that makes it by way of a failing parse is
 charged the most. The failing parse is exactly what the order-of-evaluations
-profiler of \citet{selakovic2017actionable} is designed to
+profiler of \DIFdelbegin \DIFdel{Selakovic et al.~}%DIFDELCMD < \cite{selakovic2017actionable} %%%
+\DIFdelend \DIFaddbegin \citet{selakovic2017actionable} \DIFaddend is designed to
 find, and the alternatives above are the fixes that line of work suggests:
 reorder the test, make it cheap, or move it off the per-call path. The
 comparison does not estimate how many libraries make the choice; it shows that
@@ -1511,7 +1989,8 @@ general one.
 attempt is not purely wasteful. The \emph{success} of that parse on asymmetric
 key material is what produces a key object whose type a later check depends on,
 and that check is what prevents symmetric and asymmetric material from being
-interchanged~\citep{rfc8725}. A change that dispatches on the declared algorithm
+interchanged~\DIFdelbegin %DIFDELCMD < \cite{rfc8725}%%%
+\DIFdelend \DIFaddbegin \citep{rfc8725}\DIFaddend . A change that dispatches on the declared algorithm
 while relaxing which key material may take the fast path alters which inputs
 reach that check.
 
@@ -1523,7 +2002,8 @@ library's own suite, both in its key-confusion tests
 (\NaiveFailingTests). All of these outcomes --- the suite unchanged under the
 narrow patch, two key-confusion failures without its guard --- reproduce on the
 x86\_64 machine of Section~\ref{sec:arch-method} under a different Node and
-OpenSSL release~\citep{artifact2026}.
+OpenSSL release~\DIFdelbegin %DIFDELCMD < \cite{artifact2026}%%%
+\DIFdelend \DIFaddbegin \citep{artifact2026}\DIFaddend .
 
 \paragraph{A reduction of our own contribution.} We had written a regression test
 for this property and intended to offer it upstream. Running the library's
@@ -1536,24 +2016,28 @@ property the maintainers already test for but which is not evident from the code
 being changed.
 
 The independent defence against this class of confusion is for the caller to
-restrict permitted algorithms~\citep{rfc8725}, and \SampleNoAlgorithmsPct\% of the
+restrict permitted algorithms~\DIFdelbegin %DIFDELCMD < \cite{rfc8725}%%%
+\DIFdelend \DIFaddbegin \citep{rfc8725}\DIFaddend , and \SampleNoAlgorithmsPct\% of the
 call sites surveyed in Section~\ref{sec:prevalence} do not.
 
 \paragraph{Reported upstream.} Before reporting, we searched the library's issue
 tracker for earlier reports. One exists: an issue opened in April
-2024\footnote{\url{https://github.com/auth0/node-jsonwebtoken/issues/966}} reports that HS256 verification in the 9.x
+2024\DIFdelbegin \DIFdel{~}%DIFDELCMD < \cite{jsonwebtoken2024issue966} %%%
+\DIFdelend \DIFaddbegin \footnote{\url{https://github.com/auth0/node-jsonwebtoken/issues/966}} \DIFaddend reports that HS256 verification in the 9.x
 series is 34 times slower than in 8.5.1, on a Node release that bundles
 OpenSSL~3.0. It diagnoses no cause and, at the time of writing, has no
 maintainer response. That is the symptom this paper explains, observed
 independently two years earlier by a user who could not see its source. We
 reported the mechanism, with a minimal reproduction, per-runtime measurements
 and the OpenSSL finding, as a separate
-issue\footnote{\url{https://github.com/auth0/node-jsonwebtoken/issues/1046}}, and
+issue\DIFdelbegin \DIFdel{~}%DIFDELCMD < \cite{jsonwebtoken2026issue}%%%
+\DIFdelend \DIFaddbegin \footnote{\url{https://github.com/auth0/node-jsonwebtoken/issues/1046}}\DIFaddend , and
 a pull request implementing the narrow form of the fix, with its guard, is open
 against it.
 %% STATUS-AT-SUBMISSION: update with the maintainers' response, if any, and
 %% settle the authorship of the pull request (see upstream/STATUS.md).
-At the time of writing neither has received a maintainer response. We
+\DIFdelbegin %DIFDELCMD < \TODO{At the time of writing neither has received a maintainer response.} %%%
+\DIFdelend \DIFaddbegin \DIFadd{At the time of writing neither has received a maintainer response. }\DIFaddend We
 state that rather than omit it: the library is maintained at a slow cadence and
 a response may postdate publication.
 
@@ -1585,23 +2069,85 @@ design that pays most is the one that asks an expensive parser to answer a cheap
 question on every request.
 
 \paragraph{Pin the algorithm.} Independently of anything here, callers should
-restrict permitted algorithms~\citep{rfc8725}. Most of the call sites we surveyed
+restrict permitted algorithms~\DIFdelbegin %DIFDELCMD < \cite{rfc8725}%%%
+\DIFdelend \DIFaddbegin \citep{rfc8725}\DIFaddend . Most of the call sites we surveyed
 do not, which leaves them relying entirely on library-internal key typing for a
 property they could assert directly in one argument.
 
 \subsection{Relocation is not the first remedy}\label{sec:offload}
 
-A cost believed to be cryptographic invites relocation to a sidecar or gateway.
+\DIFdelbegin \DIFdel{Because a }\DIFdelend \DIFaddbegin \DIFadd{A }\DIFaddend cost believed to be cryptographic invites relocation \DIFdelbegin \DIFdel{, we implemented
+that relocation and report what it does. This subsection rests on source
+inspection and a manual observation; it carries no measured result, and we set
+out below why we report none.
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{Applying a mesh }\texttt{\DIFdel{RequestAuthentication}} %DIFAUXCMD
+\DIFdel{policy causes the sidecar to
+validate the token before proxying.
+It does not cause the application to stop
+validating: verification is }\emph{\DIFdel{duplicated}}%DIFAUXCMD
+\DIFdel{,
+not relocated, and no work leaves
+the
+event loop. Making relocation effective therefore }\DIFdelend \DIFaddbegin \DIFadd{to a sidecar or gateway.
 The cost measured here is not cryptographic and is largely avoidable in place,
 so an architectural remedy that also moves a trust boundary should not be the
 first thing reached for. We implemented the relocation the earlier design
 proposed; applying a mesh validation policy duplicates verification rather
-than moving it, and making it effective requires the application to trust a
-proxy-supplied claims header --- a known anti-pattern that needs a filter
-stripping client-supplied copies. We report that only as a design note: it
+than moving it, and making it effective }\DIFaddend requires the application to trust \DIFdelbegin \DIFdel{something the sidecar tells it. In our implementation the handler reads a
+sidecar-populated claims header and, when it is present, returns the protected
+payload without verifying anything }\DIFdelend \DIFaddbegin \DIFadd{a
+proxy-supplied claims header }\DIFaddend --- \DIFdelbegin \DIFdel{the branch is a single conditional in
+}\texttt{\DIFdel{service-a/index.js}} %DIFAUXCMD
+\DIFdel{in the replication package~}%DIFDELCMD < \cite{artifact2026}%%%
+\DIFdel{.
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{Trusting an identity header injected by an upstream proxy, without stripping any
+client-supplied copy at the trust boundary and without a fail-closed path when
+the policy is not applied, is a known deployment }\DIFdelend \DIFaddbegin \DIFadd{a known }\DIFaddend anti-pattern \DIFdelbegin \DIFdel{rather than a novel
+finding, and we report it as such. In our implementation the sidecar overwrites
+the header only while a policy is applied; in any other state nothing sanitises
+it
+. With the guard filter applied, a request carrying a forged claims header and
+no credential is refused. With the guard removed, the same request returns the
+protected payload. We reproduced this sequence manually --- refused, served, refused --- and it is consistent with the note recorded alongside the affected
+runs in the replication package. The remedy is an always-applied filter that
+strips any }\DIFdelend \DIFaddbegin \DIFadd{that needs a filter
+stripping }\DIFaddend client-supplied \DIFdelbegin \DIFdel{copy of the header on entry to the pod, before any
+validation filter runs, matched on the connection manager rather than on the validation filter, because in the state that needs protection no validation
+filter exists.
+}%DIFDELCMD < 
+
+%DIFDELCMD < \paragraph{Why we report no measured result.} %%%
+\DIFdel{We wrote an automated probe to turn
+the observation into a table and it does not produce a trustworthy one. The mesh
+applies a configuration change asynchronously, on a timescale comparable to the
+probe interval, so whether a probe observes the guarded or the unguarded
+behaviour depends on whether the proxy had converged when the request fired. Two
+runs of the same script produced contradicting values for the same configuration.
+Rather than report the
+run that agreed with our expectation, we report none: the
+script's own negative control declared both runs inconclusive , and we retain it
+}\DIFdelend \DIFaddbegin \DIFadd{copies. We report that only as a design note: it
 carries no measurement, and the configuration, the observation and the
-inconclusive automated probe are documented in the replication
-package~\citep{artifact2026}.
+inconclusive automated probe are documented }\DIFaddend in the replication
+package\DIFdelbegin \DIFdel{with that limitation recorded. Making this measurable
+requires gating each probe on }\emph{\DIFdel{observed}} %DIFAUXCMD
+\DIFdel{configuration convergence ---
+polling until repeated identical responses --- rather than on a fixed delay. We
+have not implemented that, and until it is done this subsection should be read as
+a mechanism argument supported by an observation, not as a measurement.
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{The narrow point that survives is the one this paper's measurements support: the
+cost documented in Section~\ref{sec:rq1} is largely avoidable in place, so an
+architectural remedy that also moves a trust boundary should not be the first
+thing reached for}\DIFdelend \DIFaddbegin \DIFadd{~}\citep{artifact2026}\DIFaddend .
 
 %% ============================================================================
 \section{Threats to validity}\label{sec:threats}
@@ -1611,22 +2157,23 @@ come from a single ARM64 host. Section~\ref{sec:rq2-arch} repeats them on
 x86\_64, and there the split between OpenSSL series and the component
 ordering of the host decomposition hold. But the x86\_64 machine is a virtual machine on shared
 cloud infrastructure, whose absolute timings are known to be
-unreliable~\citep{laaber2019cloud}; we therefore take only orderings and ratios
+unreliable~\DIFdelbegin %DIFDELCMD < \cite{laaber2019cloud}%%%
+\DIFdelend \DIFaddbegin \citep{laaber2019cloud}\DIFaddend ; we therefore take only orderings and ratios
 between interleaved conditions from it, and no magnitude in this paper should
 be read as holding on x86\_64 hardware in general. A repetition on a dedicated
 x86\_64 host, which the replication package scripts in one command, would turn
 the ordering check into a replication of magnitudes. The C probe, the exception
 baseline and the cross-library comparison were measured only on the x86\_64
-machine. Their conclusions rest on ratios between conditions measured in the
-same rounds, which is the kind of quantity a shared machine can support, and
+machine\DIFdelbegin \DIFdel{; their }\DIFdelend \DIFaddbegin \DIFadd{. Their }\DIFaddend conclusions rest on ratios between conditions measured in the
+same rounds, which is the kind of quantity a shared machine can support\DIFaddbegin \DIFadd{, and
 the effects they report are far larger than the machine's noise: the median
-between-process coefficient of variation is \CProbeCvMedian\%,
-\ExcCvMedian\% and \XlibCvMedian\% in the three runs. The largest values
-(\CProbeCvMax\%, \ExcCvMax\% and \XlibCvMax\%) occur on sub-microsecond or
+between-process coefficient of variation is }\CProbeCvMedian\DIFadd{\%,
+}\ExcCvMedian\DIFadd{\% and }\XlibCvMedian\DIFadd{\% in the three runs. The largest values
+(}\CProbeCvMax\DIFadd{\%, }\ExcCvMax\DIFadd{\% and }\XlibCvMax\DIFadd{\%) occur on sub-microsecond or
 JIT-dominated conditions that carry no claim, and medians of per-process
 medians are insensitive to them. The C probe needs no JavaScript runtime and
 the scripts rebuild every OpenSSL release from source, so repeating it on the
-ARM64 host or a dedicated x86\_64 machine is one command.
+ARM64 host or a dedicated x86\_64 machine is one command}\DIFaddend .
 
 \paragraph{The C probe reproduces Node's calls, not Node's build.}
 Section~\ref{sec:rq2-causal} issues the OpenSSL calls Node issues, as read from
@@ -1647,23 +2194,34 @@ the synthetic one, but they are not the same code path. The ARM64 host figure
 of Table~\ref{tab:host} was not itself decomposed; Table~\ref{tab:decomp}
 decomposes the same component on six other runtimes.
 
-\paragraph{The headline host figure has no per-row OpenSSL version.} The host
+\DIFdelbegin %DIFDELCMD < \paragraph{One host figure cannot be version-attributed.} %%%
+\DIFdelend \DIFaddbegin \paragraph{The headline host figure has no per-row OpenSSL version.} \DIFaddend The host
 decomposition of Section~\ref{sec:rq1} predates the per-measurement OpenSSL
-field. The version in force is known from the run timestamp and a note recorded
-at the time: OpenSSL \HostOpensslInferred, which a package upgrade later that
-day moved to \HostOpensslAfterDrift{} under the same Node binary. We report it
-as inferred, marked as such in Table~\ref{tab:matrix}, rather than as recorded.
+field\DIFdelbegin \DIFdel{, and the
+host's OpenSSL has since moved by a patch release, so the version that produced
+those figures is known by run timestamp rather than from the measurement record. }\DIFdelend \DIFaddbegin \DIFadd{. The version in force is known from the run timestamp and a note recorded
+at the time: OpenSSL }\HostOpensslInferred\DIFadd{, which a package upgrade later that
+day moved to }\HostOpensslAfterDrift{} \DIFadd{under the same Node binary. We report it
+as inferred, marked as such in }\DIFaddend Table~\ref{tab:matrix}\DIFdelbegin \DIFdel{therefore leaves the host OpenSSL cell unrecorded rather than filling it with a version captured later.
+Since Section~\ref{sec:rq2} shows
+this quantity varies }%DIFDELCMD < \SpanProbeThrows%%%
+\DIFdel{$\times$ with the runtime, this is a
+material limitation on the headline figure and not a bookkeeping detail: the
+}%DIFDELCMD < \HostProbeThrows%%%
+\DIFdelend \DIFaddbegin \DIFadd{, rather than as recorded.
 Three measurements that do carry their version bound how much this matters.
-The same probe costs \RtTwentySixProbe~$\mu$s under Node \RtTwentySixLiteral{}
-with OpenSSL \RtTwentySixOpenssl, \XhProbeThrows~$\mu$s in the x86\_64 host
-repetition with OpenSSL \XhOpenssl, and \NodeTwentySixGlibcProbeThrows~$\mu$s in
-the Node \NodeTwentySixGlibcNodeMajor{} container with OpenSSL
-\NodeTwentySixGlibcOpensslLiteral{} --- all of the same order as
-\HostProbeThrows~$\mu$s, and all from OpenSSL releases after the step of
+The same probe costs }\RtTwentySixProbe\DIFadd{~$\mu$s under Node }\RtTwentySixLiteral{}
+\DIFadd{with OpenSSL }\RtTwentySixOpenssl\DIFadd{, }\XhProbeThrows\DIFadd{~$\mu$s in the x86\_64 host
+repetition with OpenSSL }\XhOpenssl\DIFadd{, and }\NodeTwentySixGlibcProbeThrows\DIFaddend ~$\mu$s \DIFdelbegin \DIFdel{is attributable to the host as
+configured at that time
+and to nothing more specific. The container rows, which carry the attribution of Section~\ref{sec:rq2}, each record their own}\DIFdelend \DIFaddbegin \DIFadd{in
+the Node }\NodeTwentySixGlibcNodeMajor{} \DIFadd{container with OpenSSL
+}\NodeTwentySixGlibcOpensslLiteral{} \DIFadd{--- all of the same order as
+}\HostProbeThrows\DIFadd{~$\mu$s, and all from OpenSSL releases after the step of
 Table~\ref{tab:cprobe}. The headline figure is therefore representative of a
 post-3.2 OpenSSL, which is all the paper uses it for; it would be wrong by more
 than an order of magnitude only if the host had run an OpenSSL~3.0 or~3.1
-release, which the record excludes.
+release, which the record excludes}\DIFaddend .
 
 \paragraph{Ranges of two, with a systematic component.} The in-situ dispersion is
 the range across an ascending and a descending pass. It is not a confidence
@@ -1672,17 +2230,25 @@ rather than randomly, so they are not independent samples of a common value and
 the range understates uncertainty further. No inference in this paper depends on
 the width of those ranges.
 
-\paragraph{One in-situ process, two passes.} The rate sweep rests on one
+\paragraph{One in-situ process, two passes.} The \DIFdelbegin \DIFdel{whole deployment result }\DIFdelend \DIFaddbegin \DIFadd{rate sweep }\DIFaddend rests on one
 process sweeping seven rates twice. That is sufficient for the claim made ---
 the cost is present in deployment and of this order --- and insufficient for any
 claim about the shape of the cost-versus-rate relation, which
-Section~\ref{sec:insitu} accordingly does not make. The magnitude claim does not
+Section~\ref{sec:insitu} accordingly does not make. \DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < \paragraph{The in-situ magnitude is unreconciled.} %%%
+\DIFdel{The observed
+}%DIFDELCMD < \InsituObservedLo%%%
+\DIFdel{--}%DIFDELCMD < \InsituObservedHi%%%
+\DIFdel{~$\mu$s exceeds the sum of the measured
+components on the deployed runtime by a margin we did not decompose, and }\DIFdelend \DIFaddbegin \DIFadd{The magnitude claim does not
 rest on the sweep alone: the A/B of Section~\ref{sec:abcorroboration} is a
 separate pair of windows, measured with a separate instrument, and it agrees
 with the microbenchmark prediction on processor time. The wall-clock excess over
 that prediction is attributed to time off the processor and not decomposed
-further; the decline with arrival rate has several candidate explanations
-unrelated to validation that we did not test (Section~\ref{sec:insitu}).
+further; }\DIFaddend the decline with arrival rate has several candidate explanations
+unrelated to validation that we did not test \DIFdelbegin \DIFdel{. }\DIFdelend \DIFaddbegin \DIFadd{(}\DIFaddend Section~\ref{sec:insitu}\DIFdelbegin \DIFdel{states both as
+unaccounted rather than interpreting them}\DIFdelend \DIFaddbegin \DIFadd{)}\DIFaddend .
 
 \paragraph{Sampling frames are not interchangeable.} The three prevalence
 instruments of Section~\ref{sec:frames} have different units and different
@@ -1691,7 +2257,8 @@ co-occurrence counts measure two strings appearing in one file, with a
 false-positive rate established at \AdjudicatedFalsePositive{} of
 \AdjudicatedTotal{} on hand inspection. The classified sample has unknown
 inclusion probabilities, a limitation of repository search noted more generally
-by \citet{kalliamvakou2014promises}. The counter-search is
+by \DIFdelbegin \DIFdel{Kalliamvakou et al.~}%DIFDELCMD < \cite{kalliamvakou2014promises}%%%
+\DIFdelend \DIFaddbegin \citet{kalliamvakou2014promises}\DIFaddend . The counter-search is
 selected on the outcome.
 
 \paragraph{The matcher's coverage.} Call sites are found by resolving the local
@@ -1712,14 +2279,31 @@ duration rather than deflating it, so in-situ figures are upper bounds; but
 comparisons between windows at different loads are not comparisons between
 conditions, and we do not treat them as such.
 
-\paragraph{The A/B is two windows at unequal load.} The two arms of
-Table~\ref{tab:ab} are consecutive windows rather than interleaved rounds, and
-their host load is known only at the instant each began. That bars comparing
+\DIFdelbegin %DIFDELCMD < \ifabdata
+%DIFDELCMD < \paragraph{The A/B windows carry a load snapshot, not a load series.} %%%
+\DIFdel{Every
+figure in }\DIFdelend \DIFaddbegin \paragraph{The A/B is two windows at unequal load.} \DIFadd{The two arms of
+}\DIFaddend Table~\ref{tab:ab} \DIFdelbegin \DIFdel{comes from two windows whose }\DIFdelend \DIFaddbegin \DIFadd{are consecutive windows rather than interleaved rounds, and
+their }\DIFaddend host load is known only at the instant each began. \DIFdelbegin \DIFdel{Section~\ref{sec:load} shows that window-to-window
+agreement in the rate sweeps tracks load rather than the condition under
+measurement, so a load excursion inside either A/B window would be invisible
+here. Contention inflates a duration rather than deflating it and the enabled arm
+is the
+slower one, so an unobserved excursion in that window would inflate the
+difference rather than manufacture it : the direction of the conclusion is safe,
+its magnitude is not}\DIFdelend \DIFaddbegin \DIFadd{That bars comparing
 them on wall-clock time, and we do not. It does not bar the CPU comparison the
 section rests on: contention inflates elapsed time, whereas a container's own
-cgroup accounting charges it only the processor time it used. Attaching the
-per-second host sampler to a re-run of both arms, interleaved, would remove the
-limitation; we did not.
+cgroup accounting charges it only the processor time it used}\DIFaddend . Attaching the
+per-second \DIFdelbegin \DIFdel{sampler used elsewhere in the
+instrumentation }\DIFdelend \DIFaddbegin \DIFadd{host sampler }\DIFaddend to a re-run of both arms\DIFdelbegin \DIFdel{would remove this }\DIFdelend \DIFaddbegin \DIFadd{, interleaved, would remove the
+}\DIFaddend limitation; we did not.
+\DIFdelbegin \DIFdel{The two arms are also separate windows rather than interleaved rounds, so
+the design is weaker on this one comparison than the protocol of
+Section~\ref{sec:unit} requires elsewhere.
+}%DIFDELCMD < \fi
+%DIFDELCMD < %%%
+\DIFdelend 
 
 \paragraph{Token caching is not in the comparison.} A service that caches
 verified tokens pays this cost once per token rather than once per request. We
@@ -1790,9 +2374,11 @@ measured, on every measurement, at the granularity at which it can change.
 
 \bmhead{Data availability}
 The data supporting the results of this study are openly available in the
-replication package~\citep{artifact2026} at
-\url{https://github.com/Katha-Sikdar/microservices-api}, directory
-\texttt{psao-artifact/}. It contains all measurements, the instrumentation,
+\DIFdelbegin \DIFdel{archived }\DIFdelend replication package~\DIFdelbegin %DIFDELCMD < \cite{artifact2026}%%%
+\DIFdel{, deposited on Zenodo under the
+DOI given in that reference}\DIFdelend \DIFaddbegin \citep{artifact2026} \DIFadd{at
+}\url{https://github.com/Katha-Sikdar/microservices-api}\DIFadd{, directory
+}\texttt{\DIFadd{psao-artifact/}}\DIFaddend . It contains all measurements, the instrumentation,
 the analysis code and the scripts that generate every numeric value and every
 figure in this paper, including the C program and the script that builds each
 OpenSSL release, the exception baseline, and the cross-library harnesses in four
@@ -1809,11 +2395,18 @@ hash is the authoritative pin and is complete.
 The authors declare no competing interests.
 
 \bmhead{Funding}
-The authors did not receive support from any organization for the submitted
+\DIFdelbegin %DIFDELCMD < \TODO{To be completed by the authors before submission.}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \DIFadd{The authors did not receive support from any organization for the submitted
 work.
+}\DIFaddend 
 
 \bmhead{Author contributions}
-Jannatul Ferdous Katha: conceptualisation, methodology, software, investigation,
+\DIFdelbegin %DIFDELCMD < \TODO{To be completed by the authors before submission. Springer requires a
+%DIFDELCMD < statement of each author's contribution; the present authors' individual roles
+%DIFDELCMD < are not recorded in the artifact and are not inferable from it.}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \DIFadd{Jannatul Ferdous Katha: conceptualisation, methodology, software, investigation,
 data curation, formal analysis, visualisation, writing -- original draft.
 Tasmia Tahmid Prova: validation, writing -- review and editing.
 Md Kishor Morol: supervision, writing -- review and editing.
@@ -1821,6 +2414,7 @@ Tze Hui Liew: supervision, project administration, writing -- review and
 editing.
 Dip Nandi: supervision, writing -- review and editing.
 All authors read and approved the final manuscript.
+}\DIFaddend 
 
 \bmhead{Ethics approval}
 Not applicable. This study measures software behaviour and publicly available

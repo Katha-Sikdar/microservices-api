@@ -88,6 +88,8 @@ CPrivateShareVThreeZeroSixteen,99,data/runs/2026-09-24T17-10-07Z-openssl-c-probe
 CProbeCallsPerInvocation,5000,data/runs/2026-09-24T17-10-07Z-openssl-c-probe/openssl_c_probe.csv
 CProbeCompiler,GCC 13.3.0,data/runs/2026-09-24T17-10-07Z-openssl-c-probe/builds.csv
 CProbeCpuModel,Intel(R) Xeon(R) Processor @ 2.80GHz,data/runs/2026-09-24T17-10-07Z-openssl-c-probe/run_metadata.json
+CProbeCvMax,28.0,data/runs/2026-09-24T17-10-07Z-openssl-c-probe/openssl_c_probe.csv
+CProbeCvMedian,1.5,data/runs/2026-09-24T17-10-07Z-openssl-c-probe/openssl_c_probe.csv
 CProbeErrorsQueued,1,data/runs/2026-09-24T17-10-07Z-openssl-c-probe/openssl_c_probe.csv
 CProbeIdentityMismatches,0,data/runs/2026-09-24T17-10-07Z-openssl-c-probe/openssl_c_probe.csv
 CProbeInvocations,15,data/runs/2026-09-24T17-10-07Z-openssl-c-probe/openssl_c_probe.csv
@@ -176,6 +178,8 @@ CVersionLiteralVThreeZeroNineteen,3.0.19,data/runs/2026-09-24T17-10-07Z-openssl-
 CVersionLiteralVThreeZeroSixteen,3.0.16,data/runs/2026-09-24T17-10-07Z-openssl-c-probe/openssl_c_probe.csv
 ExcCallsPerInvocation,10000,data/runs/2026-09-24T17-17-38Z-exception-cost/exception_cost.csv
 ExcCpuModel,Intel(R) Xeon(R) Processor @ 2.80GHz,data/runs/2026-09-24T17-17-38Z-exception-cost/run_metadata.json
+ExcCvMax,27.7,data/runs/2026-09-24T17-17-38Z-exception-cost/exception_cost.csv
+ExcCvMedian,2.9,data/runs/2026-09-24T17-17-38Z-exception-cost/exception_cost.csv
 ExcDepth,8,data/runs/2026-09-24T17-17-38Z-exception-cost/exception_cost.csv
 ExcErrorCode,ERR\_OSSL\_UNSUPPORTED,data/runs/2026-09-24T17-17-38Z-exception-cost/exception_cost.csv
 ExcInvocations,15,data/runs/2026-09-24T17-17-38Z-exception-cost/exception_cost.csv
@@ -448,6 +452,8 @@ XhTimerOverhead,0.058,data/runs/2026-09-24T17-39-59Z-keypath-mechanism/keypath_s
 XhTimerOverheadCiHi,0.061,data/runs/2026-09-24T17-39-59Z-keypath-mechanism/keypath_stats.json
 XhTimerOverheadCiLo,0.058,data/runs/2026-09-24T17-39-59Z-keypath-mechanism/keypath_stats.json
 XlibCallsPerInvocation,20000,data/runs/2026-09-24T17-29-16Z-crosslib/crosslib.csv
+XlibCvMax,20.2,data/runs/2026-09-24T17-29-16Z-crosslib/crosslib.csv
+XlibCvMedian,2.8,data/runs/2026-09-24T17-29-16Z-crosslib/crosslib.csv
 XlibFastjwtNewSslBackend,OpenSSL 3.5.8,data/runs/2026-09-24T17-29-16Z-crosslib/crosslib.csv
 XlibFastjwtNewSslPenalty,-0.068,data/runs/2026-09-24T17-29-16Z-crosslib/crosslib.csv
 XlibFastjwtNewSslPenaltyCiHi,0.197,data/runs/2026-09-24T17-29-16Z-crosslib/crosslib.csv
