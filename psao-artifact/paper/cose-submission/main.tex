@@ -27,6 +27,7 @@
 \usetikzlibrary{positioning,arrows.meta,decorations.pathreplacing,calc,fit}
 \usepackage{lineno}
 \usepackage[hidelinks]{hyperref}
+\usepackage{xurl}   % lets long URLs (e.g. the replication repository) wrap
 \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
 
 \graphicspath{{figures/}}
@@ -2130,21 +2131,22 @@ public, commercial, or not-for-profit sectors.
 
 \section*{Data availability}
 The data supporting the results of this study are openly available in the
-replication package~\citep{artifact2026} at
-\url{https://github.com/Katha-Sikdar/microservices-api}, directory
-\texttt{psao-artifact/}. It contains all measurements, the instrumentation,
-the analysis code and the scripts that generate every numeric value and every
-figure in this paper, including the C program and the script that builds each
-OpenSSL release, the exception baseline, and the cross-library harnesses in
-four languages with their pinned dependency manifests. Every number is
-generated from a file under the run or survey directories; none is entered by
-hand. The survey corpus is third-party source and is not redistributed; a
-manifest pinning every file examined by content hash stands in for it,
-covering \ManifestFiles{} files across \ManifestRepos{} repositories. Content
-hashes resolved for all of them; the repository HEAD commit resolved for
-\ManifestHeadResolved{} of \ManifestFiles, one repository having become
-unavailable between fetch and manifest. The content hash is the authoritative
-pin and is complete.
+replication package~\citep{artifact2026}, archived at Zenodo under
+\href{https://doi.org/10.5281/zenodo.23011153}{doi:10.5281/zenodo.23011153} and
+maintained at
+\url{https://github.com/Katha-Sikdar/A-Pre-Authentication-Key-Parse-Dominates-JWT-Validation-in-jsonwebtoken-and-Is-Load-Bearing-}.
+It contains all measurements, the instrumentation, the analysis code and the
+scripts that generate every numeric value and every figure in this paper,
+including the C program and the script that builds each OpenSSL release, the
+exception baseline, and the cross-library harnesses in four languages with
+their pinned dependency manifests. Every number is generated from a file under
+the run or survey directories; none is entered by hand. The survey corpus is
+third-party source and is not redistributed; a manifest pinning every file
+examined by content hash stands in for it, covering \ManifestFiles{} files
+across \ManifestRepos{} repositories. Content hashes resolved for all of them;
+the repository HEAD commit resolved for \ManifestHeadResolved{} of
+\ManifestFiles, one repository having become unavailable between fetch and
+manifest. The content hash is the authoritative pin and is complete.
 
 \section*{Ethics and responsible disclosure}
 This study measures software behaviour and publicly available source code; it
