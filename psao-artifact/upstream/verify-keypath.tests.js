@@ -12,7 +12,7 @@ describe('verify: resolving a string secret for HS* tokens', function () {
 
   function base64url(input) {
     return Buffer.from(input).toString('base64')
-      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+      .replace(/\+/g, '-').replace(/\//g, '_').replace(/[=]+$/, '');
   }
 
   // Mints an HS256 token keyed on arbitrary material. Used only to assert that

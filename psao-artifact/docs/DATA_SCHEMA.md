@@ -359,6 +359,57 @@ paths. Rows written after the schema change carry all three columns.
 
 ---
 
+## `openssl_c_probe.csv` (revision item 6)
+
+Written by `experiments/run_openssl_c_probe.sh`; one row per process of
+`bench/c/openssl-probe.c`.
+
+| column | meaning |
+|---|---|
+| `environment` | machine label (`PSAO_ENV_LABEL`) |
+| `condition` | `full`, `public_tries`, `private_parse`, `error_strings`, `spki_ok`, `timer_overhead` (see the header of `openssl-probe.c`) |
+| `invocation` | round number; all versions and conditions run once per round |
+| `n` | timed calls in this process |
+| `mean_us` … `max_us` | per-call statistics within the process, microseconds (`CLOCK_MONOTONIC`) |
+| `timer_overhead_us` | median cost of an empty timed region in the same process; reported, never subtracted |
+| `errors_queued` | OpenSSL errors left on the queue by one failed parse, counted before timing |
+| `openssl_version` | the version the binary **reported loading** (`OpenSSL_version`) |
+| `openssl_cflags` | the flags that library was built with, as it reports them |
+| `openssl_requested` | the version the binary was **linked against**. Rows where this differs from `openssl_version` are discarded by the analysis; there were none |
+
+## `exception_cost.csv` (revision item 7)
+
+Written by `experiments/run_exception_cost.sh`; one row per process of
+`bench/exception-cost.js`. Columns as `keypath_mechanism.csv`, plus:
+
+| column | meaning |
+|---|---|
+| `environment` | `node-<version>`: an official Node release binary |
+| `depth` | frames between the throw and the catch for `exc_node_like*` |
+| `error_code` | the `code` Node attached to a real failed `createPublicKey()` on this runtime, which the synthetic error copies |
+| `v8_version` | `process.versions.v8` |
+
+`environments.csv` in the run directory lists, per runtime, the Node, OpenSSL
+and V8 versions and the architecture, read from the binary.
+
+## `crosslib.csv` (revision item 10)
+
+Written by `experiments/run_crosslib.sh`; one row per process, from four
+harnesses in four languages writing the same columns.
+
+| column | meaning |
+|---|---|
+| `language`, `library`, `library_version` | the library measured, version read at run time where the language allows it |
+| `condition` | `<library>_string` or `<library>_preparsed` |
+| `form` | `string` or `preparsed`; what each means per library is in the harness headers and in the paper, Section "Other libraries" |
+| `runtime` | interpreter/VM/compiler version |
+| `crypto_backend` | where HMAC is computed: `openssl <v>` for Node, `hashlib/hmac <OpenSSL>` for CPython, `Go crypto/hmac`, `JCA <provider>` for Java |
+| other columns | as `keypath_mechanism.csv` |
+
+The Node libraries appear twice per round, once under a runtime bundling
+OpenSSL 3.0 and once under 3.5; the analysis keys on (`library`,
+`crypto_backend`).
+
 ## Combining runs
 
 Each runner writes into its own `data/runs/<ISO timestamp>-<label>/`. To analyse

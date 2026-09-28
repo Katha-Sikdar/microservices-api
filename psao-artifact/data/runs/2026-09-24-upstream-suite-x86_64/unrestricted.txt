@@ -1,0 +1,699 @@
+
+
+  signing a token asynchronously
+    when signing a token
+      ✓ should return the same result as singing synchronously
+      ✓ should work with empty options
+      ✓ should work without options object at all
+      ✓ should work with none algorithm where secret is set
+      - should work with none algorithm where secret is falsy
+      ✓ should return error when secret is not a cert for RS256
+      ✓ should not work for RS algorithms when modulus length is less than 2048 when allowInsecureKeySizes is false or not set
+      ✓ should work for RS algorithms when modulus length is less than 2048 when allowInsecureKeySizes is true
+      ✓ should return error when secret is not a cert for PS256
+      ✓ should return error on wrong arguments
+      ✓ should return error on wrong arguments (2)
+      ✓ should not stringify the payload
+      when mutatePayload is not set
+        ✓ should not apply claims to the original payload object (mutatePayload defaults to false)
+      when mutatePayload is set to true
+        ✓ should apply claims directly to the original payload object
+      secret must have a value
+        ✓ should return an error if the secret is falsy and algorithm is not set to none: undefined
+        ✓ should return an error if the secret is falsy and algorithm is not set to none: (empty string)
+        ✓ should return an error if the secret is falsy and algorithm is not set to none: 0
+
+  buffer payload
+    ✓ should work
+(node:8010) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+  audience
+    `jwt.sign` "audience" option validation
+      ✓ should error with with value true
+      ✓ should error with with value false
+      ✓ should error with with value null
+      ✓ should error with with value -1
+      ✓ should error with with value 1
+      ✓ should error with with value 0
+      ✓ should error with with value -1.1
+      ✓ should error with with value 1.1
+      ✓ should error with with value -Infinity
+      ✓ should error with with value Infinity
+      ✓ should error with with value NaN
+      ✓ should error with with value {}
+      ✓ should error with with value { foo: 'bar' }
+      ✓ should error with with value undefined
+      ✓ should error when "aud" is in payload
+      ✓ should error with a string payload
+      ✓ should error with a Buffer payload
+    when signing and verifying a token with "audience" option
+      with a "aud" of "urn:foo" in payload
+        ✓ should verify and decode with verify "audience" option of undefined
+        ✓ should verify and decode with verify "audience" option of 'urn:foo'
+        ✓ should verify and decode with verify "audience" option of /^urn:f[o]{2}$/
+        ✓ should verify and decode with verify "audience" option of [ 'urn:no_match', 'urn:foo' ]
+        ✓ should verify and decode with verify "audience" option of [ 'urn:no_match', /^urn:f[o]{2}$/ ]
+        ✓ should verify and decode with verify "audience" option of [ /^urn:no_match$/, /^urn:f[o]{2}$/ ]
+        ✓ should verify and decode with verify "audience" option of [ /^urn:no_match$/, 'urn:foo' ]
+        ✓ should error on no match with a string verify "audience" option
+        ✓ should error on no match with an array of string verify "audience" option
+        ✓ should error on no match with a Regex verify "audience" option
+        ✓ should error on no match with an array of Regex verify "audience" option
+        ✓ should error on no match with an array of a Regex and a string in verify "audience" option
+      with an array of ["urn:foo", "urn:bar"] for "aud" value in payload
+        ✓ should verify and decode with verify "audience" option of undefined
+        ✓ should verify and decode with verify "audience" option of 'urn:foo'
+        ✓ should verify and decode with verify "audience" option of /^urn:f[o]{2}$/
+        ✓ should verify and decode with verify "audience" option of [ 'urn:no_match', 'urn:foo' ]
+        ✓ should verify and decode with verify "audience" option of [ 'urn:no_match', /^urn:f[o]{2}$/ ]
+        ✓ should verify and decode with verify "audience" option of [ /^urn:no_match$/, /^urn:f[o]{2}$/ ]
+        ✓ should verify and decode with verify "audience" option of [ /^urn:no_match$/, 'urn:foo' ]
+        ✓ should error on no match with a string verify "audience" option
+        ✓ should error on no match with an array of string verify "audience" option
+        ✓ should error on no match with a Regex verify "audience" option
+        ✓ should error on no match with an array of Regex verify "audience" option
+        ✓ should error on no match with an array of a Regex and a string in verify "audience" option
+        when checking for a matching on both "urn:foo" and "urn:bar"
+          ✓ should verify with an array of stings verify "audience" option
+          ✓ should verify with a Regex verify "audience" option
+          ✓ should verify with an array of Regex verify "audience" option
+        when checking for a matching for "urn:foo"
+          ✓ should verify with a string verify "audience"
+          ✓ should verify with a Regex verify "audience" option
+          ✓ should verify with an array of Regex verify "audience"
+          ✓ should verify with an array containing a string and a Regex verify "audience" option
+          ✓ should verify with an array containing a Regex and a string verify "audience" option
+        when checking matching for "urn:bar"
+          ✓ should verify with a string verify "audience"
+          ✓ should verify with a Regex verify "audience" option
+          ✓ should verify with an array of Regex verify "audience" option
+          ✓ should verify with an array containing a string and a Regex verify "audience" option
+          ✓ should verify with an array containing a Regex and a string verify "audience" option
+      without a "aud" value in payload
+        ✓ should verify and decode without verify "audience" option
+        ✓ should error on no match with a string verify "audience" option
+        ✓ should error on no match with an array of string verify "audience" option
+        ✓ should error on no match with a Regex verify "audience" option
+        ✓ should error on no match with an array of Regex verify "audience" option
+        ✓ should error on no match with an array of a Regex and a string in verify "audience" option
+
+  expires
+    `jwt.sign` "expiresIn" option validation
+      ✓ should error with with value true
+      ✓ should error with with value false
+      ✓ should error with with value null
+      ✓ should error with with value -1.1
+      ✓ should error with with value 1.1
+      ✓ should error with with value -Infinity
+      ✓ should error with with value Infinity
+      ✓ should error with with value NaN
+      ✓ should error with with value ' '
+      ✓ should error with with value ''
+      ✓ should error with with value 'invalid'
+      ✓ should error with with value []
+      ✓ should error with with value [ 'foo' ]
+      ✓ should error with with value {}
+      ✓ should error with with value { foo: 'bar' }
+      ✓ should error with with value undefined
+      ✓ should error when "exp" is in payload
+      ✓ should error with a string payload
+      ✓ should error with a Buffer payload
+    `jwt.sign` "exp" claim validation
+      ✓ should error with with value true
+      ✓ should error with with value false
+      ✓ should error with with value null
+      ✓ should error with with value undefined
+      ✓ should error with with value ''
+      ✓ should error with with value ' '
+      ✓ should error with with value 'invalid'
+      ✓ should error with with value []
+      ✓ should error with with value [ 'foo' ]
+      ✓ should error with with value {}
+      ✓ should error with with value { foo: 'bar' }
+    "exp" in payload validation
+      ✓ should error with with value true
+      ✓ should error with with value false
+      ✓ should error with with value null
+      ✓ should error with with value -Infinity
+      ✓ should error with with value Infinity
+      ✓ should error with with value NaN
+      ✓ should error with with value ''
+      ✓ should error with with value ' '
+      ✓ should error with with value 'invalid'
+      ✓ should error with with value []
+      ✓ should error with with value [ 'foo' ]
+      ✓ should error with with value {}
+      ✓ should error with with value { foo: 'bar' }
+    when signing and verifying a token with expires option
+      ✓ should set correct "exp" with negative number of seconds
+      ✓ should set correct "exp" with positive number of seconds
+      ✓ should set correct "exp" with zero seconds
+      ✓ should set correct "exp" with negative string timespan
+      ✓ should set correct "exp" with positive string timespan
+      ✓ should set correct "exp" with zero string timespan
+      ✓ should set null "exp" when given -Infinity
+      ✓ should set null "exp" when given value Infinity
+      ✓ should set null "exp" when given value NaN
+      ✓ should set correct "exp" when "iat" is passed
+      ✓ should verify "exp" using "clockTimestamp"
+      ✓ should verify "exp" using "clockTolerance"
+      ✓ should ignore a expired token when "ignoreExpiration" is true
+      ✓ should error on verify if "exp" is at current time
+      ✓ should error on verify if "exp" is before current time using clockTolerance
+
+  issue at
+    `jwt.sign` "iat" claim validation
+      ✓ should error with iat of true
+      ✓ should error with iat of false
+      ✓ should error with iat of null
+      ✓ should error with iat of ''
+      ✓ should error with iat of 'invalid'
+      ✓ should error with iat of []
+      ✓ should error with iat of [ 'foo' ]
+      ✓ should error with iat of {}
+      ✓ should error with iat of { foo: 'bar' }
+      ✓ should error with iat of undefined
+    "iat" in payload with "maxAge" option validation
+      ✓ should error with iat of true
+      ✓ should error with iat of false
+      ✓ should error with iat of null
+      ✓ should error with iat of undefined
+      ✓ should error with iat of -Infinity
+      ✓ should error with iat of Infinity
+      ✓ should error with iat of NaN
+      ✓ should error with iat of ''
+      ✓ should error with iat of 'invalid'
+      ✓ should error with iat of []
+      ✓ should error with iat of [ 'foo' ]
+      ✓ should error with iat of {}
+      ✓ should error with iat of { foo: 'bar' }
+    when signing a token
+      ✓ should default to current time for "iat"
+      ✓ should sign with provided time for "iat"
+      ✓ should set null "iat" when given -Infinity
+      ✓ should set null "iat" when given Infinity
+      ✓ should set to current time for "iat" when given value NaN
+      ✓ should remove default "iat" with "noTimestamp" option
+      ✓ should remove provided "iat" with "noTimestamp" option
+    when verifying a token
+      ✓ should verify using "iat" before the "maxAge"
+      ✓ should verify using "iat" before the "maxAge" with a provided "clockTimestamp
+      ✓ should verify using "iat" after the "maxAge" but within "clockTolerance"
+      ✓ should throw using "iat" equal to the "maxAge"
+      ✓ should throw using "iat" after the "maxAge"
+      ✓ should throw using "iat" after the "maxAge" with a provided "clockTimestamp
+      ✓ should throw using "iat" after the "maxAge" and "clockTolerance
+    with string payload
+      ✓ should not add iat to string
+      ✓ should not add iat to stringified object
+
+  issuer
+    `jwt.sign` "issuer" option validation
+      ✓ should error with with value true
+      ✓ should error with with value false
+      ✓ should error with with value null
+      ✓ should error with with value -1
+      ✓ should error with with value 0
+      ✓ should error with with value 1
+      ✓ should error with with value -1.1
+      ✓ should error with with value 1.1
+      ✓ should error with with value -Infinity
+      ✓ should error with with value Infinity
+      ✓ should error with with value NaN
+      ✓ should error with with value []
+      ✓ should error with with value [ 'foo' ]
+      ✓ should error with with value {}
+      ✓ should error with with value { foo: 'bar' }
+      ✓ should error with with value undefined
+      ✓ should error when "iss" is in payload
+      ✓ should error with a string payload
+      ✓ should error with a Buffer payload
+    when signing and verifying a token
+      ✓ should not verify "iss" if verify "issuer" option not provided
+      with string "issuer" option
+        ✓ should verify with a string "issuer"
+        ✓ should verify with a string "iss"
+        ✓ should error if "iss" does not match verify "issuer" option
+        ✓ should error without "iss" and with verify "issuer" option
+      with array "issuer" option
+        ✓ should verify with a string "issuer"
+        ✓ should verify with a string "iss"
+        ✓ should error if "iss" does not match verify "issuer" option
+        ✓ should error without "iss" and with verify "issuer" option
+
+  jwtid
+    `jwt.sign` "jwtid" option validation
+      ✓ should error with with value true
+      ✓ should error with with value false
+      ✓ should error with with value null
+      ✓ should error with with value -1
+      ✓ should error with with value 0
+      ✓ should error with with value 1
+      ✓ should error with with value -1.1
+      ✓ should error with with value 1.1
+      ✓ should error with with value -Infinity
+      ✓ should error with with value Infinity
+      ✓ should error with with value NaN
+      ✓ should error with with value []
+      ✓ should error with with value [ 'foo' ]
+      ✓ should error with with value {}
+      ✓ should error with with value { foo: 'bar' }
+      ✓ should error with with value undefined
+      ✓ should error when "jti" is in payload
+      ✓ should error with a string payload
+      ✓ should error with a Buffer payload
+    when signing and verifying a token
+      ✓ should not verify "jti" if verify "jwtid" option not provided
+      with "jwtid" option
+        ✓ should verify with "jwtid" option
+        ✓ should verify with "jti" in payload
+        ✓ should error if "jti" does not match verify "jwtid" option
+        ✓ should error without "jti" and with verify "jwtid" option
+
+  not before
+    `jwt.sign` "notBefore" option validation
+      ✓ should error with with value true
+      ✓ should error with with value false
+      ✓ should error with with value null
+      ✓ should error with with value -1.1
+      ✓ should error with with value 1.1
+      ✓ should error with with value -Infinity
+      ✓ should error with with value Infinity
+      ✓ should error with with value NaN
+      ✓ should error with with value ''
+      ✓ should error with with value ' '
+      ✓ should error with with value 'invalid'
+      ✓ should error with with value []
+      ✓ should error with with value [ 'foo' ]
+      ✓ should error with with value {}
+      ✓ should error with with value { foo: 'bar' }
+      ✓ should error with with value undefined
+      ✓ should error when "nbf" is in payload
+      ✓ should error with a string payload
+      ✓ should error with a Buffer payload
+    `jwt.sign` "nbf" claim validation
+      ✓ should error with with value true
+      ✓ should error with with value false
+      ✓ should error with with value null
+      ✓ should error with with value undefined
+      ✓ should error with with value ''
+      ✓ should error with with value ' '
+      ✓ should error with with value 'invalid'
+      ✓ should error with with value []
+      ✓ should error with with value [ 'foo' ]
+      ✓ should error with with value {}
+      ✓ should error with with value { foo: 'bar' }
+    "nbf" in payload validation
+      ✓ should error with with value true
+      ✓ should error with with value false
+      ✓ should error with with value null
+      ✓ should error with with value -Infinity
+      ✓ should error with with value Infinity
+      ✓ should error with with value NaN
+      ✓ should error with with value ''
+      ✓ should error with with value ' '
+      ✓ should error with with value 'invalid'
+      ✓ should error with with value []
+      ✓ should error with with value [ 'foo' ]
+      ✓ should error with with value {}
+      ✓ should error with with value { foo: 'bar' }
+    when signing and verifying a token with "notBefore" option
+      ✓ should set correct "nbf" with negative number of seconds
+      ✓ should set correct "nbf" with positive number of seconds
+      ✓ should set correct "nbf" with zero seconds
+      ✓ should set correct "nbf" with negative string timespan
+      ✓ should set correct "nbf" with positive string timespan
+      ✓ should set correct "nbf" with zero string timespan
+      ✓ should set null "nbf" when given -Infinity
+      ✓ should set null "nbf" when given value Infinity
+      ✓ should set null "nbf" when given value NaN
+      ✓ should set correct "nbf" when "iat" is passed
+      ✓ should verify "nbf" using "clockTimestamp"
+      ✓ should verify "nbf" using "clockTolerance"
+      ✓ should ignore a not active token when "ignoreNotBefore" is true
+      ✓ should error on verify if "nbf" is after current time
+      ✓ should error on verify if "nbf" is after current time using clockTolerance
+
+  with a private claim
+    ✓ should sign and verify with claim of true
+    ✓ should sign and verify with claim of false
+    ✓ should sign and verify with claim of null
+    ✓ should sign and verify with claim of -1
+    ✓ should sign and verify with claim of 0
+    ✓ should sign and verify with claim of 1
+    ✓ should sign and verify with claim of -1.1
+    ✓ should sign and verify with claim of 1.1
+    ✓ should sign and verify with claim of ''
+    ✓ should sign and verify with claim of 'private claim'
+    ✓ should sign and verify with claim of 'UTF8 - José'
+    ✓ should sign and verify with claim of []
+    ✓ should sign and verify with claim of [ 'foo' ]
+    ✓ should sign and verify with claim of {}
+    ✓ should sign and verify with claim of { foo: 'bar' }
+    ✓ should sign and verify with claim of -Infinity
+    ✓ should sign and verify with claim of Infinity
+    ✓ should sign and verify with claim of NaN
+    ✓ should sign and verify with claim of undefined
+
+  subject
+    `jwt.sign` "subject" option validation
+      ✓ should error with with value true
+      ✓ should error with with value false
+      ✓ should error with with value null
+      ✓ should error with with value -1
+      ✓ should error with with value 0
+      ✓ should error with with value 1
+      ✓ should error with with value -1.1
+      ✓ should error with with value 1.1
+      ✓ should error with with value -Infinity
+      ✓ should error with with value Infinity
+      ✓ should error with with value NaN
+      ✓ should error with with value []
+      ✓ should error with with value [ 'foo' ]
+      ✓ should error with with value {}
+      ✓ should error with with value { foo: 'bar' }
+      ✓ should error with with value undefined
+      ✓ should error when "sub" is in payload
+      ✓ should error with a string payload
+      ✓ should error with a Buffer payload
+    when signing and verifying a token with "subject" option
+      ✓ should verify with a string "subject"
+      ✓ should verify with a string "sub"
+      ✓ should not verify "sub" if verify "subject" option not provided
+      ✓ should error if "sub" does not match verify "subject" option
+      ✓ should error without "sub" and with verify "subject" option
+
+  decoding
+    ✓ should not crash when decoding a null token
+
+  encoding
+    ✓ should properly encode the token (utf8)
+    ✓ should properly encode the token (binary)
+    ✓ should return the same result when decoding
+
+  expires option
+    ✓ should throw on deprecated expiresInSeconds option
+
+  keyid
+    `jwt.sign` "keyid" option validation
+      ✓ should error with with value true
+      ✓ should error with with value false
+      ✓ should error with with value null
+      ✓ should error with with value -1
+      ✓ should error with with value 0
+      ✓ should error with with value 1
+      ✓ should error with with value -1.1
+      ✓ should error with with value 1.1
+      ✓ should error with with value -Infinity
+      ✓ should error with with value Infinity
+      ✓ should error with with value NaN
+      ✓ should error with with value []
+      ✓ should error with with value [ 'foo' ]
+      ✓ should error with with value {}
+      ✓ should error with with value { foo: 'bar' }
+      ✓ should error with with value undefined
+    when signing a token
+      ✓ should not add "kid" header when "keyid" option not provided
+      ✓ should add "kid" header when "keyid" option is provided and an object payload
+      ✓ should add "kid" header when "keyid" option is provided and a Buffer payload
+      ✓ should add "kid" header when "keyid" option is provided and a string payload
+
+  invalid expiration
+    ✓ should fail with string
+    ✓ should fail with 0
+    ✓ should fail with false
+    ✓ should fail with true
+    ✓ should fail with object
+
+  issue 147 - signing with a sealed payload
+    ✓ should put the expiration claim
+
+  issue 304 - verifying values other than strings
+    ✓ should fail with numbers
+    ✓ should fail with objects
+    ✓ should fail with arrays
+    ✓ should fail with functions
+    ✓ should fail with booleans
+
+  issue 70 - public key start with BEING PUBLIC KEY
+    ✓ should work
+
+  Asymmetric Algorithms
+    RS256
+      when signing a token
+        ✓ should be syntactically valid
+        asynchronous
+          ✓ should validate with public key
+          ✓ should throw with invalid public key
+        synchronous
+          ✓ should validate with public key
+          ✓ should throw with invalid public key
+      when signing a token with expiration
+        ✓ should be valid expiration
+        ✓ should be invalid
+        ✓ should NOT be invalid
+      when verifying a malformed token
+        ✓ should throw
+      when decoding a jwt token with additional parts
+        ✓ should throw
+      when decoding a invalid jwt token
+        ✓ should return null
+      when decoding a valid jwt token
+        ✓ should return the payload
+        ✓ should return the header and payload and signature if complete option is set
+    ES256
+      when signing a token
+        ✓ should be syntactically valid
+        asynchronous
+          ✓ should validate with public key
+          ✓ should throw with invalid public key
+        synchronous
+          ✓ should validate with public key
+          ✓ should throw with invalid public key
+      when signing a token with expiration
+        ✓ should be valid expiration
+        ✓ should be invalid
+        ✓ should NOT be invalid
+      when verifying a malformed token
+        ✓ should throw
+      when decoding a jwt token with additional parts
+        ✓ should throw
+      when decoding a invalid jwt token
+        ✓ should return null
+      when decoding a valid jwt token
+        ✓ should return the payload
+        ✓ should return the header and payload and signature if complete option is set
+    PS256
+      when signing a token
+        ✓ should be syntactically valid
+        asynchronous
+          ✓ should validate with public key
+          ✓ should throw with invalid public key
+        synchronous
+          ✓ should validate with public key
+          ✓ should throw with invalid public key
+      when signing a token with expiration
+        ✓ should be valid expiration
+        ✓ should be invalid
+        ✓ should NOT be invalid
+      when verifying a malformed token
+        ✓ should throw
+      when decoding a jwt token with additional parts
+        ✓ should throw
+      when decoding a invalid jwt token
+        ✓ should return null
+      when decoding a valid jwt token
+        ✓ should return the payload
+        ✓ should return the header and payload and signature if complete option is set
+    when signing a token with an unsupported private key type
+      ✓ should throw an error
+    when signing a token with an incorrect private key type
+      ✓ should throw a validation error if key validation is enabled
+      ✓ should throw an unknown error if key validation is disabled
+
+  HS256
+    when signing using HS256
+      ✓ should throw if the secret is an asymmetric key (51ms)
+      ✓ should throw if the payload is undefined
+      ✓ should throw if options is not a plain object
+    with a token signed using HS256
+      ✓ should be syntactically valid
+      ✓ should be able to validate without options
+      ✓ should validate with secret
+      ✓ should throw with invalid secret
+      ✓ should throw with secret and token not signed
+      ✓ should throw with falsy secret and token not signed
+      ✓ should throw when verifying null
+      ✓ should return an error when the token is expired
+      ✓ should NOT return an error when the token is expired with "ignoreExpiration"
+      ✓ should default to HS256 algorithm when no options are passed
+    should fail verification gracefully with trailing space in the jwt
+      ✓ should return the "invalid token" error
+
+  when verifying a malicious token
+    ✓ should not allow HMAC verification with an RSA key in KeyObject format
+    1) should not allow HMAC verification with an RSA key in PEM format
+    ✓ should not allow arbitrary execution from malicious Buffers containing objects with overridden toString functions
+
+  noTimestamp
+    ✓ should work with string
+
+  non_object_values values
+    ✓ should work with string
+    ✓ should work with number
+
+  complete option
+    ✓ should return header, payload and signature
+    ✓ should return payload
+
+  maxAge option
+    ✓ should work with a positive string value
+    ✓ should work with a negative string value
+    ✓ should work with a positive numeric value
+    ✓ should work with a negative numeric value
+    ✓ should error with value true
+    ✓ should error with value 'invalid'
+    ✓ should error with value []
+    ✓ should error with value [ 'foo' ]
+    ✓ should error with value {}
+    ✓ should error with value { foo: 'bar' }
+
+  nonce option
+    ✓ should work with a string
+    ✓ should error with value true
+    ✓ should error with value false
+    ✓ should error with value null
+    ✓ should error with value -1
+    ✓ should error with value 0
+    ✓ should error with value 1
+    ✓ should error with value -1.1
+    ✓ should error with value 1.1
+    ✓ should error with value -Infinity
+    ✓ should error with value Infinity
+    ✓ should error with value NaN
+    ✓ should error with value ''
+    ✓ should error with value ' '
+    ✓ should error with value []
+    ✓ should error with value [ 'foo' ]
+    ✓ should error with value {}
+    ✓ should error with value { foo: 'bar' }
+
+  public key start with BEGIN RSA PUBLIC KEY
+    ✓ should work for RS family of algorithms
+    ✓ should not work for RS algorithms when modulus length is less than 2048 when allowInsecureKeySizes is false or not set
+    ✓ should work for RS algorithms when modulus length is less than 2048 when allowInsecureKeySizes is true
+    ✓ should work for PS family of algorithms
+
+  schema
+    sign options
+      ✓ should validate algorithm
+      ✓ should validate header
+      ✓ should validate encoding
+      ✓ should validate noTimestamp
+    sign payload registered claims
+      ✓ should validate exp
+
+  set header
+    ✓ should add the header
+    ✓ should allow overriding header
+
+  verifying without specified secret or public key
+    ✓ should not verify null
+    ✓ should not verify undefined
+
+  Asymmetric key validation
+    RS256
+      when validating a key with an invalid private key type
+        ✓ should throw an error
+    ES256
+      when validating a key with an invalid private key type
+        ✓ should throw an error
+    PS256
+      when validating a key with an invalid private key type
+        ✓ should throw an error
+    when the function has missing parameters
+      ✓ should pass the validation if no key has been provided
+      ✓ should pass the validation if no algorithm has been provided
+    when validating a key with an unsupported type
+      ✓ should throw an error
+    Elliptic curve algorithms
+      when validating keys generated using Elliptic Curves
+        ✓ should accept an ES256 token for key with curve prime256v1
+        ✓ should throw an error when validating an ES256 token for key with curve secp384r1
+        ✓ should throw an error when validating an ES256 token for key with curve secp521r1
+        ✓ should throw an error when validating an ES384 token for key with curve prime256v1
+        ✓ should accept an ES384 token for key with curve secp384r1
+        ✓ should throw an error when validating an ES384 token for key with curve secp521r1
+        ✓ should throw an error when validating an ES512 token for key with curve prime256v1
+        ✓ should throw an error when validating an ES512 token for key with curve secp384r1
+        ✓ should accept an ES512 token for key with curve secp521r1
+    RSA-PSS algorithms
+      ✓ it should throw an error when validating a key with wrong RSA-RSS parameters
+      ✓ it should throw an error when validating a key with invalid salt length
+      ✓ it should pass the validation when the key matches all the requirements for the algorithm
+
+  verify
+    ✓ should first assume JSON claim set
+    ✓ should not be able to verify unsigned token
+    ✓ should not be able to verify unsigned token
+    ✓ should be able to verify unsigned token when none is specified
+    ✓ should not mutate options
+    secret or token as callback
+      ✓ without callback
+      ✓ simple callback
+      ✓ should error if called synchronously
+      ✓ simple error
+      ✓ delayed callback
+      ✓ delayed error
+    expiration
+      ✓ should error on expired token
+      ✓ should not error on expired token within clockTolerance interval
+      option: clockTimestamp
+        ✓ should verify unexpired token relative to user-provided clockTimestamp
+        ✓ should error on expired token relative to user-provided clockTimestamp
+        ✓ should verify clockTimestamp is a number
+      option: maxAge and clockTimestamp
+        ✓ cannot be more permissive than expiration
+    when verifying a token with an unsupported public key type
+      ✓ should throw an error
+    when verifying a token with an incorrect public key type
+      ✓ should throw a validation error if key validation is enabled
+      ✓ should throw an unknown error if key validation is disabled
+
+  when setting a wrong `header.alg`
+    signing with pub key as symmetric
+      2) should not verify
+    signing with pub key as HS256 and whitelisting only RS256
+      ✓ should not verify
+    signing with pub key as HS256 and whitelisting only PS256
+      ✓ should not verify
+    signing with HS256 and checking with HS384
+      ✓ should not verify
+
+
+  509 passing (461ms)
+  1 pending
+  2 failing
+
+  1) when verifying a malicious token
+       should not allow HMAC verification with an RSA key in PEM format:
+
+      AssertionError: expected [Function] to throw error including 'must be a symmetric key' but got 'invalid signature'
+      + expected - actual
+
+      -invalid signature
+      +must be a symmetric key
+      
+      at Context.<anonymous> (test/jwt.malicious.tests.js:30:112)
+      at process.processImmediate (node:internal/timers:484:21)
+
+  2) when setting a wrong `header.alg`
+       signing with pub key as symmetric
+         should not verify:
+     AssertionError: expected [Function] to throw JsonWebTokenError
+      at Context.<anonymous> (test/wrong_alg.tests.js:21:18)
+      at process.processImmediate (node:internal/timers:484:21)
+
+
+
