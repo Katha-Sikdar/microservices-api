@@ -824,15 +824,14 @@ Table~\ref{tab:host} gives each operation in the validation path, timed in
 isolation on the host under the protocol of Section~\ref{sec:method}, and
 Figure~\ref{fig:decomposition} plots it.
 
-\begin{table}[!htbp]
+\begin{table*}[!htbp]
 \caption{Cost of each operation in the validation path. Medians of per-process
 medians over \HostInvocations{} processes of \HostCallsPerInvocation{} calls;
 95\% percentile bootstrap intervals over processes, which with
 \HostInvocations{} units are indicative rather than calibrated
 (Section~\ref{sec:unit}).}
 \label{tab:host}
-\footnotesize\setlength{\tabcolsep}{1.6pt}
-\begin{tabular}{@{}lrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrr@{}}
 \toprule
 Operation & Median & 95\% interval \\
            & ($\mu$s) & ($\mu$s) \\
@@ -847,8 +846,8 @@ structural decode                  & \HostDecodeOnly     & [\HostDecodeOnlyCiLo,
 \textbf{symmetric key constructor} & \textbf{\HostCreateSecretKey} & [\HostCreateSecretKeyCiLo, \HostCreateSecretKeyCiHi] \\
 timer overhead                     & \HostTimerOverhead  & [\HostTimerOverheadCiLo, \HostTimerOverheadCiHi] \\
 \bottomrule
-\end{tabular}
-\end{table}
+\end{tabular*}
+\end{table*}
 
 \begin{figure*}[!t]
 \centering
