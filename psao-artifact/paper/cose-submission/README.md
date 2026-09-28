@@ -38,7 +38,7 @@ Article type: **Full Length Article**.
   - 8.3 The attempt arrived with a key-confusion fix. This comes from comparing `verify.js` in 8.5.1, 9.0.0 and 9.0.3.
   - 8.5 What the narrow fix leaves reachable. This adds a **new Table 10**.
 - **Section 9 (implications):** adds a paragraph for security reviewers, and clarifies that pinning the algorithm does not remove the cost.
-- **Section 10 (threats to validity):** adds that the security analysis is from source code, not from attack traffic.
+- **Section 10, now "Threats to validity and future work":** the 14 existing threats, with their text unchanged, are grouped under Measurement, Deployment measurement, Survey of public code and Scope. There is a new threat: the security analysis is from source code, not attack traffic. A new **10.5 Future work** covers security, cause, generality and deployment; it is drawn only from limitations the paper already states.
 - **Section 11 (conclusion):** adds a security paragraph.
 - **New Table 1 (Section 2.1):** positions the paper against the closest lines of work. Each cell records only what Section 2 itself says about the cited work.
 - **New Figure 1 (Section 3):** the study workflow: research questions → instruments → the tables and figures each produces. Its numbers are live references, so they update automatically.
