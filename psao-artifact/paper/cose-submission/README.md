@@ -47,6 +47,22 @@ Article type: **Full Length Article**.
 
 No measured value was changed. Every number still comes from the macro files.
 
+## Review fixes (M1, M3, M5)
+
+- **M1 Testbed:** new Section 3.1 *Testbed*. It is built only from the committed run metadata: an Apple-silicon Mac on macOS 26.5.2 (arm64); host microbenchmarks under Node.js v26.6.0; Docker Desktop's single-node Kubernetes v1.32.2; the service (Express 5.1.0, jsonwebtoken 9.0.3, `node:18-alpine`, 1 replica, Istio sidecar, NGINX ingress inside the mesh, TLS); and k6 v2.2.0 open-loop load on the same machine. "Deployed service" is replaced throughout by "containerised service", and the testbed is stated to be a single-node testbed, not a production deployment. The abstract, RQ3, the contributions, Section 6, Section 8, the workflow figure and the cover letter are updated to match.
+- **M3 Claims:**
+  - The abstract now says "a common authentication step" instead of "the authentication step of most microservice requests".
+  - The introduction now says "a widely used implementation" instead of "the most widely used".
+  - The Zhu et al. (2023) citation now supports what that paper actually shows: measurement concentrates on the transport and proxy layers.
+  - The "throughput collapse" sentence, which depended on the withdrawn study, is removed from the conclusion.
+- **M5 Traces of earlier versions:**
+  - The title-naming sentence and the "discarded exception" framing are removed.
+  - "The natural repair is also wrong" is now "Key conversion does not explain it".
+  - "We state that rather than omit it" is removed.
+- **Also:**
+  - Tables 3–8 are full width, matching the Overleaf edits.
+  - The two "No DOI registered; verified against the arXiv record" notes are removed from the reference list.
+
 ## Check before submitting (authors only)
 
 1. **Upstream status.** Section 8.6 says that neither issue #1046 nor the PR has a maintainer response. Update it if that has changed. Also confirm who authored PR #1047 (opened by `Hashim1999164`). The paper does not call it "our" PR.
@@ -55,5 +71,6 @@ No measured value was changed. Every number still comes from the macro files.
 4. **Originality statement in the cover letter.** Confirm it. The earlier, withdrawn manuscript (*"It Is Not the Cryptography…"*) must not be under consideration anywhere else.
 5. **Replication package DOI (recommended).** Archive the GitHub repository on Zenodo and cite the DOI in `artifact2026` and in the Data availability section.
 6. **Suggested reviewers (optional).** Editorial Manager may ask for 3–5 reviewers with no conflict of interest. Choose them from JWT/JOSE security, crypto-API misuse, or performance engineering.
-7. **Table 1 cells.** Each ✓ / ○ / – restates what Section 2 already says about the cited work. Check each against the cited paper.
-8. **Journal limits.** Check the current Guide for Authors for Computers & Security, especially abstract length. The abstract is about 240 words; there are 7 keywords and 5 highlights of at most 85 characters each.
+7. **Testbed detail (optional but recommended).** Section 3.1 gives the machine as an Apple-silicon Mac on macOS 26.5.2, because the exact model, chip, RAM and the Docker Desktop CPU/memory limits are not in the run metadata. Add them if you can, e.g. "MacBook Pro, M3 Pro, 36 GB; Docker Desktop limited to 8 CPUs / 16 GB".
+8. **Table 1 cells.** Each ✓ / ○ / – restates what Section 2 already says about the cited work. Check each against the cited paper.
+9. **Journal limits.** Check the current Guide for Authors for Computers & Security, especially abstract length. The abstract is about 240 words; there are 7 keywords and 5 highlights of at most 85 characters each.

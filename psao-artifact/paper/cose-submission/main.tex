@@ -124,7 +124,7 @@ Defence}
   country={Bangladesh}}
 
 \begin{abstract}
-JSON Web Token (JWT) validation is the authentication step of most
+JSON Web Token (JWT) validation is a common authentication step for
 microservice requests, and its per-request cost is routinely attributed to
 cryptography. In \LibraryName{}, a widely used Node.js implementation, the
 signature primitive is \HostHmacString~$\mu$s of a \HostJwtString~$\mu$s
@@ -139,8 +139,8 @@ the obvious way fails the library's own key-confusion tests. Its price is set,
 causally, by the bundled OpenSSL release: the same calls issued from C cost
 \CFullVThreeZeroSixteen~$\mu$s on OpenSSL \CVersionLiteralVThreeZeroSixteen{}
 and \CFullVThreeFiveEight~$\mu$s on \CVersionLiteralVThreeFiveEight. In a
-deployed service, validation adds \AbCpuPerCallDelta~$\mu$s of processor time
-per request, within \AbCpuVsPredictedPct\% of the microbenchmark prediction.
+containerised service on a single-node Kubernetes testbed, validation adds
+\AbCpuPerCallDelta~$\mu$s of processor time per request, within \AbCpuVsPredictedPct\% of the microbenchmark prediction.
 Of seven JWT libraries in four languages, only this one attempts the parse. We
 give a narrow fix that preserves the key-type defence and makes validation
 \HostSafePatchRatio{} times faster, show that a client controlling the token
@@ -162,8 +162,10 @@ JSON Web Token \sep authentication \sep key confusion \sep cryptographic API
 %% ============================================================================
 \section{Introduction}\label{sec:intro}
 
-Authentication in cloud-native services is commonly described as imposing a
-per-request cryptographic cost~\citep{zhu2023dissecting}.
+Authentication in cloud-native services is commonly treated as a per-request
+cryptographic cost, and measurement of layered enforcement has concentrated on
+the transport and proxy layers where that cryptography
+runs~\citep{zhu2023dissecting}.
 The assumption is old and has been tested before, one layer down: \citet{coarfa2006performance} instrumented TLS web servers and found RSA
 responsible for only a minority of server cost, the remainder falling to
 symmetric operations, hashing and protocol handling. Our result is that
@@ -177,8 +179,8 @@ is that the cost should be \emph{moved} --- to a sidecar proxy, a gateway, or
 dedicated hardware --- because specialised components do cryptographic work
 well.
 
-We report that the premise is wrong for the most widely used JavaScript
-implementation we could measure. The natural repair is wrong as well. Once the
+We report that the premise is wrong for \LibraryName{}, a widely used
+JavaScript implementation. A second natural explanation fails as well. Once the
 signature primitive is shown to be a small share of the cost, the remainder is
 readily attributed to key material being converted from a string into a key
 object on every call. Measuring that conversion directly puts it at
@@ -192,15 +194,14 @@ first call cannot succeed. Every validation therefore constructs and discards
 an OpenSSL parse failure, at \HostProbeThrows~$\mu$s against a total call cost
 of \HostJwtString~$\mu$s.
 
-We are careful about what that \HostProbeThrows~$\mu$s is. It is the cost of
+That \HostProbeThrows~$\mu$s is the cost of
 the whole discarded attempt: the work OpenSSL performs before deciding the
 input is not an asymmetric key, plus the construction and unwinding of the
 exception that carries that decision back to the library.
 Section~\ref{sec:granularity} separates the two, by reissuing the OpenSSL calls
 from C and by measuring an exception of the same shape with no OpenSSL call.
 Where the attempt is expensive it is almost all parse; the exception is a few
-microseconds. The title's ``key-parse attempt'' is therefore the accurate
-name, and ``discarded exception'' would not be.
+microseconds.
 
 How much the attempt costs depends on which OpenSSL release performs it, by more
 than an order of magnitude (Section~\ref{sec:rq2}). Runtimes carrying an OpenSSL
@@ -242,7 +243,7 @@ measurement protocols rarely record at the granularity at which it changes.
   \setlength{\parsep}{0pt}\renewcommand{\makelabel}[1]{\textbf{#1}\hfill}}
 \item[RQ1] Where does the per-request cost of token validation actually go?
 \item[RQ2] What governs the magnitude of that cost?
-\item[RQ3] Does it matter in a deployed service, and how common is the
+\item[RQ3] Does it matter in a running containerised service, and how common is the
   pattern that avoids it?
 \item[RQ4] Is the defect a property of one library, or of a design choice
   other libraries could share?
@@ -273,7 +274,7 @@ package~\citep{artifact2026}.
       \CProbeVersionCount{} identically built OpenSSL releases, a runtime pair
       that crosses engine and library, and a repetition on a second
       architecture (Section~\ref{sec:rq2}).
-\item A deployed-service measurement across seven arrival rates, and a survey
+\item A measurement in a containerised service across seven arrival rates, and a survey
       establishing that the avoiding pattern is rare in three samples of public
       code (Section~\ref{sec:rq3}).
 \item A comparison of seven JWT libraries in four languages showing that the
@@ -571,6 +572,28 @@ value is generated.}
 \label{fig:workflow}
 \end{figure}
 
+\subsection{Testbed}\label{sec:testbed}
+
+Unless stated otherwise, measurements were taken on one Apple-silicon machine
+running macOS~26.5.2 (arm64), referred to throughout as \emph{the host}. The
+host microbenchmarks of Section~\ref{sec:rq1} ran directly on macOS under
+Node.js~v26.6.0. Container measurements (Sections~\ref{sec:rq2}
+and~\ref{sec:rq3}) ran in the Linux/arm64 virtual machine of Docker Desktop's
+built-in single-node Kubernetes cluster (v1.32.2).
+
+The service studied in Section~\ref{sec:rq3} is a Node.js microservice
+(Express~5.1.0, \LibraryName{}~9.0.3) built on the \texttt{node:18-alpine}
+image, run as a single replica with an Istio sidecar
+(\texttt{istio/proxyv2}; the proxy version was not recorded, and its image
+digest is in the replication package), and reached over TLS through an NGINX
+ingress controller that is itself injected into the mesh. It verifies HS256
+tokens with a shared secret supplied as a string. Load was generated in open
+loop by k6~v2.2.0 on the same machine, so the load generator, the ingress, the
+sidecars and the service share one host (Section~\ref{sec:hoststate}). This is a
+controlled single-node testbed, not a production deployment; we call it the
+\emph{containerised service}. The x86\_64 measurements used the separate
+machine described in Section~\ref{sec:arch-method}.
+
 \subsection{Unit of measurement}\label{sec:unit}
 
 The unit is one operating-system process, not one call. Each process performs
@@ -747,7 +770,7 @@ host's.
 
 \subsection{In-situ measurement}\label{sec:insitu-method}
 
-The deployed service exposes a histogram timing the verification call alone. The
+The containerised service (Section~\ref{sec:testbed}) exposes a histogram timing the verification call alone. The
 instrument is a \emph{paired-scrape difference}: the cumulative histogram is read
 before and after each arrival-rate step, and the two readings are differenced,
 which isolates that step's distribution from the cumulative counters. Means are
@@ -763,7 +786,7 @@ tolerance. The opposite-order design also serves as a drift test, which
 Section~\ref{sec:drift} reports.
 
 One process and two passes is the whole of the in-situ evidence. It is sufficient
-to establish that the cost is present in deployment and of what order; it is not
+to establish that the cost is present in the containerised service and of what order; it is not
 sufficient to characterise the shape of the cost-versus-rate relation, and
 Section~\ref{sec:insitu} is written accordingly.
 
@@ -874,7 +897,7 @@ Supplying a pre-parsed key instead of a string reduces the call by
 \HostStringPenalty~$\mu$s [\HostStringPenaltyCiLo, \HostStringPenaltyCiHi] over
 \HostStringPenaltyRounds{} paired rounds.
 
-\paragraph{The natural repair is also wrong} Once the signature primitive is
+\paragraph{Key conversion does not explain it} Once the signature primitive is
 shown to be small, one explanation for the remainder suggests itself immediately:
 that the cost lies in converting key material from a string into a key object on
 every call. It is the natural explanation, and Table~\ref{tab:host} refutes
@@ -917,7 +940,7 @@ over \ExcInvocations{} processes (probe, exception) and \CProbeInvocations{}
 processes (C). The C column uses a stock build of each release, not Node's own
 build of it, so the binding column is approximate (Section~\ref{sec:threats}).}
 \label{tab:decomp}
-\begin{tabular}{@{}llrrrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrrrr@{}}
 \toprule
 Runtime & OpenSSL & Probe & C parse & V8 exception & Binding \\
 \midrule
@@ -928,7 +951,7 @@ Node \RtTwentyTwoLiteral & \RtTwentyTwoOpenssl & \RtTwentyTwoProbe & \RtTwentyTw
 Node \RtTwentyFourLiteral & \RtTwentyFourOpenssl & \RtTwentyFourProbe & \RtTwentyFourDecompC & \RtTwentyFourExcNodeLike & \RtTwentyFourDecompLeftover \\
 Node \RtTwentySixLiteral & \RtTwentySixOpenssl & \RtTwentySixProbe & \RtTwentySixDecompC & \RtTwentySixExcNodeLike & \RtTwentySixDecompLeftover \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table*}
 
 Three things follow. First, on every runtime bundling OpenSSL~3.0 the C parse
@@ -951,8 +974,8 @@ comparable size: under Node \RtTwentySixLiteral{} the parse is
 \RtTwentySixDecompCPct\% of the probe, the exception \RtTwentySixDecompExcPct\%
 and the binding \RtTwentySixDecompLeftoverPct\%.
 
-This is why the component is named a discarded \emph{parse attempt} rather than
-a discarded exception. Where it is expensive the exception is about a
+The component is therefore a discarded \emph{parse attempt}, not an exception
+cost. Where it is expensive the exception is about a
 hundredth of it, and even where it is cheap the exception is a fifth. These
 runtimes are Linux builds on x86\_64; the ARM64 host figure of
 Table~\ref{tab:host} was not itself decomposed this way, and its
@@ -1016,7 +1039,7 @@ process is doing.
 Table~\ref{tab:matrix} varies the runtime with containerisation held constant,
 and Figure~\ref{fig:matrix} plots the two columns that matter.
 
-\begin{table}[!htbp]
+\begin{table*}[!htbp]
 \caption{The same measurement across four container runtimes on one machine,
 \MatrixInvocations{} processes each of \MatrixCallsPerInvocation{} calls. The
 \emph{Disc.\ parse}: the discarded asymmetric parse; \emph{Pre-parsed}:
@@ -1025,8 +1048,7 @@ Table~\ref{tab:host} and is not containerised.
 $^{\dagger}$Inferred from the run timestamp, not recorded per row: that run
 predates the per-measurement OpenSSL field (Section~\ref{sec:threats}).}
 \label{tab:matrix}
-\footnotesize\setlength{\tabcolsep}{1.6pt}
-\begin{tabular}{@{}lllrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lllrr@{}}
 \toprule
 Runtime & OpenSSL & V8 & Disc.\ parse & Pre-parsed \\
         &         &    & ($\mu$s)     & ($\mu$s) \\
@@ -1037,8 +1059,8 @@ Node \NodeTwentySixMuslNodeMajor{} musl   & \NodeTwentySixMuslOpensslLiteral  & 
 Node \NodeTwentySixGlibcNodeMajor{} glibc & \NodeTwentySixGlibcOpensslLiteral & \NodeTwentySixGlibcVeight & \NodeTwentySixGlibcProbeThrows & \NodeTwentySixGlibcJwtPreparsed \\
 host$^{\ddagger}$                         & \HostOpensslInferred$^{\dagger}$  & \HostVeight               & \HostProbeThrows               & \HostJwtPreparsed \\
 \bottomrule
-\end{tabular}
-\end{table}
+\end{tabular*}
+\end{table*}
 
 \begin{figure*}[!t]
 \centering
@@ -1142,7 +1164,7 @@ the replication package and are within \CFullCiMaxHalfWidthPct\% of the median f
 Its parts follow. \emph{Successful parse}: an RSA-2048 public key through the
 same path, for comparison.}
 \label{tab:cprobe}
-\begin{tabular}{@{}lrrrrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrr@{}}
 \toprule
         &      & Private-key & Public-key & Error   & Successful \\
 OpenSSL & Full & parse       & scans      & strings & parse \\
@@ -1156,7 +1178,7 @@ OpenSSL & Full & parse       & scans      & strings & parse \\
 \CVersionLiteralVThreeFiveEight & \CFullVThreeFiveEight & \CPrivateParseVThreeFiveEight & \CPublicTriesVThreeFiveEight & \CErrorStringsVThreeFiveEight & \CSpkiOkVThreeFiveEight \\
 \CVersionLiteralVThreeSixOne & \CFullVThreeSixOne & \CPrivateParseVThreeSixOne & \CPublicTriesVThreeSixOne & \CErrorStringsVThreeSixOne & \CSpkiOkVThreeSixOne \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table*}
 
 In plain C the failure costs \CFullVThreeZeroSixteen~$\mu$s on OpenSSL \CVersionLiteralVThreeZeroSixteen{}
@@ -1236,24 +1258,24 @@ Table~\ref{tab:host} holds there as well. The full x86\_64 host table is in the
 replication package.
 
 %% ============================================================================
-\section{RQ3: Deployment and prevalence}\label{sec:rq3}
+\section{RQ3: The containerised service, and prevalence}\label{sec:rq3}
 
 \subsection{In-situ cost across arrival rates}\label{sec:insitu}
 
-The deployed service was driven at seven arrival rates, each measured by the
+The containerised service was driven at seven arrival rates, each measured by the
 paired-scrape difference of Section~\ref{sec:insitu-method}, with the whole sweep
 run ascending and then descending on one process. Table~\ref{tab:insitu} reports
 the range across the two passes at each rate for the configuration the service
 deploys, a string secret, and Figure~\ref{fig:insitu} plots it.
 
-\begin{table}[!htbp]
+\begin{table*}[!htbp]
 \caption{In-situ validation cost with a string secret, by arrival rate. The two
 columns are the ascending and the descending pass over the same seven rates on
 one process; each is a single window, and the pair is two observations rather
 than an interval. Host load average during each window is committed with the
 measurement.}
 \label{tab:insitu}
-\begin{tabular}{@{}lrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrr@{}}
 \toprule
 Arrival rate & \multicolumn{2}{c}{Mean per call ($\mu$s)} \\
 (requests/s) & ascending & descending \\
@@ -1266,8 +1288,8 @@ Arrival rate & \multicolumn{2}{c}{Mean per call ($\mu$s)} \\
 \InsituRateF & \InsituStringAscF & \InsituStringDescF \\
 \InsituRateG & \InsituStringAscG & \InsituStringDescG \\
 \bottomrule
-\end{tabular}
-\end{table}
+\end{tabular*}
+\end{table*}
 
 \begin{figure}[!htbp]
 \centering
@@ -1281,15 +1303,15 @@ interval.}
 \end{figure}
 
 One observation follows, and it is the one this section claims: the cost is
-present in deployment and is far larger than the isolated host figure of
-Table~\ref{tab:host}, consistent with Section~\ref{sec:rq2} in that the deployed
+present in the containerised service and is far larger than the isolated host figure of
+Table~\ref{tab:host}, consistent with Section~\ref{sec:rq2} in that the service's
 runtime is the one carrying the older OpenSSL.
 
 Two things visible in Table~\ref{tab:insitu} need care, and we set them out
 explicitly.
 
 \paragraph{Wall-clock exceeds the prediction; processor time does not} The
-deployed runtime's discarded parse costs \NodeEighteenProbeThrows~$\mu$s
+service runtime's discarded parse costs \NodeEighteenProbeThrows~$\mu$s
 (Table~\ref{tab:matrix}), and the remainder of the validation path is of order
 \NodeEighteenJwtPreparsed~$\mu$s, giving an expected total near
 \InsituPredictedFromMatrix~$\mu$s. The wall-clock means observed across the
@@ -1372,7 +1394,7 @@ running the same image, and read the processor time the application container
 was charged from its cgroup accounting rather than from a clock.
 Table~\ref{tab:ab} reports it.
 
-\begin{table}[!htbp]
+\begin{table*}[!htbp]
 \caption{Validation enabled against validation disabled, at one arrival rate,
 two \AbWindowSecondsJwt~s windows on the same pod and image, \AbRequestsNone{}
 requests each. A signed token is on the wire in both arms; the disabled arm
@@ -1381,8 +1403,7 @@ CPU are means of one-second cgroup samples in the window; CPU per call is that
 mean divided by the achieved rate. Event-loop lag is the mean of the
 per-scrape p99. Host load is a single sample at window start.}
 \label{tab:ab}
-\footnotesize\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}lrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrr@{}}
 \toprule
  & disabled & enabled \\
 \midrule
@@ -1394,14 +1415,14 @@ Event-loop lag (ms)                & \AbEventLoopLagNone        & \AbEventLoopLa
 Client mean latency (ms)           & \AbLatencyNone             & \AbLatencyJwt \\
 Host load, 1 min                   & \AbLoadOneNone             & \AbLoadOneJwt \\
 \bottomrule
-\end{tabular}
-\end{table}
+\end{tabular*}
+\end{table*}
 
 Enabling validation adds \AbCpuPerCallDelta~$\mu$s of processor time per
 call. The runtime matrix predicts \InsituPredictedFromMatrix~$\mu$s for the same
 work on the same runtime (Section~\ref{sec:insitu}); the two agree to within
 \AbCpuVsPredictedPct\%. They are obtained by instruments that share no code:
-cgroup CPU accounting on a deployed pod, and a single-process microbenchmark
+cgroup CPU accounting on the service's pod, and a single-process microbenchmark
 in an isolated container. A request that queues or is descheduled accrues
 wall-clock time but no CPU, so this figure cannot contain queueing delay.
 
@@ -1600,7 +1621,7 @@ The asset of interest is key-type separation: a token declaring an HMAC
 algorithm must never be verified against asymmetric key material, nor the
 reverse~\citep{rfc8725}. Out of scope are compromise of the secret, defects
 elsewhere in the library, and availability. We did not drive adversarial
-traffic at the deployed service and make no availability or capacity claim;
+traffic at the containerised service and make no availability or capacity claim;
 the question here is which inputs reach the discarded attempt, not how many a
 service can absorb.
 
@@ -1678,10 +1699,10 @@ unpatched, \SuitePatchedPassing{} and \SuitePatchedFailing{} patched.
 
 These figures are from the host. The practical benefit is largest where the
 discarded parse is largest --- of order \NodeEighteenProbeThrows~$\mu$s on the
-runtime the service actually deploys (Table~\ref{tab:matrix}) --- and we did not
+runtime the containerised service uses (Table~\ref{tab:matrix}) --- and we did not
 measure the patched library on the container runtimes. The reported factor of
 \HostSafePatchRatio{} is therefore a lower bound on the improvement available in
-the deployed environment, and we state it as a host result rather than as a
+the containerised service's runtime, and we state it as a host result rather than as a
 general one.
 
 \paragraph{The constraint, which is the more important half} The discarded
@@ -1776,9 +1797,7 @@ a pull request implementing the narrow form of the fix, with its guard, is open
 against it.
 %% STATUS-AT-SUBMISSION: update with the maintainers' response, if any, and
 %% settle the authorship of the pull request (see upstream/STATUS.md).
-At the time of writing neither has received a maintainer response. We
-state that rather than omit it: the library is maintained at a slow cadence and
-a response may postdate publication.
+At the time of writing neither has received a maintainer response.
 
 %% ============================================================================
 \section{Implications for practice}\label{sec:implications}
@@ -1794,7 +1813,7 @@ input, including tokens an adversary constructs (Table~\ref{tab:reach}).
 On a current runtime bundling OpenSSL~3.5 the saving is smaller ---
 \XlibJsonwebtokenNewSslPenalty~$\mu$s per validation in Table~\ref{tab:xlib} ---
 but it is not negligible beside the \AbCpuPerCallNone~$\mu$s of processor time
-the deployed service spends on a request with validation disabled
+the containerised service spends on a request with validation disabled
 (Table~\ref{tab:ab}). The two figures come from different machines and are
 compared as orders of magnitude only.
 
@@ -1926,7 +1945,7 @@ the width of those ranges.
 
 \paragraph{One in-situ process, two passes} The rate sweep rests on one
 process sweeping seven rates twice. That is sufficient for the claim made ---
-the cost is present in deployment and of this order --- and insufficient for any
+the cost is present in the containerised service and of this order --- and insufficient for any
 claim about the shape of the cost-versus-rate relation, which
 Section~\ref{sec:insitu} accordingly does not make. The magnitude claim does not
 rest on the sweep alone: the A/B of Section~\ref{sec:abcorroboration} is a
@@ -1993,7 +2012,7 @@ describe a caching deployment.
 \paragraph{The security analysis is from source} Section~\ref{sec:security}
 establishes reachability and provenance by reading \texttt{verify.js} at the
 releases named and by running the library's own tests; it does not drive
-forged tokens at the deployed service, time the patched library on tokens
+forged tokens at the containerised service, time the patched library on tokens
 declaring a non-HMAC algorithm, or time version 8.5.1. Its statements are
 therefore about which inputs reach the attempt and when the code arrived, not
 about throughput under attack, and the paper makes no availability claim.
@@ -2012,7 +2031,7 @@ Four directions follow from the limitations above.
 
 \paragraph{Security} Section~\ref{sec:security} establishes which inputs reach
 the discarded attempt; it does not measure what an adversary can do with it.
-Driving forged tokens at a deployed service, under the stock library and under
+Driving forged tokens at the containerised service, under the stock library and under
 the narrow fix, would turn that reachability statement into an availability
 measurement. The configured-algorithm variant of the fix
 (Section~\ref{sec:reachable}) should be implemented and run against the
@@ -2076,12 +2095,9 @@ The pattern that avoids the cost is rare in our sample: among
 interface and call the validator, \AdjudicatedGenuineProjects{} use it. No
 population proportion follows.
 
-Two explanations that present themselves before the measurement are refuted by
-it. That the dominant cost is key conversion is refuted by measuring the
-conversion. That a throughput collapse under layered enforcement characterises
-the service is refuted by the collapse point moving with unrelated host activity,
-which is why no capacity claim appears here. Both have the same shape, and it is
-the shape this paper's methodology is built to avoid: a cost attributed to the
+The explanation that presents itself before the measurement --- that the
+dominant cost is key conversion --- is refuted by measuring the conversion. It
+has the shape this paper's methodology is built to avoid: a cost attributed to the
 variable under study while a second variable moves alongside it, unrecorded at
 the granularity at which it could change. The bundled OpenSSL version in
 Section~\ref{sec:rq2} is the same hazard caught in time --- the quantity varies
