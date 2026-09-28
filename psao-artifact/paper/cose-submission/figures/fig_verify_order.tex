@@ -1,0 +1,48 @@
+%% Order of operations in jsonwebtoken verify() at tag v9.0.3.
+%% Line numbers are those of verify.js at that tag.
+\begingroup
+\definecolor{parseorange}{HTML}{E8663A}
+\definecolor{checkblue}{HTML}{2F6FD0}
+\definecolor{stepgray}{HTML}{F2F2F0}
+\definecolor{edgegray}{HTML}{8A8984}
+\begin{tikzpicture}[
+  font=\footnotesize,
+  vstep/.style={draw=edgegray, fill=stepgray, rounded corners=2pt,
+               minimum height=23mm, text width=21mm, align=center,
+               inner sep=2pt},
+  parse/.style={vstep, draw=parseorange, fill=parseorange!12, line width=0.9pt},
+  sec/.style={vstep, draw=checkblue, fill=checkblue!8},
+  flow/.style={-{Stealth[length=2mm]}, edgegray, line width=0.7pt},
+  node distance=3mm,
+]
+\node[vstep]  (decode) {\textbf{Decode}\\ 3 segments, JSON\\ \textit{l.~59--118}};
+\node[parse, right=of decode, text width=27mm] (resolve) {\textbf{Key resolution}\\
+  {\scriptsize\texttt{createPublicKey()}} fails, then {\scriptsize\texttt{createSecretKey()}}\\
+  \textit{l.~120--130}};
+\node[vstep, right=of resolve] (algs) {\textbf{Algorithm list}\\
+  \texttt{options.}\\\texttt{algorithms}\\ \textit{l.~132--146}};
+\node[sec, right=of algs] (ktype) {\textbf{Key-type checks}\\
+  key-confusion defence\\ \textit{l.~148--160}};
+\node[vstep, right=of ktype] (sig) {\textbf{Signature}\\
+  {\scriptsize\texttt{jws.verify()}}\\ \textit{l.~162--172}};
+
+\draw[flow] (decode) -- (resolve);
+\draw[flow] (resolve) -- (algs);
+\draw[flow] (algs) -- (ktype);
+\draw[flow] (ktype) -- (sig);
+
+%% The key-type checks read the KeyObject type produced by resolution.
+\draw[-{Stealth[length=2mm]}, checkblue, dashed, line width=0.7pt]
+  (resolve.south) -- ++(0,-5mm) -| node[pos=0.25, below, font=\scriptsize,
+  text=checkblue] {\texttt{KeyObject.type} read here} (ktype.south);
+
+%% Everything before the signature runs for any well-formed token.
+\draw[decorate, decoration={brace, amplitude=4pt, raise=3pt},
+      line width=0.6pt, edgegray]
+  (decode.north west) -- (ktype.north east)
+  node[midway, above=7pt, align=center, text=black]
+  {runs before authentication, for forged and genuine tokens alike};
+\node[above=2pt of sig.north, text=edgegray, font=\scriptsize]
+  {authenticates};
+\end{tikzpicture}
+\endgroup
