@@ -1,0 +1,7 @@
+Highlights
+
+• The HMAC signature is only 2.2 µs of a 29.9 µs JWT validation in jsonwebtoken
+• A discarded asymmetric key parse, run before authentication, takes 60% of it
+• It arrived with a key-confusion fix; removing it naively breaks that defence
+• The same parse costs 394 µs on OpenSSL 3.0.16 and 8.4 µs on 3.5.8, causally
+• Only a pre-parsed key removes it for all inputs; 0 of 327 call sites do this

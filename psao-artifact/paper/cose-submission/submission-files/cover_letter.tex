@@ -1,0 +1,87 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{parskip}
+\pagestyle{empty}
+
+\begin{document}
+
+\noindent
+Tze Hui Liew (corresponding author)\\
+Faculty of Information Science and Technology, Multimedia University\\
+Melaka, Malaysia\\
+\href{mailto:thliew@mmu.edu.my}{thliew@mmu.edu.my}
+
+\medskip
+\noindent\today
+
+\medskip
+\noindent
+The Editor-in-Chief\\
+\emph{Computers \& Security}
+
+\medskip
+\noindent
+\textbf{Submission of a Full Length Article:} ``It Is Not the Signature: A
+Pre-Authentication Key-Parse Attempt Dominates JSON Web Token Validation Cost
+and Is Coupled to a Key-Confusion Defence''
+
+Dear Editor,
+
+We submit the above manuscript for consideration as a Full Length Article in
+\emph{Computers \& Security}.
+
+JSON Web Token validation is the authentication step of most microservice
+requests, and its cost is usually attributed to the signature. We show that in
+\texttt{jsonwebtoken}, a widely used Node.js implementation, the signature is
+under a tenth of the validation cost. The dominant component is a discarded
+attempt to parse the shared secret as an asymmetric key. The manuscript's
+central contribution for this journal is the security analysis of that
+component:
+\begin{itemize}
+\item It runs \emph{before authentication}, ahead of both the algorithm check
+  and the signature check, so any well-formed token, forged or not, causes it,
+  and pinning permitted algorithms does not prevent it.
+\item It entered the library with the release that fixed an RSA-to-HMAC
+  key-confusion vulnerability (CVE-2022-23541), and the key-type checks that
+  implement that fix depend on it. The obvious performance optimisation
+  therefore fails the library's own key-confusion tests.
+\item A narrow fix preserves the defence and makes validation 4.15 times
+  faster, but an attacker-chosen algorithm header can still reach the parse;
+  only a pre-parsed key removes it for every input. In our sample, 94\% of
+  call sites pin no algorithm and none pre-parses the key.
+\end{itemize}
+The magnitude of the cost is attributed causally to the bundled OpenSSL
+release: the same OpenSSL calls issued from C, against eight identically built
+releases, cost 394.4\,$\mu$s on 3.0.16 and 8.447\,$\mu$s on 3.5.8. It is
+confirmed in a deployed service by cgroup CPU accounting. A comparison of seven
+JWT libraries in four languages shows it follows a design choice rather than
+JWT validation as such.
+
+We believe the work suits \emph{Computers \& Security} because it concerns
+the practical security engineering of authentication code. It shows how a
+security hardening changes the cost profile of an authentication path, why
+performance changes to verification code must be reviewed as security changes,
+and what developers and library authors should do instead. It reports no new
+attack. The defect has been reported to the library maintainers
+(auth0/node-jsonwebtoken issue \#1046), and the public report describes the
+constraint at the level of mechanism without an exploitation recipe. Every
+number in the paper is generated from committed data in an open replication
+package.
+
+This manuscript is original, has not been published previously, and is not
+under consideration for publication elsewhere. All authors have approved the
+manuscript and agree with its submission. The authors declare no competing
+interests. The use of generative AI in preparing the manuscript is declared in
+the manuscript.
+
+Thank you for considering our submission.
+
+\medskip
+\noindent
+Yours sincerely,\\[4pt]
+Tze Hui Liew, on behalf of all authors\\
+Jannatul Ferdous Katha, Tasmia Tahmid Prova, Md Kishor Morol, Tze Hui Liew,
+Dip Nandi
+
+\end{document}
