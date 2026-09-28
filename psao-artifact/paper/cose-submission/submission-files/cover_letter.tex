@@ -22,15 +22,15 @@ The Editor-in-Chief\\
 
 \medskip
 \noindent
-\textbf{Submission of a Full Length Article:} ``It Is Not the Signature: A Pre-Authentication Key Parse Dominates JWT
-Validation in jsonwebtoken and Is Load-Bearing for Its Key-Confusion Defence''
+\textbf{Submission of a Full Length Article:} ``It Is Not the Signature: A Pre-Authentication Key Parse Dominates
+JWT Validation in \texttt{jsonwebtoken} and Is Load-Bearing for Its Key-Confusion Defence''
 
 Dear Editor,
 
 We submit the above manuscript for consideration as a Full Length Article in
 \emph{Computers \& Security}.
 
-JSON Web Token validation is the authentication step of most microservice
+JSON Web Token validation is a common authentication step for microservice
 requests, and its cost is usually attributed to the signature. We show that in
 \texttt{jsonwebtoken}, a widely used Node.js implementation, the signature is
 under a tenth of the validation cost. The dominant component is a discarded
@@ -52,9 +52,9 @@ component:
 \end{itemize}
 The magnitude of the cost is attributed causally to the bundled OpenSSL
 release: the same OpenSSL calls issued from C, against eight identically built
-releases, cost 394.4\,$\mu$s on 3.0.16 and 8.447\,$\mu$s on 3.5.8. It is
-confirmed by cgroup CPU accounting in a containerised service on a single-node Kubernetes testbed. A comparison of seven
-JWT libraries in four languages shows it follows a design choice rather than
+releases, cost 394.4\,$\mu$s on 3.0.16 and 8.447\,$\mu$s on 3.5.8. It is confirmed by
+cgroup CPU accounting in a containerised service on a single-node Kubernetes
+testbed. A comparison of seven JWT libraries in four languages shows it follows a design choice rather than
 JWT validation as such.
 
 We believe the work suits \emph{Computers \& Security} because it concerns
