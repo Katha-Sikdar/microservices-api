@@ -14,10 +14,12 @@
 
 \documentclass[preprint,12pt,authoryear]{elsarticle}
 
+\usepackage{lmodern}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{url}
 \usepackage{xcolor}
 \usepackage{listings}
@@ -470,6 +472,54 @@ cost naively removes the defence.
 
 \subsection{What we searched for and did not find}\label{sec:gaps}
 
+Table~\ref{tab:related} summarises the positioning. Each cell records only what
+this section states about the work cited; it is a map of the lines of work this
+paper connects, not an assessment of them.
+
+\begin{table}[!t]
+\caption{Positioning against the closest lines of work. \emph{JWT}: studies
+JWT or JOSE implementations. \emph{Crypto-API security}: treats how a
+cryptographic interface or key material is used as a security concern.
+\emph{Cost}: studies a performance cost or performance defect.
+\emph{Version as cause}: attributes a cost or defect to the version of a
+bundled dependency. \emph{Cost--defence coupling}: shows that removing a cost
+would weaken a security defence. \checkmark: addressed; $\circ$: partly (see
+note); --: not addressed.}
+\label{tab:related}
+\small\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.40\linewidth}ccccc@{}}
+\toprule
+Work & JWT & \shortstack{Crypto-API\\security} & Cost &
+\shortstack{Version\\as cause} & \shortstack{Cost--defence\\coupling} \\
+\midrule
+\citet{detering2017jose}; \citet{xu2023jwtkey}; \citet{yang2026tokentimebomb}
+  & \checkmark & \checkmark & -- & -- & -- \\
+\citet{egele2013empirical}; \citet{nadi2016jumping}; \citet{kruger2018crysl};
+\citet{rahaman2019cryptoguard}
+  & -- & \checkmark & -- & -- & -- \\
+\citet{coarfa2006performance}; \citet{naser2020performance};
+\citet{sikeridis2020assessing}
+  & -- & -- & \checkmark & -- & -- \\
+\citet{zhu2023dissecting}
+  & -- & -- & \checkmark & -- & -- \\
+\citet{jin2012understanding}; \citet{selakovic2016performance}
+  & -- & -- & \checkmark & -- & -- \\
+\citet{kaltenecker2023performance}; \citet{chen2017exploratory}
+  & -- & -- & \checkmark & $\circ^{a}$ & -- \\
+\citet{zerouali2019outdated}; \citet{cito2017empirical}
+  & -- & -- & -- & $\circ^{b}$ & -- \\
+\midrule
+\textbf{This paper}
+  & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\footnotesize
+$^{a}$Versions of the system under study, not of a bundled dependency.
+$^{b}$Container images pin outdated dependency versions; no cost is measured.
+\end{table}
+
 Three areas bear directly on this result and we were unable to locate
 verifiable peer-reviewed work in any of them. We state each as an absence we
 searched for rather than as a claim about the whole literature; each is also,
@@ -502,6 +552,24 @@ throughput defect, which is precisely what this paper reports.
 
 %% ============================================================================
 \section{Methodology}\label{sec:method}
+
+Figure~\ref{fig:workflow} gives the study's workflow: the instruments used for
+each research question and the tables and figures each produces. Every
+instrument writes to committed run files, from which every number in the paper
+is generated (Data availability).
+
+\begin{figure}[!t]
+\centering
+\resizebox{\linewidth}{!}{\input{figures/fig_workflow.tex}}
+\caption{Study workflow. Top: the five research questions. Middle: the
+instruments that answer each, with the section describing it. Bottom: the
+tables and figures each produces. The C probe and the exception baseline
+(RQ2) also decompose the discarded attempt for RQ1 (Table~\ref{tab:decomp}),
+and the call-site survey (RQ3) supplies the algorithm-pinning figure used in
+RQ5. All measurements feed one replication package, from which every reported
+value is generated.}
+\label{fig:workflow}
+\end{figure}
 
 \subsection{Unit of measurement}\label{sec:unit}
 
