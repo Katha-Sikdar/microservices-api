@@ -20,14 +20,13 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{array}
-\usepackage{url}
+\usepackage{xurl}
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta,decorations.pathreplacing,calc,fit}
 \usepackage{lineno}
 \usepackage[hidelinks]{hyperref}
-\usepackage{xurl}   % lets long URLs (e.g. the replication repository) wrap
 \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
 
 \graphicspath{{figures/}}
@@ -2132,9 +2131,8 @@ public, commercial, or not-for-profit sectors.
 \section*{Data availability}
 The data supporting the results of this study are openly available in the
 replication package~\citep{artifact2026}, archived at Zenodo under
-\href{https://doi.org/10.5281/zenodo.23011153}{doi:10.5281/zenodo.23011153} and
-maintained at
-\url{https://github.com/Katha-Sikdar/A-Pre-Authentication-Key-Parse-Dominates-JWT-Validation-in-jsonwebtoken-and-Is-Load-Bearing-}.
+\url{https://doi.org/10.5281/zenodo.23011153} and maintained in a public
+GitHub repository.\footnote{\url{https://github.com/Katha-Sikdar/A-Pre-Authentication-Key-Parse-Dominates-JWT-Validation-in-jsonwebtoken-and-Is-Load-Bearing-}}
 It contains all measurements, the instrumentation, the analysis code and the
 scripts that generate every numeric value and every figure in this paper,
 including the C program and the script that builds each OpenSSL release, the
@@ -2159,11 +2157,13 @@ exploitation recipe.
 
 \section*{Declaration of generative AI and AI-assisted technologies in the
 manuscript preparation process}
-During the preparation of this work the authors used Claude (Anthropic) in
-order to restructure the manuscript for this journal's format and to draft
-revisions of its text. After using this tool, the authors reviewed and edited
-the content as needed and take full responsibility for the content of the
-published article.
+During the preparation of this manuscript, generative AI tools were used to
+improve language and readability. The authors reviewed all content following
+such use and take full responsibility for the contents of the manuscript.
+
+\section*{Acknowledgements}
+The authors acknowledge ELITE Research Lab for providing the computational
+resources and support necessary for this research.
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{references}
