@@ -1,0 +1,67 @@
+%% Study workflow: research questions -> instruments -> outputs.
+%% Section, table and figure numbers are live \ref's.
+\begingroup
+\definecolor{wforange}{HTML}{E8663A}
+\definecolor{wfblue}{HTML}{2F6FD0}
+\definecolor{wfgray}{HTML}{F2F2F0}
+\definecolor{wfedge}{HTML}{8A8984}
+\begin{tikzpicture}[
+  font=\footnotesize,
+  wfrq/.style={draw=wfblue, fill=wfblue!10, rounded corners=2pt, text width=23.5mm,
+             minimum height=15mm, align=center, inner sep=2pt},
+  wfinst/.style={draw=wfedge, fill=wfgray, rounded corners=2pt, text width=23.5mm,
+               align=center, inner sep=2.5pt, minimum height=9mm},
+  wfout/.style={draw=wforange, fill=wforange!10, rounded corners=2pt,
+              text width=23.5mm, align=center, inner sep=2pt, minimum height=9mm},
+  flow/.style={-{Stealth[length=1.8mm]}, wfedge, line width=0.6pt},
+]
+%% Columns
+\foreach \i/\x in {1/0, 2/26.5, 3/53, 4/79.5, 5/106} {\coordinate (c\i) at (\x mm,0);}
+
+%% Research questions
+\node[wfrq] (q1) at (c1) {\textbf{RQ1}\\ Where does the cost go?};
+\node[wfrq] (q2) at (c2) {\textbf{RQ2}\\ What sets its magnitude?};
+\node[wfrq] (q3) at (c3) {\textbf{RQ3}\\ Running service and prevalence};
+\node[wfrq] (q4) at (c4) {\textbf{RQ4}\\ One library or a design choice?};
+\node[wfrq] (q5) at (c5) {\textbf{RQ5}\\ Security coupling};
+
+%% Instruments
+\node[wfinst, below=5mm of q1] (i11) {Host decomposition of \texttt{verify()}, 15 processes (\S\ref{sec:decompose})};
+\node[wfinst, below=2mm of i11] (i12) {V8 sampling profiler (\S\ref{sec:rq1})};
+
+\node[wfinst, below=5mm of q2] (i21) {Container runtime matrix, 4 images (\S\ref{sec:matrix-method})};
+\node[wfinst, below=2mm of i21] (i22) {C probe, 8 OpenSSL releases (\S\ref{sec:c-method})};
+\node[wfinst, below=2mm of i22] (i23) {V8 exception baseline, 6 runtimes (\S\ref{sec:exc-method})};
+\node[wfinst, below=2mm of i23] (i24) {x86\_64 repetition (\S\ref{sec:arch-method})};
+
+\node[wfinst, below=5mm of q3] (i31) {In-situ sweep, 7 rates, 2 passes (\S\ref{sec:insitu-method})};
+\node[wfinst, below=2mm of i31] (i32) {cgroup CPU A/B (\S\ref{sec:abcorroboration})};
+\node[wfinst, below=2mm of i32] (i33) {Code survey, 3 instruments (\S\ref{sec:frames})};
+
+\node[wfinst, below=5mm of q4] (i41) {Source reading, 7 libraries (\S\ref{sec:xlib-method})};
+\node[wfinst, below=2mm of i41] (i42) {HS256 timing, string vs.\ pre-parsed key};
+
+\node[wfinst, below=5mm of q5] (i51) {Source at 8.5.1, 9.0.0, 9.0.3 (\S\ref{sec:provenance})};
+\node[wfinst, below=2mm of i51] (i52) {Library test suite: stock, narrow, naive (\S\ref{sec:fix})};
+\node[wfinst, below=2mm of i52] (i53) {Reachability analysis (\S\ref{sec:reachable})};
+
+%% Outputs, aligned on one row below the tallest column
+\path let \p1 = (i24.south) in coordinate (orow) at (0,\y1-7mm);
+\node[wfout, anchor=north] (o1) at (c1 |- orow) {Table~\ref{tab:host}, Fig.~\ref{fig:decomposition}};
+\node[wfout, anchor=north] (o2) at (c2 |- orow) {Tables~\ref{tab:decomp}, \ref{tab:matrix}, \ref{tab:cprobe}, \ref{tab:arch}; Figs.~\ref{fig:matrix}, \ref{fig:openssl}};
+\node[wfout, anchor=north] (o3) at (c3 |- orow) {Tables~\ref{tab:insitu}, \ref{tab:ab}; Fig.~\ref{fig:insitu}};
+\node[wfout, anchor=north] (o4) at (c4 |- orow) {Table~\ref{tab:xlib}};
+\node[wfout, anchor=north] (o5) at (c5 |- orow) {Table~\ref{tab:reach}, Fig.~\ref{fig:verifyorder}};
+
+\foreach \q/\a/\o in {q1/i12/o1, q2/i24/o2, q3/i33/o3, q4/i42/o4, q5/i53/o5} {
+  \draw[flow] (\a.south) -- (\o.north);
+}
+
+%% Replication package band
+\node[draw=wfedge, rounded corners=2pt, fill=white, below=5mm of o3,
+      minimum width=130mm, align=center, inner sep=3pt] (rep)
+  {\textbf{Replication package}: every instrument writes committed run files;
+   every reported value is generated from them, none typed by hand};
+\foreach \o in {o1,o2,o3,o4,o5} {\draw[flow] (\o.south) -- (\o.south |- rep.north);}
+\end{tikzpicture}
+\endgroup
