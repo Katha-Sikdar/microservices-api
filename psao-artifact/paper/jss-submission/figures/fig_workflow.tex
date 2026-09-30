@@ -48,10 +48,10 @@
 %% Outputs, aligned on one row below the tallest column
 \path let \p1 = (i24.south) in coordinate (orow) at (0,\y1-7mm);
 \node[wfout, anchor=north] (o1) at (c1 |- orow) {Table~\ref{tab:host}, Fig.~\ref{fig:decomposition}};
-\node[wfout, anchor=north] (o2) at (c2 |- orow) {Tables~\ref{tab:decomp}, \ref{tab:matrix}, \ref{tab:cprobe}, \ref{tab:arch}; Figs.~\ref{fig:matrix}, \ref{fig:openssl}};
-\node[wfout, anchor=north] (o3) at (c3 |- orow) {Tables~\ref{tab:insitu}, \ref{tab:ab}; Fig.~\ref{fig:insitu}};
-\node[wfout, anchor=north] (o4) at (c4 |- orow) {Table~\ref{tab:xlib}};
-\node[wfout, anchor=north] (o5) at (c5 |- orow) {Table~\ref{tab:reach}, Fig.~\ref{fig:verifyorder}};
+\node[wfout, anchor=north] (o2) at (c2 |- orow) {Tables~\ref{tab:decomp}, \ref{tab:matrix}, \ref{tab:cprobe}; Figs.~\ref{fig:matrix}, \ref{fig:openssl}};
+\node[wfout, anchor=north] (o3) at (c3 |- orow) {Table~\ref{tab:ab}; Figs.~\ref{fig:insitu}, \ref{fig:survey}};
+\node[wfout, anchor=north] (o4) at (c4 |- orow) {Table~\ref{tab:xlib}, Fig.~\ref{fig:xlib}};
+\node[wfout, anchor=north] (o5) at (c5 |- orow) {Table~\ref{tab:reach}; Figs.~\ref{fig:verifyorder}, \ref{fig:remedies}};
 
 \foreach \q/\a/\o in {q1/i12/o1, q2/i24/o2, q3/i33/o3, q4/i42/o4, q5/i53/o5} {
   \draw[flow] (\a.south) -- (\o.north);

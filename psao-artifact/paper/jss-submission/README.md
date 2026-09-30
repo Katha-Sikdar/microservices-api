@@ -26,11 +26,30 @@ Upload the zip as a new project, set the compiler to **pdfLaTeX** and the main d
 - There are 5 new highlights, each at most 85 characters.
 - The declaration shows the new journal and title.
 
+## Trimmed to 39 pages
+
+The manuscript is now 39 pages (it was 57), references included. Nothing was deleted from the study. Secondary material moved to a separate **Supplementary Material** document (`supplementary.tex`, 26 pages), which the paper cites as Supplementary Sections S1 to S7:
+
+| Supplement | Contents moved out of the paper |
+|---|---|
+| S1 | Full related-work discussion, and the three gaps we searched for |
+| S2 | Protocol details, full C-probe, exception and in-situ method text, the three prevalence frames, host-state note |
+| S3 | Residual of the decomposition and the profiler confirmation |
+| S4 | Runtime-matrix limitations and the x86_64 table (Table S1) |
+| S5 | In-situ values (Table S2), drift between passes, host load, full prevalence counts |
+| S6 | Full threats to validity |
+| S7 | Design note on relocating validation to the service mesh |
+
+The paper keeps a short summary in each place. The introduction, related work, implications, future work and conclusion were condensed, and the references are set in a smaller font.
+
+**Overleaf:** `supplementary.tex` reads cross-references from `main.aux`. The simplest route is to upload the ready-made `submission-files/supplementary-material.pdf`. To rebuild it, compile `main.tex` first, then set `supplementary.tex` as the main document and compile.
+
 ## Upload
 
 | File | Item type |
 |---|---|
 | `submission-files/manuscript-preview.pdf` (or your Overleaf PDF) | Manuscript |
+| `submission-files/supplementary-material.pdf` | Supplementary material |
 | `submission-files/cover_letter.pdf` | Cover letter |
 | `submission-files/highlights.docx` | Highlights |
 | `submission-files/declaration_of_interest.docx` | Declaration of interest (only if the menu offers it) |
