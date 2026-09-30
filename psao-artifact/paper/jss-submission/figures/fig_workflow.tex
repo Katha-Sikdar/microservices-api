@@ -42,7 +42,7 @@
 \node[wfinst, below=2mm of i41] (i42) {HS256 timing, string vs.\ pre-parsed key};
 
 \node[wfinst, below=5mm of q5] (i51) {Source at 8.5.1, 9.0.0, 9.0.3 (\S\ref{sec:provenance})};
-\node[wfinst, below=2mm of i51] (i52) {Library test suite: stock, narrow, naive (\S\ref{sec:fix})};
+\node[wfinst, below=2mm of i51] (i52) {Library test suite: stock, narrow, naive, key-material (\S\ref{sec:fix}); \texttt{sign()} timing (\S\ref{sec:libsurvey})};
 \node[wfinst, below=2mm of i52] (i53) {Reachability analysis (\S\ref{sec:reachable})};
 
 %% Outputs, aligned on one row below the tallest column
@@ -51,7 +51,7 @@
 \node[wfout, anchor=north] (o2) at (c2 |- orow) {Tables~\ref{tab:decomp}, \ref{tab:matrix}; Fig.~\ref{fig:openssl}};
 \node[wfout, anchor=north] (o3) at (c3 |- orow) {Table~\ref{tab:ab}; Figs.~\ref{fig:insitu}, \ref{fig:survey}};
 \node[wfout, anchor=north] (o4) at (c4 |- orow) {Table~\ref{tab:xlib}, Fig.~\ref{fig:xlib}};
-\node[wfout, anchor=north] (o5) at (c5 |- orow) {Table~\ref{tab:reach}; Figs.~\ref{fig:verifyorder}, \ref{fig:remedies}};
+\node[wfout, anchor=north] (o5) at (c5 |- orow) {Tables~\ref{tab:reach}, \ref{tab:forged}; Figs.~\ref{fig:verifyorder}, \ref{fig:remedies}};
 
 \foreach \q/\a/\o in {q1/i12/o1, q2/i24/o2, q3/i33/o3, q4/i42/o4, q5/i53/o5} {
   \draw[flow] (\a.south) -- (\o.north);

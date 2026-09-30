@@ -456,15 +456,17 @@ used.
 
 \begin{table*}[!t]
 \caption{Machines. CPU model strings are as reported by the operating system,
-nominal clock included; the Mac's model and core count were not recorded by the
-run metadata. Every run's own metadata file records its machine.}
+nominal clock included. The Mac's model, chip, core count (P/E: performance
+and efficiency cores) and memory are from its system report; the cloud provider of VM~A and VM~B was not recorded (both
+run a Firecracker-style kernel, suffix \texttt{-fc-}). Every run's own metadata
+file records its machine.}
 \label{tab:machines}
 \small
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.17\textwidth}c>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
 \toprule
 Machine & CPU & CPUs & OS & Produced \\
 \midrule
-Mac host (arm64) & Apple silicon (not recorded) & -- & \MachMacOs & Table~\ref{tab:host}, Fig.~\ref{fig:decomposition}, profiler shares (\S\ref{sec:residual}), Fig.~\ref{fig:remedies} (arm64) \\
+Mac host: MacBook Air (Mac16,12), arm64 & Apple M4 (4P+6E), 16\,GB & 10 & \MachMacOs & Table~\ref{tab:host}, Fig.~\ref{fig:decomposition}, profiler shares (\S\ref{sec:residual}), Fig.~\ref{fig:remedies} (arm64) \\
 Docker Desktop VM on the Mac (arm64) & as host & \MachDockerCpus{} allotted & Linux; Kubernetes v1.32.2 & Table~\ref{tab:matrix}, Fig.~\ref{fig:insitu}, Table~\ref{tab:ab} \\
 VM~A (x86\_64 cloud) & \MachVmaCpu & \MachVmaCpus & Linux \MachVmaKernel, \MachVmaLibc & Table~\ref{tab:decomp}, Fig.~\ref{fig:openssl}, Table~\ref{tab:xlib}, Fig.~\ref{fig:xlib}, \S\ref{sec:rq2-arch}, Fig.~\ref{fig:remedies} (VM~A) \\
 VM~B (x86\_64 cloud) & \MachVmbCpu & \MachVmbCpus & \MachVmbOs, Linux \MachVmbKernel & Table~\ref{tab:distro}, Table~\ref{tab:forged}, \S\ref{sec:fix} suite and equivalence runs, Fig.~\ref{fig:remedies} (VM~B), \S\ref{sec:libsurvey} \\
@@ -1274,6 +1276,13 @@ were verified through the stock library and each fix on each of
 under the narrow fix and \EquivDiffsKeyonly{} under the key-material fix
 (\texttt{bench/keypath-equivalence.js}).
 
+Note that both fixes fast-path only string secrets; consequently, an HMAC
+secret supplied as a Buffer continues to incur the discarded parse. Of the
+\SampleCallSites{} call sites in our sample (Section~\ref{sec:prevalence}),
+\SampleBuffer{} pass a Buffer and \SampleFileContents{} pass key material read
+from a file, which is a Buffer unless an encoding is given; the replication
+package lists each site with its evidence.
+
 \subsection{Reported upstream}\label{sec:upstream}
 
 An earlier issue\footnote{\url{https://github.com/auth0/node-jsonwebtoken/issues/966}}
@@ -1347,8 +1356,8 @@ reviewers}). \\
 \paragraph{Application developers} Pre-parse key material once, at startup
 (Figure~\ref{fig:preparse}). It removes \HostStringPenalty~$\mu$s per
 validation on the host and far more on OpenSSL~3.0, needs no architectural
-change and no change to the library, and is the only remedy that removes the
-discarded parse for every input. Also restrict permitted algorithms~\citep{rfc8725};
+change and no change to the library, and is the only remedy available without
+a library change. Also restrict permitted algorithms~\citep{rfc8725};
 that is an independent defence, not a substitute.
 
 \begin{figure}[!t]
@@ -1398,7 +1407,7 @@ secret of 34 characters and one token of fixed size. The parse fails at the
 PEM-header check and in the private-key decoder, and its cost does not depend
 on the secret's length: a 16- and a 256-character secret cost
 \ForgedEighteenProbeSixteen~$\mu$s and \ForgedEighteenProbeTwoFiftySix~$\mu$s on
-OpenSSL \ForgedEighteenOpenssl{} (Section~\ref{sec:reachable}). A secret that
+OpenSSL \ForgedEighteenOpenssl{} (detailed in the replication package). A secret that
 begins with a PEM header takes the original path under both fixes by design
 and was not timed. The security analysis is from source, the library's tests
 and the microbenchmarks of Section~\ref{sec:reachable}, not from adversarial

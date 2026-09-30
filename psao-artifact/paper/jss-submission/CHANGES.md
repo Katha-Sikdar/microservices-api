@@ -122,3 +122,14 @@ revision-process language. No number changed.
 | Upstream-status sentence dated "at the time of writing"; `STATUS-AT-SUBMISSION` comment left in the source for the authors. | §8.5 |
 | Abstract tightened (under 250 words). Cover letter no longer mentions testbed experiments. | abstract, cover letter |
 | `jss-submission-copy.zip` contains only the LaTeX source and the upload files, plus `SUBMISSION_README.md`; CHANGES.md and TODO_EXPERIMENTS.md stay in the repositories. | package |
+
+## Pre-submission fixes (six items)
+
+| # | Change | Where |
+|---|---|---|
+| 1 | "the only remedy that removes the discarded parse for every input" replaced by "the only remedy available without a library change" (the key-material fix also removes it for every string secret). | §9, Application developers |
+| 2 | Figure 1 RQ5 column: test suite now lists the key-material variant and the `sign()` timing (§7.1); outputs now "Tables 9, 10; Figs. 8, 9" (`\ref`s to `tab:reach`, `tab:forged`, `fig:verifyorder`, `fig:remedies`). | `figures/fig_workflow.tex` |
+| 3 | 16- and 256-character secret timings (`\ForgedEighteenProbeSixteen`, `\ForgedEighteenProbeTwoFiftySix`) now point to the replication package instead of §8.4, which does not show them. | §10, Construct |
+| 4 | Not changed: §8.5 still does not say the PR implements the key-material fix. The fix and the four key-path tests must first be pushed to the upstream PR by its author (`upstream/`), then the `STATUS-AT-SUBMISSION` sentence can be updated. | §8.5 |
+| 5 | Table 2: Mac is MacBook Air (Mac16,12), Apple M4, 10 cores (4P+6E), 16 GB, from the authors' system report; recorded in the replication package as `data/runs/MACHINE-mac-host/README.md` without serial numbers or UUIDs. Caption states the VM provider was not recorded (Firecracker-style `-fc-` kernel); no provider is named. | Table 2 |
+| 6 | Added to the end of §8.4: both fixes fast-path only string secrets, so an HMAC secret supplied as a Buffer still pays the discarded parse, with `\SampleBuffer` Buffer and `\SampleFileContents` file-contents call sites of `\SampleCallSites`. The suggested "6 Buffer call sites" was not used: in `survey/data/callsites.csv`, 3 of the 4 file-contents sites read with `'utf8'` (strings), and none of the Buffer sites uses an HMAC algorithm. | §8.4 |
