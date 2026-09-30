@@ -10,13 +10,18 @@ thliew@mmu.edu.my
 The Editor-in-Chief  
 *Journal of Systems and Software*
 
-**Submission of a research paper:** "It Is Not the Signature: An
+**Transferred submission of a research paper:** "It Is Not the Signature: An
 Empirical Study of a Hidden Key-Parse Cost in JSON Web Token Validation"
 
 Dear Editor,
 
 We submit the above manuscript for consideration as a research paper in the
-*Journal of Systems and Software* (JSS).
+*Journal of Systems and Software* (JSS). It comes to JSS through
+Elsevier's Article Transfer Service, following a scope decision at the
+*Journal of Information Security and Applications*, which suggested JSS as a
+suitable venue. The manuscript has since been substantially revised for a
+software-engineering readership; the files attached to this submission replace
+those of the earlier version.
 
 The paper is an empirical study of performance attribution in a widely used
 software library. Developers usually attribute the per-request cost of JSON
@@ -43,7 +48,8 @@ are:
   key-confusion tests, because the parse is coupled to a security check. A fix
   that dispatches on the key material alone passes the library's full suite on
   four runtimes, behaves identically to the stock library in every case we
-  tested, and removes the parse for every token, including forged ones. We
+  tested, and removes the parse for every token verified with a string secret,
+  including forged ones. We
   derive guidance for developers, library authors and performance engineers.
 
 We believe the work suits JSS because it combines rigorous performance
@@ -52,8 +58,8 @@ comparison and a mining study of public code, and turns them into actionable
 engineering guidance. In line with the journal's open science policy, every
 number in the paper is generated from committed data in an open replication
 package (doi:10.5281/zenodo.23011153). The defect has been reported to the library maintainers
-(auth0/node-jsonwebtoken issue #1046); at the time of submission the proposed
-fix had not been merged.
+(auth0/node-jsonwebtoken issue #1046); at the time of submission the pull
+request opened in response had not been merged.
 
 This manuscript is original, has not been published previously, and is not
 under consideration for publication elsewhere. All authors have approved the
