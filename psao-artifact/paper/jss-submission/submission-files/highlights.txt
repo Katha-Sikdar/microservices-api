@@ -4,4 +4,4 @@ Highlights
 • 60% of the cost is a discarded key parse used as a type test on every call
 • Its price follows OpenSSL: the same C calls cost 394 µs on 3.0.16, 8.4 µs on 3.5.8
 • Ubuntu 24.04's own Node.js, on system OpenSSL 3.0, still pays the slow price
-• A narrow fix passes all tests and is 4.15x faster; the naive fix breaks security
+• Dispatching on key material alone passes all 511 tests and removes the parse

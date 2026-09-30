@@ -52,10 +52,11 @@ are:
   only this one uses a failing parse; and none of 327 sampled public call sites
   uses the pattern that avoids it.
 \item \textbf{A safe fix.} The obvious optimisation fails the library's own
-  key-confusion tests, because the parse is coupled to a security check. We
-  give a narrow fix that passes the full test suite and makes validation 4.15
-  times faster, and derive guidance for developers, library authors and
-  performance engineers.
+  key-confusion tests, because the parse is coupled to a security check. A fix
+  that dispatches on the key material alone passes the library's full suite on
+  four runtimes, behaves identically to the stock library in every case we
+  tested, and removes the parse for every token, including forged ones. We
+  derive guidance for developers, library authors and performance engineers.
 \end{itemize}
 
 We believe the work suits JSS because it combines rigorous performance

@@ -147,10 +147,11 @@ validation. In a containerised service on OpenSSL 3.0, validation accounted for
 seven JWT libraries in four languages, only this one uses a failing parse, and
 only its penalty changes by an order of magnitude with the OpenSSL release. The obvious optimisation is
 unsafe: the parse arrived with a key-confusion security fix, and removing it
-naively fails the library's own tests. A narrow fix passes the full suite and
-makes validation \HostSafePatchRatio{} times faster; only a pre-parsed key
-removes the cost for every input, yet none of the \SampleCallSites{} call sites
-in our sample pre-parses it. We derive guidance for developers, library authors
+naively fails the library's own tests. A fix that dispatches on the key material
+alone passes the full suite on four runtimes, behaves identically to the stock
+library in every case we tested, and removes the parse for every token,
+including forged ones; so does passing a pre-parsed key, yet none of the
+\SampleCallSites{} call sites in our sample does. We derive guidance for developers, library authors
 and performance engineers, and release a replication package.
 \end{abstract}
 
@@ -251,9 +252,10 @@ replication package~\citep{artifact2026}.
       detector-based survey of \LibJwtInFrame{} plus \LibCryptoInFrame{}
       popular npm packages locating the failing-parse form of that choice
       (Section~\ref{sec:rq4}).
-\item An analysis of why the cost cannot be removed naively, and a narrow fix
-      that passes the library's full test suite and is \HostSafePatchRatio{}
-      times faster (Section~\ref{sec:security}).
+\item An analysis of why the cost cannot be removed naively, and two fixes
+      that pass the library's full test suite; the simpler one, dispatching on
+      the key material alone, removes the parse for every token, including
+      forged ones (Section~\ref{sec:security}).
 \item Guidance for developers, library authors and performance engineers,
       including the one-line change that removes the cost
       (Section~\ref{sec:implications}).
@@ -445,6 +447,30 @@ k6~v2.2.0 on the same machine, so every in-situ window records the host load
 average observed during it. This is a controlled single-node testbed, not a
 production deployment; we call it the \emph{containerised service}.
 
+Table~\ref{tab:machines} lists every machine that produced a reported value.
+Absolute timings are comparable only within one machine; across machines we
+compare orderings and ratios. The x86\_64 runs used two different cloud VMs:
+VM~A, for the runs of the first revision, was no longer available when the
+second set of runs was made on VM~B, so those could not be repeated on VM~A.
+
+\begin{table*}[!t]
+\caption{Machines. CPU model strings are as reported by the operating system,
+nominal clock included; the Mac's model and core count were not recorded by the
+run metadata. Every run's own metadata file records its machine.}
+\label{tab:machines}
+\small
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}c>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
+\toprule
+Machine & CPU & CPUs & OS & Produced \\
+\midrule
+Mac host (arm64) & Apple silicon (not recorded) & -- & \MachMacOs & Table~\ref{tab:host}, Fig.~\ref{fig:decomposition}, profiler shares (\S\ref{sec:residual}), Fig.~\ref{fig:remedies} (arm64) \\
+Docker Desktop VM on the Mac (arm64) & as host & \MachDockerCpus{} allotted & Linux; Kubernetes v1.32.2 & Table~\ref{tab:matrix}, Fig.~\ref{fig:insitu}, Table~\ref{tab:ab} \\
+VM~A (x86\_64 cloud) & \MachVmaCpu & \MachVmaCpus & Linux \MachVmaKernel, \MachVmaLibc & Table~\ref{tab:decomp}, Fig.~\ref{fig:openssl}, Table~\ref{tab:xlib}, Fig.~\ref{fig:xlib}, \S\ref{sec:rq2-arch}, Fig.~\ref{fig:remedies} (VM~A) \\
+VM~B (x86\_64 cloud) & \MachVmbCpu & \MachVmbCpus & \MachVmbOs, Linux \MachVmbKernel & Table~\ref{tab:distro}, Table~\ref{tab:forged}, \S\ref{sec:fix} suite and equivalence runs, Fig.~\ref{fig:remedies} (VM~B), \S\ref{sec:libsurvey} \\
+\bottomrule
+\end{tabular*}
+\end{table*}
+
 \subsection{Measurement protocol}\label{sec:unit}
 
 The unit of measurement is one operating-system process, not one call. Each
@@ -546,9 +572,10 @@ two official images under the runtime-matrix protocol (Section~\ref{sec:distro})
 \paragraph{Rejected tokens} A further harness times \texttt{verify()} on
 well-formed tokens that the client can build without the secret, one declaring
 RS256 and one declaring HS256 with a signature not made with the secret, under
-the stock library, the narrow fix and a pre-parsed key, and a second script
-compares the stock library and the narrow fix on every combination of key
-material, token and algorithm option (Section~\ref{sec:reachable}).
+the stock library, both fixes of Section~\ref{sec:fix} and a pre-parsed key;
+a second script compares the stock library and each fix on every combination
+of key material, token and algorithm option; and the library's own test suite
+is run against each variant on every runtime (Section~\ref{sec:reachable}).
 
 \paragraph{Library survey}\label{sec:libsurvey-method} To move RQ4 from
 existence towards prevalence, a frame of npm packages is drawn from the
@@ -625,7 +652,9 @@ release that runtime bundles, built from source. \emph{V8 exception}: an
 \ExcDepth{} frames and discarded, with no OpenSSL call. \emph{Binding}: the
 probe less the other two; its interval, from independent resampling of the
 three runs, is in the replication package. Every column is a median of
-per-process medians over \ExcInvocations{} processes. The C column uses a stock
+per-process medians over \ExcInvocations{} processes, on VM~A
+(Table~\ref{tab:machines}); absolute values are not comparable with other
+machines. The C column uses a stock
 build of each release, not Node's own build of it, so the binding column is
 approximate: it is negative on two OpenSSL~3.0 rows, and the three-way split is
 interpretable only for the OpenSSL~3.5 rows (Section~\ref{sec:granularity}).}
@@ -769,29 +798,43 @@ host decomposition keeps its ordering: the discarded parse is
 The OpenSSL~3.0 series is not confined to end-of-life Node.js images. Ubuntu
 24.04 LTS packages Node.js \DistroUbuntuNode{}, built against the system's
 shared OpenSSL rather than a bundled copy; in its current image that is OpenSSL
-\DistroUbuntuOpenssl. Table~\ref{tab:distro} measures it beside two of the
+\DistroUbuntuOpenssl. The package (\texttt{\UbuntuNodejsPkg}) is in the
+\emph{\UbuntuNodejsComponent} component, which Ubuntu describes as
+``community and extra packages'' whose security coverage is provided by
+Expanded Security Maintenance through Ubuntu Pro, and the archive held no newer
+version on
+\UbuntuNodejsCaptured.\footnote{\url{https://ubuntu.com/about/release-cycle};
+the package record and the page excerpt are in the replication package.} It is
+nonetheless what \texttt{apt install nodejs} installs on a current LTS system.
+Debian 12's packaged Node.js could not be measured: the Debian archive was not
+reachable from VM~B, and the run is scripted in the replication package.
+Table~\ref{tab:distro} measures it beside two of the
 official images of Table~\ref{tab:matrix}, on one x86\_64 virtual machine
 (\DistroCpus{} vCPUs) in one run (\DistroCaptured), with the protocol of
 Section~\ref{sec:unit}.
 
 \begin{table*}[!t]
-\caption{Distribution-packaged Node.js against official images, same x86\_64
-machine and run, \DistroRounds{} processes of \DistroCalls{} calls per condition (one
-process of the \texttt{node:18} pre-parsed cell failed without output), in
-$\mu$s (medians of per-process medians). \emph{Penalty}: median of per-round
-paired differences between \texttt{verify()} with a string secret and with a
-pre-parsed key, with its 95\% bootstrap interval. Absolute values are not
-comparable with the arm64 values of Table~\ref{tab:matrix}.}
+\caption{Distribution-packaged Node.js against official images, all on VM~B
+(Table~\ref{tab:machines}) in one run; absolute values are not comparable with
+other machines, including the arm64 values of Table~\ref{tab:matrix}.
+\DistroRounds{} processes of \DistroCalls{} calls per condition
+(\DistroFailedInvocations{} invocations failed), in $\mu$s (medians of
+per-process medians). \texttt{verify()} with a string secret under the stock
+library, the narrow fix and the key-material fix of Section~\ref{sec:fix}, and
+with a pre-parsed key. \emph{Penalty}: median of per-round paired differences
+between the stock string and pre-parsed calls, with its 95\% bootstrap
+interval.}
 \label{tab:distro}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}llrrrrrl@{}}
+\begin{tabular}{@{}llrrrrrrrl@{}}
 \toprule
-Runtime & OpenSSL & Discarded & Successful & \texttt{verify()}, & \texttt{verify()}, & Penalty & 95\% interval \\
-        &         & parse     & parse      & string            & pre-parsed        &         & \\
+ & & \multicolumn{2}{c}{\texttt{createPublicKey()}} & \multicolumn{4}{c}{\texttt{verify()}} & & \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-8}
+Runtime & OpenSSL & Discarded & Successful & Stock & Narrow & Key-mat. & Pre-parsed & Penalty & 95\% interval \\
 \midrule
-Ubuntu 24.04, Node \DistroUbuntuNode{} & \DistroUbuntuOpenssl{} (system) & \DistroUbuntuProbeThrows & \DistroUbuntuProbeSucceeds & \DistroUbuntuJwtString & \DistroUbuntuJwtPreparsed & \DistroUbuntuPenalty & [\DistroUbuntuPenaltyCiLo, \DistroUbuntuPenaltyCiHi] \\
-\texttt{node:18.20.8-alpine} & \DistroRefEighteenOpenssl{} (bundled) & \DistroRefEighteenProbeThrows & \DistroRefEighteenProbeSucceeds & \DistroRefEighteenJwtString & \DistroRefEighteenJwtPreparsed & \DistroRefEighteenPenalty & [\DistroRefEighteenPenaltyCiLo, \DistroRefEighteenPenaltyCiHi] \\
-\texttt{node:26.6.0-alpine} & \DistroRefTwentySixOpenssl{} (bundled) & \DistroRefTwentySixProbeThrows & \DistroRefTwentySixProbeSucceeds & \DistroRefTwentySixJwtString & \DistroRefTwentySixJwtPreparsed & \DistroRefTwentySixPenalty & [\DistroRefTwentySixPenaltyCiLo, \DistroRefTwentySixPenaltyCiHi] \\
+Ubuntu 24.04, Node \DistroUbuntuNode{} & \DistroUbuntuOpenssl{} (system) & \DistroUbuntuProbeThrows & \DistroUbuntuProbeSucceeds & \DistroUbuntuJwtString & \DistroUbuntuJwtStringSafe & \DistroUbuntuJwtStringKeyonly & \DistroUbuntuJwtPreparsed & \DistroUbuntuPenalty & [\DistroUbuntuPenaltyCiLo, \DistroUbuntuPenaltyCiHi] \\
+\texttt{node:18.20.8-alpine} & \DistroRefEighteenOpenssl{} (bundled) & \DistroRefEighteenProbeThrows & \DistroRefEighteenProbeSucceeds & \DistroRefEighteenJwtString & \DistroRefEighteenJwtStringSafe & \DistroRefEighteenJwtStringKeyonly & \DistroRefEighteenJwtPreparsed & \DistroRefEighteenPenalty & [\DistroRefEighteenPenaltyCiLo, \DistroRefEighteenPenaltyCiHi] \\
+\texttt{node:26.6.0-alpine} & \DistroRefTwentySixOpenssl{} (bundled) & \DistroRefTwentySixProbeThrows & \DistroRefTwentySixProbeSucceeds & \DistroRefTwentySixJwtString & \DistroRefTwentySixJwtStringSafe & \DistroRefTwentySixJwtStringKeyonly & \DistroRefTwentySixJwtPreparsed & \DistroRefTwentySixPenalty & [\DistroRefTwentySixPenaltyCiLo, \DistroRefTwentySixPenaltyCiHi] \\
 \bottomrule
 \end{tabular}}
 \end{table*}
@@ -802,8 +845,9 @@ On Ubuntu 24.04's own Node.js the discarded parse costs
 and an order of magnitude above the OpenSSL~3.5 image
 (\DistroRefTwentySixProbeThrows~$\mu$s). Supplying the secret as a string costs
 \DistroUbuntuPenalty~$\mu$s per validation [\DistroUbuntuPenaltyCiLo,
-\DistroUbuntuPenaltyCiHi] against a pre-parsed key, and the narrow fix brings
-the call to \DistroUbuntuJwtStringSafe~$\mu$s. The OpenSSL~3.0 price is
+\DistroUbuntuPenaltyCiHi] against a pre-parsed key; the narrow fix brings the
+call to \DistroUbuntuJwtStringSafe~$\mu$s and the key-material fix of
+Section~\ref{sec:fix} to \DistroUbuntuJwtStringKeyonly~$\mu$s. The OpenSSL~3.0 price is
 therefore not an artefact of end-of-life images: a service that runs the Node.js
 its LTS distribution ships pays it today. How many deployments do so we cannot
 say; we have no data on the runtimes \LibraryName{} users deploy.
@@ -1022,8 +1066,8 @@ weekly downloads (\LibJwtInFrame{} of \LibJwtReturned{} returned, captured
 cryptography, signature, certificate and authentication queries with at least
 \LibCryptoThreshold{} weekly downloads (\LibCryptoInFrame{} of
 \LibCryptoReturned). The detector parsed all \LibJwtFiles{} and
-\LibCryptoFiles{} JavaScript files of the published tarballs, with
-\LibJwtUnparsed{} and \LibCryptoUnparsed{} failures.
+\LibCryptoFiles{} JavaScript files of the published tarballs without parse
+failures in either frame.
 
 It flagged \LibJwtPkgsAnyHit{} package in the first frame and
 \LibCryptoPkgsAnyHit{} in the second. The one package is \LibraryName{}
@@ -1031,7 +1075,16 @@ itself, at \LibJwtConfirmed{} sites, both confirmed by reading and both on a
 per-call path: the \texttt{verify()} block studied here, and the same shape in
 \texttt{sign()}, which offers the configured secret to
 \texttt{createPrivateKey()} before falling back to \texttt{createSecretKey()}.
-Signing therefore pays a discarded parse too; we did not time it. Within these
+Signing therefore pays a discarded parse too. Timed on the runtimes of
+Table~\ref{tab:distro}, \texttt{sign()} with a string secret costs
+\DistroUbuntuSignString~$\mu$s on Ubuntu 24.04's Node.js, against
+\DistroUbuntuSignPreparsed~$\mu$s with a pre-parsed key (a paired penalty of
+\DistroUbuntuSignPenalty~$\mu$s [\DistroUbuntuSignPenaltyCiLo,
+\DistroUbuntuSignPenaltyCiHi]); \DistroRefEighteenSignString{} against
+\DistroRefEighteenSignPreparsed~$\mu$s on \texttt{node:18.20.8-alpine}; and
+\DistroRefTwentySixSignString{} against \DistroRefTwentySixSignPreparsed~$\mu$s
+on \texttt{node:26.6.0-alpine}. An issuer that signs with a string secret on
+OpenSSL~3.0 pays the same order of cost as a verifier. Within these
 frames, then, the failing parse used as a type test is not a common idiom but a
 property of one library, whose reach comes from that library's own adoption.
 The detector matches one syntactic shape, so a type test written differently
@@ -1079,46 +1132,67 @@ CVE-2022-23541 and CVE-2022-23539~\citep{auth0bulletin2022}. The checks
 implementing those fixes (lines 148--160) operate on the key object the block
 produces. The discarded parse is part of a security fix, not an oversight.
 
-\subsection{A fix, and a constraint on it}\label{sec:fix}
+\subsection{Two fixes, and a constraint on both}\label{sec:fix}
 
 \begin{figure}[!t]
 \centering
 \input{figures/fig_remedies.tex}
-\caption{Per-call HS256 validation cost under the stock library with a string
-secret, under the narrow fix with the same string secret, and under the stock
-library with a pre-parsed key, on both machines (medians of per-process
-medians). The narrow fix recovers most of the gap without any change to
-calling code; only the pre-parsed key removes the discarded parse for every input
-(Section~\ref{sec:reachable}).}
+\caption{Per-call HS256 validation cost with a string secret under the stock
+library, the narrow fix and the key-material fix, and with a pre-parsed key
+under the stock library (medians of per-process medians). Each group is one
+machine (Table~\ref{tab:machines}); absolute values are not comparable across
+groups. The key-material fix was measured only on VM~B; its arm64 run is in
+the replication package's list of pending experiments.}
 \label{fig:remedies}
 \end{figure}
 
-The fix dispatches on the token's declared algorithm before attempting the
-asymmetric parse, so an HMAC token with an ordinary string secret is resolved
+\paragraph{The constraint} The \emph{success} of the parse on asymmetric key
+material produces the key object whose type the key-confusion check depends
+on. Removing the attempt for every string (the obvious optimisation) makes a
+PEM public key configured where a secret is expected resolve as a secret, and
+produces \SuiteNaiveFailing{} failures in the library's key-confusion tests
+(\NaiveFailingTests). A fix must therefore skip the attempt only for key
+material that cannot be asymmetric. The existing suite already guards the
+property; what is missing is visibility of the coupling to someone changing
+the code.
+
+\paragraph{The narrow fix} Our first fix dispatches on the token's declared
+algorithm: when the token declares an HMAC algorithm \emph{and} the secret is a
+string with neither a PEM header nor a JSON object, the secret is resolved
 directly. It takes the call from \HostJwtString~$\mu$s to
-\HostJwtStringSafe~$\mu$s, a factor of \HostSafePatchRatio, and on x86\_64 from
-\XhJwtString~$\mu$s to \XhJwtStringSafe~$\mu$s (Figure~\ref{fig:remedies}), with
-no change in calling code. Against the library's own suite at \LibraryTag{} the
-patch leaves results unchanged: \SuitePatchedPassing{} passing,
-\SuitePatchedFailing{} failing.
+\HostJwtStringSafe~$\mu$s on the arm64 host, a factor of \HostSafePatchRatio,
+with no change in calling code, and leaves the library's suite unchanged
+(\SuitePatchedPassing{} passing, \SuitePatchedFailing{} failing).
 
-The constraint is the more important half. The \emph{success} of the parse on
-asymmetric key material produces the key object whose type the key-confusion
-check depends on. The fix must therefore be narrow: the fast path is restricted
-to string secrets that cannot be asymmetric key material. Removing that
-restriction, the obvious optimisation, produces \SuiteNaiveFailing{} failures in
-the library's key-confusion tests (\NaiveFailingTests). The existing suite
-already guards the property; what is missing is visibility of the coupling to
-someone changing the code.
+\paragraph{The key-material fix} The declared algorithm is not needed. In
+Node.js a string passed to \texttt{createPublicKey()} is parsed as PEM, so a
+string with no PEM header can never produce a public key: for such a string the
+stock library always reaches \texttt{createSecretKey()} through the exception.
+Dispatching on the key material alone (a string with neither a PEM header nor a
+JSON object goes straight to \texttt{createSecretKey()}, whatever the token
+declares) therefore yields the same key object for every token, and keeps
+everything that might be asymmetric material on the original path. We tested
+this rather than relying on the argument. On each of \SuiteVarRuntimes{}
+runtimes the library's suite at \LibraryTag{} gives \SuiteVarKeyonlyPassing{}
+passing and \SuiteVarKeyonlyFailing{} failing under this fix, as under the stock
+library and the narrow fix, and \SuiteVarKeyonlyPlusPassing{} passing with our
+four additional key-path tests; the unrestricted optimisation gives
+\SuiteVarNaiveFailing{} failures on every runtime. On the same machine (VM~B,
+Node \VmbNode, OpenSSL \VmbOpenssl) the key-material fix takes the call from
+\VmbJwtString~$\mu$s to \VmbJwtStringKeyonly~$\mu$s, against
+\VmbJwtStringSafe~$\mu$s for the narrow fix and \VmbJwtPreparsed~$\mu$s with a
+pre-parsed key (Figure~\ref{fig:remedies}). What preserves the defence is the
+restriction on key material, not the declared algorithm; the naive
+optimisation fails because it drops that restriction.
 
-\subsection{What the narrow fix leaves reachable}\label{sec:reachable}
+\subsection{What the fixes leave reachable}\label{sec:reachable}
 
 \begin{table}[!t]
-\caption{Which tokens reach the discarded parse, for a service
-configured with an HMAC shared secret, as read from the source at
-\LibraryTag{} and from the patch of Section~\ref{sec:fix}. ``Well-formed'':
-three segments, JSON header and payload, non-empty signature. No row requires
-knowledge of the secret.}
+\caption{Which tokens reach the discarded parse, for a service configured with
+an HMAC shared secret, as read from the source at \LibraryTag{} and the patches
+of Section~\ref{sec:fix}, and confirmed by the measurements of
+Table~\ref{tab:forged}. ``Well-formed'': three segments, JSON header and
+payload, non-empty signature. No row requires knowledge of the secret.}
 \label{tab:reach}
 \small
 \begin{tabular}{@{}p{0.34\linewidth}p{0.6\linewidth}@{}}
@@ -1128,35 +1202,39 @@ Configuration & Tokens that reach the parse \\
 Stock, string secret & every well-formed token, forged or genuine \\
 Narrow fix, plain string secret (no PEM or JWK form) & every well-formed token whose header declares a
 non-HMAC algorithm; no such token can be valid for this service \\
+Key-material fix, plain string secret & none \\
 Pre-parsed \texttt{KeyObject} & none \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The fast path is selected by the declared algorithm, which the token's author
-chooses. A token declaring a non-HMAC algorithm falls through to the original
-resolution and pays the parse before being rejected (Table~\ref{tab:reach}). The
-narrow fix removes the cost from legitimate traffic, not from traffic an
-adversary constructs. Only a pre-parsed key object removes it for every input,
-because resolution is skipped when the key is already a \texttt{KeyObject}.
+The narrow fix selects its fast path by the declared algorithm, which the
+token's author chooses: a token declaring a non-HMAC algorithm falls through to
+the original resolution and pays the parse before being rejected
+(Table~\ref{tab:reach}). It removes the cost from legitimate traffic, not from
+traffic an adversary constructs. The key-material fix and a pre-parsed key
+object remove it for every input.
 
 \paragraph{Measured} Table~\ref{tab:forged} times the rejection of well-formed
-forged tokens, which the client can produce without the secret, under each
+forged tokens, which a client can produce without the secret, under each
 configuration (\texttt{bench/forged-token.js}; \ForgedInvocations{} processes
-of \ForgedCalls{} calls per cell, on an x86\_64 virtual machine,
-\ForgedCpuModel). The measurements confirm the source reading.
-A token declaring RS256 is rejected by the algorithm list, yet under both the
-stock library and the narrow fix it first pays the discarded parse: on OpenSSL
-\ForgedEighteenOpenssl{} \ForgedEighteenRsString~$\mu$s and
-\ForgedEighteenRsSafe~$\mu$s per rejection, and on Ubuntu 24.04's OpenSSL
-\ForgedUbuntuOpenssl{} \ForgedUbuntuRsString~$\mu$s and \ForgedUbuntuRsSafe~$\mu$s,
-against \ForgedEighteenRsPreparsed~$\mu$s and \ForgedUbuntuRsPreparsed~$\mu$s
-with a pre-parsed key. A forged token declaring HS256, by contrast, is cheap to
-reject under the narrow fix (\ForgedEighteenHsSafe~$\mu$s against
-\ForgedEighteenHsString~$\mu$s stock on OpenSSL \ForgedEighteenOpenssl). The
-remainder in the pre-parsed column is the rejection itself, which varies by
-runtime. These are per-call costs in a microbenchmark; we did not drive such
-tokens at a running service, and draw no conclusion about availability.
+of \ForgedCalls{} calls per cell, on VM~B). The measurements confirm the source
+reading. A token declaring RS256 is rejected by the algorithm list, yet under
+the stock library and the narrow fix it first pays the discarded parse: on
+Ubuntu 24.04's OpenSSL \ForgedUbuntuOpenssl{} \ForgedUbuntuRsString~$\mu$s and
+\ForgedUbuntuRsSafe~$\mu$s, against \ForgedUbuntuRsKeyonly~$\mu$s under the
+key-material fix and \ForgedUbuntuRsPreparsed~$\mu$s with a pre-parsed key. A
+forged token declaring HS256 is cheap to reject under either fix. On
+\texttt{node:26.6.0-alpine} an RS256-header rejection costs more than an HS256
+one even with a pre-parsed key. The difference is V8's capture of the error's
+stack trace at that throw site: run with stack capture disabled
+(\texttt{--stack-trace-limit=0}), it falls from \RejTwentySixRsStack~$\mu$s to
+\RejTwentySixRsNoStack~$\mu$s, while the HS256 rejection falls from
+\RejTwentySixHsStack~$\mu$s to \RejTwentySixHsNoStack~$\mu$s; on the other three
+runtimes the RS256 rejection is the cheaper of the two with or without stack
+capture (\RejInvocations{} processes per cell). These are per-call costs in a
+microbenchmark; we did not drive such tokens at a running service, and draw no
+conclusion about availability.
 
 \begin{table*}[!t]
 \caption{Cost of rejecting a forged token, in $\mu$s per \texttt{verify()} call
@@ -1164,33 +1242,37 @@ tokens at a running service, and draw no conclusion about availability.
 secret and \texttt{algorithms: ['HS256']}. \emph{RS256 header}: a token
 declaring RS256 with a random signature, rejected by the algorithm list.
 \emph{HS256 header}: a token declaring HS256 with a signature not made with the
-secret, rejected at signature verification. \emph{Narrow}: the narrow fix of
-Section~\ref{sec:fix}.}
+secret, rejected at signature verification. \emph{Narrow} and \emph{Key-mat.}:
+the narrow fix and the key-material fix of Section~\ref{sec:fix}. All cells were
+measured on VM~B (Table~\ref{tab:machines}); absolute values are not comparable
+with those of other machines.}
 \label{tab:forged}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}llrrrrrr@{}}
+\begin{tabular}{@{}llrrrrrrrr@{}}
 \toprule
- & & \multicolumn{3}{c}{RS256 header} & \multicolumn{3}{c}{HS256 header} \\
-\cmidrule(lr){3-5}\cmidrule(l){6-8}
-Runtime & OpenSSL & Stock & Narrow & Pre-parsed & Stock & Narrow & Pre-parsed \\
+ & & \multicolumn{4}{c}{RS256 header} & \multicolumn{4}{c}{HS256 header} \\
+\cmidrule(lr){3-6}\cmidrule(l){7-10}
+Runtime & OpenSSL & Stock & Narrow & Key-mat. & Pre-parsed & Stock & Narrow & Key-mat. & Pre-parsed \\
 \midrule
-\texttt{node:18.20.8-alpine} & \ForgedEighteenOpenssl & \ForgedEighteenRsString & \ForgedEighteenRsSafe & \ForgedEighteenRsPreparsed & \ForgedEighteenHsString & \ForgedEighteenHsSafe & \ForgedEighteenHsPreparsed \\
-Ubuntu 24.04, Node \ForgedUbuntuNode & \ForgedUbuntuOpenssl & \ForgedUbuntuRsString & \ForgedUbuntuRsSafe & \ForgedUbuntuRsPreparsed & \ForgedUbuntuHsString & \ForgedUbuntuHsSafe & \ForgedUbuntuHsPreparsed \\
-\texttt{node:26.6.0-alpine} & \ForgedTwentySixOpenssl & \ForgedTwentySixRsString & \ForgedTwentySixRsSafe & \ForgedTwentySixRsPreparsed & \ForgedTwentySixHsString & \ForgedTwentySixHsSafe & \ForgedTwentySixHsPreparsed \\
-Node \ForgedHostNode{} (VM) & \ForgedHostOpenssl & \ForgedHostRsString & \ForgedHostRsSafe & \ForgedHostRsPreparsed & \ForgedHostHsString & \ForgedHostHsSafe & \ForgedHostHsPreparsed \\
+\texttt{node:18.20.8-alpine} & \ForgedEighteenOpenssl & \ForgedEighteenRsString & \ForgedEighteenRsSafe & \ForgedEighteenRsKeyonly & \ForgedEighteenRsPreparsed & \ForgedEighteenHsString & \ForgedEighteenHsSafe & \ForgedEighteenHsKeyonly & \ForgedEighteenHsPreparsed \\
+Ubuntu 24.04, Node \ForgedUbuntuNode & \ForgedUbuntuOpenssl & \ForgedUbuntuRsString & \ForgedUbuntuRsSafe & \ForgedUbuntuRsKeyonly & \ForgedUbuntuRsPreparsed & \ForgedUbuntuHsString & \ForgedUbuntuHsSafe & \ForgedUbuntuHsKeyonly & \ForgedUbuntuHsPreparsed \\
+\texttt{node:26.6.0-alpine} & \ForgedTwentySixOpenssl & \ForgedTwentySixRsString & \ForgedTwentySixRsSafe & \ForgedTwentySixRsKeyonly & \ForgedTwentySixRsPreparsed & \ForgedTwentySixHsString & \ForgedTwentySixHsSafe & \ForgedTwentySixHsKeyonly & \ForgedTwentySixHsPreparsed \\
+Node \ForgedHostNode{} (VM~B) & \ForgedHostOpenssl & \ForgedHostRsString & \ForgedHostRsSafe & \ForgedHostRsKeyonly & \ForgedHostRsPreparsed & \ForgedHostHsString & \ForgedHostHsSafe & \ForgedHostHsKeyonly & \ForgedHostHsPreparsed \\
 \bottomrule
 \end{tabular}}
 \end{table*}
 
-\paragraph{Behaviour under misconfiguration} The narrow fix takes its fast path
+\paragraph{Behaviour under misconfiguration} Both fixes take their fast path
 only for a string that carries neither a PEM header nor a JSON object, so a PEM
 or JWK key mistakenly configured as the HMAC ``secret'' resolves exactly as it
 does today. We checked this rather than assuming it: for \EquivKeyKinds{} kinds
-of configured key material (including PEM public and private keys and a JWK
-string supplied as the secret), \EquivCasesPerRuntime{} combinations of key,
-token and algorithm option were verified through the stock library and the
-narrow fix on each of \EquivRuntimes{} runtimes, and \EquivDiffs{} produced a
-different result or error (\texttt{bench/keypath-equivalence.js}).
+of configured key material (including PEM public and private keys, a PEM with
+leading whitespace, a PEM inside a Buffer, and a JWK string supplied as the
+secret), \EquivCasesPerRuntime{} combinations of key, token and algorithm option
+were verified through the stock library and each fix on each of
+\EquivRuntimes{} runtimes. \EquivDiffs{} produced a different result or error
+under the narrow fix and \EquivDiffsKeyonly{} under the key-material fix
+(\texttt{bench/keypath-equivalence.js}).
 
 \subsection{Reported upstream}\label{sec:upstream}
 
@@ -1198,7 +1280,9 @@ An earlier issue\footnote{\url{https://github.com/auth0/node-jsonwebtoken/issues
 reports HS256 verification in 9.x 34 times slower than in 8.5.1 on OpenSSL~3.0,
 with no diagnosed cause. We reported the
 mechanism\footnote{\url{https://github.com/auth0/node-jsonwebtoken/issues/1046}},
-and a pull request implementing the narrow fix was opened against it.
+and a pull request implementing the narrow fix was opened against it; the
+key-material fix of Section~\ref{sec:fix} is simpler and closes the gap the
+narrow fix leaves, and we recommend it upstream.
 %% TODO(minor 12): the authors must confirm whether the maintainers have
 %% commented on issues 966/1046 or the pull request, and update this sentence.
 At the time of this revision (\RevisionDate) the pull request had not been
@@ -1242,16 +1326,20 @@ Pre-parse key material once at startup, a one-line change
 RQ4 & Of seven libraries in four languages only one uses a failing parse; two
 pay for per-call key handling, and only the failing parse's cost changes by an
 order of magnitude with the OpenSSL release; in \LibJwtInFrame{}+\LibCryptoInFrame{} popular npm
-packages only \LibraryName{} uses the failing parse. &
+packages only \LibraryName{} uses the failing parse, in \texttt{verify()} and in
+\texttt{sign()}, where a string secret costs \DistroUbuntuSignPenalty~$\mu$s per
+call on Ubuntu 24.04's Node.js. &
 Table~\ref{tab:xlib}, Fig.~\ref{fig:xlib}; \S\ref{sec:libsurvey} &
 Do not use a failing parse as a type test; resolve keys once, inspect then
 dispatch, or type the key (\emph{library authors}). \\
-RQ5 & The parse is load-bearing for a key-confusion defence; the naive
-optimisation fails \SuiteNaiveFailing{} library tests, the narrow fix passes
-all \SuitePatchedPassing{} and is \HostSafePatchRatio$\times$ faster. &
+RQ5 & The parse is load-bearing for a key-confusion defence: the naive
+optimisation fails \SuiteNaiveFailing{} library tests. Dispatching on the key
+material alone passes all \SuiteVarKeyonlyPassing{} on \SuiteVarRuntimes{}
+runtimes and removes the parse for every token, forged ones included. &
 Table~\ref{tab:reach}; Figs.~\ref{fig:verifyorder}, \ref{fig:remedies} &
-Review performance changes to verification code as security changes; run the
-key-confusion tests (\emph{maintainers, reviewers}). \\
+Adopt the key-material fix; review performance changes to verification code
+as security changes and run the key-confusion tests (\emph{maintainers,
+reviewers}). \\
 \bottomrule
 \end{tabularx}
 \end{table*}
@@ -1290,10 +1378,12 @@ before relocating a cost believed to be cryptographic to a sidecar or gateway.
 and dispatch, refuse ambiguous input, or type the key, and resolve keys once
 rather than on every call.
 
-\paragraph{Maintainers and reviewers} Review performance changes to
-verification code as security changes, run them against the key-confusion
-tests, and time them on the oldest cryptographic library a deployment may
-bundle.
+\paragraph{Maintainers and reviewers} Resolve a plain string secret directly,
+keeping anything that might be asymmetric material on the original path: the
+key-material fix of Section~\ref{sec:fix} is a change of a few lines. More
+generally, review performance changes to verification code as security
+changes, run them against the key-confusion tests, and time them on the oldest
+cryptographic library a deployment may bundle.
 
 %% ============================================================================
 \section{Threats to validity}\label{sec:threats}
@@ -1309,7 +1399,7 @@ PEM-header check and in the private-key decoder, and its cost does not depend
 on the secret's length: a 16- and a 256-character secret cost
 \ForgedEighteenProbeSixteen~$\mu$s and \ForgedEighteenProbeTwoFiftySix~$\mu$s on
 OpenSSL \ForgedEighteenOpenssl{} (Section~\ref{sec:reachable}). A secret that
-begins with a PEM header takes the original path under the narrow fix by design
+begins with a PEM header takes the original path under both fixes by design
 and was not timed. The security analysis is from source, the library's tests
 and the microbenchmarks of Section~\ref{sec:reachable}, not from adversarial
 traffic against a service.
@@ -1362,9 +1452,12 @@ a design choice, not a property of JWT; \LibraryName{} is distinguished by
 making it through a failing parse, whose cost changes by an order of magnitude
 with the OpenSSL release. That
 parse cannot be removed naively, because it is load-bearing for a key-confusion
-defence. A narrow fix preserves the defence and is \HostSafePatchRatio{} times
-faster, and pre-parsing the key once is the only configuration no input can
-push onto the slow path, yet no call site in our sample does so.
+defence, and it is the restriction on key material, not the token's declared
+algorithm, that the defence needs: a fix that dispatches on the key material
+alone passes the library's suite, behaves identically to the stock library in
+every case we tested, and removes the parse for every token. Until such a fix
+ships, pre-parsing the key once achieves the same, yet no call site in our
+sample does so.
 
 The broader lesson is about attribution. The explanation that presented itself
 before measurement was wrong twice, and the component that sets the cost is
