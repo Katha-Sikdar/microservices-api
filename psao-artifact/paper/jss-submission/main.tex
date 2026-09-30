@@ -15,6 +15,7 @@
 
 \documentclass[preprint,12pt,authoryear]{elsarticle}
 
+\usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -37,6 +38,8 @@
 
 \input{keypath_macros}
 \input{revision_macros}
+\input{review_macros}
+\newcommand{\RevisionDate}{30 September 2026}
 
 \newcommand{\LibraryName}{\texttt{jsonwebtoken}}
 %% bench/node_modules/jsonwebtoken/verify.js (the file measured) is
@@ -200,7 +203,8 @@ practice~\citep{zerouali2019outdated}.
 For software engineering the case matters for three reasons beyond the
 library itself. First, the cost sits in control flow that no profiler label
 names: a parse whose failure is caught and discarded appears in profiles as
-OpenSSL work, and the natural reading of that attribution is ``cryptography''.
+OpenSSL work, and the natural reading of that attribution is
+``cryptography''.
 Second, its magnitude is set by a transitive dependency that application
 developers do not choose directly and rarely record. Third, the obvious fix is
 unsafe. The resolution block entered the library in version~9.0.0, the
@@ -212,7 +216,7 @@ is the code that makes a security check work, and the coupling is not visible
 from the lines being changed. The design that produces the cost (resolving key
 material on every call, by way of a parse whose failure serves as a type test)
 can also be named independently of \LibraryName{}, and it predicts which of
-seven libraries pay (Section~\ref{sec:rq4}).
+seven libraries perform a failing parse (Section~\ref{sec:rq4}).
 
 \paragraph{Research questions}
 \begin{list}{}{\setlength{\labelwidth}{2.2em}\setlength{\labelsep}{0.5em}%
@@ -243,10 +247,12 @@ replication package~\citep{artifact2026}.
 \item A comparison of seven JWT libraries in four languages showing that the
       cost follows a design choice, not JWT validation as such
       (Section~\ref{sec:rq4}).
-\item An analysis of why the cost cannot be removed naively, a narrow fix that
-      passes the library's full test suite and is \HostSafePatchRatio{} times
-      faster, and practical guidance (Sections~\ref{sec:security}
-      and~\ref{sec:implications}).
+\item An analysis of why the cost cannot be removed naively, and a narrow fix
+      that passes the library's full test suite and is \HostSafePatchRatio{}
+      times faster (Section~\ref{sec:security}).
+\item Guidance for developers, library authors and performance engineers,
+      including the one-line change that removes the cost
+      (Section~\ref{sec:implications}).
 \end{enumerate}
 
 %% ============================================================================
@@ -269,31 +275,56 @@ exchange~\citep{naser2020performance,sikeridis2020assessing}. Our result
 concerns neither: it is the cost of getting key material \emph{into} the
 library, which we could not find measured directly.
 
-\paragraph{Performance bugs} \citet{jin2012understanding} found that most
-real-world performance bugs follow a few recurring patterns, among them
-skippable function calls, and that fixes are usually local;
-In JavaScript,
+\paragraph{Performance bugs and anti-patterns} \citet{jin2012understanding}
+found that most real-world performance bugs follow a few recurring patterns,
+among them skippable function calls, and that fixes are usually local;
+\citet{nistor2013discovering} found that most are discovered by reasoning about
+code rather than by observing symptoms. In JavaScript,
 \citet{selakovic2016performance} identify inefficient API usage as a leading
 root cause, and their later profiler~\citep{selakovic2017actionable} targets the
 \emph{order} in which a program evaluates conditions, the axis on which this
-defect lives. The defect here is a skippable call, but one whose failure is its only
+defect lives. The defect here is a skippable call whose failure is its only
 observable effect.
 
-\paragraph{Versions, dependencies and environment} Performance changes across
-versions in ways maintainers do not
-anticipate~\citep{kaltenecker2023performance,chen2017exploratory}.
-Container images pin a dependency set
-implicitly~\citep{cito2017empirical}, routinely ship outdated
-packages~\citep{zerouali2019outdated}. For OpenSSL~3, maintainers of a major
-downstream library have stated that parsing and key loading regressed against
-1.1.1~\citep{pyca2026stateofopenssl}; Section~\ref{sec:rq2-causal} supplies a
-controlled measurement for the one path this paper concerns.
+\paragraph{Exceptions as control flow} Exceptions are costly in managed
+runtimes, mostly in their construction~\citep{ogasawara2006edo}, and
+\citet{parravicini2021cost} provide the closest cost-attribution baseline for
+V8, though on speculation rather than exceptions. Studies of how exceptions are used find handlers that discard what they
+catch to be common~\citep{cabral2007exception,kery2016examining,depadua2017prevalence}.
+That literature treats a swallowed exception as a maintainability smell; here
+it is control flow on a hot path, and Section~\ref{sec:granularity} measures
+how much of its cost is the exception itself.
 
-\paragraph{Measurement protocol} Our protocol follows established guidance
-for managed-runtime benchmarking~\citep{georges2007statistically,laaber2019cloud}.
-The attribution this paper overturns has the structure
-\citet{mytkowicz2009wrong} warn about: a second variable, the bundled OpenSSL
-version, moving unrecorded alongside the one under study.
+\paragraph{Dependencies and the npm ecosystem} Performance changes across
+versions in ways maintainers do not
+anticipate~\citep{kaltenecker2023performance,chen2017exploratory}. Container
+images pin a dependency set implicitly~\citep{cito2017empirical} and routinely
+ship outdated packages~\citep{zerouali2019outdated}. In the npm ecosystem,
+\citet{staicu2018freezing} show that a slow path inside widely used modules
+reaches the web servers that depend on them, and \citet{davis2018sense} that on
+Node.js's single event loop one slow synchronous handler delays every other
+client. For OpenSSL~3, maintainers of a
+major downstream library have stated that parsing and key loading regressed
+against 1.1.1~\citep{pyca2026stateofopenssl}; Section~\ref{sec:rq2-causal}
+supplies a controlled measurement for the one path this paper concerns.
+
+\paragraph{Benchmarking pitfalls and change detection} Our protocol follows
+established guidance for managed-runtime
+benchmarking~\citep{georges2007statistically,kalibera2013rigorous,barrett2017warmup}.
+Microbenchmarks go wrong in recurring ways~\citep{costa2021wrong}, developers
+misjudge when warm-up ends~\citep{traini2023steady}, cloud environments degrade
+their reliability~\citep{laaber2019cloud}, and benchmark suites often fail to
+detect performance changes at all~\citep{laaber2018evaluation}. The attribution
+this paper overturns has the structure \citet{mytkowicz2009wrong} warn about: a
+second variable, the bundled OpenSSL version, moving unrecorded alongside the
+one under study.
+
+\paragraph{Security and performance} Security mechanisms are routinely
+evaluated for their performance cost: \citet{coarfa2006performance} for TLS
+servers, and \citet{sikeridis2020assessing} for post-quantum TLS and SSH. In
+that line the cost is the price of the protection. Here the cost and the
+protection are coupled in a less visible way: the code that costs the time is
+the code a security check depends on (Section~\ref{sec:fix}).
 
 \paragraph{Cryptographic APIs and JWT libraries} Most cryptographic
 vulnerabilities are misuses of libraries by applications~\citep{lazar2014why,egele2013empirical},
@@ -303,7 +334,8 @@ usage~\citep{kruger2018crysl,rahaman2019cryptoguard}. Our finding differs: the
 interface admits a use that is \emph{correct} and costly only for a reason
 invisible at the call site. Security analyses of JWT implementations
 consistently find key-handling defects, key confusion among
-them~\citep{detering2017jose,xu2023jwtkey,yang2026tokentimebomb}, and RFC
+them~\citep{detering2017jose,xu2023jwtkey}; \citet{yang2026tokentimebomb}
+evaluated 43 JWT libraries across 16 languages. RFC
 8725~\citep{rfc8725} codifies the resulting practice. The library studied here
 has been hardened against key confusion twice: CVE-2015-9235, fixed in
 4.2.2~\citep{ghsa2015jsonwebtoken}, and CVE-2022-23541 with two related
@@ -317,49 +349,51 @@ Table~\ref{tab:related} summarises the positioning. Each cell records only what
 this section states about the work cited; it is a map of the lines of work this
 paper connects, not an assessment of them.
 
-\begin{table}[!t]
+\begin{table*}[!t]
 \caption{Positioning against the closest lines of work. \emph{JWT}: studies
-JWT or JOSE implementations. \emph{Crypto-API security}: treats how a
-cryptographic interface or key material is used as a security concern.
-\emph{Cost}: studies a performance cost or performance defect.
-\emph{Version as cause}: attributes a cost or defect to the version of a
-bundled dependency. \emph{Cost--defence coupling}: shows that removing a cost
-would weaken a security defence. \checkmark: addressed; $\circ$: partly (see
+JWT or JOSE implementations. \emph{Crypto-API}: treats how a cryptographic
+interface or key material is used as a security concern. \emph{Cost}: studies
+a performance cost or performance defect. \emph{Version}: attributes a cost or
+defect to the version of a bundled dependency. \emph{Coupling}: shows that
+removing a cost would weaken a security defence. \emph{Breadth}: studies many
+systems, projects or libraries, which this paper does not (one library in
+depth, six others for comparison). \checkmark: addressed; $\circ$: partly (see
 note); --: not addressed.}
 \label{tab:related}
-\small\setlength{\tabcolsep}{3.5pt}
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.40\linewidth}ccccc@{}}
+\small\setlength{\tabcolsep}{5pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{0.42\textwidth}cccccc@{}}
 \toprule
-Work & JWT & \shortstack{Crypto-API\\security} & Cost &
-\shortstack{Version\\as cause} & \shortstack{Cost--defence\\coupling} \\
+Work & JWT & Crypto-API & Cost & Version & Coupling & Breadth \\
 \midrule
 \citet{detering2017jose}; \citet{xu2023jwtkey}; \citet{yang2026tokentimebomb}
-  & \checkmark & \checkmark & -- & -- & -- \\
+  & \checkmark & \checkmark & -- & -- & -- & \checkmark \\
 \citet{egele2013empirical}; \citet{nadi2016jumping}; \citet{kruger2018crysl};
 \citet{rahaman2019cryptoguard}
-  & -- & \checkmark & -- & -- & -- \\
+  & -- & \checkmark & -- & -- & -- & \checkmark \\
 \citet{coarfa2006performance}; \citet{naser2020performance};
 \citet{sikeridis2020assessing}
-  & -- & -- & \checkmark & -- & -- \\
+  & -- & -- & \checkmark & -- & -- & -- \\
 \citet{zhu2023dissecting}
-  & -- & -- & \checkmark & -- & -- \\
+  & -- & -- & \checkmark & -- & -- & -- \\
 \citet{jin2012understanding}; \citet{selakovic2016performance}
-  & -- & -- & \checkmark & -- & -- \\
+  & -- & -- & \checkmark & -- & -- & \checkmark \\
 \citet{kaltenecker2023performance}; \citet{chen2017exploratory}
-  & -- & -- & \checkmark & $\circ^{a}$ & -- \\
+  & -- & -- & \checkmark & $\circ^{a}$ & -- & \checkmark \\
 \citet{zerouali2019outdated}; \citet{cito2017empirical}
-  & -- & -- & -- & $\circ^{b}$ & -- \\
+  & -- & -- & -- & $\circ^{b}$ & -- & \checkmark \\
 \midrule
 \textbf{This paper}
-  & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+  & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & $\circ^{c}$ \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 
 \smallskip
 \footnotesize
 $^{a}$Versions of the system under study, not of a bundled dependency.
 $^{b}$Container images pin outdated dependency versions; no cost is measured.
-\end{table}
+$^{c}$One library in depth; seven for comparison; a detector run over a stated
+frame of npm packages (Section~\ref{sec:rq4}).
+\end{table*}
 
 We found no peer-reviewed study of performance regressions across the
 OpenSSL~3.x series, none tracing the chain from base image to bundled library
@@ -391,7 +425,12 @@ value is generated.}
 \subsection{Testbed}\label{sec:testbed}
 
 Unless stated otherwise, measurements were taken on one Apple-silicon machine
-running macOS~26.5.2 (arm64), \emph{the host}, under Node.js~v26.6.0. Container
+running macOS~26.5.2 (arm64), \emph{the host}, under Node.js~v26.6.0. This
+Node.js is the Homebrew build, which links the system's Homebrew OpenSSL
+dynamically rather than bundling its own; the host therefore ran OpenSSL
+\HostOpensslInferred, newer than the 3.5 series that official Node~26 builds
+bundle. The version was not recorded per row for the host decomposition, and
+is inferred from the run record (Section~\ref{sec:threats}). Container
 measurements ran in the Linux/arm64 virtual machine of Docker Desktop's
 single-node Kubernetes cluster (v1.32.2). The service studied in
 Section~\ref{sec:rq3} is a Node.js microservice (Express~5.1.0,
@@ -407,8 +446,11 @@ production deployment; we call it the \emph{containerised service}.
 The unit of measurement is one operating-system process, not one call. Each
 process performs a fixed number of timed iterations of a single condition after
 a warmup of half that number and contributes its median; reported figures are
-medians of per-process medians, with percentile bootstrap intervals over
-processes~\citep{georges2007statistically}. Conditions are interleaved within
+medians of per-process medians, with 95\% percentile bootstrap intervals over
+processes (\BootstrapResamples{} resamples)~\citep{georges2007statistically}.
+With \HostInvocations{} processes per condition these intervals are indicative
+rather than calibrated; the per-process values are in the replication package,
+and its analysis script can also report BCa intervals. Conditions are interleaved within
 each round, and differences between conditions are reported as the median of
 per-round \emph{paired} differences. The largest between-process coefficient of
 variation is \HostCvMax\% on the host.
@@ -470,7 +512,11 @@ own pre-parsed key object, at \XlibInvocations{} processes of
 the runtime matrix, the C probe, the exception baseline and the cross-library
 comparison were measured on an x86\_64 virtual machine (\ExcCpuModel, four
 vCPUs) on shared cloud infrastructure. Following \citet{laaber2019cloud}, we take
-only orderings and ratios between interleaved conditions from it.
+only orderings and ratios between interleaved conditions from it. Two Node~22
+builds appear in these runs: the repetition of the host decomposition used that
+machine's own Node \XhNode{} (OpenSSL \XhOpenssl), while the exception baseline
+used the official Node \RtTwentyTwoLiteral{} release binary, which bundles
+OpenSSL \RtTwentyTwoOpenssl.
 
 \paragraph{In-situ measurement}\label{sec:insitu-method} The containerised
 service exposes a histogram timing the verification call alone, read before and
@@ -553,10 +599,11 @@ release that runtime bundles, built from source. \emph{V8 exception}: an
 \texttt{Error} of the same shape, message and properties thrown from
 \ExcDepth{} frames and discarded, with no OpenSSL call. \emph{Binding}: the
 probe less the other two; its interval, from independent resampling of the
-three runs, is in the replication package. Medians of per-process medians
-over \ExcInvocations{} processes (probe, exception) and \CProbeInvocations{}
-processes (C). The C column uses a stock build of each release, not Node's own
-build of it, so the binding column is approximate (Section~\ref{sec:threats}).}
+three runs, is in the replication package. Every column is a median of
+per-process medians over \ExcInvocations{} processes. The C column uses a stock
+build of each release, not Node's own build of it, so the binding column is
+approximate: it is negative on two OpenSSL~3.0 rows, and the three-way split is
+interpretable only for the OpenSSL~3.5 rows (Section~\ref{sec:granularity}).}
 \label{tab:decomp}
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrrrr@{}}
 \toprule
@@ -581,45 +628,61 @@ JavaScript engine. The V8 exception is small and nearly constant, about
 \RtEighteenLiteral), half of it stack capture. Where OpenSSL~3.5 makes the parse
 cheap, the three parts are comparable: under Node \RtTwentySixLiteral{} the
 parse is \RtTwentySixDecompCPct\%, the exception \RtTwentySixDecompExcPct\% and
-the binding \RtTwentySixDecompLeftoverPct\%. The component is a discarded
+the binding \RtTwentySixDecompLeftoverPct\%. The three-way split is
+interpretable only for these OpenSSL~3.5 rows. On the OpenSSL~3.0 rows the
+binding comes out negative (\RtEighteenDecompLeftover~$\mu$s under Node
+\RtEighteenLiteral), because our stock C build of each release and Node's own
+build of it differ by more than the binding costs; there only the dominance of
+the parse is meaningful. Either way the component is a discarded
 \emph{parse}, not an exception cost.
 
 \subsection{Checks on the decomposition}\label{sec:residual}
 
 The discarded parse and the conversion account for \DecompExplainedPct\% of the
-string penalty; the \DecompResidual~$\mu$s residual [\DecompResidualCiLo,
-\DecompResidualCiHi] lies in the library's type and claim checking and is
-reported as unattributed. Because the decomposition relies on differencing, it
-was checked against V8's sampling profiler: the asymmetric key parse accounts
-for a median \ProfHostPct\% of self time on the host, \ProfEighteenPct\% under
-Node \NodeEighteenNodeMajor{} and \ProfTwentySixPct\% under Node
-\NodeTwentySixMuslNodeMajor, and does not appear among the top frames of the
-pre-parsed path. Two methods, one answer.
+string penalty. The \DecompResidual~$\mu$s residual [\DecompResidualCiLo,
+\DecompResidualCiHi] presumably lies in the library's own type and claim
+checking, but it was not measured directly and is reported as unattributed.
+Because the decomposition relies on differencing, it was checked against V8's
+sampling profiler: the asymmetric key parse accounts for a median
+\ProfHostPct\% of self time on the host (\ProfEighteenPct\% under Node
+\NodeEighteenNodeMajor{} and \ProfTwentySixPct\% under Node
+\NodeTwentySixMuslNodeMajor), and does not appear among the top frames of the
+pre-parsed path. The two methods agree on which component dominates, not on
+its exact share: differencing gives \HostProbeShareOfCall\% and the profiler
+\ProfHostPct\% on the host. They measure different quantities. The differenced
+share divides the median of the parse, timed alone in its own processes, by
+the median of the whole call; the profiler's share attributes sampled time
+inside one validation loop to the innermost frame, so work the parse frame
+triggers (including the construction of its exception) is counted with it, and
+sampling carries attribution error of its own~\citep{mytkowicz2010profilers}.
+We therefore rely on the ordering, not on either percentage.
 
 %% ============================================================================
 \section{RQ2: What governs the magnitude}\label{sec:rq2}
 
 \begin{table*}[!htbp]
-\caption{The same measurement across four container runtimes on one machine,
-\MatrixInvocations{} processes each of \MatrixCallsPerInvocation{} calls. The
-\emph{Disc.\ parse}: the discarded asymmetric parse; \emph{Pre-parsed}:
-\texttt{verify()} with a pre-parsed key. $^{\ddagger}$The host row is from
-Table~\ref{tab:host} and is not containerised.
-$^{\dagger}$Inferred from the run timestamp, not recorded per row: that run
-predates the per-measurement OpenSSL field (Section~\ref{sec:threats}). The
-discarded parse spans \SpanProbeThrows$\times$ across the four images while
-pre-parsed validation spans \SpanJwtPreparsed$\times$.}
+\caption{The same measurements across four container runtimes on one
+machine (arm64), \MatrixInvocations{} processes of \MatrixCallsPerInvocation{}
+calls each, in $\mu$s. \emph{Discarded parse}: \texttt{createPublicKey()} on
+the HMAC secret, which fails. \emph{Successful parse}: \texttt{createPublicKey()}
+on an RSA-2048 public key. \emph{Pre-parsed}: \texttt{verify()} with a
+pre-parsed key. Across the four images the discarded parse spans
+\SpanProbeThrows$\times$, the successful parse \SpanProbeSucceeds$\times$ and
+pre-parsed validation \SpanJwtPreparsed$\times$. $^{\ddagger}$From
+Table~\ref{tab:host}; not containerised. $^{\dagger}$The Homebrew OpenSSL the
+host's Node links, inferred from the run record rather than recorded per row
+(Section~\ref{sec:testbed}).}
 \label{tab:matrix}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lllrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lllrrr@{}}
 \toprule
-Runtime & OpenSSL & V8 & Disc.\ parse & Pre-parsed \\
-        &         &    & ($\mu$s)     & ($\mu$s) \\
+Runtime & OpenSSL & V8 & Discarded & Successful & Pre-parsed \\
+        &         &    & parse     & parse      & \texttt{verify()} \\
 \midrule
-Node \NodeEighteenNodeMajor{} musl        & \NodeEighteenOpensslLiteral       & \NodeEighteenVeight       & \NodeEighteenProbeThrows       & \NodeEighteenJwtPreparsed \\
-Node \NodeTwentyNodeMajor{} musl          & \NodeTwentyOpensslLiteral         & \NodeTwentyVeight         & \NodeTwentyProbeThrows         & \NodeTwentyJwtPreparsed \\
-Node \NodeTwentySixMuslNodeMajor{} musl   & \NodeTwentySixMuslOpensslLiteral  & \NodeTwentySixMuslVeight  & \NodeTwentySixMuslProbeThrows  & \NodeTwentySixMuslJwtPreparsed \\
-Node \NodeTwentySixGlibcNodeMajor{} glibc & \NodeTwentySixGlibcOpensslLiteral & \NodeTwentySixGlibcVeight & \NodeTwentySixGlibcProbeThrows & \NodeTwentySixGlibcJwtPreparsed \\
-host$^{\ddagger}$                         & \HostOpensslInferred$^{\dagger}$  & \HostVeight               & \HostProbeThrows               & \HostJwtPreparsed \\
+Node \NodeEighteenNodeMajor{} musl        & \NodeEighteenOpensslLiteral       & \NodeEighteenVeight       & \NodeEighteenProbeThrows       & \NodeEighteenProbeSucceeds       & \NodeEighteenJwtPreparsed \\
+Node \NodeTwentyNodeMajor{} musl          & \NodeTwentyOpensslLiteral         & \NodeTwentyVeight         & \NodeTwentyProbeThrows         & \NodeTwentyProbeSucceeds         & \NodeTwentyJwtPreparsed \\
+Node \NodeTwentySixMuslNodeMajor{} musl   & \NodeTwentySixMuslOpensslLiteral  & \NodeTwentySixMuslVeight  & \NodeTwentySixMuslProbeThrows  & \NodeTwentySixMuslProbeSucceeds  & \NodeTwentySixMuslJwtPreparsed \\
+Node \NodeTwentySixGlibcNodeMajor{} glibc & \NodeTwentySixGlibcOpensslLiteral & \NodeTwentySixGlibcVeight & \NodeTwentySixGlibcProbeThrows & \NodeTwentySixGlibcProbeSucceeds & \NodeTwentySixGlibcJwtPreparsed \\
+host$^{\ddagger}$                         & \HostOpensslInferred$^{\dagger}$  & \HostVeight               & \HostProbeThrows               & \HostProbeSucceeds               & \HostJwtPreparsed \\
 \bottomrule
 \end{tabular*}
 \end{table*}
@@ -676,6 +739,38 @@ the images while pre-parsed validation spans \XmSpanJwtPreparsed$\times$. The
 host decomposition keeps its ordering: the discarded parse is
 \XhProbeThrows~$\mu$s of a \XhJwtString~$\mu$s call (\XhProbeShareOfCall\%).
 
+\subsection{Distribution-packaged Node.js}\label{sec:distro}
+
+The OpenSSL~3.0 series is not confined to end-of-life Node.js images. Ubuntu
+24.04 LTS packages Node.js \DistroUbuntuNode{}, built against the system's
+shared OpenSSL rather than a bundled copy; in its current image that is OpenSSL
+\DistroUbuntuOpenssl. Table~\ref{tab:distro} measures it beside two of the
+official images of Table~\ref{tab:matrix}, on one x86\_64 machine in one run
+(\DistroCaptured), with the protocol of Section~\ref{sec:unit}.
+
+\begin{table*}[!t]
+\caption{Distribution-packaged Node.js against official images, same x86\_64
+machine and run, \DistroRounds{} processes of 20{,}000 calls per condition, in
+$\mu$s (medians of per-process medians). \emph{Penalty}: median of per-round
+paired differences between \texttt{verify()} with a string secret and with a
+pre-parsed key, with its 95\% bootstrap interval. Absolute values are not
+comparable with the arm64 values of Table~\ref{tab:matrix}.}
+\label{tab:distro}
+\small
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrrrrrl@{}}
+\toprule
+Runtime & OpenSSL & Discarded & Successful & \texttt{verify()} & \texttt{verify()} & Penalty & 95\% interval \\
+        &         & parse     & parse      & string            & pre-parsed        &         & \\
+\midrule
+Ubuntu 24.04, Node \DistroUbuntuNode{} & \DistroUbuntuOpenssl{} (system) & \DistroUbuntuProbeThrows & \DistroUbuntuProbeSucceeds & \DistroUbuntuJwtString & \DistroUbuntuJwtPreparsed & \DistroUbuntuPenalty & [\DistroUbuntuPenaltyCiLo, \DistroUbuntuPenaltyCiHi] \\
+\texttt{node:18.20.8-alpine} & \DistroRefEighteenOpenssl{} (bundled) & \DistroRefEighteenProbeThrows & \DistroRefEighteenProbeSucceeds & \DistroRefEighteenJwtString & \DistroRefEighteenJwtPreparsed & \DistroRefEighteenPenalty & [\DistroRefEighteenPenaltyCiLo, \DistroRefEighteenPenaltyCiHi] \\
+\texttt{node:26.6.0-alpine} & \DistroRefTwentySixOpenssl{} (bundled) & \DistroRefTwentySixProbeThrows & \DistroRefTwentySixProbeSucceeds & \DistroRefTwentySixJwtString & \DistroRefTwentySixJwtPreparsed & \DistroRefTwentySixPenalty & [\DistroRefTwentySixPenaltyCiLo, \DistroRefTwentySixPenaltyCiHi] \\
+\bottomrule
+\end{tabular*}
+\end{table*}
+
+DISTRO_RESULT_TEXT
+
 %% ============================================================================
 \section{RQ3: The containerised service, and prevalence}\label{sec:rq3}
 
@@ -698,9 +793,16 @@ consistent with Section~\ref{sec:rq2}: the service's runtime carries the older
 OpenSSL, whose discarded parse costs \NodeEighteenProbeThrows~$\mu$s, giving an
 expected total near \InsituPredictedFromMatrix~$\mu$s. Wall-clock means of
 \InsituObservedLo--\InsituObservedHi~$\mu$s exceed that; contention inflates
-durations, so they are upper bounds. We do not interpret the decline with
-arrival rate or the systematic gap between the two passes, which have several
-candidate causes unrelated to validation.
+durations, so they are upper bounds. Two features of Figure~\ref{fig:insitu}
+are not explained by validation and we draw no conclusion from them. The cost
+falls as the arrival rate rises, and the descending pass differs from the
+ascending one systematically rather than randomly. Plausible causes, none of
+which we isolated, are a fixed per-window overhead amortised over more calls at
+higher rates; processor frequency scaling and idle-state exit latency, which
+penalise sparse arrivals; cache and branch-predictor residency, which improve
+with call density; and continued JIT tier-up and garbage-collection timing,
+which differ between a process's first and second pass. The magnitude claim
+rests instead on the processor-time measurement below.
 
 \subsection{Corroboration: the cost is processor time}\label{sec:abcorroboration}
 
@@ -730,14 +832,21 @@ Host load, 1 min                   & \AbLoadOneNone             & \AbLoadOneJwt 
 
 To separate work from waiting, Table~\ref{tab:ab} compares the same service with
 validation enabled and disabled, reading processor time from cgroup accounting
-rather than from a clock. Enabling validation adds \AbCpuPerCallDelta~$\mu$s of
-processor time per call, within \AbCpuVsPredictedPct\% of the
-\InsituPredictedFromMatrix~$\mu$s the runtime matrix predicts, from instruments
-that share no code. A request that queues accrues wall-clock time but no CPU,
-so this figure contains no queueing delay. The sidecar's CPU did not rise with
-the application's, and the one-second CPU samples of the two arms do not overlap
+rather than from a clock. Enabling validation raised the application's
+processor time per request from \AbCpuPerCallNone{} to \AbCpuPerCallJwt~$\mu$s:
+validation accounted for \AbCpuShareOfRequestPct\% of the application's CPU per
+request, a factor of \AbCpuRatio{} over the service without it. The added
+\AbCpuPerCallDelta~$\mu$s is of the same size as the
+\InsituPredictedFromMatrix~$\mu$s the runtime matrix predicts for the same work
+on the same runtime, from instruments that share no code. A request that
+queues accrues wall-clock time but no CPU, so this figure excludes queueing
+delay; it can still be inflated by contention for caches, SMT siblings and
+processor frequency on the shared host. The sidecar's CPU did not rise with the
+application's, and the one-second CPU samples of the two arms do not overlap
 (disabled never exceeded \AbCpuSampleMaxNone{} millicores, enabled never fell
-below \AbCpuSampleMinJwt).
+below \AbCpuSampleMinJwt). This is one pair of consecutive windows at different
+host load, so the difference carries no interval; a repeated, alternating
+design is prepared for the authors' testbed (Section~\ref{sec:threats}).
 
 \subsection{How common is the avoiding pattern, in our sample?}\label{sec:prevalence}
 
@@ -761,12 +870,18 @@ pass a pre-parsed key (Figure~\ref{fig:survey}), and \SampleNoAlgorithms{}
 resolving the local binding of the import, which adds \SampleRematchAdded{} that
 the conventional \texttt{jwt.verify()} spelling misses. The targeted
 counter-search fetched \CounterFilesFetched{} files, \CounterWithVerify{} with a
-validation call in \CounterReposWithVerify{} repositories; of
-\AdjudicatedTotal{} call sites flagged automatically, \AdjudicatedFalsePositive{}
-were false positives on hand inspection and \AdjudicatedGenuine{} genuine, in
+validation call in \CounterReposWithVerify{} repositories. Of the
+\AdjudicatedTotal{} call sites it flagged automatically, hand inspection found
+\AdjudicatedFalsePositive{} false positives and \AdjudicatedUnresolved{} that
+could not be resolved within its file; \AdjudicatedGenuine{} were genuine, in
 \AdjudicatedGenuineProjects{} projects. Even among repositories that know the
 interface exists, only \AdjudicatedGenuinePct\% use it: the pattern is rare, not
-absent.
+absent. The zero in the classified sample may be biased downwards: keys are
+traced within one file only, and \SampleUnknown{} of the \SampleCallSites{}
+call sites pass an identifier whose origin lies in another file and could, in
+principle, be a key object built there. No file in the sample mentions the
+pre-parsing interface in any spelling, which weighs against that, but it is not
+proof.
 
 %% ============================================================================
 \section{RQ4: One library, or a design choice?}\label{sec:rq4}
@@ -820,9 +935,11 @@ Library & Lang. & Version & Crypto backend & Asym.\ first? & String & Pre-parsed
 than its own pre-parsed key object: the ratio of the two costs in
 Table~\ref{tab:xlib}, on a log scale. A ratio of one (dashed line) means no
 per-call penalty. Orange: the paired 95\% interval on the penalty excludes
-zero. Only \LibraryName{} performs the failing asymmetric parse, and only it
-pays by more than a small factor; \texttt{jose} pays for re-importing raw bytes
-on every call.}
+zero. \LibraryName{} and \texttt{jose} both pay for per-call key handling;
+under OpenSSL~3.5.8 their absolute penalties are indistinguishable, and
+\LibraryName{}'s larger ratio there reflects \texttt{jose}'s higher baseline.
+Only \LibraryName{} performs a failing asymmetric parse, and only its penalty
+changes by an order of magnitude with the OpenSSL release.}
 \label{fig:xlib}
 \end{figure}
 
@@ -831,18 +948,31 @@ three ways: \emph{inspect, then dispatch} (\texttt{fast-jwt} and \texttt{PyJWT}
 examine the key text and call exactly one constructor); \emph{refuse the
 ambiguous input} (\texttt{jose} and \texttt{golang-jwt} do not accept a string
 HMAC key); or \emph{type the key} (\texttt{jjwt} requires a \texttt{SecretKey};
-\texttt{nimbus-jose-jwt} converts a string's bytes without parsing them). Of the
-\XlibLibCount{} libraries, \XlibPenaltyLibCount{} pay for a raw secret, in the
-sense that the paired interval on the penalty excludes zero. \LibraryName{} pays
-\XlibJsonwebtokenOldSslPenalty~$\mu$s under \XlibJsonwebtokenOldSslBackend{}
-and \XlibJsonwebtokenNewSslPenalty~$\mu$s under \XlibJsonwebtokenNewSslBackend;
-\texttt{jose}, which re-imports raw bytes into a WebCrypto key on every call,
-pays about \XlibJwtOverJoseOldSsl{} times less. The other
-\XlibZeroPenaltyLibCount{} pay nothing measurable. All seven validate the same
-kind of token with the same primitive, so the cost follows a design choice,
-resolving key material on every call, and the failing parse is its costliest
-form. That is the class of order-of-evaluation defect the profiler of
-\citet{selakovic2017actionable} targets.
+\texttt{nimbus-jose-jwt} converts a string's bytes without parsing them).
+
+Of the \XlibLibCount{} libraries, \XlibPenaltyLibCount{} pay for a raw secret,
+in the sense that the paired interval on the penalty excludes zero; the other
+\XlibZeroPenaltyLibCount{} pay nothing measurable. The two are \LibraryName{}
+and \texttt{jose}, and they pay for different reasons. \texttt{jose} parses
+nothing that can fail, but imports raw bytes into a WebCrypto key on every
+call. Under \XlibJsonwebtokenNewSslBackend{} the two absolute penalties are
+statistically indistinguishable: \XlibJsonwebtokenNewSslPenalty~$\mu$s
+[\XlibJsonwebtokenNewSslPenaltyCiLo, \XlibJsonwebtokenNewSslPenaltyCiHi] for
+\LibraryName{} and \XlibJoseNewSslPenalty~$\mu$s [\XlibJoseNewSslPenaltyCiLo,
+\XlibJoseNewSslPenaltyCiHi] for \texttt{jose}. \LibraryName{}'s larger ratio in
+Figure~\ref{fig:xlib} there reflects \texttt{jose}'s higher baseline, not a
+larger penalty. The libraries separate under \XlibJsonwebtokenOldSslBackend:
+\LibraryName{}'s penalty rises to \XlibJsonwebtokenOldSslPenalty~$\mu$s and
+\texttt{jose}'s to \XlibJoseOldSslPenalty~$\mu$s, about \XlibJwtOverJoseOldSsl{}
+times less. The distinguishing property of \LibraryName{} is therefore not that
+it alone pays for per-call key handling, but that it does so through a
+\emph{failing} parse, whose price follows the OpenSSL release by an order of
+magnitude. All seven libraries validate the same kind of token with the same
+primitive, so the cost follows a design choice, resolving key material on every
+call, and not JWT validation as such. The failing parse is the form of that
+choice most exposed to the cryptographic library underneath, and the class of
+order-of-evaluation defect the profiler of \citet{selakovic2017actionable}
+targets.
 
 %% ============================================================================
 \section{RQ5: Removing the cost safely}\label{sec:security}
@@ -853,8 +983,9 @@ The adversary is a remote client that can place arbitrary bytes where the
 service expects a bearer token, including every header field, but does not know
 the shared secret. The asset is key-type separation: a token declaring an HMAC
 algorithm must never be verified against asymmetric key material, nor the
-reverse~\citep{rfc8725}. Availability is out of scope; we drove no adversarial
-traffic. Figure~\ref{fig:verifyorder} shows the order of checks in
+reverse~\citep{rfc8725}. We measure what a rejected forged token costs per
+call (Section~\ref{sec:reachable}), but we drove no adversarial traffic at a
+service and make no claim about availability or capacity. Figure~\ref{fig:verifyorder} shows the order of checks in
 \texttt{verify()}. Reaching key resolution requires only a well-formed token;
 the permitted-algorithm list, the key-type checks and the signature all come
 later. A token that will be rejected therefore pays the discarded attempt in
@@ -944,15 +1075,58 @@ narrow fix removes the cost from legitimate traffic, not from traffic an
 adversary constructs. Only a pre-parsed key object removes it for every input,
 because resolution is skipped when the key is already a \texttt{KeyObject}.
 
+\paragraph{Measured} Table~\ref{tab:forged} times the rejection of well-formed
+forged tokens, which the client can produce without the secret, under each
+configuration (\texttt{bench/forged-token.js}; \ForgedInvocations{} processes
+of \ForgedCalls{} calls per cell, on an x86\_64 virtual machine,
+\ForgedCpuModel). FORGED_RESULT_TEXT
+
+\begin{table*}[!t]
+\caption{Cost of rejecting a forged token, in $\mu$s per \texttt{verify()} call
+(medians of per-process medians), for a service configured with an HMAC shared
+secret and \texttt{algorithms: ['HS256']}. \emph{RS256 header}: a token
+declaring RS256 with a random signature, rejected by the algorithm list.
+\emph{HS256 header}: a token declaring HS256 with a signature not made with the
+secret, rejected at signature verification. \emph{Narrow}: the narrow fix of
+Section~\ref{sec:fix}.}
+\label{tab:forged}
+\small
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrrrrrr@{}}
+\toprule
+ & & \multicolumn{3}{c}{RS256 header} & \multicolumn{3}{c}{HS256 header} \\
+\cmidrule(lr){3-5}\cmidrule(l){6-8}
+Runtime & OpenSSL & Stock & Narrow & Pre-parsed & Stock & Narrow & Pre-parsed \\
+\midrule
+\texttt{node:18.20.8-alpine} & \ForgedEighteenOpenssl & \ForgedEighteenRsString & \ForgedEighteenRsSafe & \ForgedEighteenRsPreparsed & \ForgedEighteenHsString & \ForgedEighteenHsSafe & \ForgedEighteenHsPreparsed \\
+Ubuntu 24.04, Node \ForgedUbuntuNode & \ForgedUbuntuOpenssl & \ForgedUbuntuRsString & \ForgedUbuntuRsSafe & \ForgedUbuntuRsPreparsed & \ForgedUbuntuHsString & \ForgedUbuntuHsSafe & \ForgedUbuntuHsPreparsed \\
+\texttt{node:26.6.0-alpine} & \ForgedTwentySixOpenssl & \ForgedTwentySixRsString & \ForgedTwentySixRsSafe & \ForgedTwentySixRsPreparsed & \ForgedTwentySixHsString & \ForgedTwentySixHsSafe & \ForgedTwentySixHsPreparsed \\
+Node \ForgedHostNode{} (VM) & \ForgedHostOpenssl & \ForgedHostRsString & \ForgedHostRsSafe & \ForgedHostRsPreparsed & \ForgedHostHsString & \ForgedHostHsSafe & \ForgedHostHsPreparsed \\
+\bottomrule
+\end{tabular*}
+\end{table*}
+
+\paragraph{Behaviour under misconfiguration} The narrow fix takes its fast path
+only for a string that carries neither a PEM header nor a JSON object, so a PEM
+or JWK key mistakenly configured as the HMAC ``secret'' resolves exactly as it
+does today. We checked this rather than assuming it: for \EquivKeyKinds{} kinds
+of configured key material (including PEM public and private keys and a JWK
+string supplied as the secret), \EquivCasesPerRuntime{} combinations of key,
+token and algorithm option were verified through the stock library and the
+narrow fix on each of \EquivRuntimes{} runtimes, and \EquivDiffs{} produced a
+different result or error (\texttt{bench/keypath-equivalence.js}).
+
 \subsection{Reported upstream}\label{sec:upstream}
 
 An earlier issue\footnote{\url{https://github.com/auth0/node-jsonwebtoken/issues/966}}
 reports HS256 verification in 9.x 34 times slower than in 8.5.1 on OpenSSL~3.0,
 with no diagnosed cause. We reported the
 mechanism\footnote{\url{https://github.com/auth0/node-jsonwebtoken/issues/1046}},
-and a pull request implementing the narrow fix is open.
-%% STATUS-AT-SUBMISSION: update with the maintainers' response, if any.
-At the time of writing neither has received a maintainer response.
+and a pull request implementing the narrow fix was opened against it.
+%% TODO(minor 12): the authors must confirm whether the maintainers have
+%% commented on issues 966/1046 or the pull request, and update this sentence.
+At the time of this revision (\RevisionDate) the pull request had not been
+merged, no release after 9.0.3 had been published, and the repository's main
+branch had not changed since June 2026.
 
 %% ============================================================================
 \section{Implications for practice}\label{sec:implications}
@@ -981,13 +1155,15 @@ RQ2 & The parse costs \CFullVThreeZeroSixteen~$\mu$s on OpenSSL
 Table~\ref{tab:matrix}; Fig.~\ref{fig:openssl} &
 Record the base image and bundled OpenSSL with every performance figure; treat
 base-image bumps as performance changes (\emph{developers, DevOps}). \\
-RQ3 & In a containerised service validation adds \AbCpuPerCallDelta~$\mu$s of
-CPU per request; no sampled call site pre-parses its key. &
+RQ3 & In a containerised service on OpenSSL~3.0, validation is
+\AbCpuShareOfRequestPct\% of the application's CPU per request; none of the
+\SampleCallSites{} sampled call sites pre-parses its key. &
 Table~\ref{tab:ab}; Figs.~\ref{fig:insitu}, \ref{fig:survey} &
-Pre-parse key material once at startup: a one-line change
-(\emph{application developers}). \\
-RQ4 & Of seven libraries in four languages only one attempts the parse; five
-pay nothing for a raw secret. &
+Pre-parse key material once at startup, a one-line change
+(Figure~\ref{fig:preparse}) (\emph{application developers}). \\
+RQ4 & Of seven libraries in four languages only one uses a failing parse; two
+pay for per-call key handling, and only the failing parse's cost follows the
+OpenSSL release. &
 Table~\ref{tab:xlib}, Fig.~\ref{fig:xlib} &
 Do not use a failing parse as a type test; resolve keys once, inspect then
 dispatch, or type the key (\emph{library authors}). \\
@@ -1001,11 +1177,29 @@ key-confusion tests (\emph{maintainers, reviewers}). \\
 \end{tabularx}
 \end{table*}
 
-\paragraph{Application developers} Pre-parse key material once, at startup.
-It removes \HostStringPenalty~$\mu$s per validation on the host and far more on
-OpenSSL~3.0, needs no architectural change, and is the only remedy that removes
-the attempt for every input. Also restrict permitted algorithms~\citep{rfc8725};
+\paragraph{Application developers} Pre-parse key material once, at startup
+(Figure~\ref{fig:preparse}). It removes \HostStringPenalty~$\mu$s per
+validation on the host and far more on OpenSSL~3.0, needs no architectural
+change and no change to the library, and is the only remedy that removes the
+attempt for every input. Also restrict permitted algorithms~\citep{rfc8725};
 that is an independent defence, not a substitute.
+
+\begin{figure}[!t]
+\begin{lstlisting}[numbers=none]
+const { createSecretKey } = require('node:crypto');
+const jwt = require('jsonwebtoken');
+
+// Once, at startup: build the key object.
+const key = createSecretKey(Buffer.from(process.env.JWT_SECRET));
+
+// Per request: pass the key object instead of the string.
+jwt.verify(token, key, { algorithms: ['HS256'] });
+\end{lstlisting}
+\caption{The one-line change that removes the discarded parse for every input:
+the secret is converted to a \texttt{KeyObject} once, and \texttt{verify()}
+skips key resolution when handed one (Figure~\ref{fig:codepath}, line 120).}
+\label{fig:preparse}
+\end{figure}
 
 \paragraph{Performance engineers} Treat the base image as part of the
 measurement. The same code differs by \SpanProbeThrows$\times$ on this path
@@ -1026,28 +1220,53 @@ bundle.
 \section{Threats to validity}\label{sec:threats}
 
 \paragraph{Construct} The decomposition relies on differencing, cross-checked
-by a profiler. The C probe reproduces Node's OpenSSL calls but not Node's own
-build of OpenSSL, so the binding column of Table~\ref{tab:decomp} is
-approximate; the causal claim compares releases under one build and does not
-inherit this. The security analysis is from source and the library's tests,
-not from adversarial traffic.
+by a profiler whose share differs from the differenced one for the reasons
+given in Section~\ref{sec:residual}. The C probe reproduces Node's OpenSSL
+calls but not Node's own build of OpenSSL, so the binding column of
+Table~\ref{tab:decomp} is approximate; the causal claim compares releases under
+one build and does not inherit this. Every measurement uses HS256 with one
+secret of 34 characters and one token of fixed size. The parse fails at the
+PEM-header check and in the private-key decoder, neither of which depends much
+on the secret's length: a 16- and a 256-character secret cost
+\ForgedEighteenProbeSixteen~$\mu$s and \ForgedEighteenProbeTwoFiftySix~$\mu$s on
+OpenSSL \ForgedEighteenOpenssl{} (Section~\ref{sec:reachable}). A secret that
+begins with a PEM header takes the original path under the narrow fix by design
+and was not timed. The security analysis is from source, the library's tests
+and the microbenchmarks of Section~\ref{sec:reachable}, not from adversarial
+traffic against a service.
 
 \paragraph{Internal} The in-situ evidence is one process sweeping seven rates
-twice, and the A/B is two consecutive windows; the magnitude claim rests on CPU
-accounting, which contention cannot inflate. The headline host figure predates
-the per-measurement OpenSSL field; its version is inferred from the run record.
+twice, and the A/B is one pair of consecutive windows at different host load
+with the load generator on the same machine. CPU accounting excludes queueing
+delay, but contention for caches, SMT siblings and processor frequency can still
+raise the CPU time charged for the same work, so the A/B difference is an upper
+bound on the work and carries no interval. An alternating design with the load
+generator pinned or remote is prepared in the replication package but was not
+run. The headline host figure predates the per-measurement OpenSSL field; its
+version (\HostOpensslInferred) is inferred from the run record, and a re-run
+with the version recorded is prepared.
 
 \paragraph{External} Primary measurements come from one ARM64 host; the
-x86\_64 machine is a shared virtual machine, used only for orderings and ratios.
-The service is a single-node testbed, and a service caching verified tokens pays
+x86\_64 machines are shared virtual machines, used only for orderings and
+ratios. The containerised service is a single-node testbed on an end-of-life
+Node~18 image; the OpenSSL~3.0 behaviour it shows is also present in Ubuntu
+24.04's own Node.js (Section~\ref{sec:distro}), but the service itself was not
+re-measured on a supported image. A service that caches verified tokens pays
 the cost once per token. Seven libraries at one version each show a design
-choice, not how often it is made. The survey resolves call sites within one file
-and was adjudicated by one rater; verdicts and file hashes are published.
+choice; the npm survey of Section~\ref{sec:libsurvey} estimates how often a
+failing parse is used as a type test within a stated frame of one ecosystem,
+not across ecosystems.
 
-\paragraph{Future work} Driving forged tokens at the service would turn
-reachability into an availability measurement; bisecting OpenSSL between 3.0
-and 3.2 would identify the responsible changes; and a systematic survey of JWT
-libraries would estimate how often the design choice is made.
+\paragraph{Reliability of the survey} Call-site buckets are assigned by rules
+that trace a key within one file, and the counter-search and the library-survey
+hits were adjudicated by one person. A blinded, stratified sheet of call sites,
+a codebook and an agreement script for a second rater are in the replication
+package; the second rating has not yet been done.
+
+\paragraph{Future work} Driving forged tokens at the running service, repeating
+the A/B as alternating windows on supported images, bisecting OpenSSL between
+3.0 and 3.2, and extending the library survey to PyPI, Go and Maven would each
+close a limitation stated above.
 
 %% ============================================================================
 \section{Conclusion}\label{sec:conclusion}
