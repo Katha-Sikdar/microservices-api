@@ -145,7 +145,7 @@ linked to the system OpenSSL 3.0, pays \DistroUbuntuPenalty~$\mu$s per
 validation. In a containerised service on OpenSSL 3.0, validation accounted for
 \AbCpuShareOfRequestPct\% of the application's processor time per request. Of
 seven JWT libraries in four languages, only this one uses a failing parse, and
-only its penalty follows the OpenSSL release. The obvious optimisation is
+only its penalty changes by an order of magnitude with the OpenSSL release. The obvious optimisation is
 unsafe: the parse arrived with a key-confusion security fix, and removing it
 naively fails the library's own tests. A narrow fix passes the full suite and
 makes validation \HostSafePatchRatio{} times faster; only a pre-parsed key
@@ -247,7 +247,9 @@ replication package~\citep{artifact2026}.
       survey showing the avoiding pattern is rare in public code
       (Section~\ref{sec:rq3}).
 \item A comparison of seven JWT libraries in four languages showing that the
-      cost follows a design choice, not JWT validation as such
+      cost follows a design choice, not JWT validation as such, and a
+      detector-based survey of \LibJwtInFrame{} plus \LibCryptoInFrame{}
+      popular npm packages locating the failing-parse form of that choice
       (Section~\ref{sec:rq4}).
 \item An analysis of why the cost cannot be removed naively, and a narrow fix
       that passes the library's full test suite and is \HostSafePatchRatio{}
@@ -362,8 +364,8 @@ systems, projects or libraries, which this paper does not (one library in
 depth, six others for comparison). \checkmark: addressed; $\circ$: partly (see
 note); --: not addressed.}
 \label{tab:related}
-\small\setlength{\tabcolsep}{5pt}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{0.42\textwidth}cccccc@{}}
+\small\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{0.30\textwidth}cccccc@{}}
 \toprule
 Work & JWT & Crypto-API & Cost & Version & Coupling & Breadth \\
 \midrule
@@ -591,10 +593,11 @@ timer overhead                     & \HostTimerOverhead  & [\HostTimerOverheadCi
 the two components the paper turns on emphasised; whiskers are the 95\%
 percentile bootstrap intervals over \HostInvocations{} processes. (b) The
 \HostStringPenalty~$\mu$s penalty for supplying a string secret rather than a
-pre-parsed key, decomposed. The three segments are medians of per-round paired
-differences, not a partition of a single measurement, and they do not sum to the
-penalty: the \DecompResidual~$\mu$s remainder is unattributed
-(Section~\ref{sec:residual}).}
+pre-parsed key, beside the discarded parse, the key conversion and the
+unattributed residual. Each bar is a median of per-round paired differences or
+of per-process medians, not part of one measurement, so the bars are not
+additive; the \DecompResidual~$\mu$s residual is the part of the penalty the
+two measured components leave unexplained (Section~\ref{sec:residual}).}
 \label{fig:decomposition}
 \end{figure*}
 
@@ -780,17 +783,17 @@ paired differences between \texttt{verify()} with a string secret and with a
 pre-parsed key, with its 95\% bootstrap interval. Absolute values are not
 comparable with the arm64 values of Table~\ref{tab:matrix}.}
 \label{tab:distro}
-\small
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrrrrrl@{}}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llrrrrrl@{}}
 \toprule
-Runtime & OpenSSL & Discarded & Successful & \texttt{verify()} & \texttt{verify()} & Penalty & 95\% interval \\
+Runtime & OpenSSL & Discarded & Successful & \texttt{verify()}, & \texttt{verify()}, & Penalty & 95\% interval \\
         &         & parse     & parse      & string            & pre-parsed        &         & \\
 \midrule
 Ubuntu 24.04, Node \DistroUbuntuNode{} & \DistroUbuntuOpenssl{} (system) & \DistroUbuntuProbeThrows & \DistroUbuntuProbeSucceeds & \DistroUbuntuJwtString & \DistroUbuntuJwtPreparsed & \DistroUbuntuPenalty & [\DistroUbuntuPenaltyCiLo, \DistroUbuntuPenaltyCiHi] \\
 \texttt{node:18.20.8-alpine} & \DistroRefEighteenOpenssl{} (bundled) & \DistroRefEighteenProbeThrows & \DistroRefEighteenProbeSucceeds & \DistroRefEighteenJwtString & \DistroRefEighteenJwtPreparsed & \DistroRefEighteenPenalty & [\DistroRefEighteenPenaltyCiLo, \DistroRefEighteenPenaltyCiHi] \\
 \texttt{node:26.6.0-alpine} & \DistroRefTwentySixOpenssl{} (bundled) & \DistroRefTwentySixProbeThrows & \DistroRefTwentySixProbeSucceeds & \DistroRefTwentySixJwtString & \DistroRefTwentySixJwtPreparsed & \DistroRefTwentySixPenalty & [\DistroRefTwentySixPenaltyCiLo, \DistroRefTwentySixPenaltyCiHi] \\
 \bottomrule
-\end{tabular*}
+\end{tabular}}
 \end{table*}
 
 On Ubuntu 24.04's own Node.js the discarded parse costs
@@ -1008,6 +1011,34 @@ choice most exposed to the cryptographic library underneath, and the class of
 order-of-evaluation defect the profiler of \citet{selakovic2017actionable}
 targets.
 
+\subsection{How often is a failing parse used as a type test?}\label{sec:libsurvey}
+
+Seven libraries show that the design choice exists; they do not show how often
+it is made. We therefore searched for it systematically in one ecosystem
+(Section~\ref{sec:libsurvey-method}). The first frame holds the npm packages
+returned for six JWT and JOSE keyword queries with at least \LibJwtThreshold{}
+weekly downloads (\LibJwtInFrame{} of \LibJwtReturned{} returned, captured
+\LibJwtCaptured); the second, wider frame holds packages returned for nine
+cryptography, signature, certificate and authentication queries with at least
+\LibCryptoThreshold{} weekly downloads (\LibCryptoInFrame{} of
+\LibCryptoReturned). The detector parsed all \LibJwtFiles{} and
+\LibCryptoFiles{} JavaScript files of the published tarballs, with
+\LibJwtUnparsed{} and \LibCryptoUnparsed{} failures.
+
+It flagged \LibJwtPkgsAnyHit{} package in the first frame and
+\LibCryptoPkgsAnyHit{} in the second. The one package is \LibraryName{}
+itself, at \LibJwtConfirmed{} sites, both confirmed by reading and both on a
+per-call path: the \texttt{verify()} block studied here, and the same shape in
+\texttt{sign()}, which offers the configured secret to
+\texttt{createPrivateKey()} before falling back to \texttt{createSecretKey()}.
+Signing therefore pays a discarded parse too; we did not time it. Within these
+frames, then, the failing parse used as a type test is not a common idiom but a
+property of one library, whose reach comes from that library's own adoption.
+The detector matches one syntactic shape, so a type test written differently
+(for example by inspecting an error code, or through a third-party parser) is
+not flagged, and the count is a lower bound within the frames; other
+ecosystems remain to be surveyed.
+
 %% ============================================================================
 \section{RQ5: Removing the cost safely}\label{sec:security}
 
@@ -1113,7 +1144,19 @@ because resolution is skipped when the key is already a \texttt{KeyObject}.
 forged tokens, which the client can produce without the secret, under each
 configuration (\texttt{bench/forged-token.js}; \ForgedInvocations{} processes
 of \ForgedCalls{} calls per cell, on an x86\_64 virtual machine,
-\ForgedCpuModel). FORGED_RESULT_TEXT
+\ForgedCpuModel). The measurements confirm the source reading.
+A token declaring RS256 is rejected by the algorithm list, yet under both the
+stock library and the narrow fix it first pays the discarded parse: on OpenSSL
+\ForgedEighteenOpenssl{} \ForgedEighteenRsString~$\mu$s and
+\ForgedEighteenRsSafe~$\mu$s per rejection, and on Ubuntu 24.04's OpenSSL
+\ForgedUbuntuOpenssl{} \ForgedUbuntuRsString~$\mu$s and \ForgedUbuntuRsSafe~$\mu$s,
+against \ForgedEighteenRsPreparsed~$\mu$s and \ForgedUbuntuRsPreparsed~$\mu$s
+with a pre-parsed key. A forged token declaring HS256, by contrast, is cheap to
+reject under the narrow fix (\ForgedEighteenHsSafe~$\mu$s against
+\ForgedEighteenHsString~$\mu$s stock on OpenSSL \ForgedEighteenOpenssl). The
+remainder in the pre-parsed column is the rejection itself, which varies by
+runtime. These are per-call costs in a microbenchmark; we did not drive such
+tokens at a running service, and draw no conclusion about availability.
 
 \begin{table*}[!t]
 \caption{Cost of rejecting a forged token, in $\mu$s per \texttt{verify()} call
@@ -1124,8 +1167,8 @@ declaring RS256 with a random signature, rejected by the algorithm list.
 secret, rejected at signature verification. \emph{Narrow}: the narrow fix of
 Section~\ref{sec:fix}.}
 \label{tab:forged}
-\small
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrrrrrr@{}}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llrrrrrr@{}}
 \toprule
  & & \multicolumn{3}{c}{RS256 header} & \multicolumn{3}{c}{HS256 header} \\
 \cmidrule(lr){3-5}\cmidrule(l){6-8}
@@ -1136,7 +1179,7 @@ Ubuntu 24.04, Node \ForgedUbuntuNode & \ForgedUbuntuOpenssl & \ForgedUbuntuRsStr
 \texttt{node:26.6.0-alpine} & \ForgedTwentySixOpenssl & \ForgedTwentySixRsString & \ForgedTwentySixRsSafe & \ForgedTwentySixRsPreparsed & \ForgedTwentySixHsString & \ForgedTwentySixHsSafe & \ForgedTwentySixHsPreparsed \\
 Node \ForgedHostNode{} (VM) & \ForgedHostOpenssl & \ForgedHostRsString & \ForgedHostRsSafe & \ForgedHostRsPreparsed & \ForgedHostHsString & \ForgedHostHsSafe & \ForgedHostHsPreparsed \\
 \bottomrule
-\end{tabular*}
+\end{tabular}}
 \end{table*}
 
 \paragraph{Behaviour under misconfiguration} The narrow fix takes its fast path
@@ -1197,9 +1240,10 @@ Table~\ref{tab:ab}; Figs.~\ref{fig:insitu}, \ref{fig:survey} &
 Pre-parse key material once at startup, a one-line change
 (Figure~\ref{fig:preparse}) (\emph{application developers}). \\
 RQ4 & Of seven libraries in four languages only one uses a failing parse; two
-pay for per-call key handling, and only the failing parse's cost follows the
-OpenSSL release. &
-Table~\ref{tab:xlib}, Fig.~\ref{fig:xlib} &
+pay for per-call key handling, and only the failing parse's cost changes by an
+order of magnitude with the OpenSSL release; in \LibJwtInFrame{}+\LibCryptoInFrame{} popular npm
+packages only \LibraryName{} uses the failing parse. &
+Table~\ref{tab:xlib}, Fig.~\ref{fig:xlib}; \S\ref{sec:libsurvey} &
 Do not use a failing parse as a type test; resolve keys once, inspect then
 dispatch, or type the key (\emph{library authors}). \\
 RQ5 & The parse is load-bearing for a key-confusion defence; the naive
@@ -1261,7 +1305,7 @@ calls but not Node's own build of OpenSSL, so the binding column of
 Table~\ref{tab:decomp} is approximate; the causal claim compares releases under
 one build and does not inherit this. Every measurement uses HS256 with one
 secret of 34 characters and one token of fixed size. The parse fails at the
-PEM-header check and in the private-key decoder, neither of which depends much
+PEM-header check and in the private-key decoder, and its cost does not depend
 on the secret's length: a 16- and a 256-character secret cost
 \ForgedEighteenProbeSixteen~$\mu$s and \ForgedEighteenProbeTwoFiftySix~$\mu$s on
 OpenSSL \ForgedEighteenOpenssl{} (Section~\ref{sec:reachable}). A secret that
@@ -1315,7 +1359,8 @@ price is set causally by the OpenSSL release beneath the runtime:
 \CFullVThreeFiveEight~$\mu$s on \CVersionLiteralVThreeFiveEight, and the slow
 case persists in the Node.js that Ubuntu 24.04 ships. Per-call key handling is
 a design choice, not a property of JWT; \LibraryName{} is distinguished by
-making it through a failing parse, whose cost follows the OpenSSL release. That
+making it through a failing parse, whose cost changes by an order of magnitude
+with the OpenSSL release. That
 parse cannot be removed naively, because it is load-bearing for a key-confusion
 defence. A narrow fix preserves the defence and is \HostSafePatchRatio{} times
 faster, and pre-parsing the key once is the only configuration no input can

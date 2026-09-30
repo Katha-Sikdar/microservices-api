@@ -26,15 +26,27 @@ Upload the zip as a new project, set the compiler to **pdfLaTeX** and the main d
 - There are 5 new highlights, each at most 85 characters.
 - The declaration shows the new journal and title.
 
-## Trimmed to 26 pages, no supplementary file
+## Revised after the reviewer report (JSS_reviewer_report.md)
 
-The manuscript is 26 pages including references (it was 57), in the same Elsevier preprint format (12 pt, line numbers). There is no supplementary file. To get there:
+This version answers the reviewer's M1–M7, minors 1–16 and language items. See
+`CHANGES.md` for the response table (one row per comment, with status and
+location) and `TODO_EXPERIMENTS.md` for what still needs the authors' Mac,
+Kubernetes testbed or a second rater. The manuscript is 34 pages (was 26),
+because the new analyses the reviewer asked for were added:
 
-- Methodology, RQ1 to RQ5, implications, threats to validity and conclusion were condensed. Every finding, headline number and claim is kept.
-- Two floats that repeated data shown elsewhere were removed: the runtime-matrix chart (Table 4 has the same values) and the per-release C-probe table (Figure 4 plots it; the text gives the key values). The x86_64 table and the in-situ values table are summarised in the text.
-- Secondary analyses were cut: the drift between in-situ passes, the host-load analysis, the relocation design note, and some extended related work and threats. They remain in the replication package data.
-- A few peripheral citations were dropped with the condensed related work.
-- The new charts are more compact, and the references use a smaller font.
+- Section 5.3 and Table 5: Ubuntu 24.04's packaged Node.js (system OpenSSL 3.0) still pays the slow price (M2).
+- Section 7.1: an npm survey of 228 popular packages; only `jsonwebtoken` uses a failing parse as a type test (M1).
+- Section 8.4 and Table 9: measured cost of rejected forged tokens; the narrow fix behaves identically to the stock library on 252 cases x 4 runtimes (M7).
+- Corrected: the jose comparison (M4), the host OpenSSL source (M5), the survey counts (M6), the A/B wording (M3), and all minor items.
+
+Every new number comes from `review_macros.tex`, generated from run files in
+the replication repository (branch `jss-revision`).
+
+**Before submitting:** check the upstream issue for maintainer comments and
+update the sentence marked `TODO(minor 12)` in Section 8.5; confirm the two
+survey adjudications; and, to cite the new scripts, merge the `jss-revision`
+branch and publish a new Zenodo version, then use its DOI in the paper's
+reference and Data availability section if it differs.
 
 ## Upload
 
@@ -43,6 +55,7 @@ The manuscript is 26 pages including references (it was 57), in the same Elsevie
 | `submission-files/manuscript-preview.pdf` (or your Overleaf PDF) | Manuscript |
 | `submission-files/cover_letter.pdf` | Cover letter |
 | `submission-files/highlights.docx` | Highlights |
+| `CHANGES.md` (as PDF or pasted) | Response to reviewers, if the journal asks for one |
 | `submission-files/declaration_of_interest.docx` | Declaration of interest (only if the menu offers it) |
 
 Article type: **Research paper** (full-length article).
