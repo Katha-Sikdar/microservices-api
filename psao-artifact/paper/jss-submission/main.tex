@@ -131,28 +131,27 @@ in JSON Web Token Validation}
 
 \begin{abstract}
 Developers routinely attribute the per-request cost of JSON Web Token (JWT)
-validation to cryptography, and optimise or relocate it on that assumption. We
-test the assumption empirically in \LibraryName{}, a widely used Node.js
-library. The signature primitive is \HostHmacString~$\mu$s of a
-\HostJwtString~$\mu$s validation. The dominant component,
-\HostProbeThrows~$\mu$s (\HostProbeShareOfCall\%), is a discarded key-parse
-attempt: a shared secret supplied as a string is first offered to the
-asymmetric key parser and is resolved only after that parse fails. Its price
-is set by a transitive dependency, the OpenSSL release bundled with the
-runtime: issued from C, the same calls cost \CFullVThreeZeroSixteen~$\mu$s on
-OpenSSL \CVersionLiteralVThreeZeroSixteen{} and \CFullVThreeFiveEight~$\mu$s on
-\CVersionLiteralVThreeFiveEight. In a containerised service, validation adds
-\AbCpuPerCallDelta~$\mu$s of processor time per request, within
-\AbCpuVsPredictedPct\% of the microbenchmark prediction. Of seven JWT libraries
-in four languages, only this one attempts the parse, so the cost follows a
-design choice rather than JWT validation as such. The obvious optimisation is
-unsafe: the parse entered the library with a key-confusion security fix, and
-removing it naively fails the library's own tests. We give a narrow fix that
-passes the full test suite and makes validation \HostSafePatchRatio{} times
-faster, and identify pre-parsed keys as the remedy that removes the cost for
-every input. In our sample of \SampleCallSites{} public call sites, none
-pre-parses the key. We derive guidance for developers, library authors and
-performance engineers, and release a replication package.
+validation to cryptography. We test that assumption in \LibraryName{}, a widely
+used Node.js library. The signature primitive is \HostHmacString~$\mu$s of a
+\HostJwtString~$\mu$s validation; \HostProbeThrows~$\mu$s
+(\HostProbeShareOfCall\%) is a discarded parse, in which a string
+secret is first offered to the asymmetric key parser and is resolved only after
+that parse fails. Its price is set by a transitive dependency, the OpenSSL
+release beneath the runtime: issued from C, the same calls cost
+\CFullVThreeZeroSixteen~$\mu$s on OpenSSL \CVersionLiteralVThreeZeroSixteen{}
+and \CFullVThreeFiveEight~$\mu$s on \CVersionLiteralVThreeFiveEight. The slow
+case is not confined to end-of-life runtimes: Ubuntu 24.04's packaged Node.js,
+linked to the system OpenSSL 3.0, pays \DistroUbuntuPenalty~$\mu$s per
+validation. In a containerised service on OpenSSL 3.0, validation accounted for
+\AbCpuShareOfRequestPct\% of the application's processor time per request. Of
+seven JWT libraries in four languages, only this one uses a failing parse, and
+only its penalty follows the OpenSSL release. The obvious optimisation is
+unsafe: the parse arrived with a key-confusion security fix, and removing it
+naively fails the library's own tests. A narrow fix passes the full suite and
+makes validation \HostSafePatchRatio{} times faster; only a pre-parsed key
+removes the cost for every input, yet none of the \SampleCallSites{} call sites
+in our sample pre-parses it. We derive guidance for developers, library authors
+and performance engineers, and release a replication package.
 \end{abstract}
 
 \begin{keyword}
@@ -192,12 +191,15 @@ Given a secret that is not already a key object, the library attempts
 \texttt{createPublicKey()} first and falls back to \texttt{createSecretKey()}
 in the exception handler. For an HMAC secret the first call cannot succeed, so
 every validation constructs and discards an OpenSSL parse failure, at
-\HostProbeThrows~$\mu$s of a \HostJwtString~$\mu$s call. Its price depends on
+\HostProbeThrows~$\mu$s of a \HostJwtString~$\mu$s call. We call this failed
+\texttt{createPublicKey()} call, including the exception that reports its
+failure, the \emph{discarded parse}. Its price depends on
 which OpenSSL release performs it, by more than an order of magnitude:
 runtimes carrying OpenSSL~3.2 or later pay tens of microseconds, runtimes
 carrying the 3.0 series pay hundreds. The 3.0 series is still the system
-OpenSSL of long-term-support distributions such as Ubuntu 22.04 and Debian 12,
-and of any image pinned to an older base layer, which is common in
+OpenSSL of long-term-support distributions, and Node.js as packaged by Ubuntu
+24.04 links it and pays the slow price (Section~\ref{sec:distro}); so does any
+image pinned to an older base layer, which is common in
 practice~\citep{zerouali2019outdated}.
 
 For software engineering the case matters for three reasons beyond the
@@ -236,8 +238,8 @@ seven libraries perform a failing parse (Section~\ref{sec:rq4}).
 replication package~\citep{artifact2026}.
 \begin{enumerate}\setlength{\itemsep}{1pt}
 \item Two independent decompositions of the validation call that locate its
-      dominant component in a discarded key-parse attempt, and a split of that
-      attempt into OpenSSL parse, V8 exception and binding (Section~\ref{sec:rq1}).
+      dominant component in a discarded parse, and a split of it into the
+      OpenSSL parse, the V8 exception and the binding (Section~\ref{sec:rq1}).
 \item A causal attribution of its magnitude to the bundled OpenSSL release,
       with the parse reissued from C against \CProbeVersionCount{} releases
       (Section~\ref{sec:rq2}).
@@ -415,7 +417,7 @@ is generated (Data availability).
 \caption{Study workflow. Top: the five research questions. Middle: the
 instruments that answer each, with the section describing it. Bottom: the
 tables and figures each produces. The C probe and the exception baseline
-(RQ2) also decompose the discarded attempt for RQ1 (Table~\ref{tab:decomp}),
+(RQ2) also decompose the discarded parse for RQ1 (Table~\ref{tab:decomp}),
 and the call-site survey (RQ3) supplies the algorithm-pinning figure used in
 RQ5. All measurements feed one replication package, from which every reported
 value is generated.}
@@ -497,7 +499,7 @@ at \CProbeInvocations{} processes per release.
 same message, properties and code as Node's (captured from a real failure) is
 thrown from \ExcDepth{} frames and discarded, with no OpenSSL call, on six
 official Node runtimes. With the C probe this gives a three-way decomposition
-of the discarded attempt: the OpenSSL parse, the V8 exception, and a remainder
+of the discarded parse: the OpenSSL parse, the V8 exception, and a remainder
 attributed to the binding between them.
 
 \paragraph{Other libraries}\label{sec:xlib-method} We read the key-handling
@@ -533,6 +535,26 @@ argument traced within its file), and a targeted counter-search that fetches
 every file co-occurring the library with the pre-parsing interface and
 adjudicates it by hand. None supports a population proportion, so results are
 reported \emph{in our sample}.
+
+\paragraph{Distribution-packaged Node.js} To test whether the OpenSSL~3.0 case
+survives on supported systems, an Ubuntu 24.04 image with the distribution's
+own \texttt{nodejs} package, which links the system OpenSSL, is measured beside
+two official images under the runtime-matrix protocol (Section~\ref{sec:distro}).
+
+\paragraph{Rejected tokens} A further harness times \texttt{verify()} on
+well-formed tokens that the client can build without the secret, one declaring
+RS256 and one declaring HS256 with a signature not made with the secret, under
+the stock library, the narrow fix and a pre-parsed key, and a second script
+compares the stock library and the narrow fix on every combination of key
+material, token and algorithm option (Section~\ref{sec:reachable}).
+
+\paragraph{Library survey}\label{sec:libsurvey-method} To move RQ4 from
+existence towards prevalence, a frame of npm packages is drawn from the
+registry's search interface with stated queries and a weekly-download
+threshold, and a detector built on a JavaScript parser flags every
+\texttt{try}/\texttt{catch} whose \texttt{try} calls a key or certificate
+parser and whose handler falls back to a different key constructor. Every hit is
+read and adjudicated by hand (Section~\ref{sec:libsurvey}).
 
 %% ============================================================================
 \section{RQ1: Where the cost goes}\label{sec:rq1}
@@ -580,7 +602,7 @@ Table~\ref{tab:host} and Figure~\ref{fig:decomposition} give each operation in
 the validation path. The signature primitive costs \HostHmacString~$\mu$s of a
 \HostJwtString~$\mu$s call. The conversion to which the remainder is most
 readily attributed, the symmetric key constructor, costs
-\HostCreateSecretKey~$\mu$s. The discarded attempt that precedes it costs
+\HostCreateSecretKey~$\mu$s. The discarded parse that precedes it costs
 \HostProbeThrows~$\mu$s, \HostProbeShareOfCall\% of the call and its largest
 single component. Supplying a pre-parsed key instead of a string reduces the
 call by \HostStringPenalty~$\mu$s [\HostStringPenaltyCiLo,
@@ -589,10 +611,10 @@ than parsing is backwards: a \emph{successful} asymmetric parse costs
 \HostProbeSucceeds~$\mu$s, so the RSA path's parse is useful work while the
 HMAC path's is waste.
 
-\subsection{What the discarded attempt is made of}\label{sec:granularity}
+\subsection{What the discarded parse is made of}\label{sec:granularity}
 
 \begin{table*}[!t]
-\caption{The discarded attempt decomposed, per runtime, in $\mu$s (x86\_64).
+\caption{The discarded parse decomposed, per runtime, in $\mu$s (x86\_64).
 \emph{Probe}: \texttt{createPublicKey(secret)} inside Node, thrown and caught.
 \emph{C parse}: the same OpenSSL calls issued from C against the OpenSSL
 release that runtime bundles, built from source. \emph{V8 exception}: an
@@ -619,10 +641,10 @@ Node \RtTwentySixLiteral & \RtTwentySixOpenssl & \RtTwentySixProbe & \RtTwentySi
 \end{tabular*}
 \end{table*}
 
-Table~\ref{tab:decomp} decomposes the attempt on six official runtimes. On every
+Table~\ref{tab:decomp} decomposes the discarded parse on six official runtimes. On every
 runtime bundling OpenSSL~3.0 the C parse alone matches the probe to within a
 few percent (\RtEighteenDecompCPct\% of it under Node \RtEighteenLiteral): the
-discarded attempt \emph{is} the OpenSSL parse and would cost the same with no
+discarded parse \emph{is} the OpenSSL parse and would cost the same with no
 JavaScript engine. The V8 exception is small and nearly constant, about
 \RtEighteenExcNodeLike~$\mu$s (\RtEighteenDecompExcPct\% of the probe under Node
 \RtEighteenLiteral), half of it stack capture. Where OpenSSL~3.5 makes the parse
@@ -745,12 +767,14 @@ The OpenSSL~3.0 series is not confined to end-of-life Node.js images. Ubuntu
 24.04 LTS packages Node.js \DistroUbuntuNode{}, built against the system's
 shared OpenSSL rather than a bundled copy; in its current image that is OpenSSL
 \DistroUbuntuOpenssl. Table~\ref{tab:distro} measures it beside two of the
-official images of Table~\ref{tab:matrix}, on one x86\_64 machine in one run
-(\DistroCaptured), with the protocol of Section~\ref{sec:unit}.
+official images of Table~\ref{tab:matrix}, on one x86\_64 virtual machine
+(\DistroCpus{} vCPUs) in one run (\DistroCaptured), with the protocol of
+Section~\ref{sec:unit}.
 
 \begin{table*}[!t]
 \caption{Distribution-packaged Node.js against official images, same x86\_64
-machine and run, \DistroRounds{} processes of 20{,}000 calls per condition, in
+machine and run, \DistroRounds{} processes of \DistroCalls{} calls per condition (one
+process of the \texttt{node:18} pre-parsed cell failed without output), in
 $\mu$s (medians of per-process medians). \emph{Penalty}: median of per-round
 paired differences between \texttt{verify()} with a string secret and with a
 pre-parsed key, with its 95\% bootstrap interval. Absolute values are not
@@ -769,7 +793,17 @@ Ubuntu 24.04, Node \DistroUbuntuNode{} & \DistroUbuntuOpenssl{} (system) & \Dist
 \end{tabular*}
 \end{table*}
 
-DISTRO_RESULT_TEXT
+On Ubuntu 24.04's own Node.js the discarded parse costs
+\DistroUbuntuProbeThrows~$\mu$s, the same order as on the end-of-life
+\texttt{node:18} image measured alongside it (\DistroRefEighteenProbeThrows~$\mu$s)
+and an order of magnitude above the OpenSSL~3.5 image
+(\DistroRefTwentySixProbeThrows~$\mu$s). Supplying the secret as a string costs
+\DistroUbuntuPenalty~$\mu$s per validation [\DistroUbuntuPenaltyCiLo,
+\DistroUbuntuPenaltyCiHi] against a pre-parsed key, and the narrow fix brings
+the call to \DistroUbuntuJwtStringSafe~$\mu$s. The OpenSSL~3.0 price is
+therefore not an artefact of end-of-life images: a service that runs the Node.js
+its LTS distribution ships pays it today. How many deployments do so we cannot
+say; we have no data on the runtimes \LibraryName{} users deploy.
 
 %% ============================================================================
 \section{RQ3: The containerised service, and prevalence}\label{sec:rq3}
@@ -977,7 +1011,7 @@ targets.
 %% ============================================================================
 \section{RQ5: Removing the cost safely}\label{sec:security}
 
-\subsection{Threat model, and the attempt precedes authentication}\label{sec:threatmodel}\label{sec:preauth}
+\subsection{Threat model, and the discarded parse precedes authentication}\label{sec:threatmodel}\label{sec:preauth}
 
 The adversary is a remote client that can place arbitrary bytes where the
 service expects a bearer token, including every header field, but does not know
@@ -988,7 +1022,7 @@ call (Section~\ref{sec:reachable}), but we drove no adversarial traffic at a
 service and make no claim about availability or capacity. Figure~\ref{fig:verifyorder} shows the order of checks in
 \texttt{verify()}. Reaching key resolution requires only a well-formed token;
 the permitted-algorithm list, the key-type checks and the signature all come
-later. A token that will be rejected therefore pays the discarded attempt in
+later. A token that will be rejected therefore pays the discarded parse in
 full, and restricting permitted algorithms does not avoid it.
 
 \begin{figure}[!t]
@@ -997,7 +1031,7 @@ full, and restricting permitted algorithms does not avoid it.
 \caption{Order of operations in \texttt{verify()} at \LibraryTag, with the
 file's line numbers. Every step up to and including the algorithm and key-type
 checks runs before the signature is verified, and so runs for a forged token
-exactly as for a genuine one. The discarded attempt sits inside key
+exactly as for a genuine one. The discarded parse sits inside key
 resolution; the key-type checks that implement the library's key-confusion
 defence read the type of the key object resolution produces (dashed arrow).
 Pinning permitted algorithms is enforced at the third step and therefore does
@@ -1005,14 +1039,14 @@ not prevent the second.}
 \label{fig:verifyorder}
 \end{figure}
 
-\subsection{The attempt arrived with a key-confusion fix}\label{sec:provenance}
+\subsection{The discarded parse arrived with a key-confusion fix}\label{sec:provenance}
 
 Comparing \texttt{verify.js} in versions 8.5.1, 9.0.0 and 9.0.3: in 8.5.1 the
 secret is passed to the signature routine as given, and the resolution block of
 Figure~\ref{fig:codepath} first appears in 9.0.0, the release that fixed
 CVE-2022-23541 and CVE-2022-23539~\citep{auth0bulletin2022}. The checks
 implementing those fixes (lines 148--160) operate on the key object the block
-produces. The attempt is part of a security fix, not an oversight.
+produces. The discarded parse is part of a security fix, not an oversight.
 
 \subsection{A fix, and a constraint on it}\label{sec:fix}
 
@@ -1023,7 +1057,7 @@ produces. The attempt is part of a security fix, not an oversight.
 secret, under the narrow fix with the same string secret, and under the stock
 library with a pre-parsed key, on both machines (medians of per-process
 medians). The narrow fix recovers most of the gap without any change to
-calling code; only the pre-parsed key removes the attempt for every input
+calling code; only the pre-parsed key removes the discarded parse for every input
 (Section~\ref{sec:reachable}).}
 \label{fig:remedies}
 \end{figure}
@@ -1049,7 +1083,7 @@ someone changing the code.
 \subsection{What the narrow fix leaves reachable}\label{sec:reachable}
 
 \begin{table}[!t]
-\caption{Which tokens reach the discarded key-parse attempt, for a service
+\caption{Which tokens reach the discarded parse, for a service
 configured with an HMAC shared secret, as read from the source at
 \LibraryTag{} and from the patch of Section~\ref{sec:fix}. ``Well-formed'':
 three segments, JSON header and payload, non-empty signature. No row requires
@@ -1144,15 +1178,16 @@ question and by the stakeholder who can act on each.}
 RQ & Finding & Evidence & Implication (who acts) \\
 \midrule
 RQ1 & The signature is \HostHmacString~$\mu$s of a \HostJwtString~$\mu$s
-call; a discarded key-parse attempt is \HostProbeThrows~$\mu$s
+call; a discarded parse is \HostProbeThrows~$\mu$s
 (\HostProbeShareOfCall\%). &
 Table~\ref{tab:host}, Fig.~\ref{fig:decomposition}; profiler &
 Profile before relocating a ``cryptographic'' cost; attribution by intuition
 was wrong twice here (\emph{performance engineers}). \\
 RQ2 & The parse costs \CFullVThreeZeroSixteen~$\mu$s on OpenSSL
 \CVersionLiteralVThreeZeroSixteen{} and \CFullVThreeFiveEight~$\mu$s on
-\CVersionLiteralVThreeFiveEight, issued from C. &
-Table~\ref{tab:matrix}; Fig.~\ref{fig:openssl} &
+\CVersionLiteralVThreeFiveEight, issued from C; Ubuntu 24.04's own Node.js
+pays the OpenSSL~3.0 price. &
+Tables~\ref{tab:matrix}, \ref{tab:distro}; Fig.~\ref{fig:openssl} &
 Record the base image and bundled OpenSSL with every performance figure; treat
 base-image bumps as performance changes (\emph{developers, DevOps}). \\
 RQ3 & In a containerised service on OpenSSL~3.0, validation is
@@ -1181,7 +1216,7 @@ key-confusion tests (\emph{maintainers, reviewers}). \\
 (Figure~\ref{fig:preparse}). It removes \HostStringPenalty~$\mu$s per
 validation on the host and far more on OpenSSL~3.0, needs no architectural
 change and no change to the library, and is the only remedy that removes the
-attempt for every input. Also restrict permitted algorithms~\citep{rfc8725};
+discarded parse for every input. Also restrict permitted algorithms~\citep{rfc8725};
 that is an independent defence, not a substitute.
 
 \begin{figure}[!t]
@@ -1275,14 +1310,16 @@ The per-request cost of token validation in \LibraryName{} is not the
 signature (\HostHmacString~$\mu$s of \HostJwtString~$\mu$s) and not key
 conversion (\HostCreateSecretKey~$\mu$s). It is a parse attempted in the wrong
 order and discarded on every request, \HostProbeShareOfCall\% of the call. Its
-price is set causally by the OpenSSL release a base image pins:
+price is set causally by the OpenSSL release beneath the runtime:
 \CFullVThreeZeroSixteen~$\mu$s on \CVersionLiteralVThreeZeroSixteen{} against
-\CFullVThreeFiveEight~$\mu$s on \CVersionLiteralVThreeFiveEight. It is a design
-choice, not a property of JWT, and it cannot be removed naively because it is
-load-bearing for a key-confusion defence. A narrow fix preserves the defence and
-is \HostSafePatchRatio{} times faster, and pre-parsing the key once is the only
-configuration no input can push onto the slow path, yet no call site in our
-sample does so.
+\CFullVThreeFiveEight~$\mu$s on \CVersionLiteralVThreeFiveEight, and the slow
+case persists in the Node.js that Ubuntu 24.04 ships. Per-call key handling is
+a design choice, not a property of JWT; \LibraryName{} is distinguished by
+making it through a failing parse, whose cost follows the OpenSSL release. That
+parse cannot be removed naively, because it is load-bearing for a key-confusion
+defence. A narrow fix preserves the defence and is \HostSafePatchRatio{} times
+faster, and pre-parsing the key once is the only configuration no input can
+push onto the slow path, yet no call site in our sample does so.
 
 The broader lesson is about attribution. The explanation that presented itself
 before measurement was wrong twice, and the component that sets the cost is
@@ -1320,8 +1357,13 @@ replication package~\citep{artifact2026}, archived at Zenodo under
 \url{https://doi.org/10.5281/zenodo.23011153} and maintained in a public
 GitHub repository.\footnote{\url{https://github.com/Katha-Sikdar/A-Pre-Authentication-Key-Parse-Dominates-JWT-Validation-in-jsonwebtoken-and-Is-Load-Bearing-}}
 It contains all measurements, code and scripts that generate every value and
-figure in this paper. The third-party survey corpus is not redistributed; a
-manifest pins each of its \ManifestFiles{} files by content hash.
+figure in this paper, and is released under the MIT licence. The third-party
+survey corpus is not redistributed; a manifest pins each of its
+\ManifestFiles{} files by repository, commit, path and content hash, and a
+script in the package re-fetches every file from its repository and checks the
+hash, so the corpus can be reconstructed wherever the files remain public.
+Experiments that need the authors' testbed, and the second rating of the
+survey, are scripted in the package with their exact commands.
 
 \section*{Ethics and responsible disclosure}
 The study involves no human participants and no personal data, and no attack
