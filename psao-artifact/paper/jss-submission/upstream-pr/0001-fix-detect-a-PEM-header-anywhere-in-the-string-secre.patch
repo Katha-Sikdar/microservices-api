@@ -1,0 +1,143 @@
+From 85e28b0365f167f785db0b84e02a35d939b7fda3 Mon Sep 17 00:00:00 2001
+From: Katha Sikdar <ferdouskatha35@gmail.com>
+Date: Wed, 30 Sep 2026 14:46:51 +0000
+Subject: [PATCH] fix: detect a PEM header anywhere in the string secret
+
+looksLikeAsymmetricKey() only recognised a PEM key whose "-----BEGIN"
+header starts the string (after whitespace). OpenSSL skips any text
+before the header, so createPublicKey() parses a PEM public key that is
+preceded by, for example, a comment line. With the anchored check such
+a key took the secret-first path and was accepted as an HMAC secret: an
+HS256 token HMACed with the public key text verified, where 9.0.3
+rejects it with "invalid algorithm".
+
+Search for the header anywhere in the string, as a string that contains
+it is never a plain shared secret. Add a regression test for that case
+and four key-path tests: an HS* token is refused when the configured key
+is asymmetric material (with and without `algorithms`), a string secret
+and its KeyObject verify identically, and a wrong string secret is still
+rejected.
+---
+ test/issue_1046.tests.js     | 14 ++++++++
+ test/verify-keypath.tests.js | 64 ++++++++++++++++++++++++++++++++++++
+ verify.js                    |  7 ++--
+ 3 files changed, 83 insertions(+), 2 deletions(-)
+ create mode 100644 test/verify-keypath.tests.js
+
+diff --git a/test/issue_1046.tests.js b/test/issue_1046.tests.js
+index 1546f5f..1078c7f 100644
+--- a/test/issue_1046.tests.js
++++ b/test/issue_1046.tests.js
+@@ -21,3 +21,17 @@ describe('issue 1046', function () {
+       .to.throw(JsonWebTokenError, 'must be a symmetric key');
+   });
+ });
++
++describe('issue 1046: PEM key preceded by other text', function () {
++  it('still rejects an HS256 token HMACed with a PEM public key that follows a comment line', function () {
++    const { publicKey } = crypto.generateKeyPairSync('rsa', { modulusLength: 2048 });
++    const pem = 'public key for service X\n' + publicKey.export({ type: 'spki', format: 'pem' });
++    const b64u = (o) => Buffer.from(JSON.stringify(o)).toString('base64url');
++    const header = b64u({ alg: 'HS256', typ: 'JWT' });
++    const payload = b64u({ sub: 'attacker' });
++    const signature = crypto.createHmac('sha256', pem).update(`${header}.${payload}`).digest('base64url');
++    const token = `${header}.${payload}.${signature}`;
++
++    expect(() => jwt.verify(token, pem)).to.throw(JsonWebTokenError);
++  });
++});
+diff --git a/test/verify-keypath.tests.js b/test/verify-keypath.tests.js
+new file mode 100644
+index 0000000..891880c
+--- /dev/null
++++ b/test/verify-keypath.tests.js
+@@ -0,0 +1,64 @@
++'use strict';
++
++const jwt = require('../index');
++const crypto = require('crypto');
++const expect = require('chai').expect;
++
++describe('verify: resolving a string secret for HS* tokens', function () {
++  const secret = 'a-shared-secret-of-reasonable-length';
++  const secretKeyObject = crypto.createSecretKey(Buffer.from(secret));
++  const rsa = crypto.generateKeyPairSync('rsa', { modulusLength: 2048 });
++  const publicPem = rsa.publicKey.export({ type: 'spki', format: 'pem' });
++
++  function base64url(input) {
++    return Buffer.from(input).toString('base64')
++      .replace(/\+/g, '-').replace(/\//g, '_').replace(/[=]+$/, '');
++  }
++
++  // Mints an HS256 token keyed on arbitrary material. Used only to assert that
++  // such a token is REJECTED when the material is asymmetric.
++  function hs256SignedWith(keyMaterial) {
++    const header = base64url(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
++    const payload = base64url(JSON.stringify({ sub: 'test' }));
++    const signature = crypto.createHmac('sha256', keyMaterial)
++      .update(`${header}.${payload}`).digest();
++    return `${header}.${payload}.${base64url(signature)}`;
++  }
++
++  // INVARIANT — the property the fast path must not disturb.
++  //
++  // Asymmetric key material is resolved through createPublicKey(), and the
++  // resulting KeyObject's `type` is what the algorithm/key-type check relies on
++  // to refuse an HS* token. The fast path is restricted to plain string secrets
++  // precisely so that PEM and JWK input still reaches that check unchanged.
++  // Widening it would route asymmetric material around the check.
++  it('refuses an HS* token when the configured key is asymmetric material', function () {
++    const token = hs256SignedWith(publicPem);
++    expect(function () { jwt.verify(token, publicPem); })
++      .to.throw(jwt.JsonWebTokenError);
++  });
++
++  it('refuses it with `algorithms` pinned as well', function () {
++    const token = hs256SignedWith(publicPem);
++    expect(function () { jwt.verify(token, publicPem, { algorithms: ['RS256'] }); })
++      .to.throw(jwt.JsonWebTokenError);
++  });
++
++  // NO REGRESSION — the fast path must be observationally identical to the
++  // slow one for every input that legitimately used it.
++  it('verifies a string secret and its KeyObject identically', function () {
++    const token = jwt.sign({ sub: 'test' }, secret, { algorithm: 'HS256', expiresIn: '1h' });
++
++    const viaString = jwt.verify(token, secret, { algorithms: ['HS256'] });
++    const viaKeyObject = jwt.verify(token, secretKeyObject, { algorithms: ['HS256'] });
++
++    expect(viaString).to.deep.equal(viaKeyObject);
++    expect(viaString.sub).to.equal('test');
++  });
++
++  it('still rejects a string secret that does not match the signature', function () {
++    const token = jwt.sign({ sub: 'test' }, secret, { algorithm: 'HS256' });
++    expect(function () { jwt.verify(token, 'a-different-secret', { algorithms: ['HS256'] }); })
++      .to.throw(jwt.JsonWebTokenError);
++  });
++});
+diff --git a/verify.js b/verify.js
+index f905333..7d30118 100644
+--- a/verify.js
++++ b/verify.js
+@@ -19,12 +19,15 @@ if (PS_SUPPORTED) {
+ }
+ 
+ // PEM/SSH/JWK material must still go through createPublicKey first so an HS*
+-// token cannot treat an RSA public key as an HMAC secret.
++// token cannot treat an RSA public key as an HMAC secret. The PEM header is
++// searched for anywhere in the string, not only at the start: OpenSSL skips
++// any text before it, so a PEM key preceded by a comment line is still parsed
++// as a public key by createPublicKey.
+ function looksLikeAsymmetricKey(key) {
+   if (typeof key !== 'string') {
+     return true;
+   }
+-  return /^\s*(-----BEGIN |ssh-|\{)/.test(key);
++  return key.indexOf('-----BEGIN') !== -1 || /^\s*(ssh-|\{)/.test(key);
+ }
+ 
+ module.exports = function (jwtString, secretOrPublicKey, options, callback) {
+-- 
+2.43.0
+

@@ -1289,11 +1289,19 @@ An earlier issue\footnote{\url{https://github.com/auth0/node-jsonwebtoken/issues
 reports HS256 verification in 9.x 34 times slower than in 8.5.1 on OpenSSL~3.0,
 with no diagnosed cause. We reported the
 mechanism\footnote{\url{https://github.com/auth0/node-jsonwebtoken/issues/1046}},
-and a pull request implementing the narrow fix was opened against it; the
-key-material fix of Section~\ref{sec:fix} is simpler and closes the gap the
-narrow fix leaves, and we recommend it upstream.
+and a pull request\footnote{\url{https://github.com/auth0/node-jsonwebtoken/pull/1047}}
+was opened against it. It does not implement the narrow fix: like the
+key-material fix of Section~\ref{sec:fix}, it selects the path from the form of
+the key material rather than from the declared algorithm. It recognises a PEM
+key only when the header begins the string, whereas the key-material fix looks
+for the header anywhere in it, as OpenSSL's PEM reader does.
 %% STATUS-AT-SUBMISSION: re-check issues 966/1046 and the pull request before
 %% submitting and update this sentence if the maintainers have responded.
+%% Once upstream-pr/0001-*.patch is on the pull request, replace the two
+%% sentences after the footnote with: "It selects the path from the form of the
+%% key material rather than from the declared algorithm and now implements the
+%% key-material fix of Section~\ref{sec:fix}, with the four key-path tests and a
+%% regression test for a PEM key preceded by other text."
 At the time of writing (\StatusDate) the pull request had not been merged, no
 release after 9.0.3 had been published, and the repository's main branch had
 not changed since June 2026.
@@ -1423,6 +1431,19 @@ the load generator on separate cores would give one, and the replication
 package includes a driver for that design. The headline host figure predates
 the per-measurement OpenSSL field; its version (\HostOpensslInferred) is
 inferred from the run record rather than recorded with each row.
+The Mac host is passively cooled, so sustained load can lower its clock and,
+like the contention above, raise the CPU time charged for the same work. We
+looked for such drift in run order. In the host decomposition, the per-process
+median of a string-secret \texttt{verify()} was \DriftHostFirst~$\mu$s over the
+first third of its \DriftHostProcs{} processes and \DriftHostLast~$\mu$s over the
+last. Within the A/B windows, the service's CPU was \DriftAbJwtFirst{} and
+\DriftAbJwtLast{} millicores over the first and last third with validation, and
+\DriftAbNoneFirst{} and \DriftAbNoneLast{} without. The in-situ sweep, whose
+descending pass ran second, did show a higher mean \texttt{verify()} time in
+that pass at \DriftSweepSlowerRates{} of \DriftSweepRates{} rates (median
+\DriftSweepMedianPct\%, at most \DriftSweepMaxPct\%). This is consistent with
+throttling, although the clock was not recorded, and is small beside the change
+across rates in Figure~\ref{fig:insitu}.
 
 \paragraph{External} Primary measurements come from one ARM64 host; the
 x86\_64 machines are shared virtual machines, used only for orderings and

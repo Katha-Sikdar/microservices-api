@@ -133,3 +133,10 @@ revision-process language. No number changed.
 | 4 | Not changed: §8.5 still does not say the PR implements the key-material fix. The fix and the four key-path tests must first be pushed to the upstream PR by its author (`upstream/`), then the `STATUS-AT-SUBMISSION` sentence can be updated. | §8.5 |
 | 5 | Table 2: Mac is MacBook Air (Mac16,12), Apple M4, 10 cores (4P+6E), 16 GB, from the authors' system report; recorded in the replication package as `data/runs/MACHINE-mac-host/README.md` without serial numbers or UUIDs. Caption states the VM provider was not recorded (Firecracker-style `-fc-` kernel); no provider is named. | Table 2 |
 | 6 | Added to the end of §8.4: both fixes fast-path only string secrets, so an HMAC secret supplied as a Buffer still pays the discarded parse, with `\SampleBuffer` Buffer and `\SampleFileContents` file-contents call sites of `\SampleCallSites`. The suggested "6 Buffer call sites" was not used: in `survey/data/callsites.csv`, 3 of the 4 file-contents sites read with `'utf8'` (strings), and none of the Buffer sites uses an HMAC algorithm. | §8.4 |
+
+## Upstream PR and passive cooling
+
+| Change | Where |
+|---|---|
+| §8.5 said the pull request (auth0/node-jsonwebtoken#1047, head `0d88644`) implements the narrow fix. Its code selects the path from the key material, not the declared algorithm, so it is a key-material fix whose PEM test is anchored at the start of the string. Text corrected, PR footnote added, "we recommend it upstream" removed. The PR could not be updated from here (the branch is on Hashim1999164's fork); `upstream-pr/` holds a patch for it (header anywhere + 5 tests; 518/0 locally), and the post-push sentence is in the `STATUS-AT-SUBMISSION` comment. | §8.5, `upstream-pr/` |
+| Threats → Internal: the Mac is passively cooled; drift in run order checked from existing run files (new `Drift*` macros from `analysis/make_review_macros.py`): no slowdown in the host decomposition or within the A/B windows; the in-situ sweep's second pass was slower at 6 of 7 rates (median 4.2%, max 10.7%), stated as consistent with throttling, clock not recorded. | §10 |
