@@ -1290,11 +1290,13 @@ reports HS256 verification in 9.x 34 times slower than in 8.5.1 on OpenSSL~3.0,
 with no diagnosed cause. We reported the
 mechanism\footnote{\url{https://github.com/auth0/node-jsonwebtoken/issues/1046}},
 and a pull request\footnote{\url{https://github.com/auth0/node-jsonwebtoken/pull/1047}}
-was opened against it. It does not implement the narrow fix: like the
-key-material fix of Section~\ref{sec:fix}, it selects the path from the form of
-the key material rather than from the declared algorithm. It recognises a PEM
-key only when the header begins the string, whereas the key-material fix looks
-for the header anywhere in it, as OpenSSL's PEM reader does.
+was opened against it. Like the key-material fix of Section~\ref{sec:fix},
+and unlike the narrow fix, it selects the path from the form of the key
+material rather than from the declared algorithm. It differs in one respect: it
+recognises a PEM key only when the header begins the string, whereas the
+key-material fix looks for the header anywhere in the string, as OpenSSL's PEM
+reader does, so that a PEM key preceded by other text is never taken as an
+HMAC secret.
 %% STATUS-AT-SUBMISSION: re-check issues 966/1046 and the pull request before
 %% submitting and update this sentence if the maintainers have responded.
 %% Once upstream-pr/0001-*.patch is on the pull request, replace the two
