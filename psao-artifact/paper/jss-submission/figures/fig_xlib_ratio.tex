@@ -1,0 +1,57 @@
+%% String-to-pre-parsed cost ratio across seven JWT libraries (Table xlib).
+%% Every coordinate is a macro from revision_macros.tex; no value is typed here.
+\begingroup
+\definecolor{xlpay}{HTML}{E8663A}
+\definecolor{xlfree}{HTML}{8A8984}
+\begin{tikzpicture}
+\begin{axis}[
+  xbar, xmode=log, log basis x=10,
+  width=0.78\linewidth, height=80mm,
+  legend style={font=\scriptsize, at={(0.5,-0.2)}, anchor=north, legend columns=2, draw=none},
+  bar width=6pt, bar shift=0pt, enlarge y limits=0.07,
+  xmin=0.5, xmax=150, log origin=infty,
+  xlabel={Cost with a raw secret $\div$ cost with a pre-parsed key (log scale)},
+  symbolic y coords={jwtO,jwtN,joseO,joseN,fastjwtO,fastjwtN,pyjwt,golangjwt,nimbus,jjwt},
+  ytick={jwtO,jwtN,joseO,joseN,fastjwtO,fastjwtN,pyjwt,golangjwt,nimbus,jjwt}, y dir=reverse,
+  yticklabels={
+    {\texttt{jsonwebtoken}, OpenSSL~3.0},
+    {\texttt{jsonwebtoken}, OpenSSL~3.5},
+    {\texttt{jose}, OpenSSL~3.0},
+    {\texttt{jose}, OpenSSL~3.5},
+    {\texttt{fast-jwt}, OpenSSL~3.0},
+    {\texttt{fast-jwt}, OpenSSL~3.5},
+    {\texttt{PyJWT}},
+    {\texttt{golang-jwt}},
+    {\texttt{nimbus-jose-jwt}},
+    {\texttt{jjwt}}},
+  yticklabel style={font=\scriptsize, align=right},
+  xticklabel style={font=\scriptsize},
+  xlabel style={font=\footnotesize},
+  xtick={0.5,1,2,5,10,20,50,100},
+  xticklabels={0.5,1,2,5,10,20,50,100},
+  nodes near coords, nodes near coords align={horizontal},
+  every node near coord/.append style={font=\scriptsize, text=black},
+  point meta=explicit symbolic,
+  axis x line*=bottom, axis y line*=left,
+  xmajorgrids, grid style={draw=black!10},
+  extra x ticks={1}, extra x tick labels={},
+  extra x tick style={grid style={draw=black!50, dashed}},
+]
+\addplot[fill=xlpay, draw=xlpay] coordinates {
+  (\XlibJsonwebtokenOldSslRatio,jwtO) [\XlibJsonwebtokenOldSslRatio$\times$]
+  (\XlibJsonwebtokenNewSslRatio,jwtN) [\XlibJsonwebtokenNewSslRatio$\times$]
+  (\XlibJoseOldSslRatio,joseO)        [\XlibJoseOldSslRatio$\times$]
+  (\XlibJoseNewSslRatio,joseN)        [\XlibJoseNewSslRatio$\times$]
+};
+\addplot[fill=xlfree, draw=xlfree] coordinates {
+  (\XlibFastjwtOldSslRatio,fastjwtO) [\XlibFastjwtOldSslRatio$\times$]
+  (\XlibFastjwtNewSslRatio,fastjwtN) [\XlibFastjwtNewSslRatio$\times$]
+  (\XlibPyjwtRatio,pyjwt)            [\XlibPyjwtRatio$\times$]
+  (\XlibGolangjwtRatio,golangjwt)    [\XlibGolangjwtRatio$\times$]
+  (\XlibNimbusRatio,nimbus)          [\XlibNimbusRatio$\times$]
+  (\XlibJjwtRatio,jjwt)              [\XlibJjwtRatio$\times$]
+};
+\legend{{Paired penalty interval excludes zero},{Interval includes zero}}
+\end{axis}
+\end{tikzpicture}
+\endgroup

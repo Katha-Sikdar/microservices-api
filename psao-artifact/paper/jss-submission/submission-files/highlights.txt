@@ -1,0 +1,7 @@
+Highlights
+
+• JWT validation cost in jsonwebtoken is not the signature: HMAC is 2.2 of 29.9 µs
+• 60% of the cost is a discarded key parse used as a type test on every call
+• The bundled OpenSSL release sets its price: 394 µs on 3.0.16, 8.4 µs on 3.5.8
+• Of seven JWT libraries in 4 languages, only one attempts the parse: a design choice
+• A narrow fix passes all tests and is 4.15x faster; the naive fix breaks security

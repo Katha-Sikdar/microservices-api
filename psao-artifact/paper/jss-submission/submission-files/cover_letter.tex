@@ -1,0 +1,83 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=18mm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{parskip}
+\pagestyle{empty}
+
+\begin{document}
+
+\noindent
+Tze Hui Liew (corresponding author)\\
+Faculty of Information Science and Technology, Multimedia University\\
+Melaka, Malaysia\\
+\href{mailto:thliew@mmu.edu.my}{thliew@mmu.edu.my}
+
+\medskip
+\noindent\today
+
+\medskip
+\noindent
+The Editor-in-Chief\\
+\emph{Journal of Systems and Software}
+
+\medskip
+\noindent
+\textbf{Submission of a research paper:} ``It Is Not the Signature: An
+Empirical Study of a Hidden Key-Parse Cost in JSON Web Token Validation''
+
+Dear Editor,
+
+We submit the above manuscript for consideration as a research paper in the
+\emph{Journal of Systems and Software} (JSS).
+
+The paper is an empirical study of performance attribution in a widely used
+software library. Developers usually attribute the per-request cost of JSON
+Web Token validation to cryptography and optimise or relocate it on that
+basis. We show that in \texttt{jsonwebtoken}, a widely used Node.js library,
+the signature is under a tenth of the validation cost. The main contributions
+are:
+\begin{itemize}
+\item \textbf{Root cause.} Two independent decompositions locate 60\% of the
+  cost in a discarded attempt to parse the shared secret as an asymmetric key,
+  a failing parse used as a type test on every call.
+\item \textbf{A transitive dependency sets its price.} Issued from C against
+  eight identically built OpenSSL releases, the same calls cost
+  394.4\,$\mu$s on 3.0.16 and 8.447\,$\mu$s on 3.5.8, so a base-image change
+  alters the cost by more than an order of magnitude without any change to
+  application code.
+\item \textbf{Real-system and ecosystem evidence.} cgroup CPU accounting in a
+  containerised service confirms the microbenchmark prediction within 1\%;
+  among seven JWT libraries in four languages only this one attempts the parse, so the cost
+  follows a design choice; and none of 327 sampled public call sites uses the
+  pattern that avoids it.
+\item \textbf{A safe fix.} The obvious optimisation fails the library's own
+  key-confusion tests, because the parse is coupled to a security check. We
+  give a narrow fix that passes the full test suite and makes validation 4.15
+  times faster, and derive guidance for developers, library authors and
+  performance engineers.
+\end{itemize}
+
+We believe the work suits JSS because it combines rigorous performance
+measurement, root-cause analysis in a real library, a cross-ecosystem
+comparison and a mining study of public code, and turns them into actionable
+engineering guidance. In line with the journal's open science policy, every
+number in the paper is generated from committed data in an open replication
+package (doi:10.5281/zenodo.23011153). The defect has been reported to the
+library maintainers (auth0/node-jsonwebtoken issue \#1046).
+
+This manuscript is original, has not been published previously, and is not
+under consideration for publication elsewhere. All authors have approved the
+manuscript and agree with its submission. The authors declare no competing
+interests. The use of generative AI in preparing the manuscript is declared in
+the manuscript.
+
+Thank you for considering our submission.
+
+\medskip
+\noindent
+Yours sincerely,\\[4pt]
+Tze Hui Liew, on behalf of all authors\\
+Jannatul Ferdous Katha, Tasmia Tahmid Prova, Md Kishor Morol, Tze Hui Liew,
+Dip Nandi
+
+\end{document}

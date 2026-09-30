@@ -1,0 +1,36 @@
+%% Per-call validation cost under the three remedies, on both machines.
+%% Every coordinate is a macro from keypath_macros.tex / revision_macros.tex.
+\begingroup
+\definecolor{rmstock}{HTML}{E8663A}
+\definecolor{rmnarrow}{HTML}{2F6FD0}
+\definecolor{rmpre}{HTML}{1B6E4A}
+\begin{tikzpicture}
+\begin{axis}[
+  ybar=3pt, bar width=16pt,
+  width=0.92\linewidth, height=66mm,
+  ymin=0, ymax=45,
+  ylabel={Validation cost per call ($\mu$s)},
+  ylabel style={font=\footnotesize},
+  symbolic x coords={arm,x86},
+  xtick=data,
+  xticklabels={{arm64 host, Node \HostNodeVersion}, {x86\_64, Node \XhNode}},
+  xticklabel style={font=\footnotesize},
+  yticklabel style={font=\scriptsize},
+  enlarge x limits=0.35,
+  nodes near coords, point meta=explicit symbolic,
+  every node near coord/.append style={font=\scriptsize, text=black},
+  legend style={font=\scriptsize, at={(0.5,1.02)}, anchor=south,
+                legend columns=1, draw=none},
+  axis x line*=bottom, axis y line*=left,
+  ymajorgrids, grid style={draw=black!10},
+]
+\addplot[fill=rmstock, draw=rmstock] coordinates {
+  (arm,\HostJwtString) [\HostJwtString] (x86,\XhJwtString) [\XhJwtString]};
+\addplot[fill=rmnarrow, draw=rmnarrow] coordinates {
+  (arm,\HostJwtStringSafe) [\HostJwtStringSafe] (x86,\XhJwtStringSafe) [\XhJwtStringSafe]};
+\addplot[fill=rmpre, draw=rmpre] coordinates {
+  (arm,\HostJwtPreparsed) [\HostJwtPreparsed] (x86,\XhJwtPreparsed) [\XhJwtPreparsed]};
+\legend{{Stock library, string secret},{Narrow fix, string secret},{Stock library, pre-parsed key}}
+\end{axis}
+\end{tikzpicture}
+\endgroup

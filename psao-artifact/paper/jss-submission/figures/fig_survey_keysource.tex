@@ -1,0 +1,32 @@
+%% Where the secret passed to verify() comes from, in the classified sample.
+%% Every count is a macro from keypath_macros.tex.
+\begingroup
+\definecolor{svbar}{HTML}{2F6FD0}
+\definecolor{svzero}{HTML}{E8663A}
+\begin{tikzpicture}
+\begin{axis}[
+  xbar, bar width=8pt, bar shift=0pt,
+  width=0.8\linewidth, height=58mm,
+  xmin=0, xmax=210,
+  xlabel={Call sites (of \SampleCallSites{}, in \SampleRepos{} repositories)},
+  xlabel style={font=\footnotesize},
+  symbolic y coords={env,unknown,literal,file,buffer,preparsed},
+  ytick={env,unknown,literal,file,buffer,preparsed}, y dir=reverse,
+  yticklabels={Environment variable (string), Untraced identifier,
+    String literal, File contents, Buffer, \textbf{Pre-parsed key object}},
+  yticklabel style={font=\scriptsize},
+  xticklabel style={font=\scriptsize},
+  enlarge y limits=0.12,
+  nodes near coords, nodes near coords align={horizontal},
+  every node near coord/.append style={font=\scriptsize, text=black},
+  axis x line*=bottom, axis y line*=left,
+  xmajorgrids, grid style={draw=black!10},
+]
+\addplot[fill=svbar, draw=svbar] coordinates {
+  (\SampleEnvString,env) (\SampleUnknown,unknown) (\SampleStringLiteral,literal)
+  (\SampleFileContents,file) (\SampleBuffer,buffer)};
+\addplot[fill=svzero, draw=svzero, forget plot] coordinates {
+  (\SampleSitesPreparsed,preparsed)};
+\end{axis}
+\end{tikzpicture}
+\endgroup
