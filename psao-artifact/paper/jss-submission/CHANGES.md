@@ -107,3 +107,18 @@ three invocations filling one run directory (host + node:26, node:18, Ubuntu),
 because the revision environment stops background jobs after 30 minutes; the
 first attempt was stopped mid-run and discarded. Protocol, machine and
 conditions are identical across the three invocations.
+
+---
+
+# Submission copy (first submission, not a response)
+
+Prepared as a fresh submission to JSS, so the manuscript contains no
+revision-process language. No number changed.
+
+| Change | Where |
+|---|---|
+| "prepared but not run", "pending experiments", "the second rating has not yet been done", "first revision" and the TODO comment removed; the same facts stated as limitations (single A/B pair, inferred host OpenSSL, single rater, key-material fix timed on VM B only). | §3.1, §6.2, Fig. 9 caption, §8.5, §10, Data availability |
+| Debian 12 sentence rewritten as scope ("were not measured"). | §5.3 |
+| Upstream-status sentence dated "at the time of writing"; `STATUS-AT-SUBMISSION` comment left in the source for the authors. | §8.5 |
+| Abstract tightened (under 250 words). Cover letter no longer mentions testbed experiments. | abstract, cover letter |
+| `jss-submission-copy.zip` contains only the LaTeX source and the upload files, plus `SUBMISSION_README.md`; CHANGES.md and TODO_EXPERIMENTS.md stay in the repositories. | package |

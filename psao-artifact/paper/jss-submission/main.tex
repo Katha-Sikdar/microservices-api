@@ -39,7 +39,7 @@
 \input{keypath_macros}
 \input{revision_macros}
 \input{review_macros}
-\newcommand{\RevisionDate}{30 September 2026}
+\newcommand{\StatusDate}{30 September 2026}
 
 \newcommand{\LibraryName}{\texttt{jsonwebtoken}}
 %% bench/node_modules/jsonwebtoken/verify.js (the file measured) is
@@ -149,9 +149,9 @@ only its penalty changes by an order of magnitude with the OpenSSL release. The 
 unsafe: the parse arrived with a key-confusion security fix, and removing it
 naively fails the library's own tests. A fix that dispatches on the key material
 alone passes the full suite on four runtimes, behaves identically to the stock
-library in every case we tested, and removes the parse for every token,
-including forged ones; so does passing a pre-parsed key, yet none of the
-\SampleCallSites{} call sites in our sample does. We derive guidance for developers, library authors
+library in every case tested, and removes the parse for every token, forged
+ones included; so does a pre-parsed key, yet none of the \SampleCallSites{}
+sampled call sites uses one. We derive guidance for developers, library authors
 and performance engineers, and release a replication package.
 \end{abstract}
 
@@ -449,9 +449,10 @@ production deployment; we call it the \emph{containerised service}.
 
 Table~\ref{tab:machines} lists every machine that produced a reported value.
 Absolute timings are comparable only within one machine; across machines we
-compare orderings and ratios. The x86\_64 runs used two different cloud VMs:
-VM~A, for the runs of the first revision, was no longer available when the
-second set of runs was made on VM~B, so those could not be repeated on VM~A.
+compare orderings and ratios. The x86\_64 runs used two different cloud
+virtual machines, VM~A and VM~B, provisioned at different times; runs on one
+were not repeated on the other, and every table and figure states which it
+used.
 
 \begin{table*}[!t]
 \caption{Machines. CPU model strings are as reported by the operating system,
@@ -459,7 +460,7 @@ nominal clock included; the Mac's model and core count were not recorded by the
 run metadata. Every run's own metadata file records its machine.}
 \label{tab:machines}
 \small
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.17\textwidth}c>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.27\textwidth}@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.17\textwidth}c>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
 \toprule
 Machine & CPU & CPUs & OS & Produced \\
 \midrule
@@ -807,8 +808,8 @@ version on
 \UbuntuNodejsCaptured.\footnote{\url{https://ubuntu.com/about/release-cycle};
 the package record and the page excerpt are in the replication package.} It is
 nonetheless what \texttt{apt install nodejs} installs on a current LTS system.
-Debian 12's packaged Node.js could not be measured: the Debian archive was not
-reachable from VM~B, and the run is scripted in the replication package.
+Other distributions that link Node.js against a system OpenSSL~3.0, such as
+Debian 12, were not measured.
 Table~\ref{tab:distro} measures it beside two of the
 official images of Table~\ref{tab:matrix}, on one x86\_64 virtual machine
 (\DistroCpus{} vCPUs) in one run (\DistroCaptured), with the protocol of
@@ -927,8 +928,7 @@ processor frequency on the shared host. The sidecar's CPU did not rise with the
 application's, and the one-second CPU samples of the two arms do not overlap
 (disabled never exceeded \AbCpuSampleMaxNone{} millicores, enabled never fell
 below \AbCpuSampleMinJwt). This is one pair of consecutive windows at different
-host load, so the difference carries no interval; a repeated, alternating
-design is prepared for the authors' testbed (Section~\ref{sec:threats}).
+host load, so the difference carries no interval (Section~\ref{sec:threats}).
 
 \subsection{How common is the avoiding pattern, in our sample?}\label{sec:prevalence}
 
@@ -1142,8 +1142,7 @@ produces. The discarded parse is part of a security fix, not an oversight.
 library, the narrow fix and the key-material fix, and with a pre-parsed key
 under the stock library (medians of per-process medians). Each group is one
 machine (Table~\ref{tab:machines}); absolute values are not comparable across
-groups. The key-material fix was measured only on VM~B; its arm64 run is in
-the replication package's list of pending experiments.}
+groups. The key-material fix was measured on VM~B only.}
 \label{fig:remedies}
 \end{figure}
 
@@ -1284,11 +1283,11 @@ mechanism\footnote{\url{https://github.com/auth0/node-jsonwebtoken/issues/1046}}
 and a pull request implementing the narrow fix was opened against it; the
 key-material fix of Section~\ref{sec:fix} is simpler and closes the gap the
 narrow fix leaves, and we recommend it upstream.
-%% TODO(minor 12): the authors must confirm whether the maintainers have
-%% commented on issues 966/1046 or the pull request, and update this sentence.
-At the time of this revision (\RevisionDate) the pull request had not been
-merged, no release after 9.0.3 had been published, and the repository's main
-branch had not changed since June 2026.
+%% STATUS-AT-SUBMISSION: re-check issues 966/1046 and the pull request before
+%% submitting and update this sentence if the maintainers have responded.
+At the time of writing (\StatusDate) the pull request had not been merged, no
+release after 9.0.3 had been published, and the repository's main branch had
+not changed since June 2026.
 
 %% ============================================================================
 \section{Implications for practice}\label{sec:implications}
@@ -1410,11 +1409,11 @@ twice, and the A/B is one pair of consecutive windows at different host load
 with the load generator on the same machine. CPU accounting excludes queueing
 delay, but contention for caches, SMT siblings and processor frequency can still
 raise the CPU time charged for the same work, so the A/B difference is an upper
-bound on the work and carries no interval. An alternating design with the load
-generator pinned or remote is prepared in the replication package but was not
-run. The headline host figure predates the per-measurement OpenSSL field; its
-version (\HostOpensslInferred) is inferred from the run record, and a re-run
-with the version recorded is prepared.
+bound on the work and carries no interval; repeated, alternating windows with
+the load generator on separate cores would give one, and the replication
+package includes a driver for that design. The headline host figure predates
+the per-measurement OpenSSL field; its version (\HostOpensslInferred) is
+inferred from the run record rather than recorded with each row.
 
 \paragraph{External} Primary measurements come from one ARM64 host; the
 x86\_64 machines are shared virtual machines, used only for orderings and
@@ -1429,9 +1428,10 @@ not across ecosystems.
 
 \paragraph{Reliability of the survey} Call-site buckets are assigned by rules
 that trace a key within one file, and the counter-search and the library-survey
-hits were adjudicated by one person. A blinded, stratified sheet of call sites,
-a codebook and an agreement script for a second rater are in the replication
-package; the second rating has not yet been done.
+hits were adjudicated by one person, so no inter-rater agreement is reported.
+The replication package includes a blinded, stratified rating sheet, a codebook
+and an agreement script so that the classification can be independently
+repeated.
 
 \paragraph{Future work} Driving forged tokens at the running service, repeating
 the A/B as alternating windows on supported images, bisecting OpenSSL between
@@ -1501,8 +1501,6 @@ survey corpus is not redistributed; a manifest pins each of its
 \ManifestFiles{} files by repository, commit, path and content hash, and a
 script in the package re-fetches every file from its repository and checks the
 hash, so the corpus can be reconstructed wherever the files remain public.
-Experiments that need the authors' testbed, and the second rating of the
-survey, are scripted in the package with their exact commands.
 
 \section*{Ethics and responsible disclosure}
 The study involves no human participants and no personal data, and no attack
