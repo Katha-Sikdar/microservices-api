@@ -25,25 +25,26 @@ basis. We show that in `jsonwebtoken`, a widely used Node.js library,
 the signature is under a tenth of the validation cost. The main contributions
 are:
 
-- **Root cause.** Two independent decompositions locate 60% of the 
-cost in a discarded attempt to parse the shared secret as an asymmetric key, 
-a failing parse used as a type test on every call.
-- **A transitive dependency sets its price.** Issued from C against 
-eight identically built OpenSSL releases, the same calls cost 
-394.4 µs on 3.0.16 and 8.447 µs on 3.5.8, so a base-image change 
-alters the cost by more than an order of magnitude without any change to 
-application code.
-- **Real-system and ecosystem evidence.** The OpenSSL 3.0 price 
-persists in the Node.js that Ubuntu 24.04 ships; in a containerised service, 
-cgroup CPU accounting attributes about half of the application's processor 
-time per request to validation; among seven JWT libraries in four languages 
-only this one uses a failing parse; and none of 327 sampled public call sites 
-uses the pattern that avoids it.
-- **A safe fix.** The obvious optimisation fails the library's own 
-key-confusion tests, because the parse is coupled to a security check. We 
-give a narrow fix that passes the full test suite and makes validation 4.15 
-times faster, and derive guidance for developers, library authors and 
-performance engineers.
+- **Root cause.** Two independent decompositions locate 60% of the
+  cost in a discarded attempt to parse the shared secret as an asymmetric key,
+  a failing parse used as a type test on every call.
+- **A transitive dependency sets its price.** Issued from C against
+  eight identically built OpenSSL releases, the same calls cost
+  394.4 µs on 3.0.16 and 8.447 µs on 3.5.8, so a base-image change
+  alters the cost by more than an order of magnitude without any change to
+  application code.
+- **Real-system and ecosystem evidence.** The OpenSSL 3.0 price
+  persists in the Node.js that Ubuntu 24.04 ships; in a containerised service,
+  cgroup CPU accounting attributes about half of the application's processor
+  time per request to validation; among seven JWT libraries in four languages
+  only this one uses a failing parse; and none of 327 sampled public call sites
+  uses the pattern that avoids it.
+- **A safe fix.** The obvious optimisation fails the library's own
+  key-confusion tests, because the parse is coupled to a security check. A fix
+  that dispatches on the key material alone passes the library's full suite on
+  four runtimes, behaves identically to the stock library in every case we
+  tested, and removes the parse for every token, including forged ones. We
+  derive guidance for developers, library authors and performance engineers.
 
 We believe the work suits JSS because it combines rigorous performance
 measurement, root-cause analysis in a real library, a cross-ecosystem

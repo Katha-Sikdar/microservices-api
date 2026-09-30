@@ -459,7 +459,7 @@ nominal clock included; the Mac's model and core count were not recorded by the
 run metadata. Every run's own metadata file records its machine.}
 \label{tab:machines}
 \small
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}c>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.17\textwidth}c>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.27\textwidth}@{}}
 \toprule
 Machine & CPU & CPUs & OS & Produced \\
 \midrule
@@ -716,7 +716,8 @@ We therefore rely on the ordering, not on either percentage.
 
 \begin{table*}[!htbp]
 \caption{The same measurements across four container runtimes on one
-machine (arm64), \MatrixInvocations{} processes of \MatrixCallsPerInvocation{}
+machine (the Docker Desktop VM of Table~\ref{tab:machines}, arm64; absolute
+values are not comparable with other machines), \MatrixInvocations{} processes of \MatrixCallsPerInvocation{}
 calls each, in $\mu$s. \emph{Discarded parse}: \texttt{createPublicKey()} on
 the HMAC secret, which fails. \emph{Successful parse}: \texttt{createPublicKey()}
 on an RSA-2048 public key. \emph{Pre-parsed}: \texttt{verify()} with a
@@ -1172,7 +1173,7 @@ Dispatching on the key material alone (a string with neither a PEM header nor a
 JSON object goes straight to \texttt{createSecretKey()}, whatever the token
 declares) therefore yields the same key object for every token, and keeps
 everything that might be asymmetric material on the original path. We tested
-this rather than relying on the argument. On each of \SuiteVarRuntimes{}
+this rather than relying on the argument. On each of \SuiteVariantRuntimes{}
 runtimes the library's suite at \LibraryTag{} gives \SuiteVarKeyonlyPassing{}
 passing and \SuiteVarKeyonlyFailing{} failing under this fix, as under the stock
 library and the narrow fix, and \SuiteVarKeyonlyPlusPassing{} passing with our
@@ -1334,7 +1335,7 @@ Do not use a failing parse as a type test; resolve keys once, inspect then
 dispatch, or type the key (\emph{library authors}). \\
 RQ5 & The parse is load-bearing for a key-confusion defence: the naive
 optimisation fails \SuiteNaiveFailing{} library tests. Dispatching on the key
-material alone passes all \SuiteVarKeyonlyPassing{} on \SuiteVarRuntimes{}
+material alone passes all \SuiteVarKeyonlyPassing{} on \SuiteVariantRuntimes{}
 runtimes and removes the parse for every token, forged ones included. &
 Table~\ref{tab:reach}; Figs.~\ref{fig:verifyorder}, \ref{fig:remedies} &
 Adopt the key-material fix; review performance changes to verification code

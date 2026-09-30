@@ -26,27 +26,27 @@ Upload the zip as a new project, set the compiler to **pdfLaTeX** and the main d
 - There are 5 new highlights, each at most 85 characters.
 - The declaration shows the new journal and title.
 
-## Revised after the reviewer report (JSS_reviewer_report.md)
+## Second revision (items 1–9)
 
-This version answers the reviewer's M1–M7, minors 1–16 and language items. See
-`CHANGES.md` for the response table (one row per comment, with status and
-location) and `TODO_EXPERIMENTS.md` for what still needs the authors' Mac,
-Kubernetes testbed or a second rater. The manuscript is 34 pages (was 26),
-because the new analyses the reviewer asked for were added:
+See `CHANGES.md` (bottom section) for every change with its evidence, and
+`TODO_EXPERIMENTS.md` for what still needs the authors. Headline changes:
 
-- Section 5.3 and Table 5: Ubuntu 24.04's packaged Node.js (system OpenSSL 3.0) still pays the slow price (M2).
-- Section 7.1: an npm survey of 228 popular packages; only `jsonwebtoken` uses a failing parse as a type test (M1).
-- Section 8.4 and Table 9: measured cost of rejected forged tokens; the narrow fix behaves identically to the stock library on 252 cases x 4 runtimes (M7).
-- Corrected: the jose comparison (M4), the host OpenSSL source (M5), the survey counts (M6), the A/B wording (M3), and all minor items.
+- A key-material fix (dispatch on the secret alone, not the token's declared
+  algorithm) passes the library's full suite on 4 runtimes, behaves identically
+  to the stock library in 364 cases per runtime, and removes the discarded parse
+  for every token, forged ones included (§8.3–8.4, Tables 9–10, Fig. 9).
+- `jwt.sign()` pays the same discarded parse (§7.1, Table 11).
+- New Table 2 lists every machine; Tables 4, 5, 6 and 10 say absolute values are
+  not comparable across machines.
+- The RS256 rejection anomaly on node:26 is V8 stack-trace capture (§8.4).
+- Ubuntu 24.04's nodejs support status verified (§5.3); Debian 12 could not be
+  measured (archive blocked).
 
-Every new number comes from `review_macros.tex`, generated from run files in
-the replication repository (branch `jss-revision`).
-
-**Before submitting:** check the upstream issue for maintainer comments and
-update the sentence marked `TODO(minor 12)` in Section 8.5; confirm the two
-survey adjudications; and, to cite the new scripts, merge the `jss-revision`
-branch and publish a new Zenodo version, then use its DOI in the paper's
-reference and Data availability section if it differs.
+**Must complete before submission** (top of `TODO_EXPERIMENTS.md`): the
+alternating A/B on the testbed, the host re-run with `process.versions`, and
+the second rating. Also check DOIs (unreachable here) and the upstream status
+(`TODO(minor 12)` in §8.5), merge `jss-revision` and mint a new Zenodo version.
+The manuscript is 36 pages.
 
 ## Upload
 
